@@ -1,0 +1,16 @@
+node_modules/
+.next/
+coverage/
+.DS_Store
+*.log
+.lead-captures/
+.env*
+!.env.example
+.vercel/
+.claude/
+.kilocode/
+.ruff_cache/
+tsconfig.tsbuildinfo
+homepage-check.png
+awesome-design-md/
+temp-agents/
