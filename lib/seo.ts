@@ -17,6 +17,7 @@ export const defaultOgImage = '/images/work/touch-teq-showcase.jpg';
 export const publicSitemapRoutes = [
   '/',
   '/about',
+  '/start',
   '/contact',
   '/faq',
   '/insights',

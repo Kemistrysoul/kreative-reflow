@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       route,
       route === '/'
         ? 1
-        : route === '/services' || route === '/work' || route === '/contact' || route === '/tools'
+        : route === '/services' || route === '/work' || route === '/contact' || route === '/tools' || route === '/start'
           ? 0.9
           : route.startsWith('/tools/')
             ? 0.84

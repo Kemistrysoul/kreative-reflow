@@ -6,7 +6,7 @@ import FloatingUI from '@/components/FloatingUI';
 import SmoothScroll from '@/components/SmoothScroll';
 import { SiteFooter } from '@/components/SiteFooter';
 
-const appRoutePrefixes = ['/portal', '/studio'];
+const appRoutePrefixes = ['/portal', '/studio', '/start'];
 
 export function AppChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
