@@ -23,7 +23,7 @@
 :root {
   --left-gutter: 88px;
   /* Space for Theme Toggle & Search */
-  --right-gutter: 64px;
+  --right-gutter: 75px;
   /* Space for Vertical Social Links */
 }
 
@@ -109,4 +109,40 @@ body {
   to {
     height: 0;
   }
+}
+
+/* ===== Insights Question Carousel ===== */
+.insight-question-carousel-track {
+  animation: insight-question-carousel 42s linear infinite;
+}
+
+.insight-question-carousel:hover .insight-question-carousel-track,
+.insight-question-carousel:focus-within .insight-question-carousel-track {
+  animation-play-state: paused;
+}
+
+@keyframes insight-question-carousel {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insight-question-carousel-track {
+    animation: none;
+  }
+}
+
+/* ===== Insights Rhythm Focus ===== */
+.rhythm-card-list:hover .rhythm-card:not(:hover) {
+  filter: blur(2px);
+  opacity: 0.55;
+}
+
+.rhythm-card-list:hover .rhythm-card:hover {
+  filter: blur(0);
+  opacity: 1;
 }

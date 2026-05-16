@@ -9,7 +9,6 @@ import DottedSection from "@/components/dotted-section";
 import FounderTeaser from "@/components/FounderTeaser";
 import Waves from '@/components/Waves';
 import { AnimatedLinkText, AnimatedTextLink } from '@/components/AnimatedTextLink';
-import { TextStaggerHover, TextStaggerHoverActive, TextStaggerHoverHidden } from '@/lib/animations';
 
 export default function Home() {
   return (
@@ -501,23 +500,27 @@ function Hero() {
           We design and build websites, dashboards, portals, and systems that help you
           show up with confidence and run with less friction.
         </p>
-        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 sm:px-0">
-          <TextStaggerHover as="button" className="w-full sm:w-auto min-h-[44px] rounded-full bg-[#FC6E20] px-8 py-4 font-montserrat font-medium text-stone-950 hover:bg-[#e05a15] transition-colors flex items-center justify-center">
-            <TextStaggerHoverActive animation="blur" staggerDirection="middle">
-              Book a Discovery Call →
-            </TextStaggerHoverActive>
-            <TextStaggerHoverHidden animation="blur" staggerDirection="middle">
-              Book a Discovery Call →
-            </TextStaggerHoverHidden>
-          </TextStaggerHover>
-          <TextStaggerHover as="button" className="w-full sm:w-auto min-h-[44px] font-montserrat font-medium text-stone-950 dark:text-stone-50 hover:text-stone-700 dark:hover:text-stone-300 transition-colors py-3 px-4 flex items-center justify-center">
-            <TextStaggerHoverActive animation="blur" staggerDirection="middle">
-              View Selected Work
-            </TextStaggerHoverActive>
-            <TextStaggerHoverHidden animation="blur" staggerDirection="middle">
-              View Selected Work
-            </TextStaggerHoverHidden>
-          </TextStaggerHover>
+        <div className="mt-8 sm:mt-10 flex w-full flex-col items-center justify-center gap-4 px-4 sm:flex-row sm:px-0">
+          <Link
+            href="/contact"
+            className="group/link inline-flex min-h-[44px] w-full items-center justify-center gap-2 overflow-visible rounded-full bg-[#FC6E20] px-8 py-4 font-montserrat font-medium text-stone-950 transition-colors hover:bg-[#e05a15] sm:w-auto"
+          >
+            <AnimatedLinkText hiddenClassName="text-stone-950">Book a Discovery Call</AnimatedLinkText>
+            <ArrowRight
+              aria-hidden="true"
+              className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover/link:translate-x-1"
+            />
+          </Link>
+          <Link
+            href="/work"
+            className="group/link inline-flex min-h-[44px] w-full items-center justify-center gap-2 overflow-visible px-4 py-3 font-montserrat font-medium text-stone-950 transition-colors hover:text-stone-700 dark:text-stone-50 dark:hover:text-stone-300 sm:w-auto"
+          >
+            <AnimatedLinkText hiddenClassName="text-[#FC6E20]">View Selected Work</AnimatedLinkText>
+            <ArrowRight
+              aria-hidden="true"
+              className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover/link:translate-x-1"
+            />
+          </Link>
         </div>
       </div>
     </section>

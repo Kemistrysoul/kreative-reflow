@@ -132,7 +132,9 @@ export function SiteFooter() {
           {footerColumns.map((column) => (
             <div key={column.title}>
               <h3 className="font-mono text-[11px] font-bold uppercase text-white/42">
+                <span className="text-[#FC6E20]">[ </span>
                 {column.title}
+                <span className="text-[#FC6E20]"> ]</span>
               </h3>
               <ul className="mt-5 space-y-3 font-montserrat text-sm text-white/58">
                 {column.links.map((link) => (

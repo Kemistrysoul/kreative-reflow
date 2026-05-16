@@ -65,7 +65,18 @@ export function DynamicIslandTOC({
   const [activeId, setActiveId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isCompact, setIsCompact] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 640px)');
+    const updateCompact = () => setIsCompact(mediaQuery.matches);
+
+    updateCompact();
+    mediaQuery.addEventListener('change', updateCompact);
+
+    return () => mediaQuery.removeEventListener('change', updateCompact);
+  }, []);
 
   useEffect(() => {
     const getHeadings = () => {
@@ -181,8 +192,8 @@ export function DynamicIslandTOC({
           }}
           initial={false}
           animate={{
-            width: isExpanded ? 340 : 280,
-            height: isExpanded ? 400 : 52,
+            width: isExpanded ? (isCompact ? 'calc(100vw - 2rem)' : 340) : isCompact ? 52 : 280,
+            height: isExpanded ? (isCompact ? 360 : 400) : 52,
             borderRadius: isExpanded ? 24 : 26,
           }}
           transition={islandTransition}
@@ -197,11 +208,14 @@ export function DynamicIslandTOC({
               filter: isExpanded ? 'blur(4px)' : 'blur(0px)',
             }}
             transition={{ ...islandTransition, delay: isExpanded ? 0 : 0.1 }}
-            className={cn('absolute inset-0 flex items-center gap-4 px-4 sm:px-5', isExpanded && 'pointer-events-none')}
+            className={cn(
+              'absolute inset-0 flex items-center justify-center gap-4 px-3 sm:justify-start sm:px-5',
+              isExpanded && 'pointer-events-none',
+            )}
           >
-            <div className="h-2 w-2 shrink-0 rounded-full bg-[#FC6E20]" />
+            <div className="hidden h-2 w-2 shrink-0 rounded-full bg-[#FC6E20] sm:block" />
 
-            <div className="relative flex h-full flex-1 items-center overflow-hidden text-left">
+            <div className="relative hidden h-full flex-1 items-center overflow-hidden text-left sm:flex">
               <AnimatePresence mode="popLayout" initial={false}>
                 <motion.span
                   key={activeId || 'empty'}

@@ -121,7 +121,7 @@ export default function FloatingUI() {
         </div>
 
         {/* Left Center — Theme Toggle */}
-        <div className="absolute left-8 top-1/2 -translate-y-1/2 pointer-events-auto">
+        <div className="absolute left-8 top-1/2 -translate-y-1/2 pointer-events-auto max-[800px]:bottom-8 max-[800px]:left-auto max-[800px]:right-5 max-[800px]:top-auto max-[800px]:translate-y-0">
           <div className="flex flex-col items-center gap-2">
             <button
               onClick={() => setIsDarkMode(false)}
@@ -178,13 +178,6 @@ export default function FloatingUI() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-40 bg-[#111111] text-white flex flex-col justify-between p-8 md:p-16 overflow-hidden"
           >
-            {/* Faint Background Text */}
-            <div className="absolute right-[-5%] top-[20%] w-[70%] pointer-events-none select-none">
-              <h2 className="text-[9vw] leading-[0.85] font-bold text-[#1a1111] tracking-tighter text-right">
-                We&apos;re sharp<br />brands creators<br />open for any kind<br />of new works
-              </h2>
-            </div>
-
             <div className="h-24" />
 
             {/* Main Navigation */}

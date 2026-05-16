@@ -3,6 +3,8 @@ import type React from 'react';
 import Link from 'next/link';
 import { JsonLd } from '@/components/JsonLd';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ArticleBody } from '../_components/article-body';
+import { ArticleHero } from '../_components/article-hero';
 import {
   absoluteUrl,
   breadcrumbJsonLd,
@@ -22,17 +24,6 @@ export const metadata: Metadata = pageMetadata({
   description,
   path,
 });
-
-const toc = [
-  ["What We're Actually Talking About", '#what-were-actually-talking-about'],
-  ["The Signs You've Outgrown Off-the-Shelf Tools", '#the-signs-youve-outgrown-off-the-shelf-tools'],
-  ['When Custom Makes Sense', '#when-custom-makes-sense'],
-  ['What It Actually Costs', '#what-it-actually-costs'],
-  ['Industry-Specific Examples', '#industry-specific-examples'],
-  ['The South African Reality', '#the-south-african-reality'],
-  ['What to Do First', '#what-to-do-first'],
-  ['FAQ', '#faq'],
-] as const;
 
 const faqItems = [
   {
@@ -61,14 +52,6 @@ const faqItems = [
       "Insist on owning the code from day one. Host it on your own AWS or Hetzner account, not the developer's. Get documentation. Get access to the codebase repository (GitHub, GitLab). Any competent developer can pick up someone else's Laravel or Node.js code. You're not locked in.",
   },
 ];
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.28em] text-[#FC6E20]">
-      [ {children} ]
-    </p>
-  );
-}
 
 function ArticleSection({
   id,
@@ -131,7 +114,7 @@ export default function CustomDashboardClientPortalArticlePage() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:4rem]">
+    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:75px]">
       <JsonLd
         data={[
           breadcrumbJsonLd([
@@ -145,56 +128,32 @@ export default function CustomDashboardClientPortalArticlePage() {
       />
       <DynamicIslandTOC selector="#dashboard-portal-article [data-toc]" />
 
-      <section className="content-gutter grid min-h-screen gap-12 pb-16 pt-28 lg:grid-cols-[minmax(0,0.95fr)_minmax(320px,0.75fr)] lg:items-center lg:gap-16 lg:pb-24 lg:pt-32">
-        <div>
-          <SectionLabel>Dashboards and portals</SectionLabel>
-          <h1 className="mt-7 max-w-5xl font-playfair text-[clamp(3rem,7.4vw,7.6rem)] font-bold leading-[0.92] tracking-tight">
-            When Does a Business Need a Custom Dashboard or Client Portal
-          </h1>
-          <p className="mt-8 font-montserrat text-base font-bold leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
-            Last updated: May 10, 2026
-          </p>
-          <div className="mt-10 max-w-2xl space-y-5 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68 md:text-lg">
-            <p>Most businesses don&apos;t need custom dashboards or client portals. They need to stop using spreadsheets and start using proper tools.</p>
-            <p>But some businesses hit a point where Notion, Asana, Power BI, and every other off-the-shelf tool stops working. Not because the tools are bad. Because the business has outgrown what generic software can do.</p>
-            <p>This article is about recognizing that point before you waste another year forcing your team to work around tools that don&apos;t fit.</p>
-          </div>
-        </div>
+      <ArticleHero
+        eyebrow="Dashboards and portals"
+        title="When Does a Business Need a Custom Dashboard or Client Portal"
+        updatedAt="May 10, 2026"
+        image="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1800&q=85"
+        imageAlt="Team reviewing a dashboard and workflow system."
+        signalLabel="The signal"
+        signalValue="500 hrs"
+        signalBody="One person copying data for two hours a day becomes 500 hours a year."
+        signalNote="Manual work made visible"
+      >
+        <p>Most businesses don&apos;t need custom dashboards or client portals. They need to stop using spreadsheets and start using proper tools.</p>
+        <p>But some businesses hit a point where Notion, Asana, Power BI, and every other off-the-shelf tool stops working. Not because the tools are bad. Because the business has outgrown what generic software can do.</p>
+        <p>This article is about recognizing that point before you waste another year forcing your team to work around tools that don&apos;t fit.</p>
+      </ArticleHero>
 
-        <aside className="border border-[#151419]/12 bg-[#151419] p-6 text-[#FBFBFB] dark:border-[#FBFBFB]/12 dark:bg-[#1B1B1E] md:p-8">
-          <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[#FC6E20]">
-            The signal
-          </p>
-          <p className="mt-8 font-playfair text-5xl font-bold leading-none tracking-tight md:text-7xl">
-            500 hrs
-          </p>
-          <p className="mt-5 font-montserrat text-sm leading-7 text-white/68">
-            One person copying data for two hours a day becomes 500 hours a year.
-          </p>
-        </aside>
-      </section>
-
-      <div className="content-gutter grid gap-12 pb-24 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16">
-        <aside className="hidden lg:block">
-          <nav className="sticky top-28 border border-[#151419]/12 bg-[#FBFBFB]/70 p-5 dark:border-[#FBFBFB]/12 dark:bg-[#1B1B1E]">
-            <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#878787]">
-              Table of Contents
-            </p>
-            <div className="mt-5 grid gap-3">
-              {toc.map(([item, href]) => (
-                <a
-                  key={href}
-                  href={href}
-                  className="font-montserrat text-sm text-[#151419]/62 transition-colors hover:text-[#FC6E20] dark:text-[#FBFBFB]/58"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-          </nav>
-        </aside>
-
-        <article id="dashboard-portal-article" className="min-w-0">
+      <ArticleBody
+        id="dashboard-portal-article"
+        nextArticle={{
+          eyebrow: 'AI SEO',
+          title: 'What AI SEO Actually Means for Small Business',
+          href: '/insights/what-ai-seo-actually-means-for-small-business',
+          image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85',
+          imageAlt: 'Laptop screen and digital work setup for AI search research.',
+        }}
+      >
           <ArticleSection id="what-were-actually-talking-about" title="What We're Actually Talking About">
             <p>Let&apos;s define terms because the market confuses these constantly.</p>
             <p>
@@ -393,8 +352,7 @@ export default function CustomDashboardClientPortalArticlePage() {
               </Link>
             </p>
           </section>
-        </article>
-      </div>
+      </ArticleBody>
     </main>
   );
 }

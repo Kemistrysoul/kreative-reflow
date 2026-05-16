@@ -165,7 +165,7 @@ export default function DottedSection() {
           <span className="font-montserrat text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase text-[#6b6b6b] dark:text-snow/50 mb-4 block">
             <span className="text-[#FC6E20]">[</span> OUR FOCUS <span className="text-[#FC6E20]">]</span>
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter uppercase font-display text-dark-void dark:text-snow mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter uppercase noto-serif-display text-dark-void dark:text-snow mb-6">
             WE BUILD FOR INDUSTRIES<br className="hidden md:block" /> THAT DEMAND PRECISION.
           </h2>
           <p className="text-base md:text-lg text-[#6b6b6b] dark:text-snow/60 max-w-2xl mx-auto font-sans leading-relaxed">

@@ -7,7 +7,7 @@ The layout uses a global `content-gutter` utility (defined in `globals.css`) whi
 
 - **Desktop (Large Screens):**
   - Left Gutter: `88px` (Protected zone for Theme Toggle & Search)
-  - Right Gutter: `64px` (Protected zone for Vertical Social Links)
+  - Right Gutter: `75px` (Protected zone for Vertical Social Links)
 - **Safe Clearance:** To maintain a premium, airy feel and avoid "cluttering" the UI elements, content should not touch the gutter edges.
 
 ## 2. Right-Aligned Text (The "Perfect" Offset)
@@ -16,7 +16,7 @@ For sections where text is pushed to the right side (like the `ScrollRevealState
 - **Logic:** `ml-auto` + `text-right` + `Right Margin Offset`.
 - **Tailwind Classes:** `ml-auto mr-5 lg:mr-[3.25rem] text-right`
 - **Breakdown (Large Screens):**
-  - `64px` (Right Gutter) + `52px` (3.25rem Margin) = **116px from screen edge**.
+  - `75px` (Right Gutter) + `52px` (3.25rem Margin) = **127px from screen edge**.
 - **Usage Example:**
   ```tsx
   <div className="content-gutter">
@@ -60,9 +60,9 @@ For sections that align directly at the gutter edge (no extra margin):
 
 | Alignment | Offset Type | Gutter | Additional Margin | Total Edge Offset (LG) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Right** | Perfect | 64px | 52px (`mr-[3.25rem]`) | **116px** |
+| **Right** | Perfect | 75px | 52px (`mr-[3.25rem]`) | **127px** |
 | **Left** | Perfect | 88px | 52px (`ml-[3.25rem]`) | **140px** |
-| **Right** | No Offset | 64px | 0px | **64px** |
+| **Right** | No Offset | 75px | 0px | **75px** |
 | **Left** | No Offset | 88px | 0px | **88px** |
 
 ---

@@ -51,7 +51,7 @@ spacing:
   gutter_mobile: 16px
   gutter_tablet: 24px
   gutter_desktop_left: 88px
-  gutter_desktop_right: 64px
+  gutter_desktop_right: 75px
   card_gap: 20px
   section_y: 112px
 components:

@@ -31,7 +31,7 @@ export function AnimatedLinkText({
   transitionDuration = 0.26,
 }: AnimatedLinkTextProps) {
   return (
-    <TextStaggerHover className="leading-none">
+    <TextStaggerHover className="-mx-[0.08em] px-[0.08em] leading-none">
       <TextStaggerHoverActive
         animation={animation}
         staggerDirection={staggerDirection}
@@ -78,7 +78,7 @@ export function AnimatedTextLink({
     <Link
       href={href}
       className={cn(
-        'group/link relative inline-flex items-center gap-2 overflow-hidden pb-1 transition-colors',
+        'group/link relative inline-flex items-center gap-2 overflow-visible pb-1 transition-colors',
         className,
       )}
       {...props}
@@ -88,7 +88,7 @@ export function AnimatedTextLink({
         <ArrowRight
           aria-hidden="true"
           className={cn(
-            'h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1',
+            'h-4 w-4 shrink-0 transition-transform duration-300 group-hover/link:translate-x-1',
             arrowClassName,
           )}
         />

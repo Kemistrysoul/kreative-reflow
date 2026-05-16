@@ -3,6 +3,8 @@ import type React from 'react';
 import Link from 'next/link';
 import { JsonLd } from '@/components/JsonLd';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ArticleBody } from '../_components/article-body';
+import { ArticleHero } from '../_components/article-hero';
 import {
   absoluteUrl,
   breadcrumbJsonLd,
@@ -22,17 +24,6 @@ export const metadata: Metadata = pageMetadata({
   description,
   path,
 });
-
-const toc = [
-  ['Why Local SEO Matters in Johannesburg', '#why-local-seo-matters-in-johannesburg'],
-  ['Google Business Profile Is Everything', '#google-business-profile-is-everything'],
-  ['Your Website Needs Local Pages', '#your-website-needs-local-pages'],
-  ['Reviews Are Not Optional', '#reviews-are-not-optional'],
-  ['Citations and Directories That Actually Matter', '#citations-and-directories-that-actually-matter'],
-  ['The AI Search Problem', '#the-ai-search-problem'],
-  ['What to Do First', '#what-to-do-first'],
-  ['FAQ', '#faq'],
-] as const;
 
 const faqItems = [
   {
@@ -61,14 +52,6 @@ const faqItems = [
       'Create location pages for the highest-value suburbs. Sandton, Rosebank, Fourways, Randburg, Braamfontein. You can\'t rank for "plumber Johannesburg" — that\'s too broad and competitive. But you can rank for "plumber Sandton" and "plumber Fourways" and capture those specific high-intent searches.',
   },
 ];
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.28em] text-[#FC6E20]">
-      [ {children} ]
-    </p>
-  );
-}
 
 function ArticleSection({
   id,
@@ -131,7 +114,7 @@ export default function LocalSeoJohannesburgArticlePage() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:4rem]">
+    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:75px]">
       <JsonLd
         data={[
           breadcrumbJsonLd([
@@ -145,61 +128,37 @@ export default function LocalSeoJohannesburgArticlePage() {
       />
       <DynamicIslandTOC selector="#local-seo-article [data-toc]" />
 
-      <section className="content-gutter grid min-h-screen gap-12 pb-16 pt-28 lg:grid-cols-[minmax(0,0.95fr)_minmax(320px,0.75fr)] lg:items-center lg:gap-16 lg:pb-24 lg:pt-32">
-        <div>
-          <SectionLabel>Local SEO</SectionLabel>
-          <h1 className="mt-7 max-w-5xl font-playfair text-[clamp(3rem,7.4vw,7.6rem)] font-bold leading-[0.92] tracking-tight">
-            Local SEO for Johannesburg Service Businesses
-          </h1>
-          <p className="mt-8 font-montserrat text-base font-bold leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
-            Last updated: May 10, 2026
-          </p>
-          <div className="mt-10 max-w-2xl space-y-5 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68 md:text-lg">
-            <p>A beautiful website means nothing if nobody can find it.</p>
-            <p>
-              You&apos;re a service business in Johannesburg. Plumber, electrician, lawyer, dentist, accountant, engineer. You have a website. It looks professional. You&apos;re not showing up when people search for what you do.
-            </p>
-            <p>
-              Your competitor three blocks away with a worse website gets the call. Not because their service is better. Because they show up when someone searches &quot;plumber Sandton&quot; or &quot;dentist near me.&quot;
-            </p>
-            <p>That&apos;s local SEO.</p>
-          </div>
-        </div>
+      <ArticleHero
+        eyebrow="Local SEO"
+        title="Local SEO for Johannesburg Service Businesses"
+        updatedAt="May 10, 2026"
+        image="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=85"
+        imageAlt="Local street and building detail representing local search visibility."
+        signalLabel="The local fight"
+        signalValue="Local Pack"
+        signalBody="The fight isn't for page one anymore. It's for the three map results that get seen first."
+        signalNote="Search has a local front door"
+      >
+        <p>A beautiful website means nothing if nobody can find it.</p>
+        <p>
+          You&apos;re a service business in Johannesburg. Plumber, electrician, lawyer, dentist, accountant, engineer. You have a website. It looks professional. You&apos;re not showing up when people search for what you do.
+        </p>
+        <p>
+          Your competitor three blocks away with a worse website gets the call. Not because their service is better. Because they show up when someone searches &quot;plumber Sandton&quot; or &quot;dentist near me.&quot;
+        </p>
+        <p>That&apos;s local SEO.</p>
+      </ArticleHero>
 
-        <aside className="border border-[#151419]/12 bg-[#151419] p-6 text-[#FBFBFB] dark:border-[#FBFBFB]/12 dark:bg-[#1B1B1E] md:p-8">
-          <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[#FC6E20]">
-            The local fight
-          </p>
-          <p className="mt-8 font-playfair text-5xl font-bold leading-none tracking-tight md:text-7xl">
-            Local Pack
-          </p>
-          <p className="mt-5 font-montserrat text-sm leading-7 text-white/68">
-            The fight isn&apos;t for page one anymore. It&apos;s for the three map results that get seen first.
-          </p>
-        </aside>
-      </section>
-
-      <div className="content-gutter grid gap-12 pb-24 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16">
-        <aside className="hidden lg:block">
-          <nav className="sticky top-28 border border-[#151419]/12 bg-[#FBFBFB]/70 p-5 dark:border-[#FBFBFB]/12 dark:bg-[#1B1B1E]">
-            <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#878787]">
-              Table of Contents
-            </p>
-            <div className="mt-5 grid gap-3">
-              {toc.map(([item, href]) => (
-                <a
-                  key={href}
-                  href={href}
-                  className="font-montserrat text-sm text-[#151419]/62 transition-colors hover:text-[#FC6E20] dark:text-[#FBFBFB]/58"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-          </nav>
-        </aside>
-
-        <article id="local-seo-article" className="min-w-0">
+      <ArticleBody
+        id="local-seo-article"
+        nextArticle={{
+          eyebrow: 'Dashboards',
+          title: 'When Does a Business Need a Custom Dashboard or Client Portal',
+          href: '/insights/when-does-a-business-need-a-custom-dashboard-or-client-portal',
+          image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=85',
+          imageAlt: 'Team reviewing a dashboard and workflow system.',
+        }}
+      >
           <ArticleSection id="why-local-seo-matters-in-johannesburg" title="Why Local SEO Matters in Johannesburg">
             <p>
               Johannesburg is South Africa&apos;s economic center. Sandton alone generates more economic activity than most African countries. The competition is brutal.
@@ -432,8 +391,7 @@ export default function LocalSeoJohannesburgArticlePage() {
               </Link>
             </p>
           </section>
-        </article>
-      </div>
+      </ArticleBody>
     </main>
   );
 }

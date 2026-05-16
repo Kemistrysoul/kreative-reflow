@@ -133,6 +133,29 @@ const proofLenses: ProofLens[] = [
   },
 ];
 
+const proofLensCardStyles = [
+  {
+    card: 'bg-[#5F9FAA] text-[#060808]',
+    icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/62',
+    rule: 'border-[#060808]/18',
+  },
+  {
+    card: 'bg-[#DD6211] text-[#060808]',
+    icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/58',
+    rule: 'border-[#060808]/18',
+  },
+  {
+    card: 'bg-[#FFF6E9] text-[#0A171D]',
+    icon: 'border-[#0A171D]/16 bg-[#0A171D]/[0.07] text-[#0A171D]/56',
+    rule: 'border-[#0A171D]/16',
+  },
+  {
+    card: 'bg-[#B92717] text-[#FFF6E9]',
+    icon: 'border-[#FFF6E9]/20 bg-[#FFF6E9]/8 text-[#FFF6E9]/68',
+    rule: 'border-[#FFF6E9]/22',
+  },
+];
+
 const serviceDirections = [
   {
     title: 'Conversion websites',
@@ -162,6 +185,13 @@ const serviceDirections = [
     href: '/services/automation',
     icon: ShieldCheck,
   },
+];
+
+const serviceDirectionCardStyles = [
+  'hover:border-[#DD6211] hover:bg-[#DD6211] hover:text-[#060808] dark:hover:border-[#DD6211] dark:hover:bg-[#DD6211] dark:hover:text-[#060808]',
+  'hover:border-[#5F9FAA] hover:bg-[#5F9FAA] hover:text-[#060808] dark:hover:border-[#5F9FAA] dark:hover:bg-[#5F9FAA] dark:hover:text-[#060808]',
+  'hover:border-[#C7AA94] hover:bg-[#C7AA94] hover:text-[#060808] dark:hover:border-[#C7AA94] dark:hover:bg-[#C7AA94] dark:hover:text-[#060808]',
+  'hover:border-[#B92717] hover:bg-[#B92717] hover:text-[#FFF6E9] dark:hover:border-[#B92717] dark:hover:bg-[#B92717] dark:hover:text-[#FFF6E9]',
 ];
 
 function Reveal({
@@ -259,40 +289,81 @@ function WorkHero() {
       </Reveal>
 
       <Reveal delay={0.08}>
-        <div className="border border-[#151419]/10 bg-[#151419] p-5 text-[#FBFBFB] shadow-2xl shadow-[#151419]/10 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]">
-          <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-[0.65rem] uppercase tracking-[0.24em] text-white/45">
-            <span>Proof index</span>
-            <span>02 builds</span>
-          </div>
-          <div className="grid gap-3 py-8">
-            {featuredProjects.map((project) => (
-              <Link
-                href={`#${project.title.toLowerCase().replaceAll(' ', '-')}`}
-                key={project.title}
-                className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border border-white/10 bg-white/[0.04] p-4 transition-colors hover:border-[#FC6E20]"
-              >
-                <span className="font-mono text-sm text-[#FC6E20]">{project.id}</span>
-                <span>
-                  <span className="block font-playfair text-2xl font-bold leading-none">
-                    {project.title}
-                  </span>
-                  <span className="mt-2 block font-montserrat text-xs uppercase tracking-[0.18em] text-white/45">
-                    {project.eyebrow}
-                  </span>
-                </span>
-                <ArrowRight className="h-4 w-4 text-white/35 transition-transform group-hover:translate-x-1 group-hover:text-[#FC6E20]" />
-              </Link>
-            ))}
-          </div>
-          <div className="border-t border-white/10 pt-5">
-            <p className="font-montserrat text-sm leading-7 text-white/60">
-              The homepage can tease the work. This page should make the work
-              understandable, credible, and safe to publish.
-            </p>
-          </div>
-        </div>
+        <ProofIndexStage />
       </Reveal>
     </section>
+  );
+}
+
+function ProofIndexStage() {
+  return (
+    <div className="relative overflow-hidden px-2 pb-20 pt-3 text-[#151419] dark:text-[#FBFBFB] sm:px-3 sm:pb-24">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(21,20,25,0.24)_1.2px,transparent_1.2px)] bg-[length:12px_12px] opacity-75 [mask-image:radial-gradient(circle_at_center,black_0%,black_55%,transparent_78%)] dark:bg-[radial-gradient(circle,rgba(251,251,251,0.3)_1.2px,transparent_1.2px)] dark:opacity-45"
+      />
+      <div className="relative flex items-center justify-between pb-6 font-mono text-[0.65rem] uppercase tracking-[0.24em] text-[#151419]/45 dark:text-white/45">
+        <span>Proof index</span>
+        <span>02 builds</span>
+      </div>
+      <div className="relative grid gap-5 lg:ml-auto lg:w-[92%] xl:w-[95%]">
+        {featuredProjects.map((project) => {
+          const isCoach = project.id === '01';
+          const isTouchTeq = project.title === 'Touch Teq Engineering';
+          const Icon = isCoach ? PanelsTopLeft : Workflow;
+
+          return (
+            <Link
+              href={`#${project.title.toLowerCase().replaceAll(' ', '-')}`}
+              key={project.title}
+              className="group block overflow-hidden rounded-[2.25rem] p-7 text-[#151419] shadow-[0_28px_70px_rgba(21,20,25,0.12)] transition-transform duration-300 hover:-translate-y-1 sm:p-9 lg:p-10"
+              style={{
+                backgroundColor: isCoach ? '#C7AA94' : '#FC6E20',
+              }}
+            >
+              <div className="flex items-start justify-between gap-6">
+                <div className={isTouchTeq ? 'max-w-[18rem]' : 'max-w-[16rem]'}>
+                  <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#151419]/62">
+                    {project.eyebrow}
+                  </p>
+                  <h3 className="mt-5 font-montserrat text-[clamp(1.9rem,4vw,2.75rem)] font-black uppercase leading-[0.92] tracking-[-0.04em]">
+                    {isTouchTeq ? (
+                      <>
+                        <span className="block">Touch Teq</span>
+                        <span className="block">Engineering</span>
+                      </>
+                    ) : (
+                      project.title
+                    )}
+                  </h3>
+                </div>
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-[#151419]/14 bg-[#151419]/6 text-[#151419]/55 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                  <Icon className="h-5 w-5" strokeWidth={1.9} />
+                </span>
+              </div>
+              <div className="mt-20 border-t border-[#151419]/16 pt-5">
+                <div className="flex items-center justify-between gap-4 font-mono text-[0.68rem] uppercase tracking-[0.22em] text-[#151419]/62">
+                  <span>{project.id}</span>
+                  <span className="inline-flex items-center gap-2">
+                    <AnimatedLinkText hiddenClassName="text-[#151419]">
+                      Open case
+                    </AnimatedLinkText>
+                    <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </div>
+                <p className="mt-5 max-w-md font-montserrat text-base leading-7 text-[#151419]/78">
+                  {project.summary}
+                </p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+      <p className="relative mt-6 max-w-sm font-montserrat text-sm leading-7 text-[#151419]/58 dark:text-white/58">
+        Public pages up front. The deeper context, workflow logic, and private
+        boundaries get explained once you open the case study.
+      </p>
+    </div>
   );
 }
 
@@ -468,36 +539,59 @@ function FeaturedWork() {
 
 function ProofLenses() {
   return (
-    <section className="relative z-10 bg-[#151419] py-20 text-[#FBFBFB] dark:bg-[#1B1B1E] md:py-28">
-      <div className="content-gutter">
-        <Reveal className="max-w-4xl">
-          <SectionLabel>How to read the work</SectionLabel>
-          <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6.8vw,6.6rem)] font-bold leading-[0.94] tracking-tight">
-            The screenshot is only the surface.
-          </h2>
-          <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
-            The real work is in the decisions underneath: where trust is built,
-            how leads move, what happens after enquiry, and which information
-            stays private.
-          </p>
+    <section className="relative z-10 overflow-hidden bg-[#060808] py-20 text-[#FBFBFB] md:py-28">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[29%] top-1/2 hidden h-[38rem] w-[38rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.2)_1.1px,transparent_1.1px)] bg-[length:13px_13px] opacity-45 [mask-image:radial-gradient(circle_at_center,black_0%,black_48%,transparent_73%)] lg:block"
+      />
+      <div className="content-gutter relative grid gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(420px,1fr)] lg:items-start lg:gap-16">
+        <Reveal className="lg:sticky lg:top-28">
+          <div className="max-w-xl">
+            <SectionLabel>How to read the work</SectionLabel>
+            <h2 className="mt-6 border-b border-white/18 pb-7 font-playfair text-[clamp(2.8rem,6.2vw,6rem)] font-bold leading-[0.94] tracking-tight text-white/88">
+              The screenshot is only the surface.
+            </h2>
+            <p className="mt-8 max-w-md font-montserrat text-base leading-8 text-white/62">
+              The real work sits in the decisions behind the screen: trust,
+              conversion, follow-up, and what stays private after the first enquiry.
+            </p>
+            <Link
+              href="/contact"
+              className="mt-9 inline-flex min-h-12 items-center justify-center rounded-full border border-white/38 px-6 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-white transition-colors hover:border-[#DD6211] hover:bg-[#DD6211] hover:text-[#060808]"
+            >
+              <AnimatedLinkText hiddenClassName="text-[#060808]">Start similar work</AnimatedLinkText>
+            </Link>
+          </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-5">
           {proofLenses.map((lens, index) => {
             const Icon = lens.icon;
+            const style = proofLensCardStyles[index % proofLensCardStyles.length];
 
             return (
               <Reveal key={lens.title} delay={index * 0.06}>
-                <article className="flex min-h-[19rem] flex-col justify-between border border-white/10 bg-white/[0.035] p-6 transition-colors hover:border-[#FC6E20] hover:bg-white/[0.065] md:p-8">
-                  <div>
-                    <div className="flex h-12 w-12 items-center justify-center border border-white/12 bg-white/[0.04] text-[#FC6E20]">
-                      <Icon className="h-5 w-5" strokeWidth={1.7} />
+                <article
+                  className={`flex min-h-[19rem] flex-col justify-between rounded-[1.35rem] p-7 shadow-[0_22px_60px_rgba(0,0,0,0.22)] transition-transform duration-300 hover:-translate-y-1 md:min-h-[21rem] md:p-9 ${style.card}`}
+                >
+                  <div className="flex items-start justify-between gap-8">
+                    <div>
+                      <span className="font-mono text-xs font-bold uppercase tracking-[0.18em] opacity-[0.68]">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <h3 className="mt-8 max-w-lg font-playfair text-[clamp(2.25rem,4.6vw,4rem)] font-bold leading-none tracking-tight">
+                        {lens.title}
+                      </h3>
                     </div>
-                    <h3 className="mt-8 font-playfair text-4xl font-bold leading-none tracking-tight">
-                      {lens.title}
-                    </h3>
+                    <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.05rem] border ${style.icon}`}>
+                      <Icon className="h-6 w-6" strokeWidth={1.8} />
+                    </div>
                   </div>
-                  <p className="mt-8 font-montserrat text-sm leading-7 text-white/62">{lens.body}</p>
+                  <div className={`mt-14 border-t pt-6 ${style.rule}`}>
+                    <p className="max-w-xl font-montserrat text-base leading-7 opacity-[0.82]">
+                      {lens.body}
+                    </p>
+                  </div>
                 </article>
               </Reveal>
             );
@@ -521,19 +615,20 @@ function ServiceDirections() {
       <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {serviceDirections.map((direction, index) => {
           const Icon = direction.icon;
+          const cardStyle = serviceDirectionCardStyles[index % serviceDirectionCardStyles.length];
 
           return (
             <Reveal key={direction.title} delay={index * 0.06}>
               <Link
                 href={direction.href}
-                className="group flex min-h-[20rem] flex-col justify-between border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:bg-[#151419] hover:text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] dark:text-[#FBFBFB] dark:hover:border-[#FC6E20]"
+                className={`group flex min-h-[20rem] flex-col justify-between rounded-[1.35rem] border border-[#151419]/10 bg-[#F0EFED] p-6 text-[#151419] transition-colors duration-300 dark:border-[#FBFBFB]/10 dark:bg-[#F0EFED] dark:text-[#151419] ${cardStyle}`}
               >
                 <div>
                   <div className="flex items-center justify-between gap-4">
-                    <span className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-[#FC6E20]">
+                    <span className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-current/60">
                       {String(index + 1).padStart(2, '0')}
                     </span>
-                    <Icon className="h-5 w-5 text-current/34 group-hover:text-[#FC6E20]" strokeWidth={1.7} />
+                    <Icon className="h-5 w-5 text-current/34" strokeWidth={1.7} />
                   </div>
                   <h3 className="mt-7 font-playfair text-3xl font-bold leading-none tracking-tight">
                     {direction.title}
@@ -561,7 +656,7 @@ function PublicBoundary() {
   return (
     <section className="content-gutter relative z-10 pb-20 md:pb-28">
       <Reveal>
-        <div className="border border-[#151419]/10 bg-[#FBFBFB]/70 p-7 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-12">
+        <div className="rounded-[1.35rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-7 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-12">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:items-start">
             <div>
               <SectionLabel>Public by design</SectionLabel>
@@ -573,7 +668,7 @@ function PublicBoundary() {
               {featuredProjects.map((project) => (
                 <article
                   key={project.title}
-                  className="border border-[#151419]/10 bg-[#F0EFED]/60 p-5 dark:border-white/10 dark:bg-white/[0.035]"
+                  className="rounded-[1.35rem] border border-[#151419]/10 bg-[#F0EFED]/60 p-5 dark:border-white/10 dark:bg-white/[0.035]"
                 >
                   <h3 className="font-playfair text-3xl font-bold text-[#151419] dark:text-[#FBFBFB]">
                     {project.title}
@@ -639,7 +734,7 @@ function FinalCta() {
 
 export function WorkClient() {
   return (
-    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:4rem]">
+    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:75px]">
       <GridLines />
       <WorkHero />
       <FeaturedWork />

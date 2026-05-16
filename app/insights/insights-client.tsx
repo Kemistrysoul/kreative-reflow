@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import type React from 'react';
+import { useMemo, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import {
   ArrowRight,
@@ -26,6 +28,11 @@ type InsightNote = {
   usefulFor: string;
   href: string;
   ctaLabel: string;
+  image: string;
+  imageAlt: string;
+  tags: string[];
+  imageShape: 'tall' | 'wide' | 'square';
+  icon?: React.ComponentType<{ className?: string; strokeWidth?: number }>;
 };
 
 type QuestionCard = {
@@ -61,6 +68,11 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Website budgeting',
     href: '/insights/website-cost-south-africa-2026',
     ctaLabel: 'Read article',
+    image:
+      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Business owner reviewing website project numbers on a laptop.',
+    tags: ['Pricing', 'Planning'],
+    imageShape: 'tall',
   },
   {
     num: '02',
@@ -72,6 +84,11 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Website conversion',
     href: '/insights/why-your-website-looks-good-but-doesnt-convert',
     ctaLabel: 'Read article',
+    image:
+      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Clean office workspace used as a conversion website reference.',
+    tags: ['Conversion', 'Websites'],
+    imageShape: 'wide',
   },
   {
     num: '03',
@@ -83,6 +100,11 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Search readiness',
     href: '/insights/local-seo-johannesburg-service-businesses',
     ctaLabel: 'Read article',
+    image:
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Local street and building detail representing local search visibility.',
+    tags: ['SEO', 'Local'],
+    imageShape: 'tall',
   },
   {
     num: '04',
@@ -94,6 +116,11 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Operations systems',
     href: '/insights/when-does-a-business-need-a-custom-dashboard-or-client-portal',
     ctaLabel: 'Read article',
+    image:
+      'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Team reviewing a dashboard and workflow system.',
+    tags: ['Dashboards', 'Systems'],
+    imageShape: 'wide',
   },
   {
     num: '05',
@@ -105,6 +132,11 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'AI search readiness',
     href: '/insights/what-ai-seo-actually-means-for-small-business',
     ctaLabel: 'Read article',
+    image:
+      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Laptop screen and digital work setup for AI search research.',
+    tags: ['AI SEO', 'Search'],
+    imageShape: 'square',
   },
   {
     num: '06',
@@ -116,6 +148,12 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Conversion diagnosis',
     href: '/tools/website-lead-leak-scorecard',
     ctaLabel: 'Use tool',
+    image:
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Analytics dashboard showing website performance data.',
+    tags: ['Tool', 'Scorecard'],
+    imageShape: 'wide',
+    icon: Gauge,
   },
   {
     num: '07',
@@ -127,6 +165,12 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Local search visibility',
     href: '/tools/local-visibility-scorecard',
     ctaLabel: 'Use tool',
+    image:
+      'https://images.unsplash.com/photo-1465447142348-e9952c393450?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'City street and storefronts representing local visibility.',
+    tags: ['Tool', 'Local SEO'],
+    imageShape: 'tall',
+    icon: Search,
   },
   {
     num: '08',
@@ -138,6 +182,12 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Response automation',
     href: '/tools/lead-response-leak-calculator',
     ctaLabel: 'Use tool',
+    image:
+      'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Business team responding to enquiries and workflow messages.',
+    tags: ['Tool', 'Automation'],
+    imageShape: 'square',
+    icon: Calculator,
   },
   {
     num: '09',
@@ -149,6 +199,12 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Website scope decisions',
     href: '/tools/website-rebuild-vs-refresh-quiz',
     ctaLabel: 'Use tool',
+    image:
+      'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Architectural structure used as a metaphor for rebuild decisions.',
+    tags: ['Tool', 'Scope'],
+    imageShape: 'wide',
+    icon: RefreshCw,
   },
   {
     num: '10',
@@ -160,6 +216,11 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Project planning',
     href: '/services/consulting',
     ctaLabel: 'Related service',
+    image:
+      'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Planning workshop with notes and strategy discussion.',
+    tags: ['Strategy', 'Consulting'],
+    imageShape: 'square',
   },
   {
     num: '11',
@@ -171,8 +232,17 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'After-launch care',
     href: '/services/maintenance',
     ctaLabel: 'Related service',
+    image:
+      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Quiet workspace for ongoing support and site maintenance.',
+    tags: ['Support', 'Care'],
+    imageShape: 'tall',
   },
 ];
+
+const articleNotes = insightNotes.filter((note) => note.href.startsWith('/insights/'));
+const insightToolNotes = insightNotes.filter((note) => note.category === 'Tool');
+const articleTags = Array.from(new Set(articleNotes.flatMap((note) => note.tags)));
 
 const questionCards: QuestionCard[] = [
   {
@@ -275,6 +345,42 @@ const rhythmSteps: RhythmStep[] = [
   },
 ];
 
+const insightCardStyles = [
+  {
+    card: 'bg-[#5F9FAA] text-[#060808]',
+    icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/62',
+    cta: 'bg-[#060808] text-[#FBFBFB] group-hover:bg-[#FBFBFB] group-hover:text-[#060808]',
+    hidden: 'text-[#060808]',
+  },
+  {
+    card: 'bg-[#DD6211] text-[#060808]',
+    icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/58',
+    cta: 'bg-[#060808] text-[#FBFBFB] group-hover:bg-[#FBFBFB] group-hover:text-[#060808]',
+    hidden: 'text-[#060808]',
+  },
+  {
+    card: 'bg-[#FFF6E9] text-[#0A171D]',
+    icon: 'border-[#0A171D]/16 bg-[#0A171D]/[0.07] text-[#0A171D]/56',
+    cta: 'bg-[#0A171D] text-[#FBFBFB] group-hover:bg-[#DD6211] group-hover:text-[#060808]',
+    hidden: 'text-[#060808]',
+  },
+  {
+    card: 'bg-[#B92717] text-[#FFF6E9]',
+    icon: 'border-[#FFF6E9]/20 bg-[#FFF6E9]/8 text-[#FFF6E9]/68',
+    cta: 'bg-[#FFF6E9] text-[#060808] group-hover:bg-[#060808] group-hover:text-[#FFF6E9]',
+    hidden: 'text-[#FFF6E9]',
+  },
+];
+
+const utilityCardHoverStyles = [
+  'hover:border-[#DD6211] hover:bg-[#DD6211] hover:text-[#060808]',
+  'hover:border-[#5F9FAA] hover:bg-[#5F9FAA] hover:text-[#060808]',
+  'hover:border-[#C7AA94] hover:bg-[#C7AA94] hover:text-[#060808]',
+  'hover:border-[#B92717] hover:bg-[#B92717] hover:text-[#FFF6E9]',
+  'hover:border-[#FAE18F] hover:bg-[#FAE18F] hover:text-[#060808]',
+  'hover:border-[#596C72] hover:bg-[#596C72] hover:text-[#FFF6E9]',
+];
+
 function Reveal({
   children,
   className = '',
@@ -362,227 +468,408 @@ function InsightsGridLines() {
   );
 }
 
-function EditorialMap() {
-  const reduceMotion = useReducedMotion();
-  const items = ['Question', 'Signal', 'Pattern', 'Decision'];
+function HeroInsightCard({ note, index }: { note: InsightNote; index: number }) {
+  const style = insightCardStyles[index % insightCardStyles.length];
 
   return (
-    <div className="relative min-h-[28rem] overflow-hidden border border-[#151419]/10 bg-[#151419] p-5 text-[#FBFBFB] shadow-2xl shadow-[#151419]/10 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] sm:min-h-[30rem]">
-      <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-[0.65rem] uppercase tracking-[0.24em] text-white/45">
-        <span>Editorial radar</span>
-        <span>Notes 01-06</span>
-      </div>
-
-      <div className="absolute left-1/2 top-[54%] h-60 w-60 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
-      <div className="absolute left-1/2 top-[54%] h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#FC6E20]/30" />
-      <div className="absolute left-1/2 top-[54%] h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
-      <div className="absolute left-1/2 top-[54%] h-px w-[68%] -translate-x-1/2 rotate-[-16deg] bg-[#FC6E20]/70" />
-      <div className="absolute left-1/2 top-[54%] h-px w-[58%] -translate-x-1/2 rotate-[31deg] bg-white/16" />
-
-      <div className="relative z-10 mt-8 grid grid-cols-2 gap-2 sm:hidden">
-        {items.map((item, index) => (
-          <div
-            key={item}
-            className="border border-white/10 bg-white/[0.075] px-3 py-3 font-montserrat text-xs font-semibold backdrop-blur"
-          >
-            <span className="mr-2 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-[#FC6E20]">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            {item}
-          </div>
-        ))}
-      </div>
-
-      {items.map((item, index) => (
-        <motion.div
-          key={item}
-          className="absolute hidden border border-white/10 bg-white/[0.075] px-4 py-3 font-montserrat text-sm font-semibold backdrop-blur sm:block"
-          style={{
-            left: index === 0 ? '7%' : index === 1 ? '58%' : index === 2 ? '17%' : '54%',
-            top: index === 0 ? '24%' : index === 1 ? '32%' : index === 2 ? '54%' : '60%',
-          }}
-          animate={reduceMotion ? undefined : { y: index % 2 === 0 ? [0, -7, 0] : [0, 7, 0] }}
-          transition={{
-            duration: 5 + index,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: 'easeInOut',
-          }}
-        >
-          <span className="mr-3 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-[#FC6E20]">
-            {String(index + 1).padStart(2, '0')}
+    <Link
+      href={note.href}
+      className={`group relative flex min-h-[22rem] flex-col justify-between overflow-hidden rounded-[2.25rem] p-7 shadow-[0_28px_70px_rgba(21,20,25,0.12)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:scale-[1.01] hover:shadow-[0_34px_86px_rgba(21,20,25,0.18)] md:p-9 ${style.card}`}
+      style={{ zIndex: index + 1 }}
+    >
+      <div>
+        <div className="flex items-start justify-between gap-8">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.18em] opacity-[0.68]">
+            {note.num}
           </span>
-          {item}
-        </motion.div>
-      ))}
-
-      <div className="relative z-10 mt-36 border-t border-white/10 pt-5 sm:absolute sm:inset-x-8 sm:bottom-7 sm:mt-0">
-        <p className="max-w-sm font-montserrat text-sm leading-6 text-white/58">
-          Useful thinking should point somewhere: clearer pages, better systems,
-          cleaner workflows, or stronger visibility.
+          <span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.05rem] border transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:rotate-3 ${style.icon}`}>
+            <BookOpenText className="h-6 w-6" strokeWidth={1.8} />
+          </span>
+        </div>
+        <p className="mt-10 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] opacity-[0.68]">
+          {note.category}
+        </p>
+        <h2 className="mt-4 max-w-2xl font-playfair text-[clamp(2.25rem,4.4vw,4.3rem)] font-bold leading-[0.94] tracking-tight">
+          {note.title}
+        </h2>
+        <p className="mt-6 max-w-xl font-montserrat text-base leading-7 opacity-[0.78]">
+          {note.summary}
         </p>
       </div>
-    </div>
+
+      <span className={`mt-10 inline-flex min-h-12 w-fit items-center justify-center gap-3 rounded-full px-6 font-montserrat text-xs font-bold uppercase tracking-[0.12em] transition-colors ${style.cta}`}>
+        <AnimatedLinkText hiddenClassName={style.hidden}>{note.ctaLabel}</AnimatedLinkText>
+        <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+      </span>
+    </Link>
   );
 }
 
 function HeroSection() {
   return (
-    <section className="content-gutter relative z-10 grid min-h-screen grid-cols-1 items-start gap-12 py-28 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.78fr)] lg:items-center lg:gap-16 lg:py-32">
-      <div className="min-w-0">
-        <SectionLabel>Insights</SectionLabel>
-        <h1 className="mt-8 max-w-5xl font-playfair text-[clamp(3.05rem,7.4vw,7.4rem)] font-bold leading-[0.93] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          Field notes for the systems behind the business.
-        </h1>
-        <p className="mt-8 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68 md:text-lg">
-          Practical thinking on websites, dashboards, visibility, automation,
-          and the decisions that make digital work easier to understand.
-        </p>
-        <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-          <PrimaryButton href="#insight-library">Explore notes</PrimaryButton>
-          <SecondaryButton href="/services">See services</SecondaryButton>
+    <section className="content-gutter relative z-10 py-24 md:py-28 lg:py-24">
+      <div className="relative grid gap-12 lg:min-h-[125vh] lg:grid-cols-[minmax(0,0.82fr)_minmax(420px,1fr)] lg:items-start lg:gap-16">
+        <div className="lg:sticky lg:top-20 lg:-mt-8 lg:self-start">
+          <SectionLabel>Insights</SectionLabel>
+          <h1 className="mt-8 max-w-5xl font-playfair text-[clamp(3.05rem,7.4vw,7.4rem)] font-bold leading-[0.93] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
+            Field notes for the systems behind the business.
+          </h1>
+          <p className="mt-8 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68 md:text-lg">
+            Practical thinking on websites, dashboards, visibility, automation,
+            and the decisions that make digital work easier to understand.
+          </p>
+          <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <PrimaryButton href="#insight-library">Explore notes</PrimaryButton>
+            <SecondaryButton href="/services">See services</SecondaryButton>
+          </div>
+        </div>
+
+        <div className="relative grid content-start gap-10 lg:ml-auto lg:w-[95%]">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-12 -left-16 hidden h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(21,20,25,0.24)_1.2px,transparent_1.2px)] bg-[length:12px_12px] opacity-60 [mask-image:radial-gradient(circle_at_center,black_0%,black_55%,transparent_78%)] dark:bg-[radial-gradient(circle,rgba(251,251,251,0.3)_1.2px,transparent_1.2px)] dark:opacity-35 lg:block"
+          />
+          {articleNotes.slice(0, 4).map((note, index) => (
+            <HeroInsightCard key={note.title} note={note} index={index} />
+          ))}
         </div>
       </div>
-
-      <div className="min-w-0">
-        <EditorialMap />
-      </div>
     </section>
+  );
+}
+
+function QuestionCardLink({
+  card,
+  index,
+}: {
+  card: QuestionCard;
+  index: number;
+}) {
+  const Icon = card.icon;
+  const hoverStyle = utilityCardHoverStyles[index % utilityCardHoverStyles.length];
+
+  return (
+    <Link
+      href={card.href}
+      className={`group flex min-h-[19rem] w-[19.5rem] shrink-0 flex-col justify-between rounded-[1.35rem] border border-[#151419]/10 bg-[#F0EFED] p-6 text-[#151419] transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_22px_54px_rgba(21,20,25,0.14)] dark:border-[#FBFBFB]/10 dark:bg-[#F0EFED] dark:text-[#151419] md:w-[21rem] ${hoverStyle}`}
+    >
+      <div>
+        <div className="flex items-center justify-between gap-4">
+          <span className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-current/60">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <Icon
+            className="h-5 w-5 text-current/34 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:rotate-3"
+            strokeWidth={1.7}
+          />
+        </div>
+        <h3 className="mt-7 font-playfair text-3xl font-bold leading-none tracking-tight">
+          {card.question}
+        </h3>
+        <p className="mt-5 font-montserrat text-sm leading-7 text-current/64">
+          {card.body}
+        </p>
+      </div>
+      <div className="mt-10 flex items-center justify-between border-t border-current/10 pt-4">
+        <span className="font-montserrat text-[0.7rem] font-bold uppercase tracking-[0.18em]">
+          {card.path}
+        </span>
+        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+      </div>
+    </Link>
   );
 }
 
 function QuestionChooser() {
+  const carouselCards = [...questionCards, ...questionCards];
+
   return (
-    <section className="content-gutter relative z-10 py-20 md:py-28">
-      <Reveal className="max-w-3xl">
-        <SectionLabel>Start with the question</SectionLabel>
-        <h2 className="mt-5 font-playfair text-[clamp(2.6rem,6vw,5.8rem)] font-bold leading-[0.96] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          What are you trying to understand?
-        </h2>
-        <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/65 dark:text-[#FBFBFB]/62">
-          The insights page should help a client find the thinking that matches
-          the problem they are already feeling.
-        </p>
-      </Reveal>
+    <section id="start-question" className="content-gutter relative z-10 py-20 md:py-28">
+      <div className="grid gap-12 min-[900px]:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] min-[900px]:items-center">
+        <div className="max-w-3xl">
+          <SectionLabel>Start with the question</SectionLabel>
+          <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6.7vw,6.6rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
+            What are you trying to understand?
+          </h2>
+          <p className="mt-6 max-w-xl font-montserrat text-base leading-8 text-[#151419]/65 dark:text-[#FBFBFB]/62">
+            The insights page should help a client find the thinking that
+            matches the problem they are already feeling.
+          </p>
+        </div>
 
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
-        {questionCards.map((card, index) => {
-          const Icon = card.icon;
-
-          return (
-            <Reveal key={card.question} delay={index * 0.06}>
-              <Link
-                href={card.href}
-                className="group flex min-h-[19rem] flex-col justify-between border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:bg-[#151419] hover:text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] dark:text-[#FBFBFB] dark:hover:border-[#FC6E20]"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-[#FC6E20]">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <Icon className="h-5 w-5 text-current/34 group-hover:text-[#FC6E20]" strokeWidth={1.7} />
-                  </div>
-                  <h3 className="mt-7 font-playfair text-3xl font-bold leading-none tracking-tight">
-                    {card.question}
-                  </h3>
-                  <p className="mt-5 font-montserrat text-sm leading-7 text-current/64">
-                    {card.body}
-                  </p>
-                </div>
-                <div className="mt-10 flex items-center justify-between border-t border-current/10 pt-4">
-                  <span className="font-montserrat text-[0.7rem] font-bold uppercase tracking-[0.18em]">
-                    {card.path}
-                  </span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </div>
-              </Link>
-            </Reveal>
-          );
-        })}
+        <div className="insight-question-carousel group/carousel relative overflow-hidden py-8">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-4 left-0 z-10 w-20 bg-gradient-to-r from-[#F0EFED] via-[#F0EFED]/82 to-transparent backdrop-blur-[2px] dark:from-[#151419] dark:via-[#151419]/82"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-4 right-0 z-10 w-20 bg-gradient-to-l from-[#F0EFED] via-[#F0EFED]/82 to-transparent backdrop-blur-[2px] dark:from-[#151419] dark:via-[#151419]/82"
+          />
+          <div className="insight-question-carousel-track flex w-max gap-4 pr-4">
+            {carouselCards.map((card, index) => (
+              <QuestionCardLink
+                key={`${card.question}-${index}`}
+                card={card}
+                index={index % questionCards.length}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-function InsightNoteCard({ note, index }: { note: InsightNote; index: number }) {
-  const anchor =
-    note.category === 'Websites'
-      ? 'note-websites'
-      : note.category === 'Dashboards'
-        ? 'note-dashboards'
-        : note.category === 'Visibility'
-          ? 'note-visibility'
-          : note.category === 'Automation'
-            ? 'note-automation'
-            : undefined;
+function TagButton({
+  tag,
+  isActive,
+  onSelect,
+}: {
+  tag: string;
+  isActive: boolean;
+  onSelect: (tag: string) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onSelect(tag)}
+      className={`rounded-full border px-2.5 py-1 font-montserrat text-[0.62rem] font-bold leading-none transition-colors duration-200 ${
+        isActive
+          ? 'border-[#DD6211] bg-[#DD6211] text-[#060808]'
+          : 'border-transparent bg-[#151419]/7 text-[#060808] hover:border-[#DD6211] hover:bg-transparent hover:text-[#DD6211]'
+      }`}
+    >
+      {tag}
+    </button>
+  );
+}
+
+function BlogGridCard({
+  note,
+  index,
+  selectedTag,
+  onTagSelect,
+}: {
+  note: InsightNote;
+  index: number;
+  selectedTag: string;
+  onTagSelect: (tag: string) => void;
+}) {
+  const imageHeight =
+    index % 2 === 0 ? 'h-[25rem] md:h-[28rem]' : 'h-[17rem] md:h-[18.75rem]';
 
   return (
-    <Reveal delay={index * 0.05}>
-      <article
-        id={anchor}
-        className="grid gap-6 border-t border-[#151419]/10 py-8 dark:border-[#FBFBFB]/10 lg:grid-cols-[0.35fr_1fr_0.42fr]"
+    <article
+      className="group block text-[#060808] transition-transform duration-300 ease-out hover:-translate-y-1"
+      style={{ transitionDelay: `${Math.min(index * 16, 96)}ms` }}
+    >
+      <Link
+        href={note.href}
+        className="block outline-none focus-visible:ring-2 focus-visible:ring-[#FC6E20] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F0EFED]"
       >
-        <div className="flex items-start justify-between gap-4 lg:block">
-          <span className="font-mono text-[0.72rem] uppercase tracking-[0.24em] text-[#FC6E20]">
-            {note.num}
-          </span>
-          <span className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#151419]/45 dark:text-[#FBFBFB]/42 lg:mt-10 lg:block">
-            {note.readTime}
-          </span>
+        <div className={`relative overflow-hidden rounded-[0.55rem] bg-[#151419]/8 ${imageHeight}`}>
+          <Image
+            src={note.image}
+            alt={note.imageAlt}
+            fill
+            sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 100vw"
+            className="object-cover transition duration-500 ease-out group-hover:scale-[1.045]"
+          />
+          <div className="absolute inset-0 bg-[#060808]/0 transition-colors duration-300 group-hover:bg-[#060808]/10" />
         </div>
 
-        <div>
-          <span className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#FC6E20]">
-            {note.category}
-          </span>
-          <h3 className="mt-4 max-w-3xl font-playfair text-[clamp(2.1rem,4.2vw,4.7rem)] font-bold leading-[0.96] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
+        <div className="pt-4">
+          <p className="font-montserrat text-[0.72rem] font-medium leading-none text-[#060808]/66">
+            {note.category} - {note.readTime}
+          </p>
+          <h3 className="mt-2 max-w-[34rem] font-montserrat text-[1.05rem] font-extrabold leading-[1.14] tracking-normal text-[#060808] transition-colors duration-300 group-hover:text-[#DD6211] md:text-[1.08rem]">
             {note.title}
           </h3>
-          <p className="mt-5 max-w-2xl font-montserrat text-sm leading-7 text-[#151419]/64 dark:text-[#FBFBFB]/60 md:text-base md:leading-8">
-            {note.summary}
-          </p>
         </div>
+      </Link>
 
-        <div className="flex flex-col justify-between gap-8 border-[#151419]/10 dark:border-[#FBFBFB]/10 lg:border-l lg:pl-8">
-          <div>
-            <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#151419]/42 dark:text-[#FBFBFB]/40">
-              Useful for
-            </p>
-            <p className="mt-3 font-montserrat text-sm font-semibold text-[#151419] dark:text-[#FBFBFB]">
-              {note.usefulFor}
-            </p>
-          </div>
-          <Link
-            href={note.href}
-            className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#151419] px-5 py-3 font-montserrat text-xs font-bold uppercase tracking-[0.08em] text-[#FBFBFB] transition-colors hover:bg-[#FC6E20] hover:text-[#151419] dark:bg-[#FBFBFB] dark:text-[#151419] dark:hover:bg-[#FC6E20]"
-          >
-            {note.ctaLabel}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
-      </article>
-    </Reveal>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {note.tags.map((tag) => (
+          <TagButton
+            key={tag}
+            tag={tag}
+            isActive={selectedTag === tag}
+            onSelect={onTagSelect}
+          />
+        ))}
+      </div>
+    </article>
   );
 }
 
 function InsightLibrary() {
+  const [selectedTag, setSelectedTag] = useState('All');
+  const filteredArticleNotes = useMemo(
+    () =>
+      selectedTag === 'All'
+        ? articleNotes
+        : articleNotes.filter((note) => note.tags.includes(selectedTag)),
+    [selectedTag],
+  );
+
   return (
     <section id="insight-library" className="content-gutter relative z-10 py-16 md:py-24">
-      <div className="grid gap-12 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
-        <Reveal className="lg:sticky lg:top-28 lg:self-start">
-          <SectionLabel>Insight library</SectionLabel>
+      <Reveal className="max-w-4xl">
+        <SectionLabel>All field notes</SectionLabel>
+        <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
+          Browse the working library.
+        </h2>
+        <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/60">
+          Featured notes get the larger scroll moment above. Everything else
+          lives here as a fast-scanning archive for pricing, conversion,
+          visibility, and systems thinking.
+        </p>
+      </Reveal>
+
+      <div className="mt-8 flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={() => setSelectedTag('All')}
+          className={`rounded-full border px-4 py-2 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.12em] transition-colors ${
+            selectedTag === 'All'
+              ? 'border-[#060808] bg-[#060808] text-[#FBFBFB]'
+              : 'border-[#151419]/12 bg-[#F0EFED] text-[#060808]/70 hover:border-[#DD6211] hover:text-[#DD6211]'
+          }`}
+        >
+          All
+        </button>
+        {articleTags.map((tag) => (
+          <button
+            key={tag}
+            type="button"
+            onClick={() => setSelectedTag(tag)}
+            className={`rounded-full border px-4 py-2 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.12em] transition-colors ${
+              selectedTag === tag
+                ? 'border-[#DD6211] bg-[#DD6211] text-[#060808]'
+                : 'border-[#151419]/12 bg-[#F0EFED] text-[#060808]/70 hover:border-[#DD6211] hover:text-[#DD6211]'
+            }`}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-12 grid gap-10 md:hidden">
+        {filteredArticleNotes.map((note, index) => (
+          <BlogGridCard
+            key={note.title}
+            note={note}
+            index={index}
+            selectedTag={selectedTag}
+            onTagSelect={setSelectedTag}
+          />
+        ))}
+      </div>
+
+      <div className="mt-12 hidden gap-5 md:grid md:grid-cols-3">
+        {[0, 1, 2].map((column) => (
+          <div key={column} className="grid content-start gap-10">
+            {filteredArticleNotes
+              .filter((_, index) => index % 3 === column)
+              .map((note, index) => (
+                <BlogGridCard
+                  key={note.title}
+                  note={note}
+                  index={column + index * 3}
+                  selectedTag={selectedTag}
+                  onTagSelect={setSelectedTag}
+                />
+              ))}
+          </div>
+        ))}
+      </div>
+
+      <Reveal delay={0.14}>
+        <div className="mt-12 flex items-center gap-4 font-montserrat text-sm font-bold text-[#060808] dark:text-[#FBFBFB] md:mt-16">
+          <span className="mr-2 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#060808]/45 dark:text-[#FBFBFB]/45">
+            {filteredArticleNotes.length} shown
+          </span>
+          <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#060808] text-xs text-[#FBFBFB]">
+            1
+          </span>
+          <span className="inline-flex h-7 w-7 items-center justify-center rounded-full text-xs text-[#060808]/70 transition-colors hover:bg-[#151419]/8 dark:text-[#FBFBFB]/70">
+            2
+          </span>
+          <Link
+            href="#insight-library"
+            aria-label="Next insights page"
+            className="inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors hover:bg-[#151419]/8"
+          >
+            <ArrowRight className="h-4 w-4" strokeWidth={1.9} />
+          </Link>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+function InsightToolCard({ note, index }: { note: InsightNote; index: number }) {
+  const Icon = note.icon ?? Gauge;
+  const hoverStyle = utilityCardHoverStyles[index % utilityCardHoverStyles.length];
+  const isPatternInterrupt = index === 0;
+
+  return (
+    <Link
+      href={note.href}
+      className={`group flex min-h-[21rem] flex-col justify-between rounded-[1.35rem] p-6 transition-all duration-300 ease-out md:p-7 ${
+        isPatternInterrupt
+          ? '-rotate-3 border border-[#DD6211] bg-[#DD6211] text-[#060808] hover:-translate-y-1 hover:rotate-0'
+          : `border border-[#151419]/10 bg-[#F0EFED] text-[#151419] hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_22px_54px_rgba(21,20,25,0.13)] dark:border-[#FBFBFB]/10 dark:bg-[#F0EFED] dark:text-[#151419] ${hoverStyle}`
+      }`}
+    >
+      <div>
+        <div className="flex items-start justify-between gap-6">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.22em] text-current/55">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <Icon
+            className="h-5 w-5 text-current/38 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:rotate-3"
+            strokeWidth={1.7}
+          />
+        </div>
+
+        <h3 className="mt-9 max-w-xs font-playfair text-[clamp(2rem,3.2vw,3.3rem)] font-bold leading-[0.94] tracking-tight">
+          {note.title}
+        </h3>
+        <p className="mt-6 max-w-sm font-montserrat text-sm leading-7 text-current/62">
+          {note.summary}
+        </p>
+      </div>
+
+      <div className="mt-10 flex items-center justify-between border-t border-current/10 pt-5">
+        <span className="font-montserrat text-[0.7rem] font-bold uppercase tracking-[0.18em]">
+          {note.ctaLabel}
+        </span>
+        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+      </div>
+    </Link>
+  );
+}
+
+function InsightsToolsSection() {
+  return (
+    <section id="diagnostic-tools" className="content-gutter relative z-10 py-16 md:py-24">
+      <div className="grid gap-10 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] md:items-start">
+        <div className="md:sticky md:top-28 md:self-start">
+          <SectionLabel>Diagnostic tools</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-            Not hot takes. Working notes.
+            Run the diagnosis before the rebuild.
           </h2>
           <p className="mt-6 max-w-md font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/60">
-            These notes are placeholders for the kind of thinking the studio
-            should publish and the tools clients can use: practical, grounded,
-            and tied to decisions they actually need to make.
+            Articles explain the thinking. These tools turn that thinking into a
+            quick score, calculator, or decision path you can act on.
           </p>
-        </Reveal>
+        </div>
 
-        <div>
-          {insightNotes.map((note, index) => (
-            <InsightNoteCard key={note.title} note={note} index={index} />
+        <div className="grid gap-4 sm:grid-cols-2">
+          {insightToolNotes.map((note, index) => (
+            <InsightToolCard key={note.title} note={note} index={index} />
           ))}
         </div>
       </div>
@@ -592,7 +879,11 @@ function InsightLibrary() {
 
 function ReadingPaths() {
   return (
-    <section className="relative z-10 bg-[#151419] py-20 text-[#FBFBFB] dark:bg-[#1B1B1E] md:py-28">
+    <section className="relative z-10 overflow-hidden bg-[#060808] py-20 text-[#FBFBFB] md:py-28">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[29%] top-1/2 hidden h-[38rem] w-[38rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.2)_1.1px,transparent_1.1px)] bg-[length:13px_13px] opacity-45 [mask-image:radial-gradient(circle_at_center,black_0%,black_48%,transparent_73%)] lg:block"
+      />
       <div className="content-gutter">
         <Reveal className="max-w-4xl">
           <SectionLabel>Reading paths</SectionLabel>
@@ -601,32 +892,33 @@ function ReadingPaths() {
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-12 grid auto-rows-fr gap-4 md:grid-cols-2 xl:grid-cols-4">
           {readingPaths.map((path, index) => {
             const Icon = path.icon;
+            const style = insightCardStyles[index % insightCardStyles.length];
 
             return (
-              <Reveal key={path.title} delay={index * 0.06}>
+              <Reveal key={path.title} delay={index * 0.06} className="h-full">
                 <Link
                   href={path.href}
-                  className="group flex min-h-[22rem] flex-col justify-between border border-white/10 bg-white/[0.035] p-6 transition-colors hover:border-[#FC6E20] hover:bg-white/[0.065] md:p-8"
+                  className={`group flex h-full min-h-[26rem] flex-col justify-between rounded-[1.35rem] p-6 shadow-[0_22px_60px_rgba(0,0,0,0.22)] transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.01] md:p-8 ${style.card}`}
                 >
                   <div>
-                    <div className="flex h-12 w-12 items-center justify-center border border-white/12 bg-white/[0.04] text-[#FC6E20]">
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-[1.05rem] border transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:rotate-3 ${style.icon}`}>
                       <Icon className="h-5 w-5" strokeWidth={1.7} />
                     </div>
-                    <p className="mt-8 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#FC6E20]">
+                    <p className="mt-8 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] opacity-[0.68]">
                       {path.eyebrow}
                     </p>
                     <h3 className="mt-4 font-playfair text-4xl font-bold leading-none tracking-tight">
                       {path.title}
                     </h3>
-                    <p className="mt-5 font-montserrat text-sm leading-7 text-white/62">
+                    <p className="mt-5 font-montserrat text-sm leading-7 opacity-[0.72]">
                       {path.body}
                     </p>
                   </div>
-                  <span className="mt-10 inline-flex items-center gap-3 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-white/82">
-                    <AnimatedLinkText>Explore service</AnimatedLinkText>
+                  <span className={`mt-10 inline-flex min-h-12 w-fit items-center justify-center gap-3 rounded-full px-6 font-montserrat text-xs font-bold uppercase tracking-[0.12em] transition-colors ${style.cta}`}>
+                    <AnimatedLinkText hiddenClassName={style.hidden}>Explore service</AnimatedLinkText>
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </Link>
@@ -650,10 +942,10 @@ function PublishingRhythm() {
           </h2>
         </Reveal>
 
-        <div className="grid gap-4">
+        <div className="rhythm-card-list grid gap-4">
           {rhythmSteps.map((step, index) => (
             <Reveal key={step.title} delay={index * 0.08}>
-              <article className="grid gap-5 border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:grid-cols-[0.25fr_0.45fr_1fr] md:p-8">
+              <article className="rhythm-card grid gap-5 rounded-[1.35rem] border border-[#151419]/10 bg-[#F0EFED] p-6 text-[#151419] transition-all duration-300 ease-out hover:relative hover:z-10 hover:-translate-y-1 hover:shadow-[0_22px_54px_rgba(21,20,25,0.12)] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] dark:text-[#FBFBFB] md:grid-cols-[0.25fr_0.45fr_1fr] md:p-8">
                 <span className="font-mono text-[0.72rem] uppercase tracking-[0.24em] text-[#FC6E20]">
                   {step.num}
                 </span>
@@ -674,24 +966,35 @@ function PublishingRhythm() {
 
 function FinalCta() {
   return (
-    <section className="content-gutter relative z-10 py-20 md:py-28">
+    <section className="content-gutter relative z-10 pb-24 pt-12 md:pb-32 md:pt-16">
       <Reveal>
-        <div className="border border-[#151419]/10 bg-[#FBFBFB]/70 p-7 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-14">
+        <div className="rounded-[1.35rem] border border-[#151419]/10 bg-[#151419] p-7 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-14">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div>
               <SectionLabel>Apply the thinking</SectionLabel>
-              <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
+              <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
                 Useful ideas are better when they become working systems.
               </h2>
-              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
+              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
                 If one of these notes sounds like the problem inside your
                 business, bring the messy version. We will help turn it into a
                 clear next move.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <PrimaryButton href="/contact">Start a project</PrimaryButton>
-              <SecondaryButton href="/services">View services</SecondaryButton>
+              <Link
+                href="/contact"
+                className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:bg-[#FBFBFB] sm:w-auto"
+              >
+                <AnimatedLinkText hiddenClassName="text-[#151419]">Start a project</AnimatedLinkText>
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="/services"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/18 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#FBFBFB] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
+              >
+                <AnimatedLinkText>View services</AnimatedLinkText>
+              </Link>
             </div>
           </div>
         </div>
@@ -702,11 +1005,12 @@ function FinalCta() {
 
 export function InsightsClient() {
   return (
-    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:4rem]">
+    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:75px]">
       <InsightsGridLines />
       <HeroSection />
       <QuestionChooser />
       <InsightLibrary />
+      <InsightsToolsSection />
       <ReadingPaths />
       <PublishingRhythm />
       <FinalCta />

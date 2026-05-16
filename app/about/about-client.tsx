@@ -132,6 +132,43 @@ const clientFits: ClientFit[] = [
   },
 ];
 
+const principleCardStyles = [
+  'bg-[#5F9FAA] text-[#060808]',
+  'bg-[#DD6211] text-[#060808]',
+  'bg-[#FFF6E9] text-[#0A171D]',
+  'bg-[#B92717] text-[#FFF6E9]',
+];
+
+const studioSignalCardStyles = [
+  {
+    card: 'bg-[#5F9FAA] text-[#060808]',
+    icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/62',
+    rule: 'border-[#060808]/18',
+  },
+  {
+    card: 'bg-[#DD6211] text-[#060808]',
+    icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/58',
+    rule: 'border-[#060808]/18',
+  },
+  {
+    card: 'bg-[#FFF6E9] text-[#0A171D]',
+    icon: 'border-[#0A171D]/16 bg-[#0A171D]/[0.07] text-[#0A171D]/56',
+    rule: 'border-[#0A171D]/16',
+  },
+  {
+    card: 'bg-[#B92717] text-[#FFF6E9]',
+    icon: 'border-[#FFF6E9]/20 bg-[#FFF6E9]/8 text-[#FFF6E9]/68',
+    rule: 'border-[#FFF6E9]/22',
+  },
+];
+
+const clientFitCardStyles = [
+  'hover:border-[#596C72] hover:bg-[#596C72] hover:text-[#FFF6E9] dark:hover:border-[#596C72] dark:hover:bg-[#596C72] dark:hover:text-[#FFF6E9]',
+  'hover:border-[#5F9FAA] hover:bg-[#5F9FAA] hover:text-[#060808] dark:hover:border-[#5F9FAA] dark:hover:bg-[#5F9FAA] dark:hover:text-[#060808]',
+  'hover:border-[#C7AA94] hover:bg-[#C7AA94] hover:text-[#060808] dark:hover:border-[#C7AA94] dark:hover:bg-[#C7AA94] dark:hover:text-[#060808]',
+  'hover:border-[#FAE18F] hover:bg-[#FAE18F] hover:text-[#060808] dark:hover:border-[#FAE18F] dark:hover:bg-[#FAE18F] dark:hover:text-[#060808]',
+];
+
 function Reveal({
   children,
   className = '',
@@ -209,8 +246,8 @@ function GridLines() {
 
 function FounderPortrait() {
   return (
-    <div className="relative border border-[#151419]/10 bg-[#151419] p-4 text-[#FBFBFB] shadow-2xl shadow-[#151419]/10 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]">
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#F0EFED]">
+    <div className="relative overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-4 text-[#FBFBFB] shadow-[0_28px_70px_rgba(21,20,25,0.14)] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[1.65rem] bg-[#F0EFED]">
         <Image
           src="/images/delite-founder.svg"
           alt="Delite, Founder of Kreative Reflow"
@@ -273,7 +310,11 @@ function HeroSection() {
 
 function FounderNote() {
   return (
-    <section className="relative z-10 bg-[#151419] py-20 text-[#FBFBFB] dark:bg-[#1B1B1E] md:py-28">
+    <section className="relative z-10 overflow-hidden bg-[#060808] py-20 text-[#FBFBFB] md:py-28">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[30%] top-1/2 hidden h-[38rem] w-[38rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.2)_1.1px,transparent_1.1px)] bg-[length:13px_13px] opacity-35 [mask-image:radial-gradient(circle_at_center,black_0%,black_48%,transparent_73%)] lg:block"
+      />
       <div className="content-gutter grid gap-12 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
         <Reveal>
           <SectionLabel>Founder note</SectionLabel>
@@ -283,7 +324,7 @@ function FounderNote() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <div className="grid gap-7 border-l border-[#FC6E20]/35 pl-6 font-montserrat text-base leading-8 text-white/66 md:text-lg">
+          <div className="grid gap-7 rounded-[1.35rem] border border-white/10 bg-white/[0.035] p-7 font-montserrat text-base leading-8 text-white/66 md:p-9 md:text-lg">
             <p>
               Seven years in medical sales and neurology put me in operating
               theatres and specialist offices. I saw teams doing exceptional
@@ -322,10 +363,10 @@ function OriginTimeline() {
           </p>
         </Reveal>
 
-        <div className="space-y-4">
+        <div className="ml-auto w-full max-w-[54rem] space-y-4">
           {timeline.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.06}>
-              <article className="grid gap-6 border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:grid-cols-[0.28fr_1fr] md:p-8">
+              <article className="grid gap-6 rounded-[1.35rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 shadow-[0_18px_44px_rgba(21,20,25,0.05)] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:grid-cols-[0.28fr_1fr] md:p-8">
                 <div>
                   <span className="font-mono text-sm text-[#FC6E20]">{item.num}</span>
                   <p className="mt-8 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#878787]">
@@ -362,8 +403,10 @@ function PrinciplesSection() {
       <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {principles.map((principle, index) => (
           <Reveal key={principle.title} delay={index * 0.06}>
-            <article className="flex min-h-[19rem] flex-col justify-between border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 text-[#151419] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] dark:text-[#FBFBFB]">
-              <span className="font-mono text-sm text-[#FC6E20]">
+            <article
+              className={`flex min-h-[19rem] flex-col justify-between rounded-[1.35rem] p-6 shadow-[0_22px_60px_rgba(0,0,0,0.12)] transition-transform duration-300 hover:-translate-y-1 ${principleCardStyles[index % principleCardStyles.length]}`}
+            >
+              <span className="font-mono text-sm text-current/62">
                 {String(index + 1).padStart(2, '0')}
               </span>
               <div>
@@ -384,38 +427,47 @@ function PrinciplesSection() {
 
 function StudioModel() {
   return (
-    <section className="relative z-10 bg-[#151419] py-20 text-[#FBFBFB] dark:bg-[#1B1B1E] md:py-28">
+    <section className="relative z-10 overflow-hidden bg-[#060808] py-20 text-[#FBFBFB] md:py-28">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[18%] top-20 hidden h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.2)_1.1px,transparent_1.1px)] bg-[length:13px_13px] opacity-35 [mask-image:radial-gradient(circle_at_center,black_0%,black_46%,transparent_72%)] lg:block"
+      />
       <div className="content-gutter">
-        <Reveal className="max-w-4xl">
+        <Reveal className="ml-auto max-w-4xl text-right lg:w-[74%] xl:w-[68%]">
           <SectionLabel>How the studio works</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6.8vw,6.6rem)] font-bold leading-[0.94] tracking-tight">
             Small by design. Serious by default.
           </h2>
-          <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
+          <p className="ml-auto mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
             The model is intentionally focused: fewer clients, deeper context,
             and builds where the visible layer and operational layer are
             planned together.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-12 grid auto-rows-fr gap-4 md:grid-cols-2 xl:grid-cols-4">
           {studioSignals.map((signal, index) => {
             const Icon = signal.icon;
+            const style = studioSignalCardStyles[index % studioSignalCardStyles.length];
 
             return (
-              <Reveal key={signal.title} delay={index * 0.06}>
-                <article className="flex min-h-[20rem] flex-col justify-between border border-white/10 bg-white/[0.035] p-6 transition-colors hover:border-[#FC6E20] hover:bg-white/[0.065] md:p-8">
+              <Reveal key={signal.title} className="h-full" delay={index * 0.06}>
+                <article
+                  className={`flex h-full min-h-[20rem] flex-col justify-between rounded-[1.35rem] p-6 shadow-[0_22px_60px_rgba(0,0,0,0.22)] transition-transform duration-300 hover:-translate-y-1 md:p-8 ${style.card}`}
+                >
                   <div>
-                    <div className="flex h-12 w-12 items-center justify-center border border-white/12 bg-white/[0.04] text-[#FC6E20]">
+                    <div className={`flex h-14 w-14 items-center justify-center rounded-[1.05rem] border ${style.icon}`}>
                       <Icon className="h-5 w-5" strokeWidth={1.7} />
                     </div>
                     <h3 className="mt-8 font-playfair text-4xl font-bold leading-none tracking-tight">
                       {signal.title}
                     </h3>
                   </div>
-                  <p className="mt-8 font-montserrat text-sm leading-7 text-white/62">
-                    {signal.body}
-                  </p>
+                  <div className={`mt-10 border-t pt-6 ${style.rule}`}>
+                    <p className="font-montserrat text-sm leading-7 opacity-[0.78]">
+                      {signal.body}
+                    </p>
+                  </div>
                 </article>
               </Reveal>
             );
@@ -436,22 +488,26 @@ function ClientFitSection() {
         </h2>
       </Reveal>
 
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-12 grid auto-rows-fr gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {clientFits.map((fit, index) => {
           const Icon = fit.icon;
+          const isAnomaly = index === 1;
+          const cardStyle = isAnomaly
+            ? '-translate-y-4 rotate-[1.5deg] border-[#151419]/15 bg-[#FC6E20] text-[#151419] shadow-[0_28px_70px_rgba(21,20,25,0.18)] hover:translate-y-0 hover:rotate-0 hover:bg-[#DD6211] dark:border-[#151419]/15 dark:bg-[#FC6E20] dark:text-[#151419] dark:hover:bg-[#DD6211]'
+            : clientFitCardStyles[index % clientFitCardStyles.length];
 
           return (
-            <Reveal key={fit.title} delay={index * 0.06}>
+            <Reveal key={fit.title} className="h-full" delay={index * 0.06}>
               <Link
                 href={fit.href}
-                className="group flex min-h-[20rem] flex-col justify-between border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:bg-[#151419] hover:text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] dark:text-[#FBFBFB] dark:hover:border-[#FC6E20]"
+                className={`group flex h-full min-h-[20rem] flex-col justify-between rounded-[1.35rem] border p-6 transition-all duration-300 ${isAnomaly ? cardStyle : `border-[#151419]/10 bg-[#F0EFED] text-[#151419] dark:border-[#FBFBFB]/10 dark:bg-[#F0EFED] dark:text-[#151419] ${cardStyle}`}`}
               >
                 <div>
                   <div className="flex items-center justify-between gap-4">
-                    <span className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-[#FC6E20]">
+                    <span className={`font-mono text-[0.68rem] uppercase tracking-[0.22em] ${isAnomaly ? 'text-[#151419]/56' : 'text-[#FC6E20]'}`}>
                       {String(index + 1).padStart(2, '0')}
                     </span>
-                    <Icon className="h-5 w-5 text-current/34 group-hover:text-[#FC6E20]" strokeWidth={1.7} />
+                    <Icon className={`h-5 w-5 text-current/34 ${isAnomaly ? 'group-hover:text-current/70' : 'group-hover:text-[#FC6E20]'}`} strokeWidth={1.7} />
                   </div>
                   <h3 className="mt-7 font-playfair text-3xl font-bold leading-none tracking-tight">
                     {fit.title}
@@ -479,22 +535,33 @@ function FinalCta() {
   return (
     <section className="content-gutter relative z-10 pb-24 md:pb-32">
       <Reveal>
-        <div className="border border-[#151419]/10 bg-[#FBFBFB]/70 p-7 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-14">
+        <div className="rounded-[1.35rem] border border-[#151419]/10 bg-[#151419] p-7 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-14">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div>
               <SectionLabel>Work with the studio</SectionLabel>
-              <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
+              <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
                 Bring the messy version. We will shape the system.
               </h2>
-              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
+              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
                 You do not need a perfect brief. A rough problem, a broken
                 workflow, or a website that no longer reflects the business is
                 enough to start.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <PrimaryButton href="/contact">Start a project</PrimaryButton>
-              <SecondaryButton href="/work">View the work</SecondaryButton>
+              <Link
+                href="/contact"
+                className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:bg-[#FBFBFB] sm:w-auto"
+              >
+                <AnimatedLinkText hiddenClassName="text-[#151419]">Start a project</AnimatedLinkText>
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="/work"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/18 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#FBFBFB] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
+              >
+                <AnimatedLinkText>View the work</AnimatedLinkText>
+              </Link>
             </div>
           </div>
         </div>
@@ -505,7 +572,7 @@ function FinalCta() {
 
 export function AboutClient() {
   return (
-    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:4rem]">
+    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:75px]">
       <GridLines />
       <HeroSection />
       <FounderNote />

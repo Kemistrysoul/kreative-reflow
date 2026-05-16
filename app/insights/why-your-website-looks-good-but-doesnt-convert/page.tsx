@@ -3,6 +3,8 @@ import type React from 'react';
 import Link from 'next/link';
 import { JsonLd } from '@/components/JsonLd';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ArticleBody } from '../_components/article-body';
+import { ArticleHero } from '../_components/article-hero';
 import {
   absoluteUrl,
   breadcrumbJsonLd,
@@ -22,17 +24,6 @@ export const metadata: Metadata = pageMetadata({
   description,
   path,
 });
-
-const toc = [
-  ["The Problem Most Business Owners Don't See", '#the-problem-most-business-owners-dont-see'],
-  ["Your Website Isn't a Portfolio Piece", '#your-website-isnt-a-portfolio-piece'],
-  ['What Actually Kills Conversions', '#what-actually-kills-conversions'],
-  ['The Mobile Problem Nobody Talks About', '#the-mobile-problem-nobody-talks-about'],
-  ['Why Beautiful Websites Fail', '#why-beautiful-websites-fail'],
-  ['Trust Is Everything in South Africa', '#trust-is-everything-in-south-africa'],
-  ['How to Diagnose Your Conversion Problem', '#how-to-diagnose-your-conversion-problem'],
-  ['FAQ', '#faq'],
-] as const;
 
 const faqItems = [
   {
@@ -61,14 +52,6 @@ const faqItems = [
       "If your site loads fast, works on mobile, and looks professional, don't redesign. Fix the conversion issues: clarify your messaging, add trust signals, simplify your forms, add click-to-call and WhatsApp. A full redesign costs R30,000 to R80,000. Conversion fixes cost R5,000 to R15,000 and often deliver better results.",
   },
 ];
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.28em] text-[#FC6E20]">
-      [ {children} ]
-    </p>
-  );
-}
 
 function ArticleSection({
   id,
@@ -146,7 +129,7 @@ export default function WebsiteConversionArticlePage() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:4rem]">
+    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:75px]">
       <JsonLd
         data={[
           breadcrumbJsonLd([
@@ -160,54 +143,30 @@ export default function WebsiteConversionArticlePage() {
       />
       <DynamicIslandTOC selector="#conversion-article [data-toc]" />
 
-      <section className="content-gutter grid min-h-screen gap-12 pb-16 pt-28 lg:grid-cols-[minmax(0,0.95fr)_minmax(320px,0.75fr)] lg:items-center lg:gap-16 lg:pb-24 lg:pt-32">
-        <div>
-          <SectionLabel>Conversion</SectionLabel>
-          <h1 className="mt-7 max-w-5xl font-playfair text-[clamp(3rem,7.4vw,7.6rem)] font-bold leading-[0.92] tracking-tight">
-            Why Your Website Looks Good But Doesn&apos;t Convert
-          </h1>
-          <p className="mt-8 font-montserrat text-base font-bold leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
-            Last updated: May 10, 2026
-          </p>
-          <div className="mt-10 max-w-2xl space-y-5 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68 md:text-lg">
-            <p>Most business owners think their website problem is traffic. Wrong. You don&apos;t need more visitors if the ones you have aren&apos;t converting.</p>
-          </div>
-        </div>
+      <ArticleHero
+        eyebrow="Conversion"
+        title="Why Your Website Looks Good But Doesn't Convert"
+        updatedAt="May 10, 2026"
+        image="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85"
+        imageAlt="Clean office workspace used as a conversion website reference."
+        signalLabel="The leak"
+        signalValue="0.2%"
+        signalBody="A good-looking website can still leave customers on the table if the buyer cannot decide and act."
+        signalNote="Traffic is not the only problem"
+      >
+        <p>Most business owners think their website problem is traffic. Wrong. You don&apos;t need more visitors if the ones you have aren&apos;t converting.</p>
+      </ArticleHero>
 
-        <aside className="border border-[#151419]/12 bg-[#151419] p-6 text-[#FBFBFB] dark:border-[#FBFBFB]/12 dark:bg-[#1B1B1E] md:p-8">
-          <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[#FC6E20]">
-            The leak
-          </p>
-          <p className="mt-8 font-playfair text-5xl font-bold leading-none tracking-tight md:text-7xl">
-            0.2%
-          </p>
-          <p className="mt-5 font-montserrat text-sm leading-7 text-white/68">
-            A good-looking website can still leave customers on the table if the buyer cannot decide and act.
-          </p>
-        </aside>
-      </section>
-
-      <div className="content-gutter grid gap-12 pb-24 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-16">
-        <aside className="hidden lg:block">
-          <nav className="sticky top-28 border border-[#151419]/12 bg-[#FBFBFB]/70 p-5 dark:border-[#FBFBFB]/12 dark:bg-[#1B1B1E]">
-            <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#878787]">
-              Table of Contents
-            </p>
-            <div className="mt-5 grid gap-3">
-              {toc.map(([item, href]) => (
-                <a
-                  key={href}
-                  href={href}
-                  className="font-montserrat text-sm text-[#151419]/62 transition-colors hover:text-[#FC6E20] dark:text-[#FBFBFB]/58"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-          </nav>
-        </aside>
-
-        <article id="conversion-article" className="min-w-0">
+      <ArticleBody
+        id="conversion-article"
+        nextArticle={{
+          eyebrow: 'Visibility',
+          title: 'Local SEO for Johannesburg Service Businesses',
+          href: '/insights/local-seo-johannesburg-service-businesses',
+          image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85',
+          imageAlt: 'Local street and building detail representing local search visibility.',
+        }}
+      >
           <ArticleSection id="the-problem-most-business-owners-dont-see" title="The Problem Most Business Owners Don't See">
             <p>You spent R30,000 on a website. It looks professional. Clean design. Nice photos. Your logo looks sharp. You launched it six months ago.</p>
             <p>You&apos;ve had 4,000 visitors. You got eight enquiries. That&apos;s a 0.2% conversion rate.</p>
@@ -396,8 +355,7 @@ export default function WebsiteConversionArticlePage() {
               </Link>
             </p>
           </section>
-        </article>
-      </div>
+      </ArticleBody>
     </main>
   );
 }

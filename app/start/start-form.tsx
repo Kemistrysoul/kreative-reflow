@@ -6,6 +6,13 @@ import {
   getLeadCaptureErrorMessage,
   submitLeadCapture,
 } from '@/lib/lead-capture';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const serviceOptions = [
   'Website or redesign',
@@ -24,7 +31,7 @@ const timelineOptions = [
 ];
 
 const inputClass =
-  'mt-2 min-h-14 w-full border border-[#151419]/12 bg-[#FBFBFB] px-4 font-montserrat text-sm text-[#151419] outline-none transition-colors placeholder:text-[#151419]/38 focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20';
+  'mt-2 min-h-14 w-full rounded-[14px] border border-[#151419]/12 bg-[#FBFBFB] px-4 font-montserrat text-sm text-[#151419] outline-none transition-colors placeholder:text-[#151419]/38 focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20';
 
 const labelClass =
   'font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#151419]/58';
@@ -79,14 +86,14 @@ export function StartForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="start-glow-card start-glow-card--form rounded-2xl border border-[#151419]/12 bg-[#F0EFED] p-5 shadow-[0_28px_80px_rgba(21,20,25,0.12)] md:p-7"
+      className="start-glow-card start-glow-card--form rounded-xl border border-[#151419]/12 bg-[#F0EFED] p-5 shadow-[0_28px_80px_rgba(21,20,25,0.12)] md:p-7"
     >
       <div className="border-b border-[#151419]/12 pb-6">
         <p className="font-montserrat text-xs font-bold uppercase tracking-[0.24em] text-[#FC6E20]">
           Project enquiry
         </p>
         <h2 className="mt-3 font-playfair text-4xl font-bold leading-tight text-[#151419] md:text-5xl">
-          Tell me what you need.
+          Tell me what you need<span className="text-[#FC6E20]">.</span>
         </h2>
         <p className="mt-4 font-montserrat text-sm leading-7 text-[#151419]/62">
           A rough note is enough. Send the problem, the goal, or the site you
@@ -135,28 +142,42 @@ export function StartForm() {
       <div className="mt-5 grid gap-5 md:grid-cols-2">
         <label className="block">
           <span className={labelClass}>What do you need?</span>
-          <select
+          <Select
             value={service}
-            onChange={(event) => setService(event.target.value)}
-            className={`${inputClass} appearance-none`}
+            onValueChange={setService}
+            indicatorPosition="right"
           >
-            {serviceOptions.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </select>
+            <SelectTrigger size="lg" className="mt-2">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {serviceOptions.map((option) => (
+                <SelectItem key={option} value={option}>
+                  {option}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </label>
 
         <label className="block">
           <span className={labelClass}>Timing</span>
-          <select
+          <Select
             value={timeline}
-            onChange={(event) => setTimeline(event.target.value)}
-            className={`${inputClass} appearance-none`}
+            onValueChange={setTimeline}
+            indicatorPosition="right"
           >
-            {timelineOptions.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </select>
+            <SelectTrigger size="lg" className="mt-2">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {timelineOptions.map((option) => (
+                <SelectItem key={option} value={option}>
+                  {option}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </label>
       </div>
 
@@ -167,7 +188,7 @@ export function StartForm() {
           onChange={(event) => setMessage(event.target.value)}
           required
           rows={6}
-          className="mt-2 w-full resize-none border border-[#151419]/12 bg-[#FBFBFB] px-4 py-4 font-montserrat text-sm leading-7 text-[#151419] outline-none transition-colors placeholder:text-[#151419]/38 focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20"
+          className="mt-2 w-full resize-none rounded-[14px] border border-[#151419]/12 bg-[#FBFBFB] px-4 py-4 font-montserrat text-sm leading-7 text-[#151419] outline-none transition-colors placeholder:text-[#151419]/38 focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20"
           placeholder="Tell me what you want to build, fix, improve, or automate."
         />
       </label>
