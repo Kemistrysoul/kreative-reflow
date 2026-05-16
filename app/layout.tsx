@@ -12,6 +12,7 @@ import {
   siteName,
   siteUrl,
 } from '@/lib/seo';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </AppChrome>
         </Providers>
+        <SpeedInsights />
       </body>
     </html>
   );
