@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cn } from "@/lib/utils";
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { motion, type HTMLMotionProps } from 'motion/react';
 
 export type StaggerDirection = 'start' | 'middle' | 'end';
 
