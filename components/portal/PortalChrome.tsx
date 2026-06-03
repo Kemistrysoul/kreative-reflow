@@ -19,6 +19,8 @@ export function PortalHeader() {
 }
 
 export function PortalPreviewNotice() {
+  if (process.env.NODE_ENV !== 'development') return null;
+
   return (
     <section className="border-b border-[#FC6E20]/20 bg-[#FC6E20]/10 px-4 py-3 sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-7xl flex-col gap-2 font-montserrat text-xs leading-5 text-stone-200 sm:flex-row sm:items-center sm:justify-between">

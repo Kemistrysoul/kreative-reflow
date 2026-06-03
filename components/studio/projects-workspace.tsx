@@ -1095,35 +1095,98 @@ function OnboardingReviewCard({ response }: { response: StudioOnboardingResponse
           </p>
         </div>
         <DetailCard label="Role" value={response.approvalRole || 'Role missing'} />
+        <DetailCard label="Phone" value={response.contactPhone || 'Phone missing'} />
+      </div>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-4">
+        <DetailCard label="Audience type" value={response.audienceType || 'Audience type missing'} />
+        <DetailCard label="Current website" value={response.currentWebsite || 'Not provided'} />
+        <DetailCard label="Budget" value={response.budgetRange || 'Budget missing'} />
         <DetailCard label="Deadline" value={response.preferredDeadline} />
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        {response.services.length ? (
-          response.services.map((service) => (
-            <span
-              key={`${response.id}-${service}`}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-montserrat text-[11px] uppercase tracking-[0.12em] text-[#FBFBFB]"
-            >
-              {service}
-            </span>
-          ))
-        ) : (
-          <StudioStatusPill label="Services missing" tone="accent" />
-        )}
-      </div>
+      <TagList emptyLabel="Services missing" id={response.id} items={response.services} />
 
       <div className="mt-4 grid gap-3 lg:grid-cols-2">
         <SnippetBlock label="Goals" value={response.projectGoals} />
         <SnippetBlock label="Audience" value={response.primaryAudience} />
+        <SnippetBlock label="Competitors / references" value={response.competitors} />
+        <SnippetBlock label="Features and must-haves" value={response.specificFeatures} />
+        <SnippetBlock label="Decision process" value={response.decisionProcess} />
+        <SnippetBlock label="Tone and style" value={response.toneStylePreferences} />
+        <SnippetBlock label="Previous agency experience" value={response.previousAgencyExperience} />
+        <SnippetBlock label="Social presence" value={response.socialPresence} />
       </div>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+      <div className="mt-4 grid gap-3 lg:grid-cols-2">
+        <SnippetBlock label="Access needs" value={response.accessNeeds} />
+        <SnippetBlock label="Technical accounts" value={response.technicalAccounts} />
+        <SnippetBlock label="Deadline constraints" value={response.launchConstraints} />
+        <SnippetBlock label="Content notes" value={response.contentNotes} />
+      </div>
+
+      <div className="mt-4">
+        <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787]">Existing integrations</p>
+        <TagList emptyLabel="No integrations selected" id={`${response.id}-integrations`} items={response.existingIntegrations} />
+      </div>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-4">
         <DetailCard label="Brand assets" value={response.brandAssetsStatus} />
+        <DetailCard label="Missing content owner" value={response.missingContentOwner || 'Not assigned'} />
+        <DetailCard label="Missing content due" value={response.missingContentDueDate} />
+        <DetailCard label="Missing access owner" value={response.missingAccessOwner || 'Not assigned'} />
+        <DetailCard label="Missing access due" value={response.missingAccessDueDate} />
+        <DetailCard label="Update rhythm" value={response.updateCadence || 'Missing'} />
+        <DetailCard label="Main channel" value={response.preferredUpdateChannel || 'Missing'} />
+        <DetailCard label="Urgent channel" value={response.urgentChannel || 'Missing'} />
+        <DetailCard label="Revision rounds" value={response.revisionRounds || 'Missing'} />
+        <DetailCard label="Change authority" value={response.changeRequestAuthority || 'Missing'} />
+        <DetailCard label="Scope accepted" value={response.scopeBoundaryAccepted ? 'Yes' : 'No'} />
         <DetailCard label="Last saved" value={response.lastSavedAt} />
         <DetailCard label="Submitted" value={response.submittedAt} />
       </div>
+
+      <div className="mt-4 grid gap-3 lg:grid-cols-2">
+        <SnippetBlock label="Meeting availability" value={response.meetingAvailability} />
+        <SnippetBlock label="Included scope" value={response.scopeInclusions} />
+        <SnippetBlock label="Excluded scope" value={response.scopeExclusions} />
+        <SnippetBlock
+          label="Terms consent"
+          value={response.consentToTerms ? 'Client accepted the privacy and terms acknowledgement.' : 'Consent missing.'}
+        />
+      </div>
     </article>
+  );
+}
+
+function TagList({
+  emptyLabel,
+  id,
+  items,
+}: {
+  emptyLabel: string;
+  id: string;
+  items: string[];
+}) {
+  if (!items.length) {
+    return (
+      <div className="mt-3">
+        <StudioStatusPill label={emptyLabel} tone="accent" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-3 flex flex-wrap gap-2">
+      {items.map((item) => (
+        <span
+          key={`${id}-${item}`}
+          className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-montserrat text-[11px] uppercase tracking-[0.12em] text-[#FBFBFB]"
+        >
+          {item}
+        </span>
+      ))}
+    </div>
   );
 }
 

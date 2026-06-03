@@ -37,7 +37,7 @@ What is already present on the portal/dashboard:
 - `[x]` Billing & Launch section shows invoices, handoff checklist, and support next steps.
 - `[x]` Activity section shows client-visible project activity and POPIA-aware portal guidance.
 - `[x]` Studio Projects dashboard has queues for onboarding responses, asset reviews, approvals, finance/handoff, operational events, launch readiness, and client activity.
-- `[~]` Extended onboarding fields are already in the current working tree: phone, approval role options, audience type, current website, budget range, competitors, decision process, feature needs, tone/style, social presence, previous agency experience, and integrations.
+- `[x]` Extended onboarding fields are now wired in the current working tree: phone, approval role options, audience type, current website, budget range, competitors, decision process, feature needs, tone/style, social presence, previous agency experience, integrations, missing content/access owners, update cadence, communication channels, meeting availability, revision rounds, change authority, and scope-boundary acknowledgement.
 
 What is still missing or not tight enough:
 
@@ -63,14 +63,15 @@ This section extends the completed launch foundation into the stricter agency wo
 Goal: make onboarding collect enough information for delivery to begin without repeated back-and-forth.
 
 - `[x]` Change service option from `Website redesign` to `New website / redesign`.
-- `[~]` Add extended intake fields to the onboarding form, API payload, validation, Studio review types, and Supabase migrations.
+- `[x]` Add extended intake fields to the onboarding form, API payload, validation, Studio review types, and Supabase migrations.
 - `[ ]` Apply and verify `20260603090000_add_onboarding_extended_fields.sql` in Supabase.
 - `[ ]` Apply and verify `20260603100000_add_onboarding_phone_audience_type.sql` in Supabase.
-- `[ ]` Surface every extended field in the Studio onboarding review card, not only in storage/types.
-- `[ ]` Add a clearer client-facing completion summary after final submission.
-- `[ ]` Add missing-content and missing-access owner/due-date fields.
-- `[ ]` Add communication preference fields: portal, email, WhatsApp, phone, update cadence, urgent channel, meeting availability.
-- `[ ]` Add scope-boundary acknowledgement: included work, excluded work, revision rounds, and paid change request agreement.
+- `[ ]` Apply and verify `20260603110000_add_onboarding_communication_scope_fields.sql` in Supabase.
+- `[x]` Surface every extended field in the Studio onboarding review card, not only in storage/types.
+- `[x]` Add a clearer client-facing completion summary after final submission.
+- `[x]` Add missing-content and missing-access owner/due-date fields.
+- `[x]` Add communication preference fields: portal, email, WhatsApp, phone, update cadence, urgent channel, meeting availability.
+- `[x]` Add scope-boundary acknowledgement: included work, excluded work, revision rounds, and paid change request agreement.
 
 Acceptance checks:
 
@@ -210,7 +211,7 @@ Acceptance checks:
 
 ## Recommended Execution Order
 
-1. `[~]` Finish Phase 9 extended onboarding intake currently in the working tree.
+1. `[!]` Apply and verify the Phase 9 onboarding migrations in Supabase.
 2. `[ ]` Add Phase 10 readiness gate and Contract/SOW status.
 3. `[ ]` Add Phase 11 Request Center and scope classification.
 4. `[ ]` Add Phase 12 meeting requests, message threads, and decision log.
@@ -221,15 +222,15 @@ Acceptance checks:
 
 ## Next Task To Execute
 
-`[~]` Phase 9 - finish the extended onboarding intake.
+`[!]` Phase 9 - apply and verify the onboarding migrations in Supabase.
 
 Detailed next step:
 
-- Review the current uncommitted onboarding changes.
-- Make sure the new fields are displayed in the client form and Studio review.
-- Apply or prepare the Supabase migrations.
-- Verify validation for draft save vs final submit.
-- Run focused lint/build checks.
+- Run `20260603090000_add_onboarding_extended_fields.sql` in Supabase SQL Editor.
+- Run `20260603100000_add_onboarding_phone_audience_type.sql` in Supabase SQL Editor.
+- Run `20260603110000_add_onboarding_communication_scope_fields.sql` in Supabase SQL Editor.
+- After the SQL succeeds, submit a portal onboarding draft and final response to verify the fields persist.
+- Then move to Phase 10: Contract, SOW, and commercial readiness gate.
 
 ## Current State
 
@@ -474,4 +475,4 @@ Acceptance checks:
 13. `[x]` Add finance status and launch handoff workflow.
 14. `[x]` Add monitoring, POPIA-aware launch copy, and route-level error/loading states.
 15. `[x]` Configure custom SMTP for Supabase Auth before real client/studio login testing.
-16. `[~]` Finish the research-aligned onboarding intake currently in the working tree.
+16. `[!]` Apply the Phase 9 onboarding migrations in Supabase and verify persistence.
