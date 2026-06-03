@@ -5,6 +5,7 @@ import { getStudioAssetReviews } from '@/lib/portal-assets';
 import { getStudioFinanceHandoffData } from '@/lib/portal-finance-handoff';
 import { getStudioOperationalEvents } from '@/lib/portal-monitoring';
 import { getStudioOnboardingResponses } from '@/lib/portal-onboarding-reviews';
+import { getStudioReadinessGateData } from '@/lib/portal-readiness';
 
 export const metadata: Metadata = {
   title: 'Studio Projects | Kreative Reflow',
@@ -33,6 +34,7 @@ export default async function StudioProjectsPage() {
     getStudioFinanceHandoffData(),
     getStudioOperationalEvents(),
   ]);
+  const readinessGate = await getStudioReadinessGateData(undefined, financeHandoff.invoices);
 
   return (
     <StudioProjectsWorkspace
@@ -42,6 +44,7 @@ export default async function StudioProjectsPage() {
       notificationRules={notificationRules}
       onboardingResponses={onboardingResponses}
       operationalEvents={operationalEvents}
+      readinessGate={readinessGate}
     />
   );
 }

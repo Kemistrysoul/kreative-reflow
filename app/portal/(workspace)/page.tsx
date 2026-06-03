@@ -12,6 +12,7 @@ import {
   FolderKanban,
   LayoutDashboard,
   ReceiptText,
+  ShieldCheck,
   UploadCloud,
 } from 'lucide-react';
 import { SiteFooter } from '@/components/SiteFooter';
@@ -22,6 +23,7 @@ import { PortalHeader, PortalPreviewNotice } from '@/components/portal/PortalChr
 import { PortalApprovalsPanel } from '@/components/portal/PortalApprovalsPanel';
 import { PortalComplianceNotice } from '@/components/portal/PortalComplianceNotice';
 import { PortalFinancePanel, PortalHandoffPanel } from '@/components/portal/PortalFinanceHandoff';
+import { PortalReadinessGatePanel } from '@/components/portal/PortalReadinessGate';
 import type { ActivityItem, AssetBucket, MilestoneRecord, PortalStep } from '@/lib/dashboard-data';
 import { getPortalAccess } from '@/lib/portal-access';
 import { requirePortalAuth } from '@/lib/portal-auth';
@@ -29,6 +31,7 @@ import { getPortalProjectAssets } from '@/lib/portal-assets';
 import { getPortalApprovalQueue, type PortalDeliverableApproval } from '@/lib/portal-approvals';
 import { getPortalFinanceHandoffData, type PortalFinanceHandoffData } from '@/lib/portal-finance-handoff';
 import { getAuthorizedPortalProjectData } from '@/lib/portal-projects';
+import { getPortalReadinessGateData, type PortalReadinessGateData } from '@/lib/portal-readiness';
 
 export const metadata: Metadata = {
   title: 'Client Portal Preview | Kreative Reflow',
@@ -136,6 +139,7 @@ function getSectionBadge({
   portalActivity,
   portalProject,
   portalSteps,
+  readinessGate,
   section,
 }: {
   approvals: PortalDeliverableApproval[];
@@ -144,11 +148,18 @@ function getSectionBadge({
   portalActivity: ActivityItem[];
   portalProject: PortalProject;
   portalSteps: PortalStep[];
+  readinessGate: PortalReadinessGateData;
   section: PortalSectionKey;
 }) {
   if (section === 'overview') return 'Now';
   if (section === 'plan') return `${portalProject.progress}%`;
-  if (section === 'onboarding') return getStepByTitle(portalSteps, 'Onboarding')?.status ?? 'Open';
+  if (section === 'onboarding') {
+    if (!readinessGate.items.length) {
+      return getStepByTitle(portalSteps, 'Onboarding')?.status ?? 'Open';
+    }
+
+    return readinessGate.isReadyForActiveDelivery ? 'Ready' : `${readinessGate.blockingItems.length} blockers`;
+  }
   if (section === 'files') return `${assetBuckets.reduce((total, bucket) => total + bucket.files, 0)} files`;
   if (section === 'reviews') {
     const waitingCount = approvals.filter((approval) => approval.status === 'waiting_review').length;
@@ -194,6 +205,7 @@ export default async function PortalPage({
     getPortalApprovalQueue(access.projectSlug),
     getPortalFinanceHandoffData(access.projectSlug),
   ]);
+  const portalReadinessGate = await getPortalReadinessGateData(access.projectSlug, portalFinanceHandoff.invoices);
 
   if (!portalData) {
     return (
@@ -243,6 +255,7 @@ export default async function PortalPage({
               portalActivity={portalActivity}
               portalProject={portalProject}
               portalSteps={portalSteps}
+              readinessGate={portalReadinessGate}
             />
 
             <div className="min-w-0">
@@ -257,6 +270,7 @@ export default async function PortalPage({
                 portalFinanceHandoff={portalFinanceHandoff}
                 portalProject={portalProject}
                 portalSteps={portalSteps}
+                portalReadinessGate={portalReadinessGate}
               />
             </div>
           </div>
@@ -342,6 +356,7 @@ function PortalSectionNavigation({
   portalActivity,
   portalProject,
   portalSteps,
+  readinessGate,
 }: {
   activeSection: PortalSectionKey;
   approvals: PortalDeliverableApproval[];
@@ -350,6 +365,7 @@ function PortalSectionNavigation({
   portalActivity: ActivityItem[];
   portalProject: PortalProject;
   portalSteps: PortalStep[];
+  readinessGate: PortalReadinessGateData;
 }) {
   return (
     <nav
@@ -367,6 +383,7 @@ function PortalSectionNavigation({
             portalActivity,
             portalProject,
             portalSteps,
+            readinessGate,
             section: section.key,
           });
 
@@ -411,6 +428,7 @@ function PortalSectionContent({
   portalAssets,
   portalFinanceHandoff,
   portalProject,
+  portalReadinessGate,
   portalSteps,
 }: {
   accessCanSubmit: boolean;
@@ -422,6 +440,7 @@ function PortalSectionContent({
   portalAssets: PortalProjectAsset[];
   portalFinanceHandoff: PortalFinanceHandoffData;
   portalProject: PortalProject;
+  portalReadinessGate: PortalReadinessGateData;
   portalSteps: PortalStep[];
 }) {
   if (activeSection === 'plan') {
@@ -444,7 +463,7 @@ function PortalSectionContent({
         title="Keep setup inputs separate from project tracking."
         body="This section gives the client one obvious place to finish their intake, check what is complete, and continue the setup flow."
       >
-        <OnboardingSection portalSteps={portalSteps} />
+        <OnboardingSection portalReadinessGate={portalReadinessGate} portalSteps={portalSteps} />
       </SectionFrame>
     );
   }
@@ -523,6 +542,7 @@ function PortalSectionContent({
         portalActivity={portalActivity}
         portalApprovals={portalApprovals}
         portalFinanceHandoff={portalFinanceHandoff}
+        portalReadinessGate={portalReadinessGate}
         portalSteps={portalSteps}
       />
     </SectionFrame>
@@ -562,6 +582,7 @@ function OverviewSection({
   portalActivity,
   portalApprovals,
   portalFinanceHandoff,
+  portalReadinessGate,
   portalSteps,
 }: {
   assetBuckets: AssetBucket[];
@@ -569,6 +590,7 @@ function OverviewSection({
   portalActivity: ActivityItem[];
   portalApprovals: PortalDeliverableApproval[];
   portalFinanceHandoff: PortalFinanceHandoffData;
+  portalReadinessGate: PortalReadinessGateData;
   portalSteps: PortalStep[];
 }) {
   const currentMilestone = getCurrentMilestone(milestones);
@@ -579,7 +601,7 @@ function OverviewSection({
 
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         <OverviewMetric
           href="/portal?section=plan"
           icon={FolderKanban}
@@ -593,6 +615,13 @@ function OverviewSection({
           label="Onboarding"
           value={onboardingStep?.status ?? 'Open'}
           detail={onboardingStep?.detail ?? 'Project setup inputs are available'}
+        />
+        <OverviewMetric
+          href="/portal?section=onboarding"
+          icon={ShieldCheck}
+          label="Contract / SOW"
+          value={portalReadinessGate.isReadyForActiveDelivery ? 'Ready' : 'Blocked'}
+          detail={`Agreement: ${portalReadinessGate.contractStatusLabel} / SOW: ${portalReadinessGate.sowStatusLabel} / Deposit: ${portalReadinessGate.depositStatusLabel}`}
         />
         <OverviewMetric
           href="/portal?section=files"
@@ -777,53 +806,63 @@ function MilestonePanel({ milestones }: { milestones: MilestoneRecord[] }) {
   );
 }
 
-function OnboardingSection({ portalSteps }: { portalSteps: PortalStep[] }) {
+function OnboardingSection({
+  portalReadinessGate,
+  portalSteps,
+}: {
+  portalReadinessGate: PortalReadinessGateData;
+  portalSteps: PortalStep[];
+}) {
   const onboarding = getStepByTitle(portalSteps, 'Onboarding');
   const assetStep = getStepByTitle(portalSteps, 'Assets');
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-      <div className="rounded-lg border border-[#FC6E20]/30 bg-[#FC6E20]/10 p-6">
-        <CheckCircle2 className="h-6 w-6 text-[#FC6E20]" />
-        <h3 className="mt-5 font-playfair text-3xl font-bold text-white">
-          {onboarding?.status === 'Complete' ? 'Onboarding is complete.' : 'Onboarding needs attention.'}
-        </h3>
-        <p className="mt-3 font-montserrat text-sm leading-6 text-stone-300">
-          {onboarding?.detail ?? 'The project questionnaire is ready for the client to complete.'}
-        </p>
-        <Link
-          href="/portal/onboarding"
-          className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#e05a15] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20]"
-        >
-          Open onboarding
-          <ArrowUpRight className="h-4 w-4" />
-        </Link>
+    <>
+      <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+        <div className="rounded-lg border border-[#FC6E20]/30 bg-[#FC6E20]/10 p-6">
+          <CheckCircle2 className="h-6 w-6 text-[#FC6E20]" />
+          <h3 className="mt-5 font-playfair text-3xl font-bold text-white">
+            {onboarding?.status === 'Complete' ? 'Onboarding is complete.' : 'Onboarding needs attention.'}
+          </h3>
+          <p className="mt-3 font-montserrat text-sm leading-6 text-stone-300">
+            {onboarding?.detail ?? 'The project questionnaire is ready for the client to complete.'}
+          </p>
+          <Link
+            href="/portal/onboarding"
+            className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#e05a15] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20]"
+          >
+            Open onboarding
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <div className="rounded-lg border border-white/10 bg-[#181818] p-6">
+          <div className="flex items-center gap-3">
+            <UploadCloud className="h-5 w-5 text-[#FC6E20]" />
+            <h3 className="font-playfair text-3xl font-bold text-white">Setup checklist</h3>
+          </div>
+          <div className="mt-6 grid gap-3">
+            <ChecklistItem
+              done={onboarding?.status === 'Complete'}
+              label="Questionnaire"
+              detail={onboarding?.detail ?? 'Questionnaire status will appear here.'}
+            />
+            <ChecklistItem
+              done={assetStep?.status === 'Complete'}
+              label="Assets"
+              detail={assetStep?.detail ?? 'Asset readiness will appear here.'}
+            />
+            <ChecklistItem
+              done={portalReadinessGate.isReadyForActiveDelivery}
+              label="Commercial readiness"
+              detail={portalReadinessGate.nextAction}
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="rounded-lg border border-white/10 bg-[#181818] p-6">
-        <div className="flex items-center gap-3">
-          <UploadCloud className="h-5 w-5 text-[#FC6E20]" />
-          <h3 className="font-playfair text-3xl font-bold text-white">Setup checklist</h3>
-        </div>
-        <div className="mt-6 grid gap-3">
-          <ChecklistItem
-            done={onboarding?.status === 'Complete'}
-            label="Questionnaire"
-            detail={onboarding?.detail ?? 'Questionnaire status will appear here.'}
-          />
-          <ChecklistItem
-            done={assetStep?.status === 'Complete'}
-            label="Assets"
-            detail={assetStep?.detail ?? 'Asset readiness will appear here.'}
-          />
-          <ChecklistItem
-            done={false}
-            label="Secure credentials"
-            detail="Passwords and private recovery keys should be handed off through a secure path, not pasted into portal notes."
-          />
-        </div>
-      </div>
-    </div>
+      <PortalReadinessGatePanel readinessGate={portalReadinessGate} />
+    </>
   );
 }
 

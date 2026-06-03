@@ -8,6 +8,7 @@ export type PortalActivityEventType =
   | 'deliverable_published'
   | 'handoff_updated'
   | 'invoice_status_changed'
+  | 'readiness_gate_updated'
   | 'milestone_completed'
   | 'revision_requested'
   | 'support_next_step_added';

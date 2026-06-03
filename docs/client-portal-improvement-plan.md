@@ -51,7 +51,7 @@ What is still missing or not tight enough:
 - `[ ]` No decision log exists for approvals, calls, WhatsApp summaries, and scope decisions.
 - `[ ]` No weekly client update generator exists.
 - `[ ]` No client task list exists for missing client actions, owners, due dates, and blockers.
-- `[~]` Dashboard activity automation exists for approvals, uploads, invoices, handoff, and project events, but it does not yet cover requests, messages, meetings, decisions, weekly updates, or readiness gate changes.
+- `[~]` Dashboard activity automation exists for approvals, uploads, invoices, handoff, readiness gate changes, and project events, but it does not yet cover requests, messages, meetings, decisions, or weekly updates.
 - `[x]` The extended onboarding migrations have been applied in Supabase and verified with a temporary write/read/delete against `portal_onboarding_responses`.
 
 ## Portal Operating-System Implementation Tracker
@@ -84,19 +84,31 @@ Acceptance checks:
 
 Goal: prevent projects from moving into active delivery before the business side is ready.
 
-- `[ ]` Add project readiness checklist records for agreement signed, SOW approved, deposit paid, billing contact confirmed, kickoff completed, approval owner confirmed, brand/content/assets ready, technical access ready, timeline constraints confirmed, and communication rules confirmed.
-- `[ ]` Display readiness checklist inside the client portal Onboarding section.
-- `[ ]` Display readiness checklist inside Studio Projects with edit controls for studio admins.
-- `[ ]` Connect deposit/payment readiness to the existing invoice records where possible.
-- `[ ]` Add Contract/SOW status to the portal dashboard.
-- `[ ]` Add a visible `Ready for active delivery` state once required gate items are complete.
-- `[ ]` Add blocked-state copy when the project cannot start because client action is missing.
+- `[x]` Add project readiness checklist records for agreement signed, SOW approved, deposit paid, billing contact confirmed, kickoff completed, approval owner confirmed, brand/content/assets ready, technical access ready, timeline constraints confirmed, and communication rules confirmed.
+- `[x]` Display readiness checklist inside the client portal Onboarding section.
+- `[x]` Display readiness checklist inside Studio Projects with edit controls for studio admins.
+- `[x]` Connect deposit/payment readiness to the existing invoice records where possible.
+- `[x]` Add Contract/SOW status to the portal dashboard.
+- `[x]` Add a visible `Ready for active delivery` state once required gate items are complete.
+- `[x]` Add blocked-state copy when the project cannot start because client action is missing.
+- `[x]` Add launch-readiness check coverage for the readiness table, required seed items, and readiness activity rule.
 
 Acceptance checks:
 
-- The portal can clearly answer: "Can this project start yet?"
-- Studio can update gate items without editing seed data manually.
-- Client sees what they need to do next without seeing internal notes.
+- `[x]` The portal can clearly answer: "Can this project start yet?"
+- `[x]` Studio can update gate items without editing seed data manually.
+- `[x]` Client sees what they need to do next without seeing internal notes.
+- `[x]` `npm run launch:check` detects whether the readiness gate is available. The readiness checks pass; the current blocker is only the dirty worktree/release hygiene check.
+
+Latest verification:
+
+- `[x]` Supabase `portal_project_readiness_items` is available through the app with 10 seeded rows for `abc-engineering-website-redesign`.
+- `[x]` The deposit readiness item is linked to `INV-007`.
+- `[x]` The `readiness_gate_updated` portal activity rule exists and one client-visible readiness activity event is present.
+- `[x]` A safe update/read/restore check against a readiness item persisted successfully.
+- `[x]` Unauthenticated `PATCH /api/portal/readiness` returns `401`, preserving the Studio-only boundary.
+- `[x]` Focused ESLint and `npm run build` passed.
+- `[x]` `npm run launch:check` passed readiness checks; remaining blocker is uncommitted/unrelated worktree state and the existing Vercel-link warning.
 
 ### Phase 11: Request Center And Scope Control
 
@@ -212,7 +224,7 @@ Acceptance checks:
 ## Recommended Execution Order
 
 1. `[x]` Apply and verify the Phase 9 onboarding migrations in Supabase.
-2. `[ ]` Add Phase 10 readiness gate and Contract/SOW status.
+2. `[x]` Add Phase 10 readiness gate and Contract/SOW status.
 3. `[ ]` Add Phase 11 Request Center and scope classification.
 4. `[ ]` Add Phase 12 meeting requests, message threads, and decision log.
 5. `[ ]` Add Phase 13 revision-round tracking.
@@ -222,15 +234,15 @@ Acceptance checks:
 
 ## Next Task To Execute
 
-`[ ]` Phase 10 - add Contract, SOW, and commercial readiness gate.
+`[ ]` Phase 11 - add Request Center and scope classification.
 
 Detailed next step:
 
-- Add project readiness checklist records for agreement signed, SOW approved, deposit paid, billing contact confirmed, kickoff completed, approval owner confirmed, brand/content/assets ready, technical access ready, timeline constraints confirmed, and communication rules confirmed.
-- Show the readiness checklist inside the client portal Onboarding section.
-- Show the same checklist inside Studio Projects with studio-admin edit controls.
-- Connect deposit/payment readiness to existing invoice records where possible.
-- Add a visible `Ready for active delivery` state once required gate items are complete.
+- Add `portal_project_requests` data model for small changes, support requests, meeting requests, scope changes, bug/fix reports, maintenance requests, and questions.
+- Add a client-facing Request Center section.
+- Add Studio classification for fix, included revision, change request, maintenance, or out-of-scope.
+- Add cost/time/launch impact fields and client approval before out-of-scope work begins.
+- Log request events into portal activity and add the Studio request queue.
 
 ## Current State
 
@@ -476,4 +488,4 @@ Acceptance checks:
 14. `[x]` Add monitoring, POPIA-aware launch copy, and route-level error/loading states.
 15. `[x]` Configure custom SMTP for Supabase Auth before real client/studio login testing.
 16. `[x]` Apply the Phase 9 onboarding migrations in Supabase and verify persistence.
-17. `[ ]` Add Contract/SOW readiness gate and active-delivery start control.
+17. `[x]` Add Contract/SOW readiness gate and active-delivery start control.

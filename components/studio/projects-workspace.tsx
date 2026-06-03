@@ -60,6 +60,11 @@ import type {
 } from '@/lib/portal-finance-handoff';
 import type { PortalOperationalEvent, PortalOperationalSeverity } from '@/lib/portal-monitoring';
 import type { StudioOnboardingResponse } from '@/lib/portal-onboarding-types';
+import type {
+  PortalReadinessGateData,
+  PortalReadinessItem,
+  PortalReadinessStatus,
+} from '@/lib/portal-readiness';
 
 type ProjectTableRow = ProjectRecord & {
   rowId: string;
@@ -84,6 +89,21 @@ const emptyFinanceHandoff: PortalFinanceHandoffData = {
   supportNextSteps: [],
 };
 
+const emptyReadinessGate: PortalReadinessGateData = {
+  blockingItems: [],
+  clientActionItems: [],
+  completeRequiredCount: 0,
+  contractStatusLabel: 'Not tracked',
+  depositStatusLabel: 'Not tracked',
+  isReadyForActiveDelivery: false,
+  items: [],
+  nextAction: 'No readiness gate records are available yet.',
+  requiredCount: 0,
+  source: 'demo',
+  sowStatusLabel: 'Not tracked',
+  summary: 'No readiness gate records are available yet.',
+};
+
 const invoiceStatusCopy: Record<PortalInvoiceStatus, string> = {
   cancelled: 'Cancelled',
   draft: 'Draft',
@@ -94,6 +114,14 @@ const invoiceStatusCopy: Record<PortalInvoiceStatus, string> = {
 };
 
 const handoffStatusCopy: Record<PortalHandoffStatus, string> = {
+  blocked: 'Blocked',
+  done: 'Done',
+  in_progress: 'In progress',
+  not_started: 'Not started',
+  waiting_client: 'Waiting client',
+};
+
+const readinessStatusCopy: Record<PortalReadinessStatus, string> = {
   blocked: 'Blocked',
   done: 'Done',
   in_progress: 'In progress',
@@ -133,6 +161,14 @@ function getHandoffTone(status: PortalHandoffStatus): 'accent' | 'muted' | 'neut
   return status === 'done' ? 'neutral' : 'muted';
 }
 
+function getReadinessTone(status: PortalReadinessStatus): 'accent' | 'muted' | 'neutral' {
+  if (status === 'blocked' || status === 'waiting_client') {
+    return 'accent';
+  }
+
+  return status === 'done' ? 'neutral' : 'muted';
+}
+
 function makeId(prefix: string, ...parts: string[]) {
   return [prefix, ...parts]
     .join('-')
@@ -165,6 +201,7 @@ export function StudioProjectsWorkspace({
   notificationRules = [],
   onboardingResponses = [],
   operationalEvents = [],
+  readinessGate = emptyReadinessGate,
 }: {
   approvalQueue?: PortalDeliverableApproval[];
   assetReviews?: PortalProjectAsset[];
@@ -172,6 +209,7 @@ export function StudioProjectsWorkspace({
   notificationRules?: PortalNotificationRule[];
   onboardingResponses?: StudioOnboardingResponse[];
   operationalEvents?: PortalOperationalEvent[];
+  readinessGate?: PortalReadinessGateData;
 }) {
   const {
     projectHandoffs,
@@ -191,6 +229,8 @@ export function StudioProjectsWorkspace({
     invoice.status === 'due' || invoice.status === 'overdue'
   ).length;
   const incompleteHandoffCount = financeHandoff.handoffItems.filter((item) => item.status !== 'done').length;
+  const readinessOpenCount = Math.max(readinessGate.requiredCount - readinessGate.completeRequiredCount, 0);
+  const readinessBlockingCount = readinessGate.blockingItems.length;
   const unresolvedOperationalEvents = operationalEvents.filter((event) => !event.resolvedAt);
   const urgentOperationalEvents = unresolvedOperationalEvents.filter((event) =>
     event.severity === 'critical' || event.severity === 'error'
@@ -259,6 +299,16 @@ export function StudioProjectsWorkspace({
       icon: ClipboardCheck,
       tone: 'accent',
       spark: [0, 0, 1, 1, 1, onboardingResponses.length + 1, submittedOnboardingCount + 1],
+    },
+    {
+      label: 'Commercial Gate',
+      value: readinessGate.isReadyForActiveDelivery ? 'Ready' : String(readinessBlockingCount),
+      detail: readinessGate.isReadyForActiveDelivery
+        ? 'Agreement, SOW, deposit, kickoff, access, and client blockers are clear'
+        : `${readinessOpenCount} required gate item${readinessOpenCount === 1 ? '' : 's'} still open`,
+      icon: ShieldCheck,
+      tone: readinessBlockingCount ? 'accent' : 'neutral',
+      spark: [0, 1, readinessGate.completeRequiredCount + 1, readinessGate.requiredCount + 1, readinessBlockingCount + 1],
     },
     {
       label: 'Approval Queue',
@@ -384,6 +434,12 @@ export function StudioProjectsWorkspace({
         ? 'Resolve urgent auth, upload, approval, or project data events before launch.'
         : 'No urgent launch-readiness event is currently open.',
       tone: urgentOperationalEvents.length ? 'accent' as const : 'neutral' as const,
+    },
+    {
+      label: 'Commercial gate',
+      status: readinessGate.isReadyForActiveDelivery ? 'Ready' : 'Blocked',
+      detail: readinessGate.summary,
+      tone: readinessGate.isReadyForActiveDelivery ? 'neutral' as const : 'accent' as const,
     },
     {
       label: 'Handoff path',
@@ -619,6 +675,33 @@ export function StudioProjectsWorkspace({
             {launchReadinessItems.map((item) => (
               <ReadinessGateCard key={item.label} item={item} />
             ))}
+          </div>
+        </StudioPanel>
+      </section>
+
+      <section className="grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
+        <StudioPanel
+          title="Commercial readiness gate"
+          eyebrow="Contract, SOW, deposit, and start control"
+          icon={ShieldCheck}
+        >
+          <StudioReadinessGateEditor readinessGate={readinessGate} />
+        </StudioPanel>
+
+        <StudioPanel title="Active-delivery decision" eyebrow="Can the project start?" icon={ClipboardCheck}>
+          <div className="space-y-3">
+            <DetailCard
+              label="Gate state"
+              value={readinessGate.isReadyForActiveDelivery ? 'Ready for active delivery' : 'Blocked before active delivery'}
+            />
+            <DetailCard label="Required complete" value={`${readinessGate.completeRequiredCount}/${readinessGate.requiredCount}`} />
+            <DetailCard label="Contract" value={readinessGate.contractStatusLabel} />
+            <DetailCard label="SOW" value={readinessGate.sowStatusLabel} />
+            <DetailCard label="Deposit" value={readinessGate.depositStatusLabel} />
+            <div className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
+              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Next action</p>
+              <p className="mt-3 font-montserrat text-sm leading-6 text-[#FBFBFB]">{readinessGate.nextAction}</p>
+            </div>
           </div>
         </StudioPanel>
       </section>
@@ -917,6 +1000,206 @@ function ReadinessGateCard({
         <StudioStatusPill label={item.status} tone={item.tone} />
       </div>
     </article>
+  );
+}
+
+type ReadinessUpdateResponse = {
+  completedAt?: string | null;
+  error?: string;
+  ok?: boolean;
+  status?: PortalReadinessStatus;
+};
+
+function StudioReadinessGateEditor({ readinessGate }: { readinessGate: PortalReadinessGateData }) {
+  const [items, setItems] = useState<PortalReadinessItem[]>(readinessGate.items);
+  const [savingId, setSavingId] = useState('');
+  const [saveError, setSaveError] = useState('');
+  const requiredItems = items.filter((item) => item.requiredForActiveDelivery);
+  const blockingItems = requiredItems.filter((item) =>
+    item.blocksActiveDelivery && item.status !== 'done'
+  );
+  const completeRequiredCount = requiredItems.filter((item) => item.status === 'done').length;
+
+  function updateItem(itemId: string, patch: Partial<PortalReadinessItem>) {
+    setItems((currentItems) =>
+      currentItems.map((item) => (item.id === itemId ? { ...item, ...patch } : item))
+    );
+  }
+
+  async function saveItem(item: PortalReadinessItem) {
+    setSavingId(item.id);
+    setSaveError('');
+
+    try {
+      const response = await fetch('/api/portal/readiness', {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          blocksActiveDelivery: item.blocksActiveDelivery,
+          clientNote: item.clientNote,
+          dueOn: item.dueOn,
+          internalNote: item.internalNote,
+          itemId: item.id,
+          ownerName: item.ownerName,
+          ownerRole: item.ownerRole,
+          requiredForActiveDelivery: item.requiredForActiveDelivery,
+          status: item.status,
+        }),
+      });
+      const payload = (await response.json()) as ReadinessUpdateResponse;
+
+      if (!response.ok || !payload.ok) {
+        throw new Error(payload.error || 'Readiness update could not be saved.');
+      }
+
+      updateItem(item.id, {
+        completedAt: item.status === 'done' ? 'Updated just now' : 'Not completed',
+        status: payload.status ?? item.status,
+      });
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'Readiness update could not be saved.');
+    } finally {
+      setSavingId('');
+    }
+  }
+
+  if (!items.length) {
+    return (
+      <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
+        <p className="font-montserrat text-sm text-[#878787]">
+          Readiness gate records will appear here after the Supabase migration is applied.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="grid gap-3 sm:grid-cols-3">
+        <DetailCard label="Required complete" value={`${completeRequiredCount}/${requiredItems.length}`} />
+        <DetailCard label="Blocking items" value={String(blockingItems.length)} />
+        <DetailCard label="Source" value={readinessGate.source} />
+      </div>
+
+      {saveError ? (
+        <p className="flex items-start gap-2 rounded-[18px] border border-red-400/25 bg-red-400/10 p-3 font-montserrat text-sm leading-6 text-red-100">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          {saveError}
+        </p>
+      ) : null}
+
+      <div className="grid gap-3">
+        {items.map((item) => (
+          <article key={item.id} className="rounded-[24px] border border-white/8 bg-[#151419] p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div className="min-w-0">
+                <p className="font-montserrat text-sm font-semibold text-white">{item.label}</p>
+                <p className="mt-2 font-montserrat text-sm leading-6 text-[#878787]">{item.detail}</p>
+              </div>
+              <StudioStatusPill label={readinessStatusCopy[item.status]} tone={getReadinessTone(item.status)} />
+            </div>
+
+            <div className="mt-4 grid gap-3 md:grid-cols-3">
+              <label>
+                <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+                  Status
+                </span>
+                <select
+                  value={item.status}
+                  onChange={(event) =>
+                    updateItem(item.id, { status: event.target.value as PortalReadinessStatus })
+                  }
+                  className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#1B1B1E] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+                >
+                  {(Object.keys(readinessStatusCopy) as PortalReadinessStatus[]).map((status) => (
+                    <option key={status} value={status}>
+                      {readinessStatusCopy[status]}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <Field
+                label="Owner"
+                value={item.ownerName}
+                onChange={(value) => updateItem(item.id, { ownerName: value })}
+              />
+              <Field
+                label="Owner role"
+                value={item.ownerRole}
+                onChange={(value) => updateItem(item.id, { ownerRole: value })}
+              />
+              <label>
+                <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+                  Due date
+                </span>
+                <input
+                  type="date"
+                  value={item.dueOn}
+                  onChange={(event) => updateItem(item.id, { dueOn: event.target.value })}
+                  className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#1B1B1E] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+                />
+              </label>
+              <label className="flex min-h-12 items-center gap-3 rounded-[18px] border border-white/8 bg-[#1B1B1E] px-4 py-3">
+                <input
+                  type="checkbox"
+                  checked={item.requiredForActiveDelivery}
+                  onChange={(event) => updateItem(item.id, { requiredForActiveDelivery: event.target.checked })}
+                  className="h-4 w-4 accent-[#FC6E20]"
+                />
+                <span className="font-montserrat text-xs font-semibold text-white">Required</span>
+              </label>
+              <label className="flex min-h-12 items-center gap-3 rounded-[18px] border border-white/8 bg-[#1B1B1E] px-4 py-3">
+                <input
+                  type="checkbox"
+                  checked={item.blocksActiveDelivery}
+                  onChange={(event) => updateItem(item.id, { blocksActiveDelivery: event.target.checked })}
+                  className="h-4 w-4 accent-[#FC6E20]"
+                />
+                <span className="font-montserrat text-xs font-semibold text-white">Blocks active delivery</span>
+              </label>
+            </div>
+
+            <div className="mt-4 grid gap-3 lg:grid-cols-2">
+              <TextAreaField
+                label="Client note"
+                value={item.clientNote}
+                onChange={(value) => updateItem(item.id, { clientNote: value })}
+              />
+              <TextAreaField
+                label="Internal note"
+                value={item.internalNote}
+                onChange={(value) => updateItem(item.id, { internalNote: value })}
+              />
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap gap-2">
+                <StudioStatusPill label={item.requiredForActiveDelivery ? 'Required' : 'Optional'} tone="muted" />
+                <StudioStatusPill
+                  label={item.blocksActiveDelivery ? 'Start blocker' : 'Not blocking'}
+                  tone={item.blocksActiveDelivery && item.status !== 'done' ? 'accent' : 'muted'}
+                />
+                {item.linkedInvoiceNumber ? (
+                  <StudioStatusPill label={`Invoice ${item.linkedInvoiceNumber}`} tone="muted" />
+                ) : null}
+              </div>
+              <button
+                type="button"
+                onClick={() => void saveItem(item)}
+                disabled={Boolean(savingId)}
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-[#FC6E20] px-4 font-montserrat text-sm font-semibold text-[#151419] transition hover:bg-[#e95f14] disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {savingId === item.id ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                Save gate item
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
   );
 }
 

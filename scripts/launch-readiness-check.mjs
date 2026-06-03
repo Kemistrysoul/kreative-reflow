@@ -163,6 +163,56 @@ async function checkSupabaseOperationalEvents() {
   } else {
     add('pass', 'Client asset bucket available', `Supabase Storage bucket "${bucketName}" exists.`);
   }
+
+  const readinessResult = await supabase
+    .from('portal_project_readiness_items')
+    .select('item_key,status,portal_projects!inner(slug)')
+    .eq('portal_projects.slug', 'abc-engineering-website-redesign');
+
+  if (readinessResult.error) {
+    add(
+      'blocker',
+      'Portal readiness gate table is unavailable',
+      `${readinessResult.error.code || 'unknown'}: ${readinessResult.error.message}`,
+    );
+  } else {
+    const readinessItems = readinessResult.data ?? [];
+    const requiredKeys = new Set([
+      'agreement_signed',
+      'sow_approved',
+      'deposit_paid',
+      'billing_contact_confirmed',
+      'kickoff_completed',
+      'approval_owner_confirmed',
+      'brand_content_assets_ready',
+      'technical_access_ready',
+      'timeline_constraints_confirmed',
+      'communication_rules_confirmed',
+    ]);
+    const receivedKeys = new Set(readinessItems.map((item) => item.item_key));
+    const missingKeys = [...requiredKeys].filter((key) => !receivedKeys.has(key));
+
+    if (missingKeys.length) {
+      add('blocker', 'Portal readiness gate seed is incomplete', `Missing ${missingKeys.join(', ')}.`);
+    } else {
+      add('pass', 'Portal readiness gate available', `${readinessItems.length} readiness item(s) are available.`);
+    }
+  }
+
+  const readinessRule = await supabase
+    .from('portal_project_notification_rules')
+    .select('id')
+    .eq('event_type', 'readiness_gate_updated')
+    .eq('surface', 'portal_activity')
+    .limit(1);
+
+  if (readinessRule.error) {
+    add('warn', 'Readiness notification rule could not be checked', readinessRule.error.message);
+  } else if (!readinessRule.data?.length) {
+    add('blocker', 'Readiness notification rule is missing', 'Expected readiness_gate_updated portal activity rule.');
+  } else {
+    add('pass', 'Readiness notification rule available', 'Readiness gate updates can be logged to portal activity.');
+  }
 }
 
 loadEnvFile(envPath);
