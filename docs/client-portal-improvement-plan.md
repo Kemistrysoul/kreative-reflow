@@ -41,17 +41,17 @@ What is already present on the portal/dashboard:
 
 What is still missing or not tight enough:
 
-- `[ ]` No formal onboarding gate blocks or flags `Active delivery` until agreement, SOW, deposit, kickoff, key contacts, assets, access, and timeline constraints are complete.
-- `[ ]` No Contract/SOW status exists in the client portal yet.
-- `[ ]` No client Request Center exists for small changes, support requests, meeting requests, or scope-change requests.
-- `[ ]` No scope classification workflow exists for fix vs included revision vs paid change request vs maintenance request.
+- `[x]` Formal onboarding gate blocks and flags active delivery until agreement, SOW, deposit, kickoff, key contacts, assets, access, and timeline constraints are complete.
+- `[x]` Contract/SOW status exists in the client portal.
+- `[x]` Client Request Center exists for small changes, support requests, meeting requests, and scope-change requests.
+- `[x]` Scope classification workflow exists for fix vs included revision vs paid change request vs maintenance request.
 - `[ ]` No revision-round counter exists. Current approval flow can record revision requests, but it does not enforce included rounds or consolidated feedback.
 - `[ ]` No meeting request flow exists.
 - `[ ]` No project-linked message threads exist.
 - `[ ]` No decision log exists for approvals, calls, WhatsApp summaries, and scope decisions.
 - `[ ]` No weekly client update generator exists.
 - `[ ]` No client task list exists for missing client actions, owners, due dates, and blockers.
-- `[~]` Dashboard activity automation exists for approvals, uploads, invoices, handoff, readiness gate changes, and project events, but it does not yet cover requests, messages, meetings, decisions, or weekly updates.
+- `[~]` Dashboard activity automation exists for approvals, uploads, invoices, handoff, readiness gate changes, project events, and request events; messages, meetings, decisions, and weekly updates are still pending.
 - `[x]` The extended onboarding migrations have been applied in Supabase and verified with a temporary write/read/delete against `portal_onboarding_responses`.
 
 ## Portal Operating-System Implementation Tracker
@@ -114,21 +114,32 @@ Latest verification:
 
 Goal: give clients one clean place to ask for changes without creating invisible scope creep.
 
-- `[ ]` Add request data model for `portal_project_requests`.
-- `[ ]` Support request types: small change, support request, meeting request, scope change, bug/fix, maintenance request, and question.
-- `[ ]` Add client-facing Request Center tab or section.
-- `[ ]` Add request form fields: affected page/feature, requested change, reason, urgency, deadline, screenshot/file, and related milestone/deliverable.
-- `[ ]` Add studio classification: fix, included revision, change request, maintenance, or out-of-scope.
-- `[ ]` Add impact assessment fields: cost, time, launch impact, notes, and Phase 2 parking option.
-- `[ ]` Add client approval/decline/park flow before out-of-scope work begins.
-- `[ ]` Log request events into portal activity.
-- `[ ]` Add Studio request queue.
+- `[x]` Add request data model for `portal_project_requests`.
+- `[x]` Support request types: small change, support request, meeting request, scope change, bug/fix, maintenance request, and question.
+- `[x]` Add client-facing Request Center tab or section.
+- `[x]` Add request form fields: affected page/feature, requested change, reason, urgency, deadline, screenshot/file, and related milestone/deliverable.
+- `[x]` Add studio classification: fix, included revision, change request, maintenance, or out-of-scope.
+- `[x]` Add impact assessment fields: cost, time, launch impact, notes, and Phase 2 parking option.
+- `[x]` Add client approval/decline/park flow before out-of-scope work begins.
+- `[x]` Log request events into portal activity.
+- `[x]` Add Studio request queue.
 
 Acceptance checks:
 
-- WhatsApp or phone requests can be logged into the portal afterward.
-- Out-of-scope work cannot be treated as approved until the client accepts cost/time impact.
-- Every request has a status, owner, and next action.
+- `[x]` WhatsApp or phone requests can be logged into the portal afterward through the Studio request form.
+- `[x]` Out-of-scope work cannot be treated as approved until the client accepts cost/time impact through API validation and database constraint.
+- `[x]` Every request has a status, owner, and next action in the migration, loader, and UI.
+
+Latest verification:
+
+- `[x]` Focused ESLint passed for the Phase 11 portal, Studio, API, loader, activity, migration-check, and request-center files.
+- `[x]` `npm run build` passed with the new `/api/portal/requests` route.
+- `[x]` Supabase `portal_project_requests` is available through the app with seeded request records `REQ-001`, `REQ-002`, and `REQ-003`.
+- `[x]` The seeded scope-change request `REQ-002` is still `waiting_approval`, classified as `change_request`, and has `client_decision = pending`.
+- `[x]` Request notification rules are visible remotely: `request_submitted`, `request_classified`, and `request_decision_submitted`.
+- `[x]` One client-visible request activity event exists for the seeded scope decision.
+- `[x]` Existing readiness gate, protected route gates, public routes, operational events, and storage checks still pass.
+- `[x]` `npm run launch:check` passes all Phase 11 request-center checks; remaining blocker is uncommitted/unrelated worktree state and the existing Vercel-link warning.
 
 ### Phase 12: Meetings, Messages, And Decision Log
 
@@ -225,7 +236,7 @@ Acceptance checks:
 
 1. `[x]` Apply and verify the Phase 9 onboarding migrations in Supabase.
 2. `[x]` Add Phase 10 readiness gate and Contract/SOW status.
-3. `[ ]` Add Phase 11 Request Center and scope classification.
+3. `[x]` Add Phase 11 Request Center and scope classification.
 4. `[ ]` Add Phase 12 meeting requests, message threads, and decision log.
 5. `[ ]` Add Phase 13 revision-round tracking.
 6. `[ ]` Add Phase 14 weekly update generator and expanded automation events.
@@ -234,15 +245,14 @@ Acceptance checks:
 
 ## Next Task To Execute
 
-`[ ]` Phase 11 - add Request Center and scope classification.
+`[ ]` Phase 12 - add meeting requests, message threads, and decision log.
 
 Detailed next step:
 
-- Add `portal_project_requests` data model for small changes, support requests, meeting requests, scope changes, bug/fix reports, maintenance requests, and questions.
-- Add a client-facing Request Center section.
-- Add Studio classification for fix, included revision, change request, maintenance, or out-of-scope.
-- Add cost/time/launch impact fields and client approval before out-of-scope work begins.
-- Log request events into portal activity and add the Studio request queue.
+- Add meeting request data model and client-facing meeting request form.
+- Add message/thread records tied to milestone, deliverable, request, or project.
+- Add a decision log for approvals, phone calls, WhatsApp summaries, scope decisions, and kickoff outcomes.
+- Add Studio controls to summarize outside-channel decisions into the official portal record.
 
 ## Current State
 

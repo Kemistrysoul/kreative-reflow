@@ -9,6 +9,9 @@ export type PortalActivityEventType =
   | 'handoff_updated'
   | 'invoice_status_changed'
   | 'readiness_gate_updated'
+  | 'request_classified'
+  | 'request_decision_submitted'
+  | 'request_submitted'
   | 'milestone_completed'
   | 'revision_requested'
   | 'support_next_step_added';

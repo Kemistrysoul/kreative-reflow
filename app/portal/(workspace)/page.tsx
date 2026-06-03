@@ -11,6 +11,7 @@ import {
   FileText,
   FolderKanban,
   LayoutDashboard,
+  MessageSquareText,
   ReceiptText,
   ShieldCheck,
   UploadCloud,
@@ -24,6 +25,7 @@ import { PortalApprovalsPanel } from '@/components/portal/PortalApprovalsPanel';
 import { PortalComplianceNotice } from '@/components/portal/PortalComplianceNotice';
 import { PortalFinancePanel, PortalHandoffPanel } from '@/components/portal/PortalFinanceHandoff';
 import { PortalReadinessGatePanel } from '@/components/portal/PortalReadinessGate';
+import { PortalRequestCenter } from '@/components/portal/PortalRequestCenter';
 import type { ActivityItem, AssetBucket, MilestoneRecord, PortalStep } from '@/lib/dashboard-data';
 import { getPortalAccess } from '@/lib/portal-access';
 import { requirePortalAuth } from '@/lib/portal-auth';
@@ -32,6 +34,7 @@ import { getPortalApprovalQueue, type PortalDeliverableApproval } from '@/lib/po
 import { getPortalFinanceHandoffData, type PortalFinanceHandoffData } from '@/lib/portal-finance-handoff';
 import { getAuthorizedPortalProjectData } from '@/lib/portal-projects';
 import { getPortalReadinessGateData, type PortalReadinessGateData } from '@/lib/portal-readiness';
+import { getPortalProjectRequests, type PortalRequestSummary } from '@/lib/portal-requests';
 
 export const metadata: Metadata = {
   title: 'Client Portal Preview | Kreative Reflow',
@@ -50,6 +53,7 @@ type PortalSectionKey =
   | 'onboarding'
   | 'files'
   | 'reviews'
+  | 'requests'
   | 'billing'
   | 'activity';
 
@@ -99,6 +103,12 @@ const portalSections: PortalSectionDefinition[] = [
     icon: FileCheck2,
   },
   {
+    key: 'requests',
+    label: 'Requests',
+    helper: 'Changes, meetings, and scope decisions',
+    icon: MessageSquareText,
+  },
+  {
     key: 'billing',
     label: 'Billing & Launch',
     helper: 'Invoices, handoff, and support',
@@ -138,6 +148,7 @@ function getSectionBadge({
   financeHandoff,
   portalActivity,
   portalProject,
+  portalRequests,
   portalSteps,
   readinessGate,
   section,
@@ -147,6 +158,7 @@ function getSectionBadge({
   financeHandoff: PortalFinanceHandoffData;
   portalActivity: ActivityItem[];
   portalProject: PortalProject;
+  portalRequests: PortalRequestSummary;
   portalSteps: PortalStep[];
   readinessGate: PortalReadinessGateData;
   section: PortalSectionKey;
@@ -164,6 +176,11 @@ function getSectionBadge({
   if (section === 'reviews') {
     const waitingCount = approvals.filter((approval) => approval.status === 'waiting_review').length;
     return `${waitingCount} waiting`;
+  }
+  if (section === 'requests') {
+    return portalRequests.waitingApprovalCount
+      ? `${portalRequests.waitingApprovalCount} decisions`
+      : `${portalRequests.openCount} open`;
   }
   if (section === 'billing') {
     const actionCount = financeHandoff.invoices.filter((invoice) => invoice.status === 'due' || invoice.status === 'overdue').length;
@@ -199,11 +216,12 @@ export default async function PortalPage({
     );
   }
 
-  const [portalData, portalAssets, portalApprovals, portalFinanceHandoff] = await Promise.all([
+  const [portalData, portalAssets, portalApprovals, portalFinanceHandoff, portalRequests] = await Promise.all([
     getAuthorizedPortalProjectData(access.projectSlug),
     getPortalProjectAssets(access.projectSlug),
     getPortalApprovalQueue(access.projectSlug),
     getPortalFinanceHandoffData(access.projectSlug),
+    getPortalProjectRequests(access.projectSlug),
   ]);
   const portalReadinessGate = await getPortalReadinessGateData(access.projectSlug, portalFinanceHandoff.invoices);
 
@@ -254,6 +272,7 @@ export default async function PortalPage({
               financeHandoff={portalFinanceHandoff}
               portalActivity={portalActivity}
               portalProject={portalProject}
+              portalRequests={portalRequests}
               portalSteps={portalSteps}
               readinessGate={portalReadinessGate}
             />
@@ -271,6 +290,7 @@ export default async function PortalPage({
                 portalProject={portalProject}
                 portalSteps={portalSteps}
                 portalReadinessGate={portalReadinessGate}
+                portalRequests={portalRequests}
               />
             </div>
           </div>
@@ -355,6 +375,7 @@ function PortalSectionNavigation({
   financeHandoff,
   portalActivity,
   portalProject,
+  portalRequests,
   portalSteps,
   readinessGate,
 }: {
@@ -364,6 +385,7 @@ function PortalSectionNavigation({
   financeHandoff: PortalFinanceHandoffData;
   portalActivity: ActivityItem[];
   portalProject: PortalProject;
+  portalRequests: PortalRequestSummary;
   portalSteps: PortalStep[];
   readinessGate: PortalReadinessGateData;
 }) {
@@ -382,6 +404,7 @@ function PortalSectionNavigation({
             financeHandoff,
             portalActivity,
             portalProject,
+            portalRequests,
             portalSteps,
             readinessGate,
             section: section.key,
@@ -429,6 +452,7 @@ function PortalSectionContent({
   portalFinanceHandoff,
   portalProject,
   portalReadinessGate,
+  portalRequests,
   portalSteps,
 }: {
   accessCanSubmit: boolean;
@@ -441,6 +465,7 @@ function PortalSectionContent({
   portalFinanceHandoff: PortalFinanceHandoffData;
   portalProject: PortalProject;
   portalReadinessGate: PortalReadinessGateData;
+  portalRequests: PortalRequestSummary;
   portalSteps: PortalStep[];
 }) {
   if (activeSection === 'plan') {
@@ -497,6 +522,22 @@ function PortalSectionContent({
     );
   }
 
+  if (activeSection === 'requests') {
+    return (
+      <SectionFrame
+        eyebrow="Request Center"
+        title="Keep changes, support, and scope decisions in one place."
+        body="Clients can submit a request, and anything outside the agreed scope waits for a recorded approve, decline, or park decision before work starts."
+      >
+        <PortalRequestCenter
+          canSubmit={accessCanSubmit}
+          projectSlug={portalProject.slug}
+          requestSummary={portalRequests}
+        />
+      </SectionFrame>
+    );
+  }
+
   if (activeSection === 'billing') {
     return (
       <SectionFrame
@@ -543,6 +584,7 @@ function PortalSectionContent({
         portalApprovals={portalApprovals}
         portalFinanceHandoff={portalFinanceHandoff}
         portalReadinessGate={portalReadinessGate}
+        portalRequests={portalRequests}
         portalSteps={portalSteps}
       />
     </SectionFrame>
@@ -583,6 +625,7 @@ function OverviewSection({
   portalApprovals,
   portalFinanceHandoff,
   portalReadinessGate,
+  portalRequests,
   portalSteps,
 }: {
   assetBuckets: AssetBucket[];
@@ -591,6 +634,7 @@ function OverviewSection({
   portalApprovals: PortalDeliverableApproval[];
   portalFinanceHandoff: PortalFinanceHandoffData;
   portalReadinessGate: PortalReadinessGateData;
+  portalRequests: PortalRequestSummary;
   portalSteps: PortalStep[];
 }) {
   const currentMilestone = getCurrentMilestone(milestones);
@@ -601,7 +645,7 @@ function OverviewSection({
 
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
         <OverviewMetric
           href="/portal?section=plan"
           icon={FolderKanban}
@@ -636,6 +680,17 @@ function OverviewSection({
           label="Approvals"
           value={`${waitingApprovals}`}
           detail="Deliverables waiting for review"
+        />
+        <OverviewMetric
+          href="/portal?section=requests"
+          icon={MessageSquareText}
+          label="Requests"
+          value={portalRequests.waitingApprovalCount ? `${portalRequests.waitingApprovalCount}` : `${portalRequests.openCount}`}
+          detail={
+            portalRequests.waitingApprovalCount
+              ? 'Scope decisions waiting for client approval'
+              : 'Open changes, questions, or support requests'
+          }
         />
       </div>
 

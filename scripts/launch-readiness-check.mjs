@@ -213,6 +213,62 @@ async function checkSupabaseOperationalEvents() {
   } else {
     add('pass', 'Readiness notification rule available', 'Readiness gate updates can be logged to portal activity.');
   }
+
+  const requestResult = await supabase
+    .from('portal_project_requests')
+    .select('request_number,request_type,status,classification,client_decision,owner_name,next_action,portal_projects!inner(slug)')
+    .eq('portal_projects.slug', 'abc-engineering-website-redesign')
+    .order('request_number', { ascending: true });
+
+  if (requestResult.error) {
+    add(
+      'blocker',
+      'Portal request center table is unavailable',
+      `${requestResult.error.code || 'unknown'}: ${requestResult.error.message}`,
+    );
+  } else {
+    const requests = requestResult.data ?? [];
+    const requiredRequestNumbers = new Set(['REQ-001', 'REQ-002', 'REQ-003']);
+    const receivedRequestNumbers = new Set(requests.map((request) => request.request_number));
+    const missingRequestNumbers = [...requiredRequestNumbers].filter((requestNumber) => !receivedRequestNumbers.has(requestNumber));
+    const missingOperationalFields = requests.filter((request) => !request.status || !request.owner_name || !request.next_action);
+    const pendingScopeRequest = requests.find((request) => request.request_number === 'REQ-002');
+
+    if (missingRequestNumbers.length) {
+      add('blocker', 'Portal request seed is incomplete', `Missing ${missingRequestNumbers.join(', ')}.`);
+    } else if (missingOperationalFields.length) {
+      add('blocker', 'Portal request operational fields are incomplete', 'Every request needs status, owner, and next action.');
+    } else if (
+      !pendingScopeRequest ||
+      pendingScopeRequest.classification !== 'change_request' ||
+      pendingScopeRequest.client_decision !== 'pending' ||
+      pendingScopeRequest.status !== 'waiting_approval'
+    ) {
+      add(
+        'blocker',
+        'Scope approval guard seed is not intact',
+        'REQ-002 must remain a pending change request until the client approves, declines, or parks it.',
+      );
+    } else {
+      add('pass', 'Portal request center available', `${requests.length} request record(s) are available with owner and next action.`);
+      add('pass', 'Scope approval guard visible', 'Seeded out-of-scope work is waiting for client approval before delivery.');
+    }
+  }
+
+  const requestRules = await supabase
+    .from('portal_project_notification_rules')
+    .select('event_type,portal_projects!inner(slug)')
+    .eq('portal_projects.slug', 'abc-engineering-website-redesign')
+    .eq('surface', 'portal_activity')
+    .in('event_type', ['request_submitted', 'request_classified', 'request_decision_submitted']);
+
+  if (requestRules.error) {
+    add('warn', 'Request notification rules could not be checked', requestRules.error.message);
+  } else if ((requestRules.data ?? []).length < 3) {
+    add('blocker', 'Request notification rules are missing', 'Expected request_submitted, request_classified, and request_decision_submitted rules.');
+  } else {
+    add('pass', 'Request notification rules available', 'Request activity can be written to the client portal timeline.');
+  }
 }
 
 loadEnvFile(envPath);

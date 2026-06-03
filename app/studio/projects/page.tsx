@@ -6,6 +6,7 @@ import { getStudioFinanceHandoffData } from '@/lib/portal-finance-handoff';
 import { getStudioOperationalEvents } from '@/lib/portal-monitoring';
 import { getStudioOnboardingResponses } from '@/lib/portal-onboarding-reviews';
 import { getStudioReadinessGateData } from '@/lib/portal-readiness';
+import { getStudioProjectRequests } from '@/lib/portal-requests';
 
 export const metadata: Metadata = {
   title: 'Studio Projects | Kreative Reflow',
@@ -26,6 +27,7 @@ export default async function StudioProjectsPage() {
     notificationRules,
     financeHandoff,
     operationalEvents,
+    projectRequests,
   ] = await Promise.all([
     getStudioOnboardingResponses(),
     getStudioAssetReviews(),
@@ -33,6 +35,7 @@ export default async function StudioProjectsPage() {
     getPortalNotificationRules(),
     getStudioFinanceHandoffData(),
     getStudioOperationalEvents(),
+    getStudioProjectRequests(),
   ]);
   const readinessGate = await getStudioReadinessGateData(undefined, financeHandoff.invoices);
 
@@ -44,6 +47,7 @@ export default async function StudioProjectsPage() {
       notificationRules={notificationRules}
       onboardingResponses={onboardingResponses}
       operationalEvents={operationalEvents}
+      projectRequests={projectRequests}
       readinessGate={readinessGate}
     />
   );

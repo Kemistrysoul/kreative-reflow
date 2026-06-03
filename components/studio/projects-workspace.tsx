@@ -65,6 +65,16 @@ import type {
   PortalReadinessItem,
   PortalReadinessStatus,
 } from '@/lib/portal-readiness';
+import type {
+  PortalProjectRequest,
+  PortalRequestClassification,
+  PortalRequestClientDecision,
+  PortalRequestSourceChannel,
+  PortalRequestStatus,
+  PortalRequestSummary,
+  PortalRequestType,
+  PortalRequestUrgency,
+} from '@/lib/portal-requests';
 
 type ProjectTableRow = ProjectRecord & {
   rowId: string;
@@ -104,6 +114,16 @@ const emptyReadinessGate: PortalReadinessGateData = {
   summary: 'No readiness gate records are available yet.',
 };
 
+const emptyRequestSummary: PortalRequestSummary = {
+  latestRequest: null,
+  openCount: 0,
+  outOfScopePendingCount: 0,
+  requests: [],
+  source: 'supabase',
+  waitingApprovalCount: 0,
+  waitingClientCount: 0,
+};
+
 const invoiceStatusCopy: Record<PortalInvoiceStatus, string> = {
   cancelled: 'Cancelled',
   draft: 'Draft',
@@ -135,6 +155,54 @@ const supportStatusCopy: Record<PortalSupportStatus, string> = {
   declined: 'Declined',
   recommended: 'Recommended',
   scheduled: 'Scheduled',
+};
+
+const requestTypeCopy: Record<PortalRequestType, string> = {
+  bug_fix: 'Bug or fix',
+  maintenance_request: 'Maintenance',
+  meeting_request: 'Meeting',
+  question: 'Question',
+  scope_change: 'Scope change',
+  small_change: 'Small change',
+  support_request: 'Support',
+};
+
+const requestStatusCopy: Record<PortalRequestStatus, string> = {
+  approved: 'Approved',
+  closed: 'Closed',
+  declined: 'Declined',
+  in_progress: 'In progress',
+  parked: 'Parked',
+  resolved: 'Resolved',
+  submitted: 'Submitted',
+  triage: 'Triage',
+  waiting_approval: 'Waiting approval',
+  waiting_client: 'Waiting client',
+};
+
+const requestClassificationCopy: Record<PortalRequestClassification, string> = {
+  change_request: 'Change request',
+  fix: 'Fix',
+  included_revision: 'Included revision',
+  maintenance: 'Maintenance',
+  out_of_scope: 'Out of scope',
+  unclassified: 'Unclassified',
+};
+
+const requestUrgencyCopy: Record<PortalRequestUrgency, string> = {
+  high: 'High',
+  low: 'Low',
+  normal: 'Normal',
+  urgent: 'Urgent',
+};
+
+const requestSourceCopy: Record<PortalRequestSourceChannel, string> = {
+  email: 'Email',
+  meeting: 'Meeting',
+  phone: 'Phone',
+  portal: 'Portal',
+  studio_logged: 'Studio logged',
+  whatsapp: 'WhatsApp',
 };
 
 function getApprovalTone(status: PortalDeliverableApproval['status']): 'accent' | 'muted' | 'neutral' {
@@ -169,6 +237,26 @@ function getReadinessTone(status: PortalReadinessStatus): 'accent' | 'muted' | '
   return status === 'done' ? 'neutral' : 'muted';
 }
 
+function getRequestStatusTone(status: PortalRequestStatus): 'accent' | 'muted' | 'neutral' {
+  if (status === 'submitted' || status === 'triage' || status === 'waiting_approval' || status === 'waiting_client') {
+    return 'accent';
+  }
+
+  if (status === 'approved' || status === 'in_progress') {
+    return 'neutral';
+  }
+
+  return 'muted';
+}
+
+function getRequestClassificationTone(classification: PortalRequestClassification): 'accent' | 'muted' | 'neutral' {
+  if (classification === 'change_request' || classification === 'out_of_scope') {
+    return 'accent';
+  }
+
+  return classification === 'unclassified' ? 'muted' : 'neutral';
+}
+
 function makeId(prefix: string, ...parts: string[]) {
   return [prefix, ...parts]
     .join('-')
@@ -201,6 +289,7 @@ export function StudioProjectsWorkspace({
   notificationRules = [],
   onboardingResponses = [],
   operationalEvents = [],
+  projectRequests = emptyRequestSummary,
   readinessGate = emptyReadinessGate,
 }: {
   approvalQueue?: PortalDeliverableApproval[];
@@ -209,6 +298,7 @@ export function StudioProjectsWorkspace({
   notificationRules?: PortalNotificationRule[];
   onboardingResponses?: StudioOnboardingResponse[];
   operationalEvents?: PortalOperationalEvent[];
+  projectRequests?: PortalRequestSummary;
   readinessGate?: PortalReadinessGateData;
 }) {
   const {
@@ -218,6 +308,7 @@ export function StudioProjectsWorkspace({
     updateActiveProject,
   } = useStudioWorkflow();
   const [selectedRow, setSelectedRow] = useState<ProjectTableRow | null>(null);
+  const [requests, setRequests] = useState<PortalProjectRequest[]>(projectRequests.requests);
   const submittedOnboardingCount = onboardingResponses.filter((response) => response.status === 'submitted').length;
   const latestOnboardingResponse = onboardingResponses[0];
   const pendingAssetCount = assetReviews.filter((asset) => asset.reviewStatus === 'pending_review').length;
@@ -231,6 +322,20 @@ export function StudioProjectsWorkspace({
   const incompleteHandoffCount = financeHandoff.handoffItems.filter((item) => item.status !== 'done').length;
   const readinessOpenCount = Math.max(readinessGate.requiredCount - readinessGate.completeRequiredCount, 0);
   const readinessBlockingCount = readinessGate.blockingItems.length;
+  const openRequestStatuses = new Set<PortalRequestStatus>([
+    'approved',
+    'in_progress',
+    'submitted',
+    'triage',
+    'waiting_approval',
+    'waiting_client',
+  ]);
+  const requestOpenCount = requests.filter((request) => openRequestStatuses.has(request.status)).length;
+  const requestWaitingApprovalCount = requests.filter((request) => request.status === 'waiting_approval').length;
+  const requestScopePendingCount = requests.filter((request) =>
+    (request.classification === 'change_request' || request.classification === 'out_of_scope') &&
+    request.clientDecision === 'pending'
+  ).length;
   const unresolvedOperationalEvents = operationalEvents.filter((event) => !event.resolvedAt);
   const urgentOperationalEvents = unresolvedOperationalEvents.filter((event) =>
     event.severity === 'critical' || event.severity === 'error'
@@ -321,6 +426,16 @@ export function StudioProjectsWorkspace({
       spark: [0, 1, 1, 2, 2, approvalQueue.length + 1, pendingApprovalCount + 1],
     },
     {
+      label: 'Request Queue',
+      value: String(requestWaitingApprovalCount || requestOpenCount),
+      detail: requestScopePendingCount
+        ? `${requestScopePendingCount} scope decision${requestScopePendingCount === 1 ? '' : 's'} waiting for client approval`
+        : `${requestOpenCount} open request${requestOpenCount === 1 ? '' : 's'} in triage or delivery`,
+      icon: MessageSquareText,
+      tone: requestWaitingApprovalCount ? 'accent' : 'muted',
+      spark: [0, 1, requests.length + 1, requestOpenCount + 1, requestWaitingApprovalCount + 1],
+    },
+    {
       label: 'Asset Reviews',
       value: String(pendingAssetCount),
       detail: assetReviews.length
@@ -369,6 +484,11 @@ export function StudioProjectsWorkspace({
           ? `${approval.latestEvent.decision === 'approved' ? 'Approved' : 'Revision requested'} by ${approval.latestEvent.decidedByEmail}`
           : `${approval.projectName} - due ${approval.dueDate}`,
       })),
+      ...requests.slice(0, 2).map((request) => ({
+        time: requestStatusCopy[request.status],
+        title: `${request.clientName} - ${request.requestNumber} ${request.title}`,
+        meta: `${requestTypeCopy[request.requestType]} - ${request.nextAction}`,
+      })),
       ...financeHandoff.invoices.slice(0, 1).map((invoice) => ({
         time: invoiceStatusCopy[invoice.status],
         title: `${invoice.clientName} - ${invoice.invoiceNumber} ${invoice.label}`,
@@ -381,7 +501,7 @@ export function StudioProjectsWorkspace({
       })),
       ...projectClientActivity,
     ],
-    [approvalQueue, assetReviews, financeHandoff, onboardingResponses],
+    [approvalQueue, assetReviews, financeHandoff, onboardingResponses, requests],
   );
 
   const mergedRows = [...intakeRows, ...activeRows, ...seedRows];
@@ -560,6 +680,42 @@ export function StudioProjectsWorkspace({
             onRowClick={(row) => setSelectedRow(row)}
             getRowKey={(row) => row.rowId}
             emptyMessage="No projects or intake records are available."
+          />
+        </StudioPanel>
+      </section>
+
+      <section className="grid gap-5 xl:grid-cols-[1.14fr_0.86fr]">
+        <StudioPanel
+          title="Request queue"
+          eyebrow="Scope control and client changes"
+          icon={MessageSquareText}
+          actions={
+            <Link
+              href="/portal?section=requests"
+              className="inline-flex min-h-11 items-center rounded-2xl border border-white/8 bg-white/5 px-4 font-montserrat text-sm font-semibold text-white transition hover:border-[#FC6E20] hover:text-[#FC6E20]"
+            >
+              Open portal
+            </Link>
+          }
+        >
+          <StudioRequestQueue
+            requests={requests}
+            onRequestChange={(updatedRequest) =>
+              setRequests((currentRequests) =>
+                currentRequests.map((request) =>
+                  request.id === updatedRequest.id ? updatedRequest : request
+                )
+              )
+            }
+          />
+        </StudioPanel>
+
+        <StudioPanel title="Log outside request" eyebrow="WhatsApp, phone, email, or meeting" icon={ClipboardCheck}>
+          <StudioRequestLogForm
+            templateRequest={requests[0] ?? projectRequests.latestRequest}
+            onRequestCreated={(createdRequest) =>
+              setRequests((currentRequests) => [createdRequest, ...currentRequests])
+            }
           />
         </StudioPanel>
       </section>
@@ -1199,6 +1355,571 @@ function StudioReadinessGateEditor({ readinessGate }: { readinessGate: PortalRea
           </article>
         ))}
       </div>
+    </div>
+  );
+}
+
+type RequestClassificationDraft = {
+  classification: PortalRequestClassification;
+  impactCostLabel: string;
+  impactTimeLabel: string;
+  internalNote: string;
+  launchImpact: string;
+  nextAction: string;
+  ownerName: string;
+  ownerRole: string;
+  phase2Option: boolean;
+  status: PortalRequestStatus;
+  studioAssessment: string;
+};
+
+type RequestClassifyResponse = {
+  classification?: PortalRequestClassification;
+  classifiedAt?: string;
+  clientDecision?: PortalRequestClientDecision;
+  error?: string;
+  ok?: boolean;
+  status?: PortalRequestStatus;
+};
+
+type RequestCreateResponse = {
+  error?: string;
+  ok?: boolean;
+  request?: {
+    id: string;
+    requestNumber: string;
+    status: PortalRequestStatus;
+    submittedAt: string;
+  };
+};
+
+const scopeDecisionClassifications = new Set<PortalRequestClassification>(['change_request', 'out_of_scope']);
+const approvedRequestStatuses = new Set<PortalRequestStatus>(['approved', 'closed', 'in_progress', 'resolved']);
+
+function StudioRequestQueue({
+  onRequestChange,
+  requests,
+}: {
+  onRequestChange: (request: PortalProjectRequest) => void;
+  requests: PortalProjectRequest[];
+}) {
+  if (!requests.length) {
+    return (
+      <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
+        <p className="font-montserrat text-sm text-[#878787]">
+          Client change, support, meeting, and scope requests will appear here after the Request Center is used.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid gap-3">
+      {requests.map((request) => (
+        <StudioRequestQueueCard
+          key={request.id}
+          request={request}
+          onRequestChange={onRequestChange}
+        />
+      ))}
+    </div>
+  );
+}
+
+function StudioRequestQueueCard({
+  onRequestChange,
+  request,
+}: {
+  onRequestChange: (request: PortalProjectRequest) => void;
+  request: PortalProjectRequest;
+}) {
+  const [draft, setDraft] = useState<RequestClassificationDraft>(() => ({
+    classification: request.classification,
+    impactCostLabel: request.impactCostLabel,
+    impactTimeLabel: request.impactTimeLabel,
+    internalNote: request.internalNote,
+    launchImpact: request.launchImpact,
+    nextAction: request.nextAction,
+    ownerName: request.ownerName || 'Kreative Reflow',
+    ownerRole: request.ownerRole || 'Studio',
+    phase2Option: request.phase2Option,
+    status: request.status,
+    studioAssessment: request.studioAssessment,
+  }));
+  const [saveError, setSaveError] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  const requiresClientDecision = scopeDecisionClassifications.has(draft.classification);
+  const blockedStartAttempt =
+    requiresClientDecision &&
+    approvedRequestStatuses.has(draft.status) &&
+    request.clientDecision !== 'approved';
+
+  function updateDraft(patch: Partial<RequestClassificationDraft>) {
+    setDraft((currentDraft) => ({ ...currentDraft, ...patch }));
+  }
+
+  function updateClassification(classification: PortalRequestClassification) {
+    setDraft((currentDraft) => {
+      const needsDecision = scopeDecisionClassifications.has(classification);
+
+      return {
+        ...currentDraft,
+        classification,
+        status: needsDecision && currentDraft.status !== 'waiting_approval'
+          ? 'waiting_approval'
+          : currentDraft.status,
+      };
+    });
+  }
+
+  async function saveClassification() {
+    setSaving(true);
+    setSaveError('');
+
+    try {
+      const response = await fetch('/api/portal/requests', {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'classify',
+          classification: draft.classification,
+          impactCostLabel: draft.impactCostLabel,
+          impactTimeLabel: draft.impactTimeLabel,
+          internalNote: draft.internalNote,
+          launchImpact: draft.launchImpact,
+          nextAction: draft.nextAction,
+          ownerName: draft.ownerName,
+          ownerRole: draft.ownerRole,
+          phase2Option: draft.phase2Option,
+          requestId: request.id,
+          status: draft.status,
+          studioAssessment: draft.studioAssessment,
+        }),
+      });
+      const payload = (await response.json()) as RequestClassifyResponse;
+
+      if (!response.ok || !payload.ok) {
+        throw new Error(payload.error || 'Request classification could not be saved.');
+      }
+
+      const nextClassification = payload.classification ?? draft.classification;
+      const nextStatus = payload.status ?? draft.status;
+      const nextDecision = payload.clientDecision ?? request.clientDecision;
+
+      onRequestChange({
+        ...request,
+        classification: nextClassification,
+        classifiedAt: 'Updated just now',
+        clientDecision: nextDecision,
+        impactCostLabel: draft.impactCostLabel,
+        impactTimeLabel: draft.impactTimeLabel,
+        internalNote: draft.internalNote,
+        launchImpact: draft.launchImpact,
+        nextAction: draft.nextAction,
+        ownerName: draft.ownerName,
+        ownerRole: draft.ownerRole,
+        phase2Option: draft.phase2Option,
+        status: nextStatus,
+        studioAssessment: draft.studioAssessment,
+      });
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'Request classification could not be saved.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <article className="rounded-[24px] border border-white/8 bg-[#151419] p-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <p className="font-montserrat text-sm font-semibold text-white">
+            {request.requestNumber} - {request.title}
+          </p>
+          <p className="mt-2 font-montserrat text-sm text-[#878787]">
+            {request.clientName} - {request.projectName}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <StudioStatusPill label={requestTypeCopy[request.requestType]} tone="muted" />
+          <StudioStatusPill label={requestStatusCopy[draft.status]} tone={getRequestStatusTone(draft.status)} />
+          <StudioStatusPill
+            label={requestClassificationCopy[draft.classification]}
+            tone={getRequestClassificationTone(draft.classification)}
+          />
+        </div>
+      </div>
+
+      <p className="mt-4 font-montserrat text-sm leading-6 text-[#FBFBFB]">{request.requestDetail}</p>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-4">
+        <DetailCard label="Affected area" value={request.affectedArea || 'Not provided'} />
+        <DetailCard label="Urgency" value={requestUrgencyCopy[request.urgency]} />
+        <DetailCard label="Source" value={requestSourceCopy[request.sourceChannel]} />
+        <DetailCard label="Submitted" value={request.submittedAt} />
+      </div>
+
+      <div className="mt-4 grid gap-3 lg:grid-cols-2">
+        <SnippetBlock label="Reason" value={request.reason} />
+        <SnippetBlock label="Next action" value={draft.nextAction} />
+      </div>
+
+      <div className="mt-4 grid gap-3 md:grid-cols-3">
+        <label>
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+            Classification
+          </span>
+          <select
+            value={draft.classification}
+            onChange={(event) => updateClassification(event.target.value as PortalRequestClassification)}
+            className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#1B1B1E] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+          >
+            {(Object.keys(requestClassificationCopy) as PortalRequestClassification[]).map((classification) => (
+              <option key={classification} value={classification}>
+                {requestClassificationCopy[classification]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+            Status
+          </span>
+          <select
+            value={draft.status}
+            onChange={(event) => updateDraft({ status: event.target.value as PortalRequestStatus })}
+            className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#1B1B1E] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+          >
+            {(Object.keys(requestStatusCopy) as PortalRequestStatus[]).map((status) => (
+              <option key={status} value={status}>
+                {requestStatusCopy[status]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="flex min-h-12 items-center gap-3 rounded-[18px] border border-white/8 bg-[#1B1B1E] px-4 py-3 md:mt-6">
+          <input
+            type="checkbox"
+            checked={draft.phase2Option}
+            onChange={(event) => updateDraft({ phase2Option: event.target.checked })}
+            className="h-4 w-4 accent-[#FC6E20]"
+          />
+          <span className="font-montserrat text-xs font-semibold text-white">Parkable for Phase 2</span>
+        </label>
+      </div>
+
+      <div className="mt-4 grid gap-3 md:grid-cols-2">
+        <Field label="Owner" value={draft.ownerName} onChange={(value) => updateDraft({ ownerName: value })} />
+        <Field label="Owner role" value={draft.ownerRole} onChange={(value) => updateDraft({ ownerRole: value })} />
+        <Field
+          label="Cost impact"
+          value={draft.impactCostLabel}
+          onChange={(value) => updateDraft({ impactCostLabel: value })}
+        />
+        <Field
+          label="Time impact"
+          value={draft.impactTimeLabel}
+          onChange={(value) => updateDraft({ impactTimeLabel: value })}
+        />
+      </div>
+
+      <div className="mt-4 grid gap-3 lg:grid-cols-2">
+        <TextAreaField
+          label="Launch impact"
+          value={draft.launchImpact}
+          onChange={(value) => updateDraft({ launchImpact: value })}
+        />
+        <TextAreaField
+          label="Studio assessment"
+          value={draft.studioAssessment}
+          onChange={(value) => updateDraft({ studioAssessment: value })}
+        />
+        <TextAreaField
+          label="Next action"
+          value={draft.nextAction}
+          onChange={(value) => updateDraft({ nextAction: value })}
+        />
+        <TextAreaField
+          label="Internal note"
+          value={draft.internalNote}
+          onChange={(value) => updateDraft({ internalNote: value })}
+        />
+      </div>
+
+      {requiresClientDecision ? (
+        <p className="mt-4 rounded-[18px] border border-[#FC6E20]/25 bg-[#FC6E20]/10 p-3 font-montserrat text-sm leading-6 text-[#FFD7C1]">
+          Scope-impact request. Keep the status at waiting approval until the client approves, declines, or parks the cost/time impact.
+        </p>
+      ) : null}
+
+      {blockedStartAttempt ? (
+        <p className="mt-3 flex items-start gap-2 rounded-[18px] border border-red-400/25 bg-red-400/10 p-3 font-montserrat text-sm leading-6 text-red-100">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          Out-of-scope or change-request work cannot be started until the client approves the impact.
+        </p>
+      ) : null}
+
+      {saveError ? (
+        <p className="mt-3 flex items-start gap-2 rounded-[18px] border border-red-400/25 bg-red-400/10 p-3 font-montserrat text-sm leading-6 text-red-100">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          {saveError}
+        </p>
+      ) : null}
+
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap gap-2">
+          <StudioStatusPill label={`Decision: ${request.clientDecision.replace(/_/g, ' ')}`} tone={request.clientDecision === 'pending' ? 'accent' : 'muted'} />
+          <StudioStatusPill label={`By ${maskEmail(request.submittedByEmail)}`} tone="muted" />
+          {request.attachmentUrl ? <StudioStatusPill label="Attachment linked" tone="muted" /> : null}
+        </div>
+        <button
+          type="button"
+          onClick={() => void saveClassification()}
+          disabled={saving || blockedStartAttempt}
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-[#FC6E20] px-4 font-montserrat text-sm font-semibold text-[#151419] transition hover:bg-[#e95f14] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+          Save classification
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function StudioRequestLogForm({
+  onRequestCreated,
+  templateRequest,
+}: {
+  onRequestCreated: (request: PortalProjectRequest) => void;
+  templateRequest: PortalProjectRequest | null;
+}) {
+  const [draft, setDraft] = useState({
+    affectedArea: '',
+    desiredDeadline: '',
+    reason: '',
+    relatedItemLabel: '',
+    requestDetail: '',
+    requestType: 'small_change' as PortalRequestType,
+    sourceChannel: 'whatsapp' as PortalRequestSourceChannel,
+    title: '',
+    urgency: 'normal' as PortalRequestUrgency,
+  });
+  const [saveError, setSaveError] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  function updateDraft(patch: Partial<typeof draft>) {
+    setDraft((currentDraft) => ({ ...currentDraft, ...patch }));
+  }
+
+  async function submitOutsideRequest() {
+    setSaving(true);
+    setSaveError('');
+    setSuccessMessage('');
+
+    try {
+      const response = await fetch('/api/portal/requests', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          affectedArea: draft.affectedArea,
+          desiredDeadline: draft.desiredDeadline,
+          projectSlug: templateRequest?.projectSlug,
+          reason: draft.reason,
+          relatedItemLabel: draft.relatedItemLabel,
+          requestDetail: draft.requestDetail,
+          requestType: draft.requestType,
+          sourceChannel: draft.sourceChannel,
+          title: draft.title,
+          urgency: draft.urgency,
+        }),
+      });
+      const payload = (await response.json()) as RequestCreateResponse;
+
+      if (!response.ok || !payload.ok || !payload.request) {
+        throw new Error(payload.error || 'Outside request could not be logged.');
+      }
+
+      const projectContext = templateRequest ?? {
+        clientName: 'ABC Engineering',
+        projectName: 'Website Redesign',
+        projectSlug: 'abc-engineering-website-redesign',
+      };
+
+      onRequestCreated({
+        affectedArea: draft.affectedArea,
+        attachmentLabel: '',
+        attachmentUrl: '',
+        classification: 'unclassified',
+        classifiedAt: 'Not classified',
+        classifiedByEmail: '',
+        clientDecision: 'not_required',
+        clientDecisionAt: 'Not decided',
+        clientDecisionNote: '',
+        clientName: projectContext.clientName,
+        clientVisible: true,
+        desiredDeadline: draft.desiredDeadline || 'Not set',
+        desiredDeadlineRaw: draft.desiredDeadline,
+        id: payload.request.id,
+        impactCostLabel: '',
+        impactTimeLabel: '',
+        internalNote: 'Logged by Studio from an outside channel.',
+        launchImpact: '',
+        nextAction: 'The studio will triage this request and confirm the next step.',
+        ownerName: 'Kreative Reflow',
+        ownerRole: 'Studio',
+        phase2Option: false,
+        projectName: projectContext.projectName,
+        projectSlug: projectContext.projectSlug,
+        reason: draft.reason,
+        relatedItemLabel: draft.relatedItemLabel,
+        requestDetail: draft.requestDetail,
+        requestNumber: payload.request.requestNumber,
+        requestType: draft.requestType,
+        source: 'supabase',
+        sourceChannel: draft.sourceChannel,
+        status: payload.request.status,
+        studioAssessment: '',
+        submittedAt: 'Logged just now',
+        submittedByEmail: 'Studio',
+        submittedByRole: 'studio_admin',
+        title: draft.title,
+        urgency: draft.urgency,
+      });
+
+      setSuccessMessage(`${payload.request.requestNumber} was logged for triage.`);
+      setDraft((currentDraft) => ({
+        ...currentDraft,
+        affectedArea: '',
+        desiredDeadline: '',
+        reason: '',
+        relatedItemLabel: '',
+        requestDetail: '',
+        title: '',
+      }));
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'Outside request could not be logged.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="grid gap-3">
+        <label>
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+            Source
+          </span>
+          <select
+            value={draft.sourceChannel}
+            onChange={(event) => updateDraft({ sourceChannel: event.target.value as PortalRequestSourceChannel })}
+            className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#151419] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+          >
+            {(['whatsapp', 'phone', 'email', 'meeting', 'studio_logged'] as PortalRequestSourceChannel[]).map((source) => (
+              <option key={source} value={source}>
+                {requestSourceCopy[source]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+            Request type
+          </span>
+          <select
+            value={draft.requestType}
+            onChange={(event) => updateDraft({ requestType: event.target.value as PortalRequestType })}
+            className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#151419] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+          >
+            {(Object.keys(requestTypeCopy) as PortalRequestType[]).map((requestType) => (
+              <option key={requestType} value={requestType}>
+                {requestTypeCopy[requestType]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <Field label="Title" value={draft.title} onChange={(value) => updateDraft({ title: value })} />
+        <Field
+          label="Affected page or feature"
+          value={draft.affectedArea}
+          onChange={(value) => updateDraft({ affectedArea: value })}
+        />
+        <TextAreaField
+          label="Requested change"
+          value={draft.requestDetail}
+          onChange={(value) => updateDraft({ requestDetail: value })}
+        />
+        <TextAreaField
+          label="Reason"
+          value={draft.reason}
+          onChange={(value) => updateDraft({ reason: value })}
+        />
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label>
+            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+              Urgency
+            </span>
+            <select
+              value={draft.urgency}
+              onChange={(event) => updateDraft({ urgency: event.target.value as PortalRequestUrgency })}
+              className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#151419] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+            >
+              {(Object.keys(requestUrgencyCopy) as PortalRequestUrgency[]).map((urgency) => (
+                <option key={urgency} value={urgency}>
+                  {requestUrgencyCopy[urgency]}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+              Desired deadline
+            </span>
+            <input
+              type="date"
+              value={draft.desiredDeadline}
+              onChange={(event) => updateDraft({ desiredDeadline: event.target.value })}
+              className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#151419] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+            />
+          </label>
+        </div>
+        <Field
+          label="Related milestone or deliverable"
+          value={draft.relatedItemLabel}
+          onChange={(value) => updateDraft({ relatedItemLabel: value })}
+        />
+      </div>
+
+      {saveError ? (
+        <p className="flex items-start gap-2 rounded-[18px] border border-red-400/25 bg-red-400/10 p-3 font-montserrat text-sm leading-6 text-red-100">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          {saveError}
+        </p>
+      ) : null}
+
+      {successMessage ? (
+        <p className="rounded-[18px] border border-emerald-400/25 bg-emerald-400/10 p-3 font-montserrat text-sm leading-6 text-emerald-100">
+          {successMessage}
+        </p>
+      ) : null}
+
+      <button
+        type="button"
+        onClick={() => void submitOutsideRequest()}
+        disabled={saving}
+        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#FC6E20] px-4 font-montserrat text-sm font-semibold text-[#151419] transition hover:bg-[#e95f14] disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+        Log request
+      </button>
     </div>
   );
 }
