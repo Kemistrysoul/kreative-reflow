@@ -52,7 +52,7 @@ What is still missing or not tight enough:
 - `[ ]` No weekly client update generator exists.
 - `[ ]` No client task list exists for missing client actions, owners, due dates, and blockers.
 - `[~]` Dashboard activity automation exists for approvals, uploads, invoices, handoff, and project events, but it does not yet cover requests, messages, meetings, decisions, weekly updates, or readiness gate changes.
-- `[!]` The extended onboarding migrations are present in the working tree but still need to be applied and verified in Supabase before those fields are production-ready.
+- `[x]` The extended onboarding migrations have been applied in Supabase and verified with a temporary write/read/delete against `portal_onboarding_responses`.
 
 ## Portal Operating-System Implementation Tracker
 
@@ -64,9 +64,9 @@ Goal: make onboarding collect enough information for delivery to begin without r
 
 - `[x]` Change service option from `Website redesign` to `New website / redesign`.
 - `[x]` Add extended intake fields to the onboarding form, API payload, validation, Studio review types, and Supabase migrations.
-- `[ ]` Apply and verify `20260603090000_add_onboarding_extended_fields.sql` in Supabase.
-- `[ ]` Apply and verify `20260603100000_add_onboarding_phone_audience_type.sql` in Supabase.
-- `[ ]` Apply and verify `20260603110000_add_onboarding_communication_scope_fields.sql` in Supabase.
+- `[x]` Apply and verify `20260603090000_add_onboarding_extended_fields.sql` in Supabase.
+- `[x]` Apply and verify `20260603100000_add_onboarding_phone_audience_type.sql` in Supabase.
+- `[x]` Apply and verify `20260603110000_add_onboarding_communication_scope_fields.sql` in Supabase.
 - `[x]` Surface every extended field in the Studio onboarding review card, not only in storage/types.
 - `[x]` Add a clearer client-facing completion summary after final submission.
 - `[x]` Add missing-content and missing-access owner/due-date fields.
@@ -211,7 +211,7 @@ Acceptance checks:
 
 ## Recommended Execution Order
 
-1. `[!]` Apply and verify the Phase 9 onboarding migrations in Supabase.
+1. `[x]` Apply and verify the Phase 9 onboarding migrations in Supabase.
 2. `[ ]` Add Phase 10 readiness gate and Contract/SOW status.
 3. `[ ]` Add Phase 11 Request Center and scope classification.
 4. `[ ]` Add Phase 12 meeting requests, message threads, and decision log.
@@ -222,15 +222,15 @@ Acceptance checks:
 
 ## Next Task To Execute
 
-`[!]` Phase 9 - apply and verify the onboarding migrations in Supabase.
+`[ ]` Phase 10 - add Contract, SOW, and commercial readiness gate.
 
 Detailed next step:
 
-- Run `20260603090000_add_onboarding_extended_fields.sql` in Supabase SQL Editor.
-- Run `20260603100000_add_onboarding_phone_audience_type.sql` in Supabase SQL Editor.
-- Run `20260603110000_add_onboarding_communication_scope_fields.sql` in Supabase SQL Editor.
-- After the SQL succeeds, submit a portal onboarding draft and final response to verify the fields persist.
-- Then move to Phase 10: Contract, SOW, and commercial readiness gate.
+- Add project readiness checklist records for agreement signed, SOW approved, deposit paid, billing contact confirmed, kickoff completed, approval owner confirmed, brand/content/assets ready, technical access ready, timeline constraints confirmed, and communication rules confirmed.
+- Show the readiness checklist inside the client portal Onboarding section.
+- Show the same checklist inside Studio Projects with studio-admin edit controls.
+- Connect deposit/payment readiness to existing invoice records where possible.
+- Add a visible `Ready for active delivery` state once required gate items are complete.
 
 ## Current State
 
@@ -475,4 +475,5 @@ Acceptance checks:
 13. `[x]` Add finance status and launch handoff workflow.
 14. `[x]` Add monitoring, POPIA-aware launch copy, and route-level error/loading states.
 15. `[x]` Configure custom SMTP for Supabase Auth before real client/studio login testing.
-16. `[!]` Apply the Phase 9 onboarding migrations in Supabase and verify persistence.
+16. `[x]` Apply the Phase 9 onboarding migrations in Supabase and verify persistence.
+17. `[ ]` Add Contract/SOW readiness gate and active-delivery start control.
