@@ -14,13 +14,14 @@ import {
 } from '@/lib/seo';
 
 const title = 'When Does a Business Need a Custom Dashboard or Client Portal';
+const metaTitle = 'Custom Dashboard or Client Portal? | Kreative Reflow';
 const description =
-  'A practical guide to knowing when a business has outgrown spreadsheets, SaaS tools, and manual workarounds and needs a custom dashboard or client portal.';
+  'Know when a business has outgrown spreadsheets, SaaS tools, and manual workarounds and needs a custom dashboard, client portal, or internal system.';
 const path = '/insights/when-does-a-business-need-a-custom-dashboard-or-client-portal';
 const publishedDate = '2026-05-10';
 
 export const metadata: Metadata = pageMetadata({
-  title: `${title} | Kreative Reflow`,
+  title: metaTitle,
   description,
   path,
 });
@@ -334,10 +335,10 @@ export default function CustomDashboardClientPortalArticlePage() {
               Related Resources
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
-                Download: Dashboard Requirements Template
+              <Link href="/contact" className="underline decoration-[#FC6E20] underline-offset-4">
+                Talk through your dashboard requirements
               </Link>{' '}
-              — A worksheet to help you think through what you actually need in a custom dashboard before you talk to a developer.
+              - we will help you clarify what the system actually needs before anything gets built.
             </p>
           </section>
 
@@ -347,9 +348,14 @@ export default function CustomDashboardClientPortalArticlePage() {
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
+              <a
+                href="https://www.linkedin.com/company/kreativereflow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-[#FC6E20] underline-offset-4"
+              >
                 LinkedIn
-              </Link>
+              </a>
             </p>
           </section>
       </ArticleBody>

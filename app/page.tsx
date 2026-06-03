@@ -1,14 +1,35 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Menu, X } from 'lucide-react';
+import type React from 'react';
+import { useState, useRef, useEffect, useSyncExternalStore } from 'react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Calculator,
+  ChartNoAxesCombined,
+  Gauge,
+  Globe2,
+  ListChecks,
+  Menu,
+  Monitor,
+  RefreshCw,
+  SearchCheck,
+  Settings,
+  X,
+  Zap,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, AnimatePresence, useMotionValue, useScroll, useSpring, useTransform, useInView, useReducedMotion } from 'motion/react';
+import { motion, AnimatePresence, useMotionValue, useScroll, useSpring, useTransform, useInView, useReducedMotion, type MotionValue } from 'motion/react';
 import DottedSection from "@/components/dotted-section";
 import FounderTeaser from "@/components/FounderTeaser";
 import Waves from '@/components/Waves';
 import { AnimatedLinkText, AnimatedTextLink } from '@/components/AnimatedTextLink';
+import { ExpandingCtaBackground } from '@/components/ExpandingCtaBackground';
+
+const SERVICE_CARD_HOVER_FLEX = 1.3;
+const SERVICE_CARD_COLLAPSED_FLEX = 0.9;
 
 export default function Home() {
   return (
@@ -21,9 +42,11 @@ export default function Home() {
           <BusinessHeroSection />
         </div>
         <Testimonial />
+        <DiagnosticToolsBridge />
         <HowItWorks />
         <FounderTeaser />
         <Insights />
+        <HomeFinalCta />
       </main>
     </div>
   );
@@ -341,14 +364,15 @@ function IntroSection() {
 
   const getFlexValue = (i: number) => {
     if (hoveredIndex === null) return 1;
-    if (hoveredIndex === i) return 1.3;
-    return 0.85;
+    if (hoveredIndex === i) return SERVICE_CARD_HOVER_FLEX;
+    return SERVICE_CARD_COLLAPSED_FLEX;
   };
 
   const services = [
     {
       num: '01', total: '04',
       title: 'Web Design & Development',
+      href: '/services/web-design',
       subhead: 'Built for your business. Not borrowed from a template.',
       desc: 'Your website should work as hard as you do. We build custom sites that bring in leads, build trust, and run 24/7. Designed for your audience, built for speed, and made to grow with you.',
       bg: '#151419',
@@ -358,8 +382,9 @@ function IntroSection() {
     {
       num: '02', total: '04',
       title: 'Local & AI SEO',
-      subhead: 'Your idea, engineered for your business.',
-      desc: 'Need a portal, booking system, or custom dashboard? We build web applications around how your business actually works, not what off-the-shelf tools can almost do. Built from scratch and handed over, fully yours.',
+      href: '/services/seo',
+      subhead: 'Get found by the people who are already looking for you.',
+      desc: 'A great website means nothing if nobody sees it. We help your business show up on Google, maps, and AI search with clearer structure, stronger local signals, and content search systems can understand.',
       bg: '#3D7A7A',
       textColor: 'white',
       canvasAnimation: 'sinewave' as const,
@@ -367,8 +392,9 @@ function IntroSection() {
     {
       num: '03', total: '04',
       title: 'SaaS & Custom Web Applications',
-      subhead: 'Get found by the people who are already looking for you.',
-      desc: 'A great website means nothing if nobody sees it. We make sure your business shows up where your clients are searching, on Google, on maps, and in AI search. More visibility. More enquiries. Less guessing.',
+      href: '/services/saas-development',
+      subhead: 'Your workflow, engineered around the way the business runs.',
+      desc: 'Need a portal, booking system, internal dashboard, or SaaS product? We build web applications around your real operating model, not what off-the-shelf tools can almost do.',
       bg: '#F56E0F',
       textColor: '#151419',
       canvasAnimation: 'radial' as const,
@@ -376,6 +402,7 @@ function IntroSection() {
     {
       num: '04', total: '04',
       title: 'AI & Business Automation',
+      href: '/services/automation',
       subhead: 'Stop doing manually what a system can do for you.',
       desc: 'Follow-ups, data entry, scheduling, reporting. If your team repeats it daily, we automate it. We build systems that handle the busywork so your people can focus on what actually needs a human.',
       bg: '#F0EFED',
@@ -385,10 +412,18 @@ function IntroSection() {
   ];
 
   return (
-    <section ref={ref} className="relative w-full py-32 overflow-hidden bg-[#F0EFED]">
+    <section ref={ref} className="relative w-full overflow-hidden bg-[#070A0F] py-24 md:py-28">
       <motion.div
-        className="absolute inset-0 bg-[#1a1a1a] origin-left z-0"
+        className="absolute inset-0 origin-left bg-[#070A0F] z-0"
         style={{ scaleX: bgScaleX, borderRadius: '0 0 0 0' }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_36%_76%,rgba(252,110,32,0.16),transparent_30%),radial-gradient(circle_at_74%_20%,rgba(95,159,170,0.16),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.04),transparent_42%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-[-18rem] left-[28%] z-0 hidden h-[42rem] w-[42rem] rounded-full border border-[#FC6E20]/10 bg-[radial-gradient(circle,rgba(252,110,32,0.38)_1px,transparent_1.4px)] bg-[length:15px_15px] opacity-25 [mask-image:radial-gradient(circle_at_center,black_0%,black_38%,transparent_68%)] lg:block"
       />
       <div className="absolute inset-0 pointer-events-none z-0">
         {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -403,51 +438,166 @@ function IntroSection() {
         ))}
       </div>
       <div className="w-full content-gutter relative z-10 text-snow">
-        <div className="px-[3%]">
-          <div className="flex flex-col lg:flex-row justify-between items-start gap-16 lg:gap-24 mb-32">
-            <div className="max-w-3xl">
-              <motion.h2
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: false, margin: "-100px" }}
-                className="font-playfair text-4xl md:text-5xl lg:text-[4.0625rem] font-bold tracking-tight mb-6 leading-[1.1]"
-              >
-                We build the <br />
-                websites, systems, <br />
-                and automation that <br />
-                give your business an <br />
-                <span className="text-[#e05a15]">unfair advantage</span>.
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: false, margin: "-100px" }}
-                className="text-lg md:text-[1.25rem] font-montserrat opacity-80"
-              >
+        <div className="mx-auto max-w-[1770px] px-0">
+          <div className="mb-32 grid gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(560px,1.08fr)] lg:items-start lg:gap-16 xl:gap-20">
+            <motion.div
+              initial={{ opacity: 0, x: -42 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.82, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: false, margin: "-100px" }}
+              className="lg:sticky lg:top-28 lg:pt-8"
+            >
+              <span className="mb-6 block font-montserrat text-xs font-bold uppercase tracking-[0.3em] text-[#FC6E20]">
+                [ Digital infrastructure ]
+              </span>
+              <h2 className="max-w-[790px] font-playfair text-[clamp(3.1rem,4.7vw,5.45rem)] font-bold leading-[0.92] tracking-tight text-[#F7F4EE] [text-wrap:balance]">
+                We build websites, systems, and automation that give your business an{' '}
+                <span className="text-[#FC6E20]">unfair advantage</span><span className="text-[#FC6E20]">.</span>
+              </h2>
+              <p className="mt-8 max-w-2xl font-montserrat text-base leading-8 text-[#FBFBFB]/68 md:text-lg">
                 Custom-built digital infrastructure for businesses ready to grow beyond templates, manual processes, and agencies that disappear after launch.
-              </motion.p>
-            </div>
-            <div className="flex flex-col gap-8 max-w-2xl lg:mt-32">
-              <motion.p
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              </p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/services"
+                  className="group/link inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 font-montserrat text-sm font-bold uppercase tracking-[0.08em] text-[#151419] transition-colors duration-300 hover:bg-[#FAE18F]"
+                >
+                  <AnimatedLinkText hiddenClassName="text-[#151419]">View services</AnimatedLinkText>
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1" />
+                </Link>
+                <Link
+                  href="/work"
+                  className="group/link inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-[#FBFBFB]/16 px-6 font-montserrat text-sm font-bold uppercase tracking-[0.08em] text-[#FBFBFB] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20]"
+                >
+                  <AnimatedLinkText>See the proof</AnimatedLinkText>
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1" />
+                </Link>
+              </div>
+
+              <div className="mt-16 hidden max-w-3xl lg:block">
+                <div className="grid max-w-2xl grid-cols-[auto_1fr] items-center gap-5 font-montserrat text-sm leading-6 text-white/48">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/14 bg-white/[0.035] text-white/80">
+                    <Globe2 className="h-6 w-6" strokeWidth={1.7} />
+                  </span>
+                  <span>
+                    Based in Johannesburg and working with clients across South Africa and internationally.
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="grid gap-5 lg:pt-8 xl:pt-10">
+              <motion.article
+                initial={{ opacity: 0, x: 42 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.78, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
                 viewport={{ once: false, margin: "-100px" }}
-                className="text-base leading-relaxed font-montserrat opacity-80"
+                className="relative overflow-hidden rounded-[1.65rem] bg-[#F4F1EA] p-7 text-[#151419] shadow-[0_34px_90px_rgba(0,0,0,0.24)] md:p-8 lg:p-9"
               >
-                Whether you need a high-performance website, a custom dashboard, a SaaS product, or an automated system that runs while you sleep - we build it properly, from the ground up. No page builders. No shortcuts. No unnecessary complexity.
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 40 }}
+                <div
+                  aria-hidden="true"
+                  className="absolute -bottom-28 -right-20 h-80 w-80 rounded-full border border-[#151419]/10 opacity-50"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute -bottom-36 -right-28 h-[28rem] w-[28rem] rounded-full bg-[repeating-radial-gradient(circle_at_center,transparent_0,transparent_10px,rgba(21,20,25,0.08)_11px,transparent_12px)] opacity-55"
+                />
+                <div className="relative grid gap-8 md:grid-cols-[0.78fr_1.08fr] md:items-center">
+                  <div>
+                    <p className="font-montserrat text-[0.72rem] font-black uppercase tracking-[0.18em] text-[#FC6E20]">
+                      The signal
+                    </p>
+                    <span className="mt-3 block h-px w-8 bg-[#FC6E20]" aria-hidden="true" />
+                    <p className="mt-6 max-w-[9ch] font-playfair text-[clamp(2.45rem,3.05vw,3.65rem)] font-bold leading-[0.92] tracking-tight">
+                      Built properly, from the ground up<span className="text-[#FC6E20]">.</span>
+                    </p>
+                  </div>
+                  <div className="space-y-6 font-montserrat text-sm leading-7 text-[#45454A] md:text-base">
+                    <p className="max-w-md">
+                      Whether you need a high-performance website, a custom dashboard, a SaaS product, or an automated system that runs while you sleep, we build the foundation around the way your business actually works.
+                    </p>
+                    <p className="max-w-md border-l border-[#FC6E20] pl-5 font-semibold text-[#151419]">
+                      No page builders. No shortcuts.<br />
+                      No unnecessary complexity.
+                    </p>
+                  </div>
+                </div>
+              </motion.article>
+
+              <div className="grid gap-4 md:grid-cols-3">
+                {[
+                  {
+                    num: '01',
+                    title: 'Website clarity',
+                    body: 'Public pages that explain the offer, earn trust, and move people toward the right enquiry.',
+                    icon: Monitor,
+                    className: 'bg-[#0F7189] text-[#F8FBFA]',
+                    line: 'border-white/28',
+                  },
+                  {
+                    num: '02',
+                    title: 'Systems underneath',
+                    body: 'Dashboards, portals, forms, and workflows shaped around the real operating model.',
+                    icon: Settings,
+                    className: 'bg-[#FC6E20] text-[#FFF8EF]',
+                    line: 'border-white/34',
+                  },
+                  {
+                    num: '03',
+                    title: 'Follow-up logic',
+                    body: 'Automation and lead response paths that keep momentum after the first enquiry.',
+                    icon: Zap,
+                    className: 'bg-[#3E5361] text-[#F8FBFA]',
+                    line: 'border-white/24',
+                  },
+                ].map((card, index) => {
+                  const Icon = card.icon;
+
+                  return (
+                    <motion.article
+                      key={card.title}
+                      initial={{ opacity: 0, y: 34 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.72, delay: 0.3 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                      viewport={{ once: false, margin: "-100px" }}
+                      className={`group flex min-h-[18.5rem] flex-col justify-between overflow-hidden rounded-[1.35rem] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.2)] transition-transform duration-300 hover:-translate-y-2 lg:min-h-[21rem] xl:min-h-[22.5rem] ${card.className}`}
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <span className="font-mono text-xs uppercase tracking-[0.16em] opacity-80">{card.num}</span>
+                        <Icon className="h-5 w-5 opacity-80 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.7} />
+                      </div>
+                      <div>
+                        <h3 className="max-w-[10.5ch] break-words font-playfair text-[clamp(2rem,2.1vw,3rem)] font-bold leading-[0.9] tracking-tight">
+                          {card.title}
+                        </h3>
+                        <div className={`my-6 border-t ${card.line}`} />
+                        <p className="font-montserrat text-sm leading-7 opacity-78">
+                          {card.body}
+                        </p>
+                      </div>
+                      <Link href={index === 0 ? '/services/web-design' : index === 1 ? '/services/saas-development' : '/services/automation'} className="mt-7 inline-flex w-fit items-center gap-3 font-montserrat text-sm font-bold">
+                        <AnimatedLinkText>Explore</AnimatedLinkText>
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      </Link>
+                    </motion.article>
+                  );
+                })}
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.72, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
                 viewport={{ once: false, margin: "-100px" }}
-                className="text-base leading-relaxed font-montserrat opacity-80"
+                className="grid gap-4 rounded-[1.15rem] border border-white/12 bg-white/[0.035] p-5 font-montserrat text-sm leading-7 text-[#FBFBFB]/66 shadow-[0_24px_70px_rgba(0,0,0,0.18)] sm:grid-cols-[auto_1fr] sm:items-center md:p-6"
               >
-                Based in Johannesburg and working with clients across South Africa and internationally. We combine technical depth with a clear understanding of what actually moves the needle for small and growing businesses.
-              </motion.p>
+                <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.05] text-[#FBFBFB]">
+                  <ChartNoAxesCombined className="h-6 w-6" strokeWidth={1.7} />
+                </span>
+                <span>
+                  We combine technical depth with a clear understanding of what actually moves the needle for small and growing businesses.
+                </span>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -455,8 +605,8 @@ function IntroSection() {
           <span className="font-montserrat text-xs tracking-[0.2em] uppercase mb-4 block" style={{ fontWeight: 400, color: 'rgb(245, 110, 15)', fontSize: '12px', lineHeight: '16px' }}>
             [ WHAT WE DO ]
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-[4.0625rem] font-bold tracking-tighter font-playfair text-white mb-6 max-w-3xl">
-            One studio<br />Every layer of your digital business.
+          <h2 className="max-w-3xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-white mb-6">
+            One studio<br />Every layer of your digital business<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="text-base md:text-[1.25rem] text-white/60 max-w-2xl font-montserrat leading-relaxed">
             Most agencies sell you a website and disappear. We build the website, the systems behind it, and the strategy that makes all of it work.
@@ -473,6 +623,7 @@ function IntroSection() {
             {services.map((s, i) => (
               <ServiceCard
                 key={i} {...s} index={i} flexValue={getFlexValue(i)}
+                hasActiveCard={hoveredIndex !== null}
                 isHovered={hoveredIndex === i}
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
@@ -492,7 +643,7 @@ function Hero() {
       <Waves />
 
       <div className="relative z-10 text-center w-full max-w-6xl px-4 sm:px-6">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-playfair font-bold leading-[1.1] sm:leading-[0.95] tracking-tight text-stone-950 dark:text-stone-50">
+        <h1 className="font-playfair text-[clamp(3.1rem,7.2vw,7.2rem)] font-bold leading-[0.93] tracking-tight text-stone-950 dark:text-stone-50">
           Your business deserves<span className="sr-only"> </span><br />
           a better digital foundation
         </h1>
@@ -713,12 +864,14 @@ type ServiceCardProps = {
   num: string;
   total: string;
   title: string;
+  href: string;
   subhead: string;
   desc: string;
   bg: string;
   textColor: string;
   canvasAnimation: 'dotmatrix' | 'sinewave' | 'radial' | 'helix';
   flexValue: number;
+  hasActiveCard: boolean;
   index: number;
   isHovered: boolean;
   onMouseEnter: () => void;
@@ -726,9 +879,24 @@ type ServiceCardProps = {
   isMobile: boolean;
 };
 
-function ServiceCard({ num, total, title, subhead, desc, bg, textColor, canvasAnimation, flexValue, index, isHovered, onMouseEnter, onMouseLeave, isMobile }: ServiceCardProps) {
+const serviceCardSpring = { type: 'spring', stiffness: 300, damping: 40, mass: 1 } as const;
+
+function ServiceCard({ num, total, title, href, subhead, desc, bg, textColor, canvasAnimation, flexValue, hasActiveCard, index, isHovered, onMouseEnter, onMouseLeave, isMobile }: ServiceCardProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotColor = textColor === 'white' ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.75)';
+  const isExpanded = isMobile || !hasActiveCard || isHovered;
+  const isCollapsed = !isExpanded;
+  const cardPadding = isMobile
+    ? index === 3
+      ? '1.5rem 20px'
+      : '1.5rem'
+    : index === 3
+      ? isCollapsed
+        ? '2rem 18px'
+        : '2rem 64px 2rem 32px'
+      : isCollapsed
+        ? '2rem 18px'
+        : '2rem 32px';
 
   useDotMatrixCanvas(canvasAnimation === 'dotmatrix' ? canvasRef : { current: null }, dotColor);
   useSineWaveCanvas(canvasAnimation === 'sinewave' ? canvasRef : { current: null }, dotColor);
@@ -738,13 +906,21 @@ function ServiceCard({ num, total, title, subhead, desc, bg, textColor, canvasAn
   const borderRadius = '20px 20px 20px 20px';
 
   return (
-    <div
+    <motion.div
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className="services-card"
+      onFocus={onMouseEnter}
+      onBlur={onMouseLeave}
+      data-expanded={isExpanded ? 'true' : 'false'}
+      aria-expanded={isExpanded}
+      animate={{
+        flexGrow: isMobile ? 1 : flexValue,
+        flexBasis: isMobile ? '100%' : '0%',
+      }}
+      transition={serviceCardSpring}
+      className="services-card group focus-within:outline-none"
       style={{
-        flex: isMobile ? '1 1 100%' : `${flexValue} 1 0%`,
-        transition: 'flex 0.35s ease',
+        flexShrink: 1,
         backgroundColor: bg,
         color: textColor,
         overflow: 'hidden',
@@ -753,11 +929,12 @@ function ServiceCard({ num, total, title, subhead, desc, bg, textColor, canvasAn
         display: 'flex',
         flexDirection: 'column',
         marginLeft: (!isMobile && index > 0) ? '-14px' : '0',
-        zIndex: isHovered ? 10 : index + 1,
+        zIndex: isExpanded ? 10 : index + 1,
         borderRadius,
+        cursor: isMobile ? 'default' : 'pointer',
       }}
     >
-      <div style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', padding: index === 3 ? '2rem 64px 2rem 32px' : '2rem 32px 2rem 32px' }}>
+      <div style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', padding: cardPadding }}>
         <style>{`
           @media (max-width: 1280px) {
             .services-card:nth-child(4) > div:first-child {
@@ -774,10 +951,36 @@ function ServiceCard({ num, total, title, subhead, desc, bg, textColor, canvasAn
               padding-right: 12px !important;
             }
           }
+          @media (min-width: 1024px) {
+            .services-card[data-expanded="false"] > div:first-child {
+              padding-left: 18px !important;
+              padding-right: 18px !important;
+            }
+          }
         `}</style>
-        <h3
+        <motion.div
+          className="mb-8 flex items-center justify-between font-mono text-[0.68rem] uppercase tracking-[0.2em]"
+          animate={{ opacity: isCollapsed ? 0.55 : 0.72 }}
+          transition={{ duration: 0.2 }}
+        >
+          <span>{num}</span>
+          <span>{total}</span>
+        </motion.div>
+        <motion.h3
           className="font-display font-bold uppercase tracking-tight text-center"
-          style={{ fontSize: 'clamp(1rem, 1.4vw, 1.5rem)', letterSpacing: '-0.02em', marginBottom: '1.5rem', color: textColor }}
+          animate={{
+            opacity: isCollapsed ? 0.9 : 1,
+            scale: isCollapsed ? 0.92 : 1,
+          }}
+          transition={serviceCardSpring}
+          style={{
+            fontSize: isCollapsed ? 'clamp(0.8rem, 1vw, 1rem)' : 'clamp(1rem, 1.4vw, 1.5rem)',
+            letterSpacing: '-0.02em',
+            marginBottom: isExpanded ? '1.5rem' : '0.25rem',
+            color: textColor,
+            lineHeight: isCollapsed ? 1.05 : 1.15,
+            transformOrigin: 'center top',
+          }}
         >
           {title.split(' and ').map((part, i, arr) => (
             <span key={i}>
@@ -785,17 +988,55 @@ function ServiceCard({ num, total, title, subhead, desc, bg, textColor, canvasAn
               {part}
             </span>
           ))}
-        </h3>
-        <p className="font-montserrat text-center" style={{ fontSize: 'clamp(0.65rem, 0.9vw, 0.8rem)', opacity: 0.7, color: textColor, marginBottom: '0.25rem', marginTop: '-1.25rem' }}>
+        </motion.h3>
+        <motion.p
+          className="font-montserrat text-center"
+          animate={{
+            opacity: isExpanded ? 0.7 : 0,
+            height: isExpanded ? 'auto' : 0,
+            marginBottom: isExpanded ? '0.25rem' : '0rem',
+            marginTop: isExpanded ? '-1.25rem' : '0rem',
+          }}
+          transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            fontSize: 'clamp(0.65rem, 0.9vw, 0.8rem)',
+            color: textColor,
+            overflow: 'hidden',
+          }}
+        >
           {subhead}
-        </p>
-        <div style={{ flex: 1, position: 'relative', minHeight: '220px', marginTop: index === 0 ? '1rem' : undefined }}>
+        </motion.p>
+        <motion.div
+          animate={{
+            opacity: isCollapsed ? 0.42 : 1,
+            scale: isCollapsed ? 0.86 : 1,
+          }}
+          transition={serviceCardSpring}
+          style={{
+            flex: isExpanded ? 1 : '0 0 auto',
+            position: 'relative',
+            minHeight: isCollapsed ? '250px' : '220px',
+            marginTop: index === 0 && isExpanded ? '1rem' : isCollapsed ? '1.75rem' : undefined,
+            transformOrigin: 'center top',
+          }}
+        >
           <canvas
             ref={canvasRef}
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
           />
-        </div>
-        <div style={{ marginTop: '1.5rem' }}>
+        </motion.div>
+        <motion.div
+          animate={{
+            opacity: isExpanded ? 1 : 0,
+            height: isExpanded ? 'auto' : 0,
+            marginTop: isExpanded ? '1.5rem' : '0rem',
+          }}
+          transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            overflow: 'hidden',
+            pointerEvents: isExpanded ? 'auto' : 'none',
+          }}
+        >
           <p
             className="font-montserrat text-center"
             style={{ fontSize: 'clamp(12.5px, 1vw, 0.9rem)', lineHeight: 1.6, opacity: 0.75, color: textColor, letterSpacing: '0.02em' }}
@@ -807,12 +1048,12 @@ function ServiceCard({ num, total, title, subhead, desc, bg, textColor, canvasAn
               [ Includes ongoing support plans. ]
             </p>
           )}
-          <a href="#contact" className="font-montserrat text-center block mt-4 text-sm opacity-60 hover:opacity-100 transition-opacity" style={{ color: textColor }}>
+          <Link href={href} className="font-montserrat text-center block mt-4 text-sm opacity-60 transition-opacity hover:opacity-100" style={{ color: textColor }}>
             Learn more →
-          </a>
-        </div>
+          </Link>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -829,14 +1070,15 @@ function Services() {
 
   const getFlexValue = (i: number) => {
     if (hoveredIndex === null) return 1;
-    if (hoveredIndex === i) return 1.3;
-    return 0.85;
+    if (hoveredIndex === i) return SERVICE_CARD_HOVER_FLEX;
+    return SERVICE_CARD_COLLAPSED_FLEX;
   };
 
   const services = [
     {
       num: '01', total: '04',
       title: 'Web Design & Development',
+      href: '/services/web-design',
       subhead: 'Built for your business. Not borrowed from a template.',
       desc: 'Your website should work as hard as you do. We build custom sites that bring in leads, build trust, and run 24/7. Designed for your audience, built for speed, and made to grow with you.',
       bg: '#151419',
@@ -846,8 +1088,9 @@ function Services() {
     {
       num: '02', total: '04',
       title: 'Local & AI SEO',
-      subhead: 'Your idea, engineered for your business.',
-      desc: 'Need a portal, booking system, or custom dashboard? We build web applications around how your business actually works, not what off-the-shelf tools can almost do. Built from scratch and handed over, fully yours.',
+      href: '/services/seo',
+      subhead: 'Get found by the people who are already looking for you.',
+      desc: 'A great website means nothing if nobody sees it. We help your business show up on Google, maps, and AI search with clearer structure, stronger local signals, and content search systems can understand.',
       bg: '#3D7A7A',
       textColor: 'white',
       canvasAnimation: 'sinewave' as const,
@@ -855,8 +1098,9 @@ function Services() {
     {
       num: '03', total: '04',
       title: 'SaaS & Custom Web Applications',
-      subhead: 'Get found by the people who are already looking for you.',
-      desc: 'A great website means nothing if nobody sees it. We make sure your business shows up where your clients are searching, on Google, on maps, and in AI search. More visibility. More enquiries. Less guessing.',
+      href: '/services/saas-development',
+      subhead: 'Your workflow, engineered around the way the business runs.',
+      desc: 'Need a portal, booking system, internal dashboard, or SaaS product? We build web applications around your real operating model, not what off-the-shelf tools can almost do.',
       bg: '#F56E0F',
       textColor: '#151419',
       canvasAnimation: 'radial' as const,
@@ -864,6 +1108,7 @@ function Services() {
     {
       num: '04', total: '04',
       title: 'AI & Business Automation',
+      href: '/services/automation',
       subhead: 'Stop doing manually what a system can do for you.',
       desc: 'Follow-ups, data entry, scheduling, reporting. If your team repeats it daily, we automate it. We build systems that handle the busywork so your people can focus on what actually needs a human.',
       bg: '#F0EFED',
@@ -878,8 +1123,8 @@ function Services() {
         <span className="text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase text-[#6b6b6b] mb-4 block">
           WHAT WE DO
         </span>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter uppercase font-display text-snow mb-6 max-w-3xl">
-          One studio. Every layer of your digital business.
+        <h2 className="max-w-3xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight uppercase text-snow mb-6">
+          One studio<span className="text-[#FC6E20]">.</span> Every layer of your digital business<span className="text-[#FC6E20]">.</span>
         </h2>
         <p className="text-base md:text-[19px] text-snow/50 max-w-2xl font-montserrat leading-relaxed">
           Most agencies sell you a website and disappear. We build the website, the systems behind it, and the strategy that makes all of it work.
@@ -921,6 +1166,7 @@ function Services() {
               {...s}
               index={i}
               flexValue={getFlexValue(i)}
+              hasActiveCard={hoveredIndex !== null}
               isHovered={hoveredIndex === i}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -1190,10 +1436,10 @@ function HowItWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: false, margin: "-100px" }}
-            className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight dark:text-snow text-dark-void"
+            className="font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight dark:text-snow text-dark-void"
           >
             From first conversation<br />
-            to live product.
+            to live product<span className="text-[#FC6E20]">.</span>
           </motion.h2>
           <motion.div
             initial={{ width: 0 }}
@@ -1466,7 +1712,7 @@ function Founder() {
         <div className="order-2 lg:order-1">
           <span className="font-mono text-liquid-lava text-sm uppercase tracking-widest mb-4 block">Leadership</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-8">
-            &quot;Design isn&apos;t just how it looks. It&apos;s how it functions at scale.&quot;
+            &quot;Design isn&apos;t just how it looks<span className="text-[#FC6E20]">.</span> It&apos;s how it functions at scale<span className="text-[#FC6E20]">.</span>&quot;
           </h2>
           <p className="text-slate-grey dark:text-snow/60 mb-8 text-lg">
             With over a decade of experience bridging the gap between aesthetic design and robust technical architecture, our leadership ensures every project isn&apos;t just a visual success, but a measurable business asset.
@@ -1497,54 +1743,101 @@ function Founder() {
   );
 }
 
-function InsightCard({ post, index }: { post: { category: string; title: string; readTime: string; tags: string[]; seed: string }; index: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+type HomeInsightNote = {
+  category: string;
+  title: string;
+  summary: string;
+  readTime: string;
+  href: string;
+  image: string;
+  imageAlt: string;
+  tags: string[];
+};
 
+const homeInsightNotes: HomeInsightNote[] = [
+  {
+    category: 'Pricing',
+    title: 'How Much Does a Website Cost in South Africa in 2026',
+    summary:
+      'A practical guide to quote ranges, hidden costs, and what actually changes the price of a serious website build.',
+    readTime: '10 min read',
+    href: '/insights/website-cost-south-africa-2026',
+    image:
+      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Business owner reviewing website project numbers on a laptop.',
+    tags: ['Pricing', 'Planning'],
+  },
+  {
+    category: 'Conversion',
+    title: "Why Your Website Looks Good But Doesn't Convert",
+    summary:
+      'A clear breakdown of why polished pages still leak enquiries when trust, copy, mobile paths, and CTAs are weak.',
+    readTime: '9 min read',
+    href: '/insights/why-your-website-looks-good-but-doesnt-convert',
+    image:
+      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Clean office workspace used as a conversion website reference.',
+    tags: ['Conversion', 'Websites'],
+  },
+  {
+    category: 'Visibility',
+    title: 'Local SEO for Johannesburg Service Businesses',
+    summary:
+      'How maps, reviews, local pages, service clarity, and search structure help Johannesburg businesses get found.',
+    readTime: '8 min read',
+    href: '/insights/local-seo-johannesburg-service-businesses',
+    image:
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85',
+    imageAlt: 'Local street and building detail representing local search visibility.',
+    tags: ['SEO', 'Local'],
+  },
+];
+
+function HomeSectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 48 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 48 }}
-      transition={{ duration: 0.6, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+    <span className="inline-flex items-center gap-2 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.28em] text-[#FC6E20]">
+      <span>[</span>
+      {children}
+      <span>]</span>
+    </span>
+  );
+}
+
+function HomeInsightCard({ note, index }: { note: HomeInsightNote; index: number }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 34 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-12% 0px' }}
+      transition={{ duration: 0.68, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      className="group h-full"
     >
-      <Link href="/insights" className="group block flex flex-col h-full">
-        {/* Image */}
-        <div className="aspect-[4/5] w-full relative overflow-hidden mb-0 rounded-sm">
+      <Link href={note.href} className="flex h-full flex-col text-[#151419]">
+        <div className="relative h-[21rem] overflow-hidden rounded-[0.55rem] bg-[#151419]/8 md:h-[24rem]">
           <Image
-            src={`https://picsum.photos/seed/${post.seed}/600/450`}
-            alt={post.title}
+            src={note.image}
+            alt={note.imageAlt}
             fill
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 28vw"
+            sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
+            className="object-cover transition duration-500 ease-out group-hover:scale-[1.045]"
           />
-          {/* Subtle dark overlay on hover */}
-          <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-[#060808]/0 transition-colors duration-300 group-hover:bg-[#060808]/10" />
         </div>
-
-        {/* Content */}
-        <div className="flex flex-col flex-1 pt-5">
-          {/* Read time */}
-          <div className="flex items-center gap-3 font-mono text-xs text-dusty-grey uppercase tracking-widest mb-3">
-            <span>{post.category}</span>
-            <span className="h-px w-6 bg-dusty-grey/40" />
-            <span>{post.readTime}</span>
-          </div>
-
-          {/* Title */}
-          <h3 className="font-display text-xl md:text-2xl font-bold uppercase tracking-tight leading-snug mb-4 group-hover:text-[#F25623] transition-colors duration-300">
-            {post.title}
+        <div className="flex flex-1 flex-col pt-5">
+          <p className="font-montserrat text-[0.72rem] font-medium leading-none text-[#060808]/66">
+            {note.category} - {note.readTime}
+          </p>
+          <h3 className="mt-3 max-w-[34rem] font-montserrat text-[1.05rem] font-extrabold leading-[1.14] tracking-normal text-[#060808] transition-colors duration-300 group-hover:text-[#DD6211] md:text-[1.08rem]">
+            {note.title}
           </h3>
-
-          {/* Spacer */}
-          <div className="flex-1" />
-
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 pt-4 border-t border-black/10 dark:border-white/10">
-            {post.tags.map((tag) => (
+          <p className="mt-4 font-montserrat text-sm leading-7 text-[#151419]/62">
+            {note.summary}
+          </p>
+          <div className="mt-auto flex flex-wrap gap-2 pt-6">
+            {note.tags.map((tag) => (
               <span
                 key={tag}
-                className="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 bg-black/5 dark:bg-white/10 text-dark-void/60 dark:text-snow/60 rounded-sm"
+                className="rounded-full border border-[#151419]/10 bg-[#151419]/5 px-3 py-1.5 font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.12em] text-[#151419]/62"
               >
                 {tag}
               </span>
@@ -1552,68 +1845,50 @@ function InsightCard({ post, index }: { post: { category: string; title: string;
           </div>
         </div>
       </Link>
-    </motion.div>
+    </motion.article>
   );
 }
 
 function Insights() {
-  const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-60px" });
-
-  const posts = [
-    {
-      category: "Websites",
-      title: "What A Website Should Do After It Looks Good",
-      readTime: "4 min read",
-      tags: ["Conversion", "UX"],
-      seed: "insight0"
-    },
-    {
-      category: "Dashboards",
-      title: "Dashboards Are Not Data Dumps",
-      readTime: "6 min read",
-      tags: ["Systems", "Operations"],
-      seed: "insight1"
-    },
-    {
-      category: "Growth",
-      title: "Local SEO Is Infrastructure, Not A Checklist",
-      readTime: "5 min read",
-      tags: ["Search", "Automation"],
-      seed: "insight2"
-    }
-  ];
-
   return (
-    <section id="insights" className="py-24 content-gutter max-w-[1304px] mx-auto">
-      <motion.div
-        ref={headerRef}
-        initial={{ opacity: 0, y: 24 }}
-        animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
-      >
-        <div>
-          <span className="font-mono text-liquid-lava text-sm uppercase tracking-widest mb-4 block">Insights</span>
-          <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tighter">
-            Field Notes For Digital Systems.
-          </h2>
-          <p className="mt-5 max-w-xl font-montserrat text-base leading-7 text-dark-void/60 dark:text-snow/60">
-            Practical thinking on websites, dashboards, automation, and the decisions that make a digital business easier to run.
-          </p>
-        </div>
-        <AnimatedTextLink
-          href="/insights"
-          withArrow
-          className="font-mono text-sm uppercase tracking-widest text-dark-void/70 dark:text-snow"
+    <section id="insights" className="content-gutter relative z-[7] py-20 text-[#151419] md:py-28">
+      <div className="grid gap-12 lg:grid-cols-[minmax(0,0.76fr)_minmax(0,1.24fr)] lg:items-end">
+        <motion.div
+          initial={{ opacity: 0, x: -26 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-15% 0px -10% 0px' }}
+          transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
         >
-          View All
-        </AnimatedTextLink>
-      </motion.div>
+          <HomeSectionLabel>Insights</HomeSectionLabel>
+          <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419]">
+            Field notes that lead back to practical decisions<span className="text-[#FC6E20]">.</span>
+          </h2>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 26 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-15% 0px -10% 0px' }}
+          transition={{ duration: 0.72, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:ml-auto lg:max-w-xl"
+        >
+          <p className="font-montserrat text-base leading-8 text-[#151419]/64 md:text-lg">
+            Start with the question the business is already asking: what should
+            this cost, why is the site not converting, or why are the right
+            clients not finding us?
+          </p>
+          <AnimatedTextLink
+            href="/insights"
+            withArrow
+            className="mt-7 font-montserrat text-sm font-bold uppercase tracking-[0.12em] text-[#151419]"
+          >
+            Browse all insights
+          </AnimatedTextLink>
+        </motion.div>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-        {posts.map((post, i) => (
-          <InsightCard key={i} post={post} index={i} />
+      <div className="mt-12 grid gap-10 md:grid-cols-3">
+        {homeInsightNotes.map((note, index) => (
+          <HomeInsightCard key={note.title} note={note} index={index} />
         ))}
       </div>
     </section>
@@ -1733,7 +2008,49 @@ function BusinessHeroSection() {
   return <FeaturedBuildsSection />;
 }
 
+function useIsDesktopViewport() {
+  return useSyncExternalStore(
+    (callback) => {
+      const mediaQuery = window.matchMedia('(min-width: 1024px)');
+      mediaQuery.addEventListener('change', callback);
+
+      return () => {
+        mediaQuery.removeEventListener('change', callback);
+      };
+    },
+    () => window.matchMedia('(min-width: 1024px)').matches,
+    () => false,
+  );
+}
+
+function buildScrollStackKeyframes(index: number, total: number) {
+  const lastIndex = Math.max(total - 1, 1);
+  const input = Array.from({ length: total }, (_, itemIndex) => itemIndex / lastIndex);
+  const scale = input.map((_, itemIndex) => 1 - Math.max(0, itemIndex - index) * 0.045);
+  const rotate = input.map((_, itemIndex) => -Math.max(0, itemIndex - index) * 1.15);
+  const entryStart = index === 0 ? 0 : (index - 1) / lastIndex;
+  const entryEnd = index / lastIndex;
+
+  return {
+    input,
+    scale,
+    rotate,
+    yInput: index === 0 ? [0, 1] : [entryStart, entryEnd],
+    yOutput:
+      index === 0
+        ? ['0px', `${-28 * Math.max(total - 1, 0)}px`]
+        : ['18vh', `${index * 34}px`],
+  };
+}
+
 function FeaturedBuildsSection() {
+  const stackRef = useRef<HTMLDivElement>(null);
+  const isDesktop = useIsDesktopViewport();
+  const { scrollYProgress } = useScroll({
+    target: stackRef,
+    offset: ['start start', 'end end'],
+  });
+
   return (
     <section className="relative z-[7] w-full [overflow-x:clip] bg-[#F0EFED] py-20 text-[#151419] dark:bg-[#1a1a1a] dark:text-snow md:py-28 lg:py-36">
       <div className="absolute right-0 top-0 hidden h-1/2 w-[46vw] bg-[#151419] dark:bg-[#0f0f12] lg:block" />
@@ -1754,8 +2071,8 @@ function FeaturedBuildsSection() {
             <span className="font-montserrat text-xs font-semibold uppercase tracking-[0.24em] text-[#FC6E20]">
               [ WHAT WE&apos;VE BUILT ]
             </span>
-            <h2 className="mt-5 max-w-xl font-playfair text-4xl font-bold leading-[1.02] tracking-tight text-[#151419] dark:text-snow md:text-6xl lg:text-[4.8rem]">
-              Recent builds with the system underneath.
+            <h2 className="mt-5 max-w-xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-snow">
+              Recent builds with the system underneath<span className="text-[#FC6E20]">.</span>
             </h2>
             <p className="mt-6 max-w-md font-montserrat text-base leading-8 text-[#6b6b6b] dark:text-snow/60 md:text-lg">
               Two client projects shown as working digital infrastructure: one coaching platform built for trust and service conversion, one industrial site built for technical credibility and qualified enquiries.
@@ -1782,9 +2099,16 @@ function FeaturedBuildsSection() {
             </Link>
           </div>
 
-          <div className="space-y-8 lg:space-y-12 lg:pb-[24vh]">
+          <div ref={stackRef} className="space-y-8 lg:space-y-0 lg:pb-[18vh]">
             {featuredBuilds.map((build, index) => (
-              <FeaturedBuildCard key={build.id} build={build} index={index} />
+              <FeaturedBuildCard
+                key={build.id}
+                build={build}
+                index={index}
+                total={featuredBuilds.length}
+                scrollYProgress={scrollYProgress}
+                isDesktop={isDesktop}
+              />
             ))}
           </div>
         </div>
@@ -1793,92 +2117,126 @@ function FeaturedBuildsSection() {
   );
 }
 
-function FeaturedBuildCard({ build, index }: { build: FeaturedBuild; index: number }) {
+function FeaturedBuildCard({
+  build,
+  index,
+  total,
+  scrollYProgress,
+  isDesktop,
+}: {
+  build: FeaturedBuild;
+  index: number;
+  total: number;
+  scrollYProgress: MotionValue<number>;
+  isDesktop: boolean;
+}) {
+  const keyframes = buildScrollStackKeyframes(index, total);
+  const y = useTransform(scrollYProgress, keyframes.yInput, keyframes.yOutput);
+  const scale = useTransform(scrollYProgress, keyframes.input, keyframes.scale);
+  const rotate = useTransform(scrollYProgress, keyframes.input, keyframes.rotate);
+  const desktopInset = index * 28;
+
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 56 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-12% 0px' }}
-      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative overflow-hidden border border-[#151419]/10 bg-[#F8F7F4] shadow-[0_28px_90px_rgba(21,20,25,0.14)] dark:border-white/10 dark:bg-[#151419] lg:sticky"
-      style={{ top: `${96 + index * 18}px`, zIndex: 10 + index }}
+    <motion.div
+      className="lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-10"
+      style={{ zIndex: 20 + index }}
     >
-      <div
-        className="absolute inset-x-0 top-0 h-1"
-        style={{ background: `linear-gradient(90deg, ${build.accent}, transparent)` }}
-      />
-      <div className="grid gap-8 p-5 sm:p-7 lg:grid-cols-[0.82fr_1.18fr] lg:p-8 xl:p-10">
-        <div className="flex min-h-full flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between gap-4 font-montserrat">
-              <span className="font-mono text-sm text-[#878787]">{build.id}</span>
-              <span
-                className="rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]"
-                style={{ borderColor: `${build.accent}55`, color: build.accent }}
-              >
-                Featured build
-              </span>
-            </div>
-            <p className="mt-8 font-montserrat text-xs font-semibold uppercase tracking-[0.24em] text-[#878787]">
-              {build.eyebrow}
-            </p>
-            <h3 className="mt-4 font-playfair text-4xl font-bold leading-[1.02] tracking-tight text-[#151419] dark:text-white md:text-5xl">
-              {build.title}
-            </h3>
-            <p className="mt-5 font-montserrat text-sm leading-7 text-[#606060] dark:text-white/60 md:text-base">
-              {build.summary}
-            </p>
-            <p className="mt-5 border-l-2 pl-4 font-montserrat text-sm leading-7 text-[#151419] dark:text-white/80" style={{ borderColor: build.accent }}>
-              {build.outcome}
-            </p>
-          </div>
-
-          <div className="mt-8">
-            <div className="grid gap-3">
-              {build.features.map((feature) => (
-                <div key={feature} className="flex items-start gap-3 font-montserrat text-sm text-[#505050] dark:text-white/60">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: build.accent }} />
-                  <span>{feature}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-7 flex flex-wrap gap-2">
-              {build.tags.map((tag) => (
-                <span key={tag} className="rounded-full border border-[#151419]/10 px-3 py-1.5 font-montserrat text-[11px] font-semibold uppercase tracking-[0.12em] text-[#505050] dark:border-white/10 dark:text-white/55">
-                  {tag}
+      <motion.article
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: '-12% 0px' }}
+        transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+        className="group relative w-full overflow-hidden border border-[#151419]/10 bg-[#F8F7F4] shadow-[0_28px_90px_rgba(21,20,25,0.14)] dark:border-white/10 dark:bg-[#151419]"
+        style={
+          isDesktop
+            ? {
+                y,
+                scale,
+                rotate,
+                width: `calc(100% - ${desktopInset}px)`,
+                marginLeft: `${desktopInset}px`,
+                transformOrigin: 'top center',
+              }
+            : undefined
+        }
+      >
+        <div
+          className="absolute inset-x-0 top-0 h-1"
+          style={{ background: `linear-gradient(90deg, ${build.accent}, transparent)` }}
+        />
+        <div className="grid gap-8 p-5 sm:p-7 lg:grid-cols-[0.82fr_1.18fr] lg:p-8 xl:p-10">
+          <div className="flex min-h-full flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between gap-4 font-montserrat">
+                <span className="font-mono text-sm text-[#878787]">{build.id}</span>
+                <span
+                  className="rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ borderColor: `${build.accent}55`, color: build.accent }}
+                >
+                  Featured build
                 </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="relative">
-          <div className="relative overflow-hidden rounded-[1.4rem] border border-[#151419]/15 bg-[#151419] p-2 shadow-[0_28px_80px_rgba(0,0,0,0.22)] dark:border-white/10">
-            <div className="flex h-8 items-center justify-between border-b border-white/10 px-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/45">
-              <div className="flex gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#FC6E20]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-white/35" />
-                <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
               </div>
-              <span>Full homepage capture</span>
+              <p className="mt-8 font-montserrat text-xs font-semibold uppercase tracking-[0.24em] text-[#878787]">
+                {build.eyebrow}
+              </p>
+              <h3 className="mt-4 font-playfair text-4xl font-bold leading-[1.02] tracking-tight text-[#151419] dark:text-white md:text-5xl">
+                {build.title}
+              </h3>
+              <p className="mt-5 font-montserrat text-sm leading-7 text-[#606060] dark:text-white/60 md:text-base">
+                {build.summary}
+              </p>
+              <p className="mt-5 border-l-2 pl-4 font-montserrat text-sm leading-7 text-[#151419] dark:text-white/80" style={{ borderColor: build.accent }}>
+                {build.outcome}
+              </p>
             </div>
-            <div className="relative h-[440px] overflow-hidden rounded-b-[1rem] bg-white sm:h-[520px] lg:h-[560px]">
-              <Image
-                src={build.image}
-                alt={`${build.title} homepage screenshot`}
-                width={build.imageWidth}
-                height={build.imageHeight}
-                sizes="(min-width: 1280px) 45vw, (min-width: 1024px) 52vw, 100vw"
-                quality={88}
-                priority={index === 0}
-                className="w-full max-w-none origin-top object-top transition-transform duration-[6500ms] ease-linear group-hover:-translate-y-[62%] motion-reduce:transform-none"
-              />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#151419]/80 to-transparent" />
+
+            <div className="mt-8">
+              <div className="grid gap-3">
+                {build.features.map((feature) => (
+                  <div key={feature} className="flex items-start gap-3 font-montserrat text-sm text-[#505050] dark:text-white/60">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: build.accent }} />
+                    <span>{feature}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-7 flex flex-wrap gap-2">
+                {build.tags.map((tag) => (
+                  <span key={tag} className="rounded-full border border-[#151419]/10 px-3 py-1.5 font-montserrat text-[11px] font-semibold uppercase tracking-[0.12em] text-[#505050] dark:border-white/10 dark:text-white/55">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="relative overflow-hidden rounded-[1.4rem] border border-[#151419]/15 bg-[#151419] p-2 shadow-[0_28px_80px_rgba(0,0,0,0.22)] dark:border-white/10">
+              <div className="flex h-8 items-center justify-between border-b border-white/10 px-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/45">
+                <div className="flex gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#FC6E20]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/35" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                </div>
+                <span>Full homepage capture</span>
+              </div>
+              <div className="relative h-[440px] overflow-hidden rounded-b-[1rem] bg-white sm:h-[520px] lg:h-[560px]">
+                <Image
+                  src={build.image}
+                  alt={`${build.title} homepage screenshot`}
+                  width={build.imageWidth}
+                  height={build.imageHeight}
+                  sizes="(min-width: 1280px) 45vw, (min-width: 1024px) 52vw, 100vw"
+                  quality={88}
+                  priority={index === 0}
+                  className="w-full max-w-none origin-top object-top transition-transform duration-[6500ms] ease-linear group-hover:-translate-y-[62%] motion-reduce:transform-none"
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#151419]/80 to-transparent" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </motion.article>
+      </motion.article>
+    </motion.div>
   );
 }
 
@@ -2003,7 +2361,7 @@ function Testimonial() {
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={`quote-${activeIndex}`}
-                  className="max-w-4xl font-playfair text-4xl font-semibold leading-[1.12] tracking-normal text-[#151419] dark:text-white sm:text-5xl lg:text-6xl"
+                  className="max-w-4xl font-playfair text-[clamp(2.5rem,5vw,5rem)] font-semibold leading-[1.04] tracking-normal text-[#151419] dark:text-white"
                   initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
@@ -2063,6 +2421,235 @@ function Testimonial() {
         </div>
 
       </div>
+    </section>
+  );
+}
+
+const diagnosticToolCards = [
+  {
+    eyebrow: 'Website conversion',
+    title: 'Website Lead Leak Scorecard',
+    body: 'Find the speed, mobile, trust, clarity, and CTA issues that could be costing the site qualified enquiries.',
+    href: '/tools/website-lead-leak-scorecard',
+    cta: 'Run scorecard',
+    icon: Gauge,
+    card: 'bg-[#5F9FAA] text-[#060808]',
+    iconBox: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/62',
+    ctaStyle: 'bg-[#060808] text-[#FBFBFB] group-hover:bg-[#FBFBFB] group-hover:text-[#060808]',
+    hidden: 'text-[#060808]',
+  },
+  {
+    eyebrow: 'Local search and maps',
+    title: 'Local Visibility Scorecard',
+    body: 'Assess Google Business Profile, reviews, local pages, directories, and AI-search readiness for Johannesburg queries.',
+    href: '/tools/local-visibility-scorecard',
+    cta: 'Check visibility',
+    icon: SearchCheck,
+    card: 'bg-[#DD6211] text-[#060808]',
+    iconBox: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/58',
+    ctaStyle: 'bg-[#060808] text-[#FBFBFB] group-hover:bg-[#FBFBFB] group-hover:text-[#060808]',
+    hidden: 'text-[#060808]',
+  },
+  {
+    eyebrow: 'Lead response speed',
+    title: 'Lead Response Leak Calculator',
+    body: 'Turn slow replies into a monthly and annual revenue-leak estimate before deciding what to automate.',
+    href: '/tools/lead-response-leak-calculator',
+    cta: 'Calculate leak',
+    icon: Calculator,
+    card: 'bg-[#FFF6E9] text-[#0A171D]',
+    iconBox: 'border-[#0A171D]/16 bg-[#0A171D]/[0.07] text-[#0A171D]/56',
+    ctaStyle: 'bg-[#0A171D] text-[#FBFBFB] group-hover:bg-[#DD6211] group-hover:text-[#060808]',
+    hidden: 'text-[#060808]',
+  },
+  {
+    eyebrow: 'Website scope decision',
+    title: 'Website Rebuild vs Refresh Quiz',
+    body: 'Separate deep technical debt from content, design, and conversion problems before choosing the scope.',
+    href: '/tools/website-rebuild-vs-refresh-quiz',
+    cta: 'Take quiz',
+    icon: RefreshCw,
+    card: 'bg-[#B92717] text-[#FFF6E9]',
+    iconBox: 'border-[#FFF6E9]/20 bg-[#FFF6E9]/8 text-[#FFF6E9]/68',
+    ctaStyle: 'bg-[#FFF6E9] text-[#060808] group-hover:bg-[#060808] group-hover:text-[#FFF6E9]',
+    hidden: 'text-[#FFF6E9]',
+  },
+];
+
+type DiagnosticToolCard = (typeof diagnosticToolCards)[number];
+
+function DiagnosticToolsBridge() {
+  const stackRef = useRef<HTMLDivElement>(null);
+  const isDesktop = useIsDesktopViewport();
+  const { scrollYProgress } = useScroll({
+    target: stackRef,
+    offset: ['start start', 'end end'],
+  });
+
+  return (
+    <section className="relative z-[7] overflow-x-clip bg-[#060808] py-20 text-[#FBFBFB] md:py-28">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[30%] top-1/2 hidden h-[38rem] w-[38rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.2)_1.1px,transparent_1.1px)] bg-[length:13px_13px] opacity-35 [mask-image:radial-gradient(circle_at_center,black_0%,black_48%,transparent_73%)] lg:block"
+      />
+      <div className="content-gutter relative grid gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(420px,1fr)] lg:items-start lg:gap-16">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-15% 0px -10% 0px' }}
+          transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:sticky lg:top-28"
+        >
+          <HomeSectionLabel>Diagnostic tools</HomeSectionLabel>
+          <h2 className="mt-5 max-w-3xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight">
+            Start with the leak before you rebuild the whole system<span className="text-[#FC6E20]">.</span>
+          </h2>
+          <p className="mt-7 max-w-xl font-montserrat text-base leading-8 text-white/64 md:text-lg">
+            The newer Tools page gives business owners a practical first step:
+            score the page, check local visibility, estimate response loss, or
+            decide whether the current site needs a rebuild or a tighter refresh.
+          </p>
+          <Link
+            href="/tools"
+            className="group mt-9 inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full border border-white/22 px-6 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-white transition-colors hover:border-[#DD6211] hover:bg-[#DD6211] hover:text-[#060808] sm:w-auto"
+          >
+            <ListChecks className="h-4 w-4" />
+            <AnimatedLinkText hiddenClassName="text-[#060808]">Open tools hub</AnimatedLinkText>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        </motion.div>
+
+        <div ref={stackRef} className="grid content-start gap-5 lg:block lg:pb-[18vh]">
+          {diagnosticToolCards.map((tool, index) => (
+            <DiagnosticToolStackCard
+              key={tool.title}
+              tool={tool}
+              index={index}
+              total={diagnosticToolCards.length}
+              scrollYProgress={scrollYProgress}
+              isDesktop={isDesktop}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DiagnosticToolStackCard({
+  tool,
+  index,
+  total,
+  scrollYProgress,
+  isDesktop,
+}: {
+  tool: DiagnosticToolCard;
+  index: number;
+  total: number;
+  scrollYProgress: MotionValue<number>;
+  isDesktop: boolean;
+}) {
+  const Icon = tool.icon;
+  const keyframes = buildScrollStackKeyframes(index, total);
+  const y = useTransform(scrollYProgress, keyframes.yInput, keyframes.yOutput);
+  const scale = useTransform(scrollYProgress, keyframes.input, keyframes.scale);
+  const rotate = useTransform(scrollYProgress, keyframes.input, keyframes.rotate);
+  const desktopInset = index * 28;
+
+  return (
+    <motion.div
+      data-diagnostic-stack-card
+      className="lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-10"
+      style={{ zIndex: 20 + index }}
+    >
+      <motion.div
+        className="w-full"
+        style={
+          isDesktop
+            ? {
+                y,
+                scale,
+                rotate,
+                width: `calc(100% - ${desktopInset}px)`,
+                marginLeft: `${desktopInset}px`,
+                transformOrigin: 'top center',
+              }
+            : undefined
+        }
+      >
+        <Link
+          href={tool.href}
+          className={`group flex min-h-[28rem] flex-col justify-between rounded-[2.25rem] p-7 shadow-[0_28px_70px_rgba(0,0,0,0.2)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_34px_86px_rgba(0,0,0,0.26)] md:p-8 lg:min-h-[31rem] ${tool.card}`}
+        >
+          <div>
+            <div className="flex items-start justify-between gap-8">
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.18em] opacity-[0.68]">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.05rem] border transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:rotate-3 ${tool.iconBox}`}>
+                <Icon className="h-6 w-6" strokeWidth={1.8} />
+              </span>
+            </div>
+            <p className="mt-10 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] opacity-[0.68]">
+              {tool.eyebrow}
+            </p>
+            <h3 className="mt-4 max-w-md font-playfair text-[clamp(2.15rem,4vw,4rem)] font-bold leading-[0.94] tracking-tight">
+              {tool.title}
+            </h3>
+            <p className="mt-6 max-w-md font-montserrat text-sm leading-7 opacity-[0.76]">
+              {tool.body}
+            </p>
+          </div>
+          <span className={`mt-10 inline-flex min-h-12 w-fit items-center justify-center gap-3 rounded-full px-6 font-montserrat text-xs font-bold uppercase tracking-[0.12em] transition-colors ${tool.ctaStyle}`}>
+            <AnimatedLinkText hiddenClassName={tool.hidden}>{tool.cta}</AnimatedLinkText>
+            <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
+        </Link>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function HomeFinalCta() {
+  return (
+    <section className="content-gutter relative z-[7] pb-24 pt-24 md:pb-32 md:pt-28">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-15% 0px -10% 0px' }}
+        transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <ExpandingCtaBackground>
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div>
+              <HomeSectionLabel>Start the next build</HomeSectionLabel>
+              <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
+                Bring the messy version<span className="text-[#FC6E20]">.</span> We will shape the useful system<span className="text-[#FC6E20]">.</span>
+              </h2>
+              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
+                Whether the pressure point is a website, local visibility,
+                manual admin, or a dashboard the business keeps describing in
+                spreadsheets, the first move is to make the problem clear.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <Link
+                href="/contact"
+                className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:bg-[#FBFBFB] sm:w-auto"
+              >
+                <AnimatedLinkText hiddenClassName="text-[#151419]">Start a project</AnimatedLinkText>
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="/tools/website-lead-leak-scorecard"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#151419]/15 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
+              >
+                <AnimatedLinkText>Run scorecard first</AnimatedLinkText>
+              </Link>
+            </div>
+          </div>
+        </ExpandingCtaBackground>
+      </motion.div>
     </section>
   );
 }
@@ -2823,8 +3410,8 @@ function BusinessHeroSection2() {
             <span className="font-montserrat text-xs uppercase tracking-[0.2em] text-[#FC6E20] mb-4">
               [ WHAT WE&apos;VE BUILT ]
             </span>
-            <h2 className="font-playfair text-4xl md:text-5xl lg:text-[4.2rem] font-bold text-[#1a1a1a] tracking-tight max-w-xl leading-[1.1]">
-              Websites, SaaS, and automations that actually get used.
+            <h2 className="max-w-xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#1a1a1a]">
+              Websites, SaaS, and automations that actually get used<span className="text-[#FC6E20]">.</span>
             </h2>
             <p className="mt-6 text-[#6b6b6b] text-base md:text-lg leading-relaxed max-w-md font-montserrat">
               For founders, professional practices, and engineering teams across South Africa — work built to be used, not just admired.

@@ -1,0 +1,23 @@
+export type StudioOnboardingResponse = {
+  id: string;
+  projectSlug: string;
+  projectName: string;
+  clientName: string;
+  status: 'draft' | 'submitted';
+  contactName: string;
+  contactEmail: string;
+  approvalRole: string;
+  projectGoals: string;
+  primaryAudience: string;
+  services: string[];
+  accessNeeds: string;
+  brandAssetsStatus: string;
+  technicalAccounts: string;
+  preferredDeadline: string;
+  launchConstraints: string;
+  contentNotes: string;
+  consentToTerms: boolean;
+  submittedAt: string;
+  lastSavedAt: string;
+  source: 'supabase' | 'demo';
+};

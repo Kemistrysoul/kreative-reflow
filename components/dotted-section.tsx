@@ -15,7 +15,7 @@ const ITEMS = [
   },
   {
     name: "MEDICAL PRACTICES",
-    desc: "From specialist surgeries to dental clinics — we build patient-facing websites and practice management systems that reflect the precision of your work."
+    desc: "From specialist surgeries to dental clinics, we build patient-facing websites and practice management systems that reflect the precision of your work."
   },
   {
     name: "SAAS FOUNDERS",
@@ -165,8 +165,8 @@ export default function DottedSection() {
           <span className="font-montserrat text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase text-[#6b6b6b] dark:text-snow/50 mb-4 block">
             <span className="text-[#FC6E20]">[</span> OUR FOCUS <span className="text-[#FC6E20]">]</span>
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter uppercase noto-serif-display text-dark-void dark:text-snow mb-6">
-            WE BUILD FOR INDUSTRIES<br className="hidden md:block" /> THAT DEMAND PRECISION.
+          <h2 className="font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold uppercase leading-[0.94] tracking-tight text-dark-void dark:text-snow mb-6">
+            WE BUILD FOR INDUSTRIES<br className="hidden md:block" /> THAT DEMAND PRECISION<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="text-base md:text-lg text-[#6b6b6b] dark:text-snow/60 max-w-2xl mx-auto font-sans leading-relaxed">
             From medical practices to engineering firms, from SaaS founders to service businesses — we build digital infrastructure that matches the complexity of the work you do.
@@ -199,7 +199,7 @@ export default function DottedSection() {
                 <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#e05a15]" />
               </div>
 
-              <h3 className="industry-heading text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase font-display text-dark-void dark:text-snow selection:bg-none transition-opacity duration-150 ease-out">
+              <h3 className="industry-heading font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold uppercase leading-[0.94] tracking-tight text-dark-void dark:text-snow selection:bg-none transition-opacity duration-150 ease-out">
                 {item.name}
               </h3>
 

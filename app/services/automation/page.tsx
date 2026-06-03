@@ -3,9 +3,9 @@ import { serviceDetails } from '../_data';
 import { ServiceRoute } from '../_components/service-route';
 
 export const metadata = pageMetadata({
-  title: 'AI & Business Automation | Kreative Reflow',
+  title: 'Business Automation Johannesburg | Kreative Reflow',
   description:
-    'Practical AI and workflow automation for repeated admin, follow-ups, reporting, intake, and connected operations.',
+    'Practical AI and workflow automation for South African teams that need faster lead response, cleaner intake, reporting, reminders, and less repeated admin.',
   path: '/services/automation',
 });
 

@@ -3,9 +3,9 @@ import { serviceDetails } from '../_data';
 import { ServiceRoute } from '../_components/service-route';
 
 export const metadata = pageMetadata({
-  title: 'SaaS & Custom Web Applications | Kreative Reflow',
+  title: 'Custom Web Apps & Dashboards | Kreative Reflow',
   description:
-    'Custom portals, dashboards, booking systems, and internal tools built around real business workflows.',
+    'Build custom dashboards, client portals, booking systems, SaaS MVPs, and internal tools around the workflows your South African business actually uses.',
   path: '/services/saas-development',
 });
 

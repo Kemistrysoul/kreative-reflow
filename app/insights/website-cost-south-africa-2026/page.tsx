@@ -14,13 +14,14 @@ import {
 } from '@/lib/seo';
 
 const title = 'How Much Does a Website Cost in South Africa in 2026';
+const metaTitle = 'Website Cost South Africa 2026 | Kreative Reflow';
 const description =
-  'Website pricing in South Africa in 2026, including small business websites, e-commerce, dashboards, SaaS products, ongoing costs, pricing models, and red flags.';
+  'Website pricing in South Africa for 2026, including small business sites, e-commerce, dashboards, SaaS builds, monthly costs, pricing models, and red flags.';
 const path = '/insights/website-cost-south-africa-2026';
 const publishedDate = '2026-05-10';
 
 export const metadata: Metadata = pageMetadata({
-  title: `${title} | Kreative Reflow`,
+  title: metaTitle,
   description,
   path,
 });
@@ -440,10 +441,10 @@ export default function WebsiteCostArticlePage() {
               Related Resources
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
-                Download: Website Cost Calculator Worksheet
+              <Link href="/tools/website-rebuild-vs-refresh-quiz" className="underline decoration-[#FC6E20] underline-offset-4">
+                Use the Website Rebuild vs Refresh Quiz
               </Link>{' '}
-              — One-page tool to estimate your website budget based on what you need.
+              - a quick way to decide whether the current site needs a rebuild, refresh, or focused optimization.
             </p>
           </section>
 
@@ -453,15 +454,14 @@ export default function WebsiteCostArticlePage() {
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
+              <a
+                href="https://www.linkedin.com/company/kreativereflow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-[#FC6E20] underline-offset-4"
+              >
                 LinkedIn
-              </Link>
-            </p>
-          </section>
-
-          <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
-            <p className="font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
-              <em>That&apos;s the humanized version with table of contents. Ready for publish.</em>
+              </a>
             </p>
           </section>
 

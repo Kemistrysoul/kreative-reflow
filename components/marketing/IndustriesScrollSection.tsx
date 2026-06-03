@@ -7,7 +7,7 @@ const INDUSTRIES = [
   {
     name: 'MEDICAL PRACTICES',
     description:
-      'From specialist surgeries to dental clinics — we build patient-facing websites and practice management systems that reflect the precision of your work.',
+      'From specialist surgeries to dental clinics, we build patient-facing websites and practice management systems that reflect the precision of your work.',
   },
   {
     name: 'ENGINEERING FIRMS',

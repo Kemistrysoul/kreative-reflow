@@ -2,9 +2,9 @@ import { WorkClient } from './work-client';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Work | Kreative Reflow',
+  title: 'Web Design & Systems Portfolio | Kreative Reflow',
   description:
-    'Selected Kreative Reflow projects across websites, service platforms, dashboards, lead capture, SEO foundations, and automation-ready systems.',
+    'View selected Kreative Reflow website, dashboard, lead capture, SEO foundation, and automation-ready projects built for South African service businesses.',
   path: '/work',
 });
 

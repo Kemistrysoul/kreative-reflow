@@ -4,9 +4,9 @@ import { AnimatedLinkText } from '@/components/AnimatedTextLink';
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata, siteName } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'FAQ | Kreative Reflow',
+  title: 'Website Project FAQ | Kreative Reflow',
   description:
-    'Answers about Kreative Reflow services, pricing, timelines, ownership, support, and working process.',
+    'Answers about Kreative Reflow website projects, custom dashboards, SEO, automation, pricing, timelines, ownership, support, and working process.',
   path: '/faq',
 });
 

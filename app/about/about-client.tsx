@@ -16,6 +16,7 @@ import {
   Workflow,
 } from 'lucide-react';
 import { AnimatedLinkText } from '@/components/AnimatedTextLink';
+import { ExpandingCtaBackground } from '@/components/ExpandingCtaBackground';
 
 type Principle = {
   title: string;
@@ -133,10 +134,10 @@ const clientFits: ClientFit[] = [
 ];
 
 const principleCardStyles = [
-  'bg-[#5F9FAA] text-[#060808]',
-  'bg-[#DD6211] text-[#060808]',
-  'bg-[#FFF6E9] text-[#0A171D]',
-  'bg-[#B92717] text-[#FFF6E9]',
+  'border border-[#151419]/10 text-[#151419] dark:border-[#FBFBFB]/12 dark:text-[#FBFBFB]',
+  'border border-[#151419]/10 text-[#151419] dark:border-[#FBFBFB]/12 dark:text-[#FBFBFB]',
+  'border border-[#151419]/10 text-[#151419] dark:border-[#FBFBFB]/12 dark:text-[#FBFBFB]',
+  'border border-[#151419]/10 text-[#151419] dark:border-[#FBFBFB]/12 dark:text-[#FBFBFB]',
 ];
 
 const studioSignalCardStyles = [
@@ -246,7 +247,7 @@ function GridLines() {
 
 function FounderPortrait() {
   return (
-    <div className="relative overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-4 text-[#FBFBFB] shadow-[0_28px_70px_rgba(21,20,25,0.14)] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]">
+    <div className="relative overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-4 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[1.65rem] bg-[#F0EFED]">
         <Image
           src="/images/delite-founder.svg"
@@ -366,7 +367,7 @@ function OriginTimeline() {
         <div className="ml-auto w-full max-w-[54rem] space-y-4">
           {timeline.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.06}>
-              <article className="grid gap-6 rounded-[1.35rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 shadow-[0_18px_44px_rgba(21,20,25,0.05)] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:grid-cols-[0.28fr_1fr] md:p-8">
+              <article className="grid gap-6 rounded-[1.35rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:grid-cols-[0.28fr_1fr] md:p-8">
                 <div>
                   <span className="font-mono text-sm text-[#FC6E20]">{item.num}</span>
                   <p className="mt-8 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#878787]">
@@ -404,7 +405,7 @@ function PrinciplesSection() {
         {principles.map((principle, index) => (
           <Reveal key={principle.title} delay={index * 0.06}>
             <article
-              className={`flex min-h-[19rem] flex-col justify-between rounded-[1.35rem] p-6 shadow-[0_22px_60px_rgba(0,0,0,0.12)] transition-transform duration-300 hover:-translate-y-1 ${principleCardStyles[index % principleCardStyles.length]}`}
+              className={`flex min-h-[19rem] flex-col justify-between rounded-[1.35rem] p-6 transition-transform duration-300 hover:-translate-y-1 ${principleCardStyles[index % principleCardStyles.length]}`}
             >
               <span className="font-mono text-sm text-current/62">
                 {String(index + 1).padStart(2, '0')}
@@ -453,7 +454,7 @@ function StudioModel() {
             return (
               <Reveal key={signal.title} className="h-full" delay={index * 0.06}>
                 <article
-                  className={`flex h-full min-h-[20rem] flex-col justify-between rounded-[1.35rem] p-6 shadow-[0_22px_60px_rgba(0,0,0,0.22)] transition-transform duration-300 hover:-translate-y-1 md:p-8 ${style.card}`}
+                  className={`flex h-full min-h-[20rem] flex-col justify-between rounded-[1.35rem] p-6 transition-transform duration-300 hover:-translate-y-1 md:p-8 ${style.card}`}
                 >
                   <div>
                     <div className={`flex h-14 w-14 items-center justify-center rounded-[1.05rem] border ${style.icon}`}>
@@ -493,7 +494,7 @@ function ClientFitSection() {
           const Icon = fit.icon;
           const isAnomaly = index === 1;
           const cardStyle = isAnomaly
-            ? '-translate-y-4 rotate-[1.5deg] border-[#151419]/15 bg-[#FC6E20] text-[#151419] shadow-[0_28px_70px_rgba(21,20,25,0.18)] hover:translate-y-0 hover:rotate-0 hover:bg-[#DD6211] dark:border-[#151419]/15 dark:bg-[#FC6E20] dark:text-[#151419] dark:hover:bg-[#DD6211]'
+            ? '-translate-y-4 rotate-[3deg] border-[#151419]/15 bg-[#FC6E20] text-[#151419] hover:translate-y-0 hover:rotate-0 hover:bg-[#DD6211] dark:border-[#151419]/15 dark:bg-[#FC6E20] dark:text-[#151419] dark:hover:bg-[#DD6211]'
             : clientFitCardStyles[index % clientFitCardStyles.length];
 
           return (
@@ -535,14 +536,14 @@ function FinalCta() {
   return (
     <section className="content-gutter relative z-10 pb-24 md:pb-32">
       <Reveal>
-        <div className="rounded-[1.35rem] border border-[#151419]/10 bg-[#151419] p-7 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-14">
+        <ExpandingCtaBackground>
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div>
               <SectionLabel>Work with the studio</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
                 Bring the messy version. We will shape the system.
               </h2>
-              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
+              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 You do not need a perfect brief. A rough problem, a broken
                 workflow, or a website that no longer reflects the business is
                 enough to start.
@@ -558,13 +559,13 @@ function FinalCta() {
               </Link>
               <Link
                 href="/work"
-                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/18 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#FBFBFB] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#151419]/15 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
               >
                 <AnimatedLinkText>View the work</AnimatedLinkText>
               </Link>
             </div>
           </div>
-        </div>
+        </ExpandingCtaBackground>
       </Reveal>
     </section>
   );

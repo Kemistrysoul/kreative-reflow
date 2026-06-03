@@ -3,9 +3,9 @@ import { serviceDetails } from '../_data';
 import { ServiceRoute } from '../_components/service-route';
 
 export const metadata = pageMetadata({
-  title: 'Local & AI SEO | Kreative Reflow',
+  title: 'Local SEO Johannesburg | Kreative Reflow',
   description:
-    'Search visibility, local structure, service pages, FAQs, and AI-search readiness for qualified enquiries.',
+    'Local SEO and AI-search readiness for Johannesburg service businesses, with stronger service pages, FAQs, Google Business Profile signals, and trust structure.',
   path: '/services/seo',
 });
 

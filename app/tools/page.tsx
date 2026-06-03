@@ -13,12 +13,13 @@ import {
   SearchCheck,
 } from 'lucide-react';
 import { AnimatedLinkText } from '@/components/AnimatedTextLink';
+import { ExpandingCtaBackground } from '@/components/ExpandingCtaBackground';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Tools | Kreative Reflow',
+  title: 'Website SEO & Conversion Tools | Kreative Reflow',
   description:
-    'Interactive website, conversion, SEO, and business systems tools from Kreative Reflow for South African service businesses.',
+    'Use interactive website, conversion, local SEO, lead response, and rebuild decision tools from Kreative Reflow for South African service businesses.',
   path: '/tools',
 });
 
@@ -314,14 +315,14 @@ export default function ToolsPage() {
       </section>
 
       <section className="content-gutter relative z-10 pb-24 md:pb-32">
-        <div className="rounded-[1.35rem] border border-[#151419]/10 bg-[#151419] p-7 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-14">
+        <ExpandingCtaBackground>
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
               <SectionLabel>Start with the live tool</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
                 Run the scorecard, then turn the result into a fix plan.
               </h2>
-              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
+              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 Start with a practical diagnostic, then use the downloadable
                 report as the first map for what needs to be fixed.
               </p>
@@ -337,7 +338,7 @@ export default function ToolsPage() {
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
-        </div>
+        </ExpandingCtaBackground>
       </section>
     </main>
   );

@@ -2,9 +2,9 @@ import { AboutClient } from './about-client';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'About | Kreative Reflow',
+  title: 'Founder-Led Web Studio Johannesburg | Kreative Reflow',
   description:
-    'Meet Kreative Reflow, a founder-led Johannesburg studio building websites, systems, SEO foundations, and automation for growing businesses.',
+    'Meet the founder-led Johannesburg studio building custom websites, dashboards, SEO foundations, automation, and support systems for growing businesses.',
   path: '/about',
 });
 

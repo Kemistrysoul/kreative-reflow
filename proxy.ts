@@ -1,12 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { updatePortalSession } from '@/lib/portal-auth-proxy';
 
-export function proxy(request: NextRequest) {
-  const url = request.nextUrl.clone();
-  url.pathname = '/start';
-
-  return NextResponse.redirect(url, 307);
+export async function proxy(request: NextRequest) {
+  return updatePortalSession(request);
 }
 
 export const config = {
-  matcher: '/',
+  matcher: ['/portal/:path*', '/studio/:path*', '/api/portal/:path*', '/auth/callback'],
 };

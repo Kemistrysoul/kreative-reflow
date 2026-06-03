@@ -1,15 +1,20 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowUpRight, CheckCircle2, Clock3, FileText, LockKeyhole, UploadCloud } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Clock3, FileText } from 'lucide-react';
 import { SiteFooter } from '@/components/SiteFooter';
-import { AnimatedLinkText, AnimatedTextLink } from '@/components/AnimatedTextLink';
-import {
-  assetBuckets,
-  milestones,
-  portalActivity,
-  portalProject,
-  portalSteps,
-} from '@/lib/dashboard-data';
+import { AnimatedLinkText } from '@/components/AnimatedTextLink';
+import { PortalAccessState } from '@/components/portal/PortalAccessState';
+import { PortalAssetLibrary } from '@/components/portal/PortalAssetLibrary';
+import { PortalHeader, PortalPreviewNotice } from '@/components/portal/PortalChrome';
+import { PortalApprovalsPanel } from '@/components/portal/PortalApprovalsPanel';
+import { PortalComplianceNotice } from '@/components/portal/PortalComplianceNotice';
+import { PortalFinancePanel, PortalHandoffPanel } from '@/components/portal/PortalFinanceHandoff';
+import { getPortalAccess } from '@/lib/portal-access';
+import { requirePortalAuth } from '@/lib/portal-auth';
+import { getPortalProjectAssets } from '@/lib/portal-assets';
+import { getPortalApprovalQueue } from '@/lib/portal-approvals';
+import { getPortalFinanceHandoffData } from '@/lib/portal-finance-handoff';
+import { getAuthorizedPortalProjectData } from '@/lib/portal-projects';
 
 export const metadata: Metadata = {
   title: 'Client Portal Preview | Kreative Reflow',
@@ -20,11 +25,66 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PortalPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function PortalPage() {
+  await requirePortalAuth('/portal');
+  const access = await getPortalAccess();
+
+  if (access.status !== 'authorized') {
+    if (access.status === 'missing-config' || access.status === 'unauthenticated') {
+      return null;
+    }
+
+    return (
+      <>
+        <main className="min-h-screen bg-[#111111] text-stone-100">
+          <PortalHeader />
+          <PortalAccessState state={access} />
+        </main>
+        <SiteFooter />
+      </>
+    );
+  }
+
+  const [portalData, portalAssets, portalApprovals, portalFinanceHandoff] = await Promise.all([
+    getAuthorizedPortalProjectData(access.projectSlug),
+    getPortalProjectAssets(access.projectSlug),
+    getPortalApprovalQueue(access.projectSlug),
+    getPortalFinanceHandoffData(access.projectSlug),
+  ]);
+
+  if (!portalData) {
+    return (
+      <>
+        <main className="min-h-screen bg-[#111111] text-stone-100">
+          <PortalHeader />
+          <PortalAccessState
+            state={{
+              status: 'empty',
+              auth: access.auth,
+              message: 'Your portal membership is valid, but no project record is available yet.',
+            }}
+          />
+        </main>
+        <SiteFooter />
+      </>
+    );
+  }
+
+  const {
+    project: portalProject,
+    steps: portalSteps,
+    milestones,
+    assetBuckets,
+    activity: portalActivity,
+  } = portalData;
+
   return (
     <>
       <main className="min-h-screen bg-[#111111] text-stone-100">
         <PortalHeader />
+        <PortalPreviewNotice />
 
         <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
           <div className="rounded-lg border border-white/10 bg-[#181818] p-6 md:p-8">
@@ -43,10 +103,10 @@ export default function PortalPage() {
                 </p>
               </div>
               <Link
-                href="/contact"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-sm font-semibold text-stone-950 transition-colors hover:bg-[#e05a15]"
+                href="/portal/onboarding"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-sm font-semibold text-stone-950 transition-colors hover:bg-[#e05a15] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20]"
               >
-                <AnimatedLinkText hiddenClassName="text-stone-950">Start intake</AnimatedLinkText>
+                <AnimatedLinkText hiddenClassName="text-stone-950">Open onboarding</AnimatedLinkText>
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
@@ -101,10 +161,17 @@ export default function PortalPage() {
                   <CheckCircle2
                     className={`h-5 w-5 ${milestone.state === 'Done' ? 'text-[#FC6E20]' : 'text-stone-600'}`}
                   />
-                  <div>
+                  <div className="min-w-0">
                     <p className="font-montserrat text-sm font-semibold text-white">{milestone.label}</p>
                     <p className="font-montserrat text-xs uppercase tracking-[0.16em] text-stone-500">
                       {milestone.state}
+                    </p>
+                    {milestone.detail ? (
+                      <p className="mt-2 font-montserrat text-sm leading-6 text-stone-400">{milestone.detail}</p>
+                    ) : null}
+                    <p className="mt-2 font-montserrat text-xs text-stone-500">
+                      Owner: {milestone.owner ?? 'Kreative Reflow'}
+                      {milestone.ownerRole ? ` / ${milestone.ownerRole}` : ''}
                     </p>
                   </div>
                   <span className="font-mono text-xs text-stone-400">{milestone.date}</span>
@@ -113,30 +180,12 @@ export default function PortalPage() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-white/10 bg-[#181818] p-6">
-            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center gap-3">
-                <UploadCloud className="h-5 w-5 text-[#FC6E20]" />
-                <h2 className="font-playfair text-3xl font-bold text-white">Asset Library</h2>
-              </div>
-              <span className="font-montserrat text-xs uppercase tracking-[0.18em] text-stone-500">
-                50MB file cap
-              </span>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {assetBuckets.map((bucket) => (
-                <article key={bucket.title} className="rounded-lg border border-white/10 bg-black/20 p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h3 className="font-montserrat text-sm font-semibold text-white">{bucket.title}</h3>
-                      <p className="mt-1 font-montserrat text-xs leading-5 text-stone-500">{bucket.detail}</p>
-                    </div>
-                    <span className="font-mono text-sm text-[#FC6E20]">{bucket.files}</span>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
+          <PortalAssetLibrary
+            assetBuckets={assetBuckets}
+            assets={portalAssets}
+            canUpload={access.canSubmitOnboarding}
+            projectSlug={portalProject.slug}
+          />
         </section>
 
         <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-2 lg:px-8">
@@ -160,38 +209,20 @@ export default function PortalPage() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-[#FC6E20]/40 bg-[#FC6E20] p-6 text-stone-950">
-            <LockKeyhole className="h-6 w-6" />
-            <h2 className="mt-5 font-playfair text-3xl font-bold">Next build step</h2>
-            <p className="mt-3 max-w-xl font-montserrat text-sm leading-6">
-              Wire this preview to authentication, lead capture, project records,
-              and storage. Keep visual comments, live analytics, and automated
-              invoice reminders out of the MVP until the core workflow is stable.
-            </p>
-          </div>
+          <PortalApprovalsPanel approvals={portalApprovals} canRespond={access.canSubmitOnboarding} />
         </section>
+
+        <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+          <PortalFinancePanel invoices={portalFinanceHandoff.invoices} />
+          <PortalHandoffPanel
+            handoffItems={portalFinanceHandoff.handoffItems}
+            supportNextSteps={portalFinanceHandoff.supportNextSteps}
+          />
+        </section>
+
+        <PortalComplianceNotice />
       </main>
       <SiteFooter />
     </>
-  );
-}
-
-function PortalHeader() {
-  return (
-    <header className="border-b border-white/10 bg-[#111111]/95 px-4 py-4 sm:px-6 lg:px-8">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-        <Link href="/" className="font-display text-xl font-bold tracking-tight text-white">
-          kreative Reflow
-        </Link>
-        <nav className="flex items-center gap-4 font-montserrat text-xs uppercase tracking-[0.18em] text-stone-400">
-          <AnimatedTextLink href="/studio" className="max-sm:hidden" underline={false}>
-            Studio
-          </AnimatedTextLink>
-          <AnimatedTextLink href="/services/saas-development" underline={false}>
-            Web apps
-          </AnimatedTextLink>
-        </nav>
-      </div>
-    </header>
   );
 }

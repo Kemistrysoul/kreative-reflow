@@ -11,7 +11,9 @@ export function StudioShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const currentNav =
-    studioNavigation.find((item) => item.href === pathname || pathname.startsWith(`${item.href}/`)) ??
+    [...studioNavigation]
+      .sort((a, b) => b.href.length - a.href.length)
+      .find((item) => item.href === pathname || pathname.startsWith(`${item.href}/`)) ??
     studioNavigation[0];
 
   return (

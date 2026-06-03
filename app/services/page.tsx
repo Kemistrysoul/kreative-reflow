@@ -43,9 +43,9 @@ const serviceIndex = [
 ];
 
 export const metadata = pageMetadata({
-  title: 'Services | Kreative Reflow',
+  title: 'Web Design, SEO & Automation Services | Kreative Reflow',
   description:
-    'Websites, dashboards, SaaS products, SEO foundations, automation, consulting, and support for businesses that need stronger digital systems.',
+    'Explore web design, local SEO, custom dashboards, SaaS development, automation, consulting, and support services for growing South African businesses.',
   path: '/services',
 });
 

@@ -18,6 +18,7 @@ import {
   Workflow,
 } from 'lucide-react';
 import { AnimatedLinkText } from '@/components/AnimatedTextLink';
+import { ExpandingCtaBackground } from '@/components/ExpandingCtaBackground';
 
 type InsightNote = {
   num: string;
@@ -379,6 +380,13 @@ const utilityCardHoverStyles = [
   'hover:border-[#B92717] hover:bg-[#B92717] hover:text-[#FFF6E9]',
   'hover:border-[#FAE18F] hover:bg-[#FAE18F] hover:text-[#060808]',
   'hover:border-[#596C72] hover:bg-[#596C72] hover:text-[#FFF6E9]',
+];
+
+const diagnosticToolHoverStyles = [
+  'hover:border-[#FAE18F] hover:bg-[#FAE18F] hover:text-[#060808]',
+  'hover:border-[#5F9FAA] hover:bg-[#5F9FAA] hover:text-[#060808]',
+  'hover:border-[#C7AA94] hover:bg-[#C7AA94] hover:text-[#060808]',
+  'hover:border-[#B92717] hover:bg-[#B92717] hover:text-[#FFF6E9]',
 ];
 
 function Reveal({
@@ -811,15 +819,15 @@ function InsightLibrary() {
 
 function InsightToolCard({ note, index }: { note: InsightNote; index: number }) {
   const Icon = note.icon ?? Gauge;
-  const hoverStyle = utilityCardHoverStyles[index % utilityCardHoverStyles.length];
-  const isPatternInterrupt = index === 0;
+  const hoverStyle = diagnosticToolHoverStyles[index % diagnosticToolHoverStyles.length];
+  const isPatternInterrupt = index === 3;
 
   return (
     <Link
       href={note.href}
       className={`group flex min-h-[21rem] flex-col justify-between rounded-[1.35rem] p-6 transition-all duration-300 ease-out md:p-7 ${
         isPatternInterrupt
-          ? '-rotate-3 border border-[#DD6211] bg-[#DD6211] text-[#060808] hover:-translate-y-1 hover:rotate-0'
+          ? 'border border-[#DD6211] bg-[#DD6211] text-[#060808] sm:-rotate-3 hover:-translate-y-1 hover:rotate-0 hover:border-[#151419]/10 hover:bg-[#F0EFED] hover:text-[#151419]'
           : `border border-[#151419]/10 bg-[#F0EFED] text-[#151419] hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_22px_54px_rgba(21,20,25,0.13)] dark:border-[#FBFBFB]/10 dark:bg-[#F0EFED] dark:text-[#151419] ${hoverStyle}`
       }`}
     >
@@ -968,14 +976,14 @@ function FinalCta() {
   return (
     <section className="content-gutter relative z-10 pb-24 pt-12 md:pb-32 md:pt-16">
       <Reveal>
-        <div className="rounded-[1.35rem] border border-[#151419]/10 bg-[#151419] p-7 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-14">
+        <ExpandingCtaBackground>
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div>
               <SectionLabel>Apply the thinking</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
                 Useful ideas are better when they become working systems.
               </h2>
-              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
+              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 If one of these notes sounds like the problem inside your
                 business, bring the messy version. We will help turn it into a
                 clear next move.
@@ -991,13 +999,13 @@ function FinalCta() {
               </Link>
               <Link
                 href="/services"
-                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/18 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#FBFBFB] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#151419]/15 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
               >
                 <AnimatedLinkText>View services</AnimatedLinkText>
               </Link>
             </div>
           </div>
-        </div>
+        </ExpandingCtaBackground>
       </Reveal>
     </section>
   );

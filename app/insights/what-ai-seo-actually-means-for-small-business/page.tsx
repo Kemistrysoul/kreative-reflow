@@ -14,13 +14,14 @@ import {
 } from '@/lib/seo';
 
 const title = 'What AI SEO Actually Means for Small Business';
+const metaTitle = 'AI SEO for Small Business | Kreative Reflow';
 const description =
-  'A practical guide to AI SEO for small businesses in South Africa, covering Google AI Overviews, ChatGPT, Perplexity, FAQs, brand mentions, robots.txt, and local visibility.';
+  'An AI SEO guide for small businesses in South Africa, covering AI Overviews, ChatGPT, Perplexity, FAQs, brand mentions, robots.txt, and local visibility.';
 const path = '/insights/what-ai-seo-actually-means-for-small-business';
 const publishedDate = '2026-05-10';
 
 export const metadata: Metadata = pageMetadata({
-  title: `${title} | Kreative Reflow`,
+  title: metaTitle,
   description,
   path,
 });
@@ -343,10 +344,10 @@ Allow: /`}</CodeBlock>
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Want help optimizing your website for AI search?{' '}
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
-                Book a free audit
+              <Link href="/services/seo" className="underline decoration-[#FC6E20] underline-offset-4">
+                See the Local and AI SEO service
               </Link>{' '}
-              and we&apos;ll show you exactly where you&apos;re visible in AI tools and where you&apos;re not.
+              for the foundations that make a business easier to find and cite.
             </p>
           </section>
 
@@ -356,9 +357,14 @@ Allow: /`}</CodeBlock>
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
+              <a
+                href="https://www.linkedin.com/company/kreativereflow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-[#FC6E20] underline-offset-4"
+              >
                 LinkedIn
-              </Link>
+              </a>
             </p>
           </section>
       </ArticleBody>

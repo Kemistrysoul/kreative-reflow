@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk, JetBrains_Mono, Playfair_Display, Abhaya_Libre, M
 import './globals.css'; // Global styles
 import { Providers } from './providers';
 import { AppChrome } from '@/components/AppChrome';
+import CustomCursor from '@/components/CustomCursor';
 import { JsonLd } from '@/components/JsonLd';
 import {
   defaultOgImage,
@@ -11,6 +12,7 @@ import {
   organizationJsonLd,
   siteName,
   siteUrl,
+  websiteJsonLd,
 } from '@/lib/seo';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -69,9 +71,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${playfair.variable} ${abhayaLibre.variable} ${montserrat.variable}`} suppressHydrationWarning>
-      <body className="bg-[#F0EFED] text-dark-void font-sans antialiased selection:bg-liquid-lava selection:text-snow dark:bg-[#1a1a1a] dark:text-snow" suppressHydrationWarning>
+      <body className="cursor-none bg-[#F0EFED] text-dark-void font-sans antialiased selection:bg-liquid-lava selection:text-snow dark:bg-[#1a1a1a] dark:text-snow" suppressHydrationWarning>
         <Providers>
-          <JsonLd data={organizationJsonLd} />
+          <CustomCursor />
+          <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
           <AppChrome>
             {children}
           </AppChrome>

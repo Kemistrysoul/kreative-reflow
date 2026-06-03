@@ -14,13 +14,14 @@ import {
 } from '@/lib/seo';
 
 const title = "Why Your Website Looks Good But Doesn't Convert";
+const metaTitle = "Why Good Websites Don't Convert | Kreative Reflow";
 const description =
   "Why good-looking websites fail to convert, and how South African service businesses can diagnose speed, messaging, mobile, trust, and CTA problems.";
 const path = '/insights/why-your-website-looks-good-but-doesnt-convert';
 const publishedDate = '2026-05-10';
 
 export const metadata: Metadata = pageMetadata({
-  title: `${title} | Kreative Reflow`,
+  title: metaTitle,
   description,
   path,
 });
@@ -337,10 +338,10 @@ export default function WebsiteConversionArticlePage() {
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Want to improve your website&apos;s conversion rate?{' '}
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
-                Book a free conversion audit
+              <Link href="/tools/website-lead-leak-scorecard" className="underline decoration-[#FC6E20] underline-offset-4">
+                Run the Website Lead Leak Scorecard
               </Link>{' '}
-              and we&apos;ll show you exactly what&apos;s holding your site back.
+              and start with the conversion leaks that are easiest to see.
             </p>
           </section>
 
@@ -350,9 +351,14 @@ export default function WebsiteConversionArticlePage() {
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
+              <a
+                href="https://www.linkedin.com/company/kreativereflow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-[#FC6E20] underline-offset-4"
+              >
                 LinkedIn
-              </Link>
+              </a>
             </p>
           </section>
       </ArticleBody>

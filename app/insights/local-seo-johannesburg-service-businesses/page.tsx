@@ -14,13 +14,14 @@ import {
 } from '@/lib/seo';
 
 const title = 'Local SEO for Johannesburg Service Businesses';
+const metaTitle = 'Local SEO Johannesburg Guide | Kreative Reflow';
 const description =
-  'A practical local SEO guide for Johannesburg service businesses covering Google Business Profile, location pages, reviews, citations, AI search, and first steps.';
+  'A local SEO guide for Johannesburg service businesses covering Google Business Profile, location pages, reviews, citations, AI search, and first steps.';
 const path = '/insights/local-seo-johannesburg-service-businesses';
 const publishedDate = '2026-05-10';
 
 export const metadata: Metadata = pageMetadata({
-  title: `${title} | Kreative Reflow`,
+  title: metaTitle,
   description,
   path,
 });
@@ -373,10 +374,10 @@ export default function LocalSeoJohannesburgArticlePage() {
               Related Resources
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
-                Download: Local SEO Checklist for Johannesburg Businesses
+              <Link href="/tools/local-visibility-scorecard" className="underline decoration-[#FC6E20] underline-offset-4">
+                Run the Local Visibility Scorecard
               </Link>{' '}
-              — A step-by-step checklist to get your local SEO set up in 90 days.
+              - a practical first check for maps, reviews, directories, and local search readiness.
             </p>
           </section>
 
@@ -386,9 +387,14 @@ export default function LocalSeoJohannesburgArticlePage() {
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
+              <a
+                href="https://www.linkedin.com/company/kreativereflow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-[#FC6E20] underline-offset-4"
+              >
                 LinkedIn
-              </Link>
+              </a>
             </p>
           </section>
       </ArticleBody>

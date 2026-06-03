@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, ChevronDown } from 'lucide-react';
 import {
   getLeadCaptureErrorMessage,
   submitLeadCapture,
@@ -32,11 +32,13 @@ const budgetOptions = [
   'R75k+',
 ];
 
-const inputClass =
-  'mt-2 min-h-[54px] w-full rounded-2xl border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#878787] focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20';
+const fieldClass =
+  'min-h-[56px] w-full rounded-[1.15rem] border border-white/10 bg-[#060808]/55 px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#878787] focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20';
+
+const inputClass = `mt-2 ${fieldClass}`;
 
 const labelClass =
-  'font-montserrat text-[11px] font-bold uppercase tracking-[0.2em] text-[#878787]';
+  'font-montserrat text-[11px] font-bold uppercase tracking-[0.2em] text-[#F0EFED]/58';
 
 export function ContactForm() {
   const [name, setName] = useState('');
@@ -77,9 +79,10 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#1B1B1E] p-5 shadow-2xl shadow-black/25 md:p-7"
+      className="relative overflow-hidden rounded-[2.25rem] border border-white/10 bg-[#151419] p-5 text-[#FBFBFB] shadow-[0_34px_90px_rgba(21,20,25,0.24)] md:p-7 lg:p-8"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FC6E20] to-transparent" />
+      <div className="pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full border border-[#FC6E20]/18" />
 
       <div className="flex flex-col gap-5 border-b border-white/10 pb-6 sm:flex-row sm:items-start sm:justify-between">
         <div>
@@ -136,41 +139,59 @@ export function ContactForm() {
       <div className="mt-5 grid gap-5 md:grid-cols-3">
         <label className="block">
           <span className={labelClass}>Project type</span>
-          <select
-            value={service}
-            onChange={(event) => setService(event.target.value)}
-            className={`${inputClass} appearance-none`}
-          >
-            {serviceOptions.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </select>
+          <span className="relative mt-2 block">
+            <select
+              value={service}
+              onChange={(event) => setService(event.target.value)}
+              className={`${fieldClass} appearance-none pr-11`}
+            >
+              {serviceOptions.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+            </select>
+            <ChevronDown
+              aria-hidden="true"
+              className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#FC6E20]"
+            />
+          </span>
         </label>
 
         <label className="block">
           <span className={labelClass}>Timeline</span>
-          <select
-            value={timeline}
-            onChange={(event) => setTimeline(event.target.value)}
-            className={`${inputClass} appearance-none`}
-          >
-            {timelineOptions.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </select>
+          <span className="relative mt-2 block">
+            <select
+              value={timeline}
+              onChange={(event) => setTimeline(event.target.value)}
+              className={`${fieldClass} appearance-none pr-11`}
+            >
+              {timelineOptions.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+            </select>
+            <ChevronDown
+              aria-hidden="true"
+              className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#FC6E20]"
+            />
+          </span>
         </label>
 
         <label className="block">
           <span className={labelClass}>Budget range</span>
-          <select
-            value={budget}
-            onChange={(event) => setBudget(event.target.value)}
-            className={`${inputClass} appearance-none`}
-          >
-            {budgetOptions.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </select>
+          <span className="relative mt-2 block">
+            <select
+              value={budget}
+              onChange={(event) => setBudget(event.target.value)}
+              className={`${fieldClass} appearance-none pr-11`}
+            >
+              {budgetOptions.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+            </select>
+            <ChevronDown
+              aria-hidden="true"
+              className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#FC6E20]"
+            />
+          </span>
         </label>
       </div>
 
@@ -181,7 +202,7 @@ export function ContactForm() {
           onChange={(event) => setMessage(event.target.value)}
           required
           rows={7}
-          className="mt-2 w-full resize-none rounded-2xl border border-white/10 bg-[#151419] px-4 py-4 font-montserrat text-sm leading-7 text-[#FBFBFB] outline-none transition-colors placeholder:text-[#878787] focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20"
+          className="mt-2 w-full resize-none rounded-[1.15rem] border border-white/10 bg-[#060808]/55 px-4 py-4 font-montserrat text-sm leading-7 text-[#FBFBFB] outline-none transition-colors placeholder:text-[#878787] focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20"
           placeholder="Tell us what you want to build, fix, simplify, automate, or understand better."
         />
       </label>
@@ -190,7 +211,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={sending}
-          className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 font-montserrat text-xs font-bold uppercase tracking-[0.16em] text-[#151419] transition-colors hover:bg-[#e95f14] disabled:cursor-not-allowed disabled:opacity-45"
+          className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 font-montserrat text-xs font-bold uppercase tracking-[0.16em] text-[#151419] transition-colors hover:bg-[#FAE18F] disabled:cursor-not-allowed disabled:opacity-45"
         >
           {sending ? 'Sending enquiry' : 'Send enquiry'}
           <ArrowUpRight aria-hidden="true" className="h-4 w-4" />

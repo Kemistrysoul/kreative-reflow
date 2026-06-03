@@ -881,7 +881,21 @@ async function sendEmail(record: LeadRecord): Promise<DeliveryStatus[]> {
   return statuses;
 }
 
-function responseMessage(delivery: DeliveryStatus[]) {
+function responseMessage(record: LeadRecord, delivery: DeliveryStatus[]) {
+  if (record.type === 'contact') {
+    if (delivery.some((item) => item.channel === 'owner_email' && item.status === 'sent')) {
+      return 'Your enquiry has been sent to the studio.';
+    }
+
+    if (delivery.some((item) => item.channel === 'webhook' && item.status === 'sent')) {
+      return 'Your enquiry has been captured and sent to the lead workflow.';
+    }
+
+    if (delivery.some((item) => item.channel === 'local_store' && item.status === 'sent')) {
+      return 'Your enquiry has been captured locally. Configure email or webhook delivery for production.';
+    }
+  }
+
   if (delivery.some((item) => item.channel === 'visitor_email' && item.status === 'sent')) {
     return 'Captured and emailed. You can also download the report now.';
   }
@@ -944,6 +958,6 @@ export async function POST(request: NextRequest) {
     ok: true,
     leadId: record.id,
     delivery,
-    message: responseMessage(delivery),
+    message: responseMessage(record, delivery),
   });
 }

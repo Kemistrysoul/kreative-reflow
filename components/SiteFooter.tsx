@@ -1,11 +1,23 @@
 'use client';
 
+import { useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react';
 import { AnimatedLinkText, AnimatedTextLink } from '@/components/AnimatedTextLink';
 
-const footerColumns = [
+type FooterLink = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+type FooterColumn = {
+  title: string;
+  links: FooterLink[];
+};
+
+const footerColumns: FooterColumn[] = [
   {
     title: 'Studio',
     links: [
@@ -29,17 +41,17 @@ const footerColumns = [
     links: [
       { label: 'Services', href: '/services' },
       { label: 'FAQ', href: '/faq' },
-      { label: 'Client portal', href: '/portal' },
+      { label: 'Tools', href: '/tools' },
       { label: 'Start a project', href: '/contact' },
     ],
   },
   {
     title: 'Social',
     links: [
-      { label: 'LinkedIn', href: '#' },
-      { label: 'Instagram', href: '#' },
-      { label: 'Facebook', href: '#' },
-      { label: 'TikTok', href: '#' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/kreativereflow', external: true },
+      { label: 'Instagram', href: 'https://www.instagram.com/kreativereflow', external: true },
+      { label: 'Facebook', href: 'https://www.facebook.com/KreativeReflow', external: true },
+      { label: 'TikTok', href: 'https://www.tiktok.com/@kreativereflow', external: true },
     ],
   },
 ];
@@ -50,6 +62,79 @@ const marqueeText = [
   'KREATIVE REFLOW',
   'KREATIVE REFLOW',
 ];
+
+const footerHeadline =
+  'Build the website, dashboard, or automation your business keeps trying to run without.';
+
+function MagicFooterWord({
+  children,
+  index,
+  progress,
+  total,
+}: {
+  children: string;
+  index: number;
+  progress: MotionValue<number>;
+  total: number;
+}) {
+  const start = index / total;
+  const end = start + 1 / total;
+  const opacity = useTransform(progress, [start, end], [0, 1]);
+  const isIntro = index < 6;
+  const hasTerminalPeriod = children.endsWith('.');
+  const word = hasTerminalPeriod ? children.slice(0, -1) : children;
+  const renderedWord = (
+    <>
+      {word}
+      {hasTerminalPeriod ? <span className="text-[#FC6E20]">.</span> : null}
+    </>
+  );
+
+  return (
+    <span
+      aria-hidden="true"
+      className={`relative mr-[0.18em] inline-block ${isIntro ? 'text-white/42' : 'text-white'}`}
+    >
+      <span aria-hidden="true" className="absolute inset-0 opacity-20">
+        {renderedWord}
+      </span>
+      <motion.span style={{ opacity }}>{renderedWord}</motion.span>
+    </span>
+  );
+}
+
+function MagicFooterText({ text }: { text: string }) {
+  const containerRef = useRef<HTMLHeadingElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 0.9', 'start 0.25'],
+  });
+
+  const words = text.split(' ');
+  const staticProgress = useTransform(scrollYProgress, [0, 1], [1, 1]);
+  const progress = prefersReducedMotion ? staticProgress : scrollYProgress;
+
+  return (
+    <h2
+      aria-label={text}
+      ref={containerRef}
+      className="max-w-5xl font-playfair text-4xl font-bold leading-[1.04] text-white md:text-6xl lg:text-[5.5rem]"
+    >
+      {words.map((word, index) => (
+        <MagicFooterWord
+          key={`${word}-${index}`}
+          index={index}
+          progress={progress}
+          total={words.length}
+        >
+          {word}
+        </MagicFooterWord>
+      ))}
+    </h2>
+  );
+}
 
 export function SiteFooter() {
   const prefersReducedMotion = useReducedMotion();
@@ -62,12 +147,7 @@ export function SiteFooter() {
 
       <div className="content-gutter relative z-10 pt-20 md:pt-28">
         <div className="grid gap-10 border-b border-white/10 pb-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:pb-20">
-          <h2 className="max-w-5xl font-playfair text-4xl font-bold leading-[1.04] text-white md:text-6xl lg:text-[5.5rem]">
-            <span className="text-white/38">
-              Build the website, dashboard, or automation{' '}
-            </span>
-            your business keeps trying to run without.
-          </h2>
+          <MagicFooterText text={footerHeadline} />
 
           <Link
             href="/contact"
@@ -139,7 +219,11 @@ export function SiteFooter() {
               <ul className="mt-5 space-y-3 font-montserrat text-sm text-white/58">
                 {column.links.map((link) => (
                   <li key={`${column.title}-${link.label}`}>
-                    <AnimatedTextLink href={link.href}>
+                    <AnimatedTextLink
+                      href={link.href}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}
+                    >
                       {link.label}
                     </AnimatedTextLink>
                   </li>
@@ -152,10 +236,10 @@ export function SiteFooter() {
         <div className="flex flex-col gap-5 py-8 font-mono text-[11px] uppercase text-white/36 md:flex-row md:items-center md:justify-between">
           <p>&copy; {new Date().getFullYear()} Kreative Reflow. All rights reserved.</p>
           <div className="flex flex-wrap gap-5">
-            <AnimatedTextLink href="#" className="text-white/36">
+            <AnimatedTextLink href="/privacy" className="text-white/36">
               Privacy Policy
             </AnimatedTextLink>
-            <AnimatedTextLink href="#" className="text-white/36">
+            <AnimatedTextLink href="/terms" className="text-white/36">
               Terms of Service
             </AnimatedTextLink>
           </div>

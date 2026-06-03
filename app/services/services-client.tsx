@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { AnimatedLinkText } from '@/components/AnimatedTextLink';
+import { ExpandingCtaBackground } from '@/components/ExpandingCtaBackground';
 
 type ServiceChapter = {
   num: string;
@@ -179,6 +180,13 @@ const chooserCards: ChooserCard[] = [
   },
 ];
 
+const chooserCardStyles = [
+  'hover:border-[#DD6211] hover:bg-[#DD6211] hover:text-[#060808] dark:hover:border-[#DD6211] dark:hover:bg-[#DD6211] dark:hover:text-[#060808]',
+  'hover:border-[#5F9FAA] hover:bg-[#5F9FAA] hover:text-[#060808] dark:hover:border-[#5F9FAA] dark:hover:bg-[#5F9FAA] dark:hover:text-[#060808]',
+  'hover:border-[#FAE18F] hover:bg-[#FAE18F] hover:text-[#060808] dark:hover:border-[#FAE18F] dark:hover:bg-[#FAE18F] dark:hover:text-[#060808]',
+  'hover:border-[#B92717] hover:bg-[#B92717] hover:text-[#FFF6E9] dark:hover:border-[#B92717] dark:hover:bg-[#B92717] dark:hover:text-[#FFF6E9]',
+];
+
 const comboCards: ComboCard[] = [
   {
     title: 'Website + SEO',
@@ -194,6 +202,57 @@ const comboCards: ComboCard[] = [
     title: 'Launch + Maintenance',
     services: 'For momentum',
     body: 'A supported launch with ongoing updates, performance checks, and practical care after the project goes live.',
+  },
+];
+
+const comboCardStyles = [
+  'bg-[#5F9FAA] text-[#060808]',
+  'bg-[#DD6211] text-[#060808]',
+  'bg-[#FFF6E9] text-[#0A171D]',
+];
+
+const chapterCardStyles = [
+  {
+    card: 'bg-[#5F9FAA] text-[#060808]',
+    icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/62',
+    ghost: 'text-[#060808]/[0.08]',
+    cta: 'bg-[#060808] text-[#FBFBFB] hover:bg-[#FBFBFB] hover:text-[#060808]',
+    hidden: 'text-[#060808]',
+  },
+  {
+    card: 'bg-[#DD6211] text-[#060808]',
+    icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/58',
+    ghost: 'text-[#060808]/[0.08]',
+    cta: 'bg-[#060808] text-[#FBFBFB] hover:bg-[#FBFBFB] hover:text-[#060808]',
+    hidden: 'text-[#060808]',
+  },
+  {
+    card: 'bg-[#FFF6E9] text-[#0A171D]',
+    icon: 'border-[#0A171D]/16 bg-[#0A171D]/[0.07] text-[#0A171D]/56',
+    ghost: 'text-[#0A171D]/[0.08]',
+    cta: 'bg-[#0A171D] text-[#FBFBFB] hover:bg-[#DD6211] hover:text-[#060808]',
+    hidden: 'text-[#060808]',
+  },
+  {
+    card: 'bg-[#B92717] text-[#FFF6E9]',
+    icon: 'border-[#FFF6E9]/20 bg-[#FFF6E9]/8 text-[#FFF6E9]/68',
+    ghost: 'text-[#FFF6E9]/[0.1]',
+    cta: 'bg-[#FFF6E9] text-[#060808] hover:bg-[#060808] hover:text-[#FFF6E9]',
+    hidden: 'text-[#FFF6E9]',
+  },
+  {
+    card: 'bg-[#151419] text-[#FBFBFB]',
+    icon: 'border-[#FC6E20]/22 bg-[#FC6E20]/10 text-[#FC6E20]',
+    ghost: 'text-[#FBFBFB]/[0.08]',
+    cta: 'bg-[#FC6E20] text-[#060808] hover:bg-[#FBFBFB] hover:text-[#060808]',
+    hidden: 'text-[#060808]',
+  },
+  {
+    card: 'bg-[#596C72] text-[#FBFBFB]',
+    icon: 'border-[#FBFBFB]/20 bg-[#FBFBFB]/8 text-[#FBFBFB]/68',
+    ghost: 'text-[#FBFBFB]/[0.1]',
+    cta: 'bg-[#FBFBFB] text-[#060808] hover:bg-[#FC6E20] hover:text-[#060808]',
+    hidden: 'text-[#060808]',
   },
 ];
 
@@ -384,7 +443,7 @@ function SystemMap() {
   ];
 
   return (
-    <div className="relative min-h-[21rem] overflow-hidden border border-[#151419]/10 bg-[#151419] p-5 text-[#FBFBFB] shadow-2xl shadow-[#151419]/10 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] sm:min-h-[24rem] lg:min-h-[26rem]">
+    <div className="relative min-h-[21rem] overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-5 text-[#FBFBFB] shadow-[0_28px_70px_rgba(21,20,25,0.16)] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] sm:min-h-[24rem] lg:min-h-[26rem]">
       <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-[0.65rem] uppercase tracking-[0.24em] text-white/45">
         <span>Service system</span>
         <span>01-06</span>
@@ -402,7 +461,7 @@ function SystemMap() {
       {nodes.map((node, index) => (
         <motion.div
           key={node.label}
-          className={`absolute ${node.className} w-[min(10rem,38vw)] border border-white/10 bg-white/[0.075] p-4 backdrop-blur`}
+          className={`absolute ${node.className} w-[min(10rem,38vw)] rounded-[1.15rem] border border-white/10 bg-white/[0.075] p-4 backdrop-blur`}
           animate={
             reduceMotion
               ? undefined
@@ -428,7 +487,7 @@ function SystemMap() {
 
 function HeroSection() {
   return (
-    <section className="content-gutter relative z-10 grid min-h-screen grid-cols-1 items-start gap-12 py-28 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.72fr)] lg:items-center lg:gap-16 lg:py-32">
+    <section className="content-gutter relative z-10 grid min-h-screen grid-cols-1 items-start gap-12 py-28 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.78fr)] lg:items-center lg:gap-16 lg:py-32">
       <div className="min-w-0">
         <div>
           <SectionLabel>Services</SectionLabel>
@@ -481,7 +540,7 @@ function ServiceChooser() {
           <Reveal key={card.title} delay={index * 0.06}>
             <Link
               href={card.href}
-              className="group flex min-h-[18rem] flex-col justify-between border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:bg-[#151419] hover:text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] dark:text-[#FBFBFB] dark:hover:border-[#FC6E20]"
+              className={`group flex min-h-[18rem] flex-col justify-between rounded-[1.35rem] border border-[#151419]/10 bg-[#F0EFED] p-6 text-[#151419] transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_22px_54px_rgba(21,20,25,0.14)] dark:border-[#FBFBFB]/10 dark:bg-[#F0EFED] dark:text-[#151419] ${chooserCardStyles[index % chooserCardStyles.length]}`}
             >
               <div>
                 <span className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-[#FC6E20]">
@@ -510,6 +569,7 @@ function ServiceChooser() {
 
 function ServiceChapterCard({ service, index }: { service: ServiceChapter; index: number }) {
   const Icon = service.icon;
+  const style = chapterCardStyles[index % chapterCardStyles.length];
 
   return (
     <section
@@ -529,49 +589,49 @@ function ServiceChapterCard({ service, index }: { service: ServiceChapter; index
       </Reveal>
 
       <Reveal delay={0.08}>
-        <article className="relative overflow-hidden border border-[#151419]/10 bg-[#151419] p-6 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-8 lg:p-10">
-          <div className="absolute right-0 top-0 h-32 w-32 border-l border-b border-[#FC6E20]/30" />
+        <article className={`group relative overflow-hidden rounded-[2.25rem] p-6 shadow-[0_28px_70px_rgba(21,20,25,0.12)] transition-transform duration-300 ease-out hover:-translate-y-1.5 md:p-8 lg:p-10 ${style.card}`}>
+          <div className="absolute right-0 top-0 h-32 w-32 rounded-bl-full border-l border-b border-current/10" />
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div>
-              <div className="flex h-12 w-12 items-center justify-center border border-white/12 bg-white/[0.04] text-[#FC6E20]">
+              <div className={`flex h-14 w-14 items-center justify-center rounded-[1.05rem] border transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:rotate-3 ${style.icon}`}>
                 <Icon className="h-5 w-5" strokeWidth={1.7} />
               </div>
-              <p className="mt-8 font-montserrat text-[0.7rem] font-bold uppercase tracking-[0.22em] text-white/42">
+              <p className="mt-8 font-montserrat text-[0.7rem] font-bold uppercase tracking-[0.22em] opacity-[0.62]">
                 {service.shortTitle}
               </p>
             </div>
-            <span className="font-playfair text-[clamp(4rem,11vw,9rem)] font-bold leading-none text-white/[0.045]">
+            <span className={`font-playfair text-[clamp(4rem,11vw,9rem)] font-bold leading-none ${style.ghost}`}>
               {service.num}
             </span>
           </div>
 
           <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <div className="border-t border-white/10 pt-5">
-              <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#FC6E20]">
+            <div className="border-t border-current/12 pt-5">
+              <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] opacity-[0.62]">
                 Problem
               </p>
-              <p className="mt-4 font-montserrat text-sm leading-7 text-white/68">
+              <p className="mt-4 font-montserrat text-sm leading-7 opacity-[0.72]">
                 {service.problem}
               </p>
             </div>
-            <div className="border-t border-white/10 pt-5">
-              <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#FC6E20]">
+            <div className="border-t border-current/12 pt-5">
+              <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] opacity-[0.62]">
                 Outcome
               </p>
-              <p className="mt-4 font-montserrat text-sm leading-7 text-white/68">
+              <p className="mt-4 font-montserrat text-sm leading-7 opacity-[0.72]">
                 {service.outcome}
               </p>
             </div>
           </div>
 
-          <div className="mt-10 border-t border-white/10 pt-6">
-            <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-white/42">
+          <div className="mt-10 border-t border-current/12 pt-6">
+            <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] opacity-[0.62]">
               Included
             </p>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {service.includes.map((item) => (
-                <div key={item} className="flex items-center gap-3 font-montserrat text-sm text-white/72">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#FC6E20]" strokeWidth={1.8} />
+                <div key={item} className="flex items-center gap-3 font-montserrat text-sm opacity-[0.76]">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 opacity-[0.8]" strokeWidth={1.8} />
                   <span>{item}</span>
                 </div>
               ))}
@@ -580,9 +640,9 @@ function ServiceChapterCard({ service, index }: { service: ServiceChapter; index
 
           <Link
             href={`/services/${service.slug}`}
-            className="group mt-10 inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 py-3 font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors hover:bg-[#FBFBFB]"
+            className={`mt-10 inline-flex min-h-12 items-center justify-center gap-3 rounded-full px-6 py-3 font-montserrat text-sm font-bold uppercase tracking-[0.06em] transition-colors ${style.cta}`}
           >
-            <AnimatedLinkText hiddenClassName="text-[#151419]">View service</AnimatedLinkText>
+            <AnimatedLinkText hiddenClassName={style.hidden}>View service</AnimatedLinkText>
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </article>
@@ -630,16 +690,16 @@ function ServiceCombinations() {
         <div className="grid gap-4">
           {comboCards.map((combo, index) => (
             <Reveal key={combo.title} delay={index * 0.08}>
-              <article className="grid gap-5 border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:grid-cols-[0.55fr_1fr] md:p-8">
+              <article className={`grid gap-5 rounded-[1.35rem] p-6 shadow-[0_22px_54px_rgba(21,20,25,0.1)] transition-transform duration-300 hover:-translate-y-1 md:grid-cols-[0.55fr_1fr] md:p-8 ${comboCardStyles[index % comboCardStyles.length]}`}>
                 <div>
-                  <span className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-[#FC6E20]">
+                  <span className="font-mono text-[0.68rem] uppercase tracking-[0.22em] opacity-[0.62]">
                     {combo.services}
                   </span>
-                  <h3 className="mt-4 font-playfair text-4xl font-bold leading-none tracking-tight text-[#151419] dark:text-[#FBFBFB]">
+                  <h3 className="mt-4 font-playfair text-4xl font-bold leading-none tracking-tight">
                     {combo.title}
                   </h3>
                 </div>
-                <p className="font-montserrat text-sm leading-7 text-[#151419]/66 dark:text-[#FBFBFB]/62">
+                <p className="font-montserrat text-sm leading-7 opacity-[0.72]">
                   {combo.body}
                 </p>
               </article>
@@ -665,7 +725,7 @@ function ProcessRhythm() {
         <div className="mt-12 grid gap-4 lg:grid-cols-3">
           {processSteps.map((step, index) => (
             <Reveal key={step.title} delay={index * 0.08}>
-              <article className="flex min-h-[20rem] flex-col justify-between border border-white/10 bg-white/[0.035] p-6 md:p-8">
+              <article className="flex min-h-[20rem] flex-col justify-between rounded-[1.35rem] border border-white/10 bg-white/[0.035] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#FC6E20]/45 hover:bg-white/[0.06] md:p-8">
                 <div>
                   <span className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-[#FC6E20]">
                     {step.num}
@@ -705,12 +765,12 @@ function IncludedSection() {
         <div className="grid gap-4 sm:grid-cols-2">
           {includedItems.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.04}>
-              <article className="min-h-[12rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]">
+              <article className="min-h-[12rem] rounded-[1.35rem] border border-[#151419]/10 bg-[#F0EFED] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#DD6211] hover:bg-[#DD6211] hover:text-[#060808] hover:shadow-[0_22px_54px_rgba(21,20,25,0.14)] dark:border-[#FBFBFB]/10 dark:bg-[#F0EFED] dark:text-[#151419]">
                 <CircleDot className="h-5 w-5 text-[#FC6E20]" strokeWidth={1.8} />
                 <h3 className="mt-8 font-montserrat text-sm font-bold uppercase tracking-[0.16em] text-[#151419] dark:text-[#FBFBFB]">
                   {item.title}
                 </h3>
-                <p className="mt-4 font-montserrat text-sm leading-7 text-[#151419]/62 dark:text-[#FBFBFB]/58">
+                <p className="mt-4 font-montserrat text-sm leading-7 text-current/62">
                   {item.body}
                 </p>
               </article>
@@ -738,9 +798,9 @@ function ServicesFaq() {
         </Reveal>
 
         <Reveal>
-          <Accordion type="single" collapsible defaultValue="01" className="border-t border-white/10">
+          <Accordion type="single" collapsible defaultValue="01" className="rounded-[1.35rem] border border-white/10 bg-white/[0.035] px-5 md:px-7">
             {faqItems.map((item) => (
-              <AccordionItem key={item.id} value={item.id} className="border-b border-white/10">
+              <AccordionItem key={item.id} value={item.id} className="border-b border-white/10 last:border-b-0">
                 <AccordionTrigger className="group py-7 text-left hover:no-underline [&>svg]:text-[#FC6E20]">
                   <span className="flex items-start gap-5 pr-5">
                     <span className="mt-1 font-mono text-[0.7rem] uppercase tracking-[0.22em] text-[#FC6E20]">
@@ -767,25 +827,36 @@ function FinalCta() {
   return (
     <section className="content-gutter relative z-10 py-20 md:py-28">
       <Reveal>
-        <div className="border border-[#151419]/10 bg-[#FBFBFB]/70 p-7 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-14">
+        <ExpandingCtaBackground>
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div>
               <SectionLabel>Start here</SectionLabel>
-              <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
+              <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
                 Bring the messy version. We will shape the system.
               </h2>
-              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
+              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 You do not need a perfect brief. Bring the goal, the friction,
                 and the rough idea. The first job is turning that into a clear
                 next move.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <PrimaryButton href="/contact">Start a project</PrimaryButton>
-              <SecondaryButton href="mailto:hello@kreativereflow.com">Email us</SecondaryButton>
+              <Link
+                href="/contact"
+                className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:bg-[#FBFBFB] sm:w-auto"
+              >
+                <AnimatedLinkText hiddenClassName="text-[#151419]">Start a project</AnimatedLinkText>
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="mailto:hello@kreativereflow.com"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#151419]/15 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
+              >
+                <AnimatedLinkText>Email us</AnimatedLinkText>
+              </Link>
             </div>
           </div>
-        </div>
+        </ExpandingCtaBackground>
       </Reveal>
     </section>
   );

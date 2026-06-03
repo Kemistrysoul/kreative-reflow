@@ -2,9 +2,9 @@ import { InsightsClient } from './insights-client';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Insights | Kreative Reflow',
+  title: 'Website, SEO & Automation Insights | Kreative Reflow',
   description:
-    'Practical studio notes on websites, SEO, dashboards, automation, and digital infrastructure for growing businesses.',
+    'Read practical website, SEO, dashboard, automation, and digital infrastructure insights for South African businesses planning stronger digital systems.',
   path: '/insights',
 });
 

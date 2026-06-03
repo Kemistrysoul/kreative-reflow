@@ -23,7 +23,16 @@ const searchPages = [
   { title: 'Insights', href: '/insights', description: 'Notes on websites, visibility, automation, and digital infrastructure.' },
   { title: 'About', href: '/about', description: 'The founder-led studio story and principles.' },
   { title: 'FAQ', href: '/faq', description: 'Answers about process, ownership, support, and timelines.' },
+  { title: 'Privacy Policy', href: '/privacy', description: 'How website, tool, and enquiry data is handled.' },
+  { title: 'Terms of Service', href: '/terms', description: 'The terms for website use, tools, enquiries, and services.' },
   { title: 'Contact', href: '/contact', description: 'Start a project conversation.' },
+];
+
+const socialLinks = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/kreativereflow' },
+  { label: 'Instagram', href: 'https://www.instagram.com/kreativereflow' },
+  { label: 'Facebook', href: 'https://www.facebook.com/KreativeReflow' },
+  { label: 'TikTok', href: 'https://www.tiktok.com/@kreativereflow' },
 ];
 
 function ThemeToggleThumb({ isDarkMode }: { isDarkMode: boolean }) {
@@ -161,11 +170,27 @@ export default function FloatingUI() {
         </div>
 
         {/* Right Center — Social Links (lg+) */}
-        <div className="absolute right-10 top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center w-8 h-64 pointer-events-auto">
-          <span className="text-xs font-mono tracking-widest uppercase whitespace-nowrap rotate-90">
-            Follow Us - LinkedIn / Instagram / Facebook / TikTok
-          </span>
-        </div>
+        <nav
+          aria-label="Social links"
+          className="absolute right-10 top-1/2 hidden h-64 w-8 -translate-y-1/2 items-center justify-center pointer-events-auto lg:flex"
+        >
+          <div className="flex rotate-90 items-center gap-2 whitespace-nowrap font-mono text-xs uppercase tracking-widest">
+            <span>Follow Us -</span>
+            {socialLinks.map((link, index) => (
+              <span key={link.label} className="inline-flex items-center gap-2">
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-55"
+                >
+                  {link.label}
+                </a>
+                {index < socialLinks.length - 1 ? <span aria-hidden="true">/</span> : null}
+              </span>
+            ))}
+          </div>
+        </nav>
       </div>
 
       {/* Menu Overlay */}
