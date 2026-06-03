@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { StudioProjectsWorkspace } from '@/components/studio/projects-workspace';
 import { getPortalNotificationRules, getStudioApprovalQueue } from '@/lib/portal-approvals';
 import { getStudioAssetReviews } from '@/lib/portal-assets';
+import { getStudioPortalCommunications } from '@/lib/portal-communications';
 import { getStudioFinanceHandoffData } from '@/lib/portal-finance-handoff';
 import { getStudioOperationalEvents } from '@/lib/portal-monitoring';
 import { getStudioOnboardingResponses } from '@/lib/portal-onboarding-reviews';
@@ -28,6 +29,7 @@ export default async function StudioProjectsPage() {
     financeHandoff,
     operationalEvents,
     projectRequests,
+    portalCommunications,
   ] = await Promise.all([
     getStudioOnboardingResponses(),
     getStudioAssetReviews(),
@@ -36,6 +38,7 @@ export default async function StudioProjectsPage() {
     getStudioFinanceHandoffData(),
     getStudioOperationalEvents(),
     getStudioProjectRequests(),
+    getStudioPortalCommunications(),
   ]);
   const readinessGate = await getStudioReadinessGateData(undefined, financeHandoff.invoices);
 
@@ -47,6 +50,7 @@ export default async function StudioProjectsPage() {
       notificationRules={notificationRules}
       onboardingResponses={onboardingResponses}
       operationalEvents={operationalEvents}
+      portalCommunications={portalCommunications}
       projectRequests={projectRequests}
       readinessGate={readinessGate}
     />

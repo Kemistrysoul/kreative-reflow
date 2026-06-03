@@ -269,6 +269,129 @@ async function checkSupabaseOperationalEvents() {
   } else {
     add('pass', 'Request notification rules available', 'Request activity can be written to the client portal timeline.');
   }
+
+  const meetingResult = await supabase
+    .from('portal_project_meeting_requests')
+    .select('meeting_number,status,title,next_action,portal_projects!inner(slug)')
+    .eq('portal_projects.slug', 'abc-engineering-website-redesign')
+    .order('meeting_number', { ascending: true });
+
+  if (meetingResult.error) {
+    add(
+      'blocker',
+      'Portal meeting request table is unavailable',
+      `${meetingResult.error.code || 'unknown'}: ${meetingResult.error.message}`,
+    );
+  } else {
+    const meetings = meetingResult.data ?? [];
+    const seededMeeting = meetings.find((meeting) => meeting.meeting_number === 'MTG-001');
+
+    if (!seededMeeting || !seededMeeting.status || !seededMeeting.next_action) {
+      add('blocker', 'Portal meeting seed is incomplete', 'Expected MTG-001 with status and next action.');
+    } else {
+      add('pass', 'Portal meeting requests available', `${meetings.length} meeting request record(s) are available.`);
+    }
+  }
+
+  const threadResult = await supabase
+    .from('portal_project_message_threads')
+    .select('id,thread_key,status,subject,last_message_at,portal_projects!inner(slug)')
+    .eq('portal_projects.slug', 'abc-engineering-website-redesign')
+    .order('last_message_at', { ascending: false });
+
+  if (threadResult.error) {
+    add(
+      'blocker',
+      'Portal message thread table is unavailable',
+      `${threadResult.error.code || 'unknown'}: ${threadResult.error.message}`,
+    );
+  } else {
+    const threads = threadResult.data ?? [];
+    const seededThread = threads.find((thread) => thread.thread_key === 'homepage-review-thread');
+
+    if (!seededThread || !seededThread.status || !seededThread.last_message_at) {
+      add('blocker', 'Portal message thread seed is incomplete', 'Expected homepage-review-thread with status and last message timestamp.');
+    } else {
+      add('pass', 'Portal message threads available', `${threads.length} message thread record(s) are available.`);
+    }
+  }
+
+  const messageResult = await supabase
+    .from('portal_project_messages')
+    .select('id,action_required,action_owner,portal_projects!inner(slug)')
+    .eq('portal_projects.slug', 'abc-engineering-website-redesign');
+
+  if (messageResult.error) {
+    add('warn', 'Portal project messages could not be checked', messageResult.error.message);
+  } else {
+    const messages = messageResult.data ?? [];
+    const actionableMessage = messages.find((message) => message.action_required && message.action_owner);
+
+    if (messages.length < 2 || !actionableMessage) {
+      add('blocker', 'Portal message seed is incomplete', 'Expected at least two messages and one action-owner message.');
+    } else {
+      add('pass', 'Portal project messages available', `${messages.length} client-visible message record(s) are available.`);
+    }
+  }
+
+  const decisionResult = await supabase
+    .from('portal_project_decisions')
+    .select('decision_number,decision_type,status,source_channel,outcome,owner_name,portal_projects!inner(slug)')
+    .eq('portal_projects.slug', 'abc-engineering-website-redesign')
+    .order('decision_number', { ascending: true });
+
+  if (decisionResult.error) {
+    add(
+      'blocker',
+      'Portal decision log table is unavailable',
+      `${decisionResult.error.code || 'unknown'}: ${decisionResult.error.message}`,
+    );
+  } else {
+    const decisions = decisionResult.data ?? [];
+    const kickoffDecision = decisions.find((decision) => decision.decision_number === 'DEC-001');
+    const whatsappDecision = decisions.find((decision) => decision.decision_number === 'DEC-002');
+
+    if (!kickoffDecision || !whatsappDecision) {
+      add('blocker', 'Portal decision seed is incomplete', 'Expected DEC-001 and DEC-002 decision records.');
+    } else if (whatsappDecision.decision_type !== 'whatsapp_summary' || whatsappDecision.source_channel !== 'whatsapp') {
+      add('blocker', 'Outside-channel decision seed is not intact', 'DEC-002 must remain a WhatsApp summary decision.');
+    } else {
+      add('pass', 'Portal decision log available', `${decisions.length} written decision record(s) are available.`);
+    }
+  }
+
+  const communicationRules = await supabase
+    .from('portal_project_notification_rules')
+    .select('event_type,portal_projects!inner(slug)')
+    .eq('portal_projects.slug', 'abc-engineering-website-redesign')
+    .eq('surface', 'portal_activity')
+    .in('event_type', ['meeting_requested', 'meeting_scheduled', 'message_posted', 'decision_logged']);
+
+  if (communicationRules.error) {
+    add('warn', 'Communication notification rules could not be checked', communicationRules.error.message);
+  } else if ((communicationRules.data ?? []).length < 4) {
+    add(
+      'blocker',
+      'Communication notification rules are missing',
+      'Expected meeting_requested, meeting_scheduled, message_posted, and decision_logged rules.',
+    );
+  } else {
+    add('pass', 'Communication notification rules available', 'Meetings, messages, and decisions can write to portal activity.');
+  }
+
+  const communicationActivity = await supabase
+    .from('portal_project_activity')
+    .select('activity_type,portal_projects!inner(slug)')
+    .eq('portal_projects.slug', 'abc-engineering-website-redesign')
+    .in('activity_type', ['meeting_requested', 'decision_logged']);
+
+  if (communicationActivity.error) {
+    add('warn', 'Communication activity could not be checked', communicationActivity.error.message);
+  } else if ((communicationActivity.data ?? []).length < 2) {
+    add('blocker', 'Communication activity seed is missing', 'Expected client-visible meeting and decision activity records.');
+  } else {
+    add('pass', 'Communication activity available', 'Meeting and decision records are visible in the portal activity stream.');
+  }
 }
 
 loadEnvFile(envPath);

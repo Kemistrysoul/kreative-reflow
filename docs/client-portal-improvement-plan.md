@@ -46,12 +46,12 @@ What is still missing or not tight enough:
 - `[x]` Client Request Center exists for small changes, support requests, meeting requests, and scope-change requests.
 - `[x]` Scope classification workflow exists for fix vs included revision vs paid change request vs maintenance request.
 - `[ ]` No revision-round counter exists. Current approval flow can record revision requests, but it does not enforce included rounds or consolidated feedback.
-- `[ ]` No meeting request flow exists.
-- `[ ]` No project-linked message threads exist.
-- `[ ]` No decision log exists for approvals, calls, WhatsApp summaries, and scope decisions.
+- `[x]` Meeting request flow exists and is verified against Supabase.
+- `[x]` Project-linked message threads exist and are verified against Supabase.
+- `[x]` Decision log exists for approvals, calls, WhatsApp summaries, scope decisions, and kickoff outcomes and is verified against Supabase.
 - `[ ]` No weekly client update generator exists.
 - `[ ]` No client task list exists for missing client actions, owners, due dates, and blockers.
-- `[~]` Dashboard activity automation exists for approvals, uploads, invoices, handoff, readiness gate changes, project events, and request events; messages, meetings, decisions, and weekly updates are still pending.
+- `[~]` Dashboard activity automation exists for approvals, uploads, invoices, handoff, readiness gate changes, project events, request events, meetings, messages, and decision entries; weekly updates are still pending.
 - `[x]` The extended onboarding migrations have been applied in Supabase and verified with a temporary write/read/delete against `portal_onboarding_responses`.
 
 ## Portal Operating-System Implementation Tracker
@@ -145,19 +145,32 @@ Latest verification:
 
 Goal: keep communication human without losing the official project record.
 
-- `[ ]` Add meeting request data model.
-- `[ ]` Add client-facing meeting request form with topic type, reason, preferred slots, attendees, agenda, and related project item.
-- `[ ]` Add message/thread data model tied to milestone, deliverable, request, or project.
-- `[ ]` Add Messages section or contextual message threads.
-- `[ ]` Add decision log records for approvals, phone calls, WhatsApp summaries, scope decisions, and kickoff outcomes.
-- `[ ]` Add studio action to summarize an outside-channel decision into the portal.
-- `[ ]` Add post-call summary fields: decision, action items, owner, due date.
+- `[x]` Add meeting request data model.
+- `[x]` Add client-facing meeting request form with topic type, reason, preferred slots, attendees, agenda, and related project item.
+- `[x]` Add message/thread data model tied to milestone, deliverable, request, or project.
+- `[x]` Add Messages section or contextual message threads.
+- `[x]` Add decision log records for approvals, phone calls, WhatsApp summaries, scope decisions, and kickoff outcomes.
+- `[x]` Add studio action to summarize an outside-channel decision into the portal.
+- `[x]` Add post-call summary fields: decision, action items, owner, due date.
 
 Acceptance checks:
 
-- Client can request a meeting without bypassing scope/change workflow.
-- Important WhatsApp or phone decisions become written portal records.
-- The dashboard can answer: "What was decided, by whom, and when?"
+- `[x]` Client can request a meeting without bypassing scope/change workflow.
+- `[x]` Important WhatsApp or phone decisions become written portal records.
+- `[x]` The dashboard can answer: "What was decided, by whom, and when?"
+
+Latest verification:
+
+- `[x]` Focused ESLint passed for the Phase 12 portal, Studio, API, loader, activity, migration-check, and communications files.
+- `[x]` `npm run build` passed with the new `/api/portal/communications` route.
+- `[x]` Unauthenticated `POST /api/portal/communications` for a meeting request returns `401`, preserving the portal-auth boundary before any communication record can be created.
+- `[x]` Supabase `portal_project_meeting_requests` is available through the app with seeded meeting record `MTG-001`.
+- `[x]` Supabase `portal_project_message_threads` is available through the app with seeded thread `homepage-review-thread`.
+- `[x]` Supabase `portal_project_messages` is available through the app with two client-visible seeded messages and one action-owner message.
+- `[x]` Supabase `portal_project_decisions` is available through the app with seeded decision records `DEC-001` and `DEC-002`.
+- `[x]` Communication notification rules are visible remotely: `meeting_requested`, `meeting_scheduled`, `message_posted`, and `decision_logged`.
+- `[x]` Client-visible communication activity exists for the seeded meeting and decision records.
+- `[x]` `npm run launch:check` passes all Phase 12 communication checks; remaining blocker is uncommitted/unrelated worktree state and the existing Vercel-link warning.
 
 ### Phase 13: Revision Round Tracking And Approval Tightening
 
@@ -237,7 +250,7 @@ Acceptance checks:
 1. `[x]` Apply and verify the Phase 9 onboarding migrations in Supabase.
 2. `[x]` Add Phase 10 readiness gate and Contract/SOW status.
 3. `[x]` Add Phase 11 Request Center and scope classification.
-4. `[ ]` Add Phase 12 meeting requests, message threads, and decision log.
+4. `[x]` Add Phase 12 meeting requests, message threads, and decision log.
 5. `[ ]` Add Phase 13 revision-round tracking.
 6. `[ ]` Add Phase 14 weekly update generator and expanded automation events.
 7. `[ ]` Add Phase 15 client task list.
@@ -245,14 +258,13 @@ Acceptance checks:
 
 ## Next Task To Execute
 
-`[ ]` Phase 12 - add meeting requests, message threads, and decision log.
+`[ ]` Phase 13 - add revision-round tracking and approval tightening.
 
 Detailed next step:
 
-- Add meeting request data model and client-facing meeting request form.
-- Add message/thread records tied to milestone, deliverable, request, or project.
-- Add a decision log for approvals, phone calls, WhatsApp summaries, scope decisions, and kickoff outcomes.
-- Add Studio controls to summarize outside-channel decisions into the official portal record.
+- Add revision counters and included-round limits to deliverable approvals.
+- Show remaining revision rounds in the client review workspace.
+- Require consolidated feedback and convert extra rounds into a change request path.
 
 ## Current State
 

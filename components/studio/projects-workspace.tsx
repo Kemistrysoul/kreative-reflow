@@ -50,6 +50,17 @@ import {
 import type { PortalDeliverableApproval, PortalNotificationRule } from '@/lib/portal-approvals';
 import type { PortalProjectAsset } from '@/lib/portal-assets';
 import type {
+  PortalCommunicationContextType,
+  PortalCommunicationSummary,
+  PortalDecisionSourceChannel,
+  PortalDecisionType,
+  PortalMeetingRequest,
+  PortalMeetingStatus,
+  PortalMessageThread,
+  PortalProjectDecision,
+  PortalThreadStatus,
+} from '@/lib/portal-communications';
+import type {
   PortalFinanceHandoffData,
   PortalHandoffStatus,
   PortalInvoiceStatus,
@@ -122,6 +133,19 @@ const emptyRequestSummary: PortalRequestSummary = {
   source: 'supabase',
   waitingApprovalCount: 0,
   waitingClientCount: 0,
+};
+
+const emptyCommunicationSummary: PortalCommunicationSummary = {
+  decisions: [],
+  latestDecision: null,
+  latestMeeting: null,
+  latestMessage: null,
+  meetings: [],
+  openMeetingCount: 0,
+  openThreadCount: 0,
+  pendingActionCount: 0,
+  source: 'supabase',
+  threads: [],
 };
 
 const invoiceStatusCopy: Record<PortalInvoiceStatus, string> = {
@@ -205,6 +229,56 @@ const requestSourceCopy: Record<PortalRequestSourceChannel, string> = {
   whatsapp: 'WhatsApp',
 };
 
+const decisionTypeCopy: Record<PortalDecisionType, string> = {
+  approval: 'Approval',
+  kickoff_outcome: 'Kickoff outcome',
+  meeting_outcome: 'Meeting outcome',
+  phone_call: 'Phone call',
+  project_decision: 'Project decision',
+  scope_decision: 'Scope decision',
+  support: 'Support',
+  whatsapp_summary: 'WhatsApp summary',
+};
+
+const decisionSourceCopy: Record<PortalDecisionSourceChannel, string> = {
+  approval: 'Approval',
+  email: 'Email',
+  meeting: 'Meeting',
+  phone: 'Phone',
+  portal: 'Portal',
+  studio_logged: 'Studio logged',
+  whatsapp: 'WhatsApp',
+};
+
+const communicationContextCopy: Record<PortalCommunicationContextType, string> = {
+  approval: 'Approval',
+  deliverable: 'Deliverable',
+  handoff: 'Handoff',
+  invoice: 'Invoice',
+  meeting: 'Meeting',
+  milestone: 'Milestone',
+  other: 'Other',
+  project: 'Project',
+  request: 'Request',
+  support: 'Support',
+};
+
+const meetingStatusCopy: Record<PortalMeetingStatus, string> = {
+  cancelled: 'Cancelled',
+  completed: 'Completed',
+  declined: 'Declined',
+  requested: 'Requested',
+  scheduled: 'Scheduled',
+};
+
+const threadStatusCopy: Record<PortalThreadStatus, string> = {
+  archived: 'Archived',
+  open: 'Open',
+  resolved: 'Resolved',
+  waiting_client: 'Waiting client',
+  waiting_studio: 'Waiting studio',
+};
+
 function getApprovalTone(status: PortalDeliverableApproval['status']): 'accent' | 'muted' | 'neutral' {
   if (status === 'waiting_review' || status === 'revision_requested') {
     return 'accent';
@@ -257,6 +331,38 @@ function getRequestClassificationTone(classification: PortalRequestClassificatio
   return classification === 'unclassified' ? 'muted' : 'neutral';
 }
 
+function getMeetingTone(status: PortalMeetingStatus): 'accent' | 'muted' | 'neutral' {
+  if (status === 'requested') {
+    return 'accent';
+  }
+
+  return status === 'scheduled' ? 'neutral' : 'muted';
+}
+
+function getThreadTone(status: PortalThreadStatus): 'accent' | 'muted' | 'neutral' {
+  if (status === 'waiting_studio') {
+    return 'accent';
+  }
+
+  return status === 'open' || status === 'waiting_client' ? 'neutral' : 'muted';
+}
+
+function formatStudioDate(value: string, fallback = 'Not set') {
+  if (!value) return fallback;
+
+  const date = new Date(`${value}T00:00:00`);
+
+  if (Number.isNaN(date.getTime())) {
+    return fallback;
+  }
+
+  return new Intl.DateTimeFormat('en-ZA', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
+}
+
 function makeId(prefix: string, ...parts: string[]) {
   return [prefix, ...parts]
     .join('-')
@@ -289,6 +395,7 @@ export function StudioProjectsWorkspace({
   notificationRules = [],
   onboardingResponses = [],
   operationalEvents = [],
+  portalCommunications = emptyCommunicationSummary,
   projectRequests = emptyRequestSummary,
   readinessGate = emptyReadinessGate,
 }: {
@@ -298,6 +405,7 @@ export function StudioProjectsWorkspace({
   notificationRules?: PortalNotificationRule[];
   onboardingResponses?: StudioOnboardingResponse[];
   operationalEvents?: PortalOperationalEvent[];
+  portalCommunications?: PortalCommunicationSummary;
   projectRequests?: PortalRequestSummary;
   readinessGate?: PortalReadinessGateData;
 }) {
@@ -308,6 +416,7 @@ export function StudioProjectsWorkspace({
     updateActiveProject,
   } = useStudioWorkflow();
   const [selectedRow, setSelectedRow] = useState<ProjectTableRow | null>(null);
+  const [communicationSummary, setCommunicationSummary] = useState<PortalCommunicationSummary>(portalCommunications);
   const [requests, setRequests] = useState<PortalProjectRequest[]>(projectRequests.requests);
   const submittedOnboardingCount = onboardingResponses.filter((response) => response.status === 'submitted').length;
   const latestOnboardingResponse = onboardingResponses[0];
@@ -336,6 +445,7 @@ export function StudioProjectsWorkspace({
     (request.classification === 'change_request' || request.classification === 'out_of_scope') &&
     request.clientDecision === 'pending'
   ).length;
+  const communicationActionCount = communicationSummary.openMeetingCount + communicationSummary.pendingActionCount;
   const unresolvedOperationalEvents = operationalEvents.filter((event) => !event.resolvedAt);
   const urgentOperationalEvents = unresolvedOperationalEvents.filter((event) =>
     event.severity === 'critical' || event.severity === 'error'
@@ -436,6 +546,22 @@ export function StudioProjectsWorkspace({
       spark: [0, 1, requests.length + 1, requestOpenCount + 1, requestWaitingApprovalCount + 1],
     },
     {
+      label: 'Communications',
+      value: String(communicationActionCount + communicationSummary.openThreadCount),
+      detail: communicationActionCount
+        ? `${communicationActionCount} meeting or message action${communicationActionCount === 1 ? '' : 's'} need follow-up`
+        : `${communicationSummary.decisions.length} written decision${communicationSummary.decisions.length === 1 ? '' : 's'} captured`,
+      icon: Mail,
+      tone: communicationActionCount ? 'accent' : 'muted',
+      spark: [
+        0,
+        communicationSummary.meetings.length + 1,
+        communicationSummary.threads.length + 1,
+        communicationSummary.decisions.length + 1,
+        communicationActionCount + 1,
+      ],
+    },
+    {
       label: 'Asset Reviews',
       value: String(pendingAssetCount),
       detail: assetReviews.length
@@ -489,6 +615,21 @@ export function StudioProjectsWorkspace({
         title: `${request.clientName} - ${request.requestNumber} ${request.title}`,
         meta: `${requestTypeCopy[request.requestType]} - ${request.nextAction}`,
       })),
+      ...communicationSummary.meetings.slice(0, 1).map((meeting) => ({
+        time: meetingStatusCopy[meeting.status],
+        title: `${meeting.clientName} - ${meeting.meetingNumber} ${meeting.title}`,
+        meta: `${meeting.scheduledFor} - ${meeting.nextAction}`,
+      })),
+      ...communicationSummary.threads.slice(0, 1).map((thread) => ({
+        time: threadStatusCopy[thread.status],
+        title: `${thread.clientName} - ${thread.subject}`,
+        meta: `${communicationContextCopy[thread.contextType]} - ${thread.lastMessageAt}`,
+      })),
+      ...communicationSummary.decisions.slice(0, 1).map((decision) => ({
+        time: decisionTypeCopy[decision.decisionType],
+        title: `${decision.clientName} - ${decision.decisionNumber} ${decision.title}`,
+        meta: `${decisionSourceCopy[decision.sourceChannel]} - ${decision.decidedAt}`,
+      })),
       ...financeHandoff.invoices.slice(0, 1).map((invoice) => ({
         time: invoiceStatusCopy[invoice.status],
         title: `${invoice.clientName} - ${invoice.invoiceNumber} ${invoice.label}`,
@@ -501,7 +642,7 @@ export function StudioProjectsWorkspace({
       })),
       ...projectClientActivity,
     ],
-    [approvalQueue, assetReviews, financeHandoff, onboardingResponses, requests],
+    [approvalQueue, assetReviews, communicationSummary, financeHandoff, onboardingResponses, requests],
   );
 
   const mergedRows = [...intakeRows, ...activeRows, ...seedRows];
@@ -715,6 +856,40 @@ export function StudioProjectsWorkspace({
             templateRequest={requests[0] ?? projectRequests.latestRequest}
             onRequestCreated={(createdRequest) =>
               setRequests((currentRequests) => [createdRequest, ...currentRequests])
+            }
+          />
+        </StudioPanel>
+      </section>
+
+      <section className="grid gap-5 xl:grid-cols-[1.12fr_0.88fr]">
+        <StudioPanel
+          title="Communication hub"
+          eyebrow="Meetings, threads, and decisions"
+          icon={Mail}
+          actions={
+            <Link
+              href="/portal?section=messages"
+              className="inline-flex min-h-11 items-center rounded-2xl border border-white/8 bg-white/5 px-4 font-montserrat text-sm font-semibold text-white transition hover:border-[#FC6E20] hover:text-[#FC6E20]"
+            >
+              Open portal
+            </Link>
+          }
+        >
+          <StudioCommunicationHub communicationSummary={communicationSummary} />
+        </StudioPanel>
+
+        <StudioPanel title="Decision capture" eyebrow="Phone, WhatsApp, email, or meeting" icon={ClipboardCheck}>
+          <StudioDecisionLogForm
+            templateDecision={communicationSummary.latestDecision}
+            onDecisionCreated={(decision) =>
+              setCommunicationSummary((currentSummary) => ({
+                ...currentSummary,
+                decisions: [decision, ...currentSummary.decisions],
+                latestDecision: decision,
+                pendingActionCount: decision.actionItems
+                  ? currentSummary.pendingActionCount + 1
+                  : currentSummary.pendingActionCount,
+              }))
             }
           />
         </StudioPanel>
@@ -1919,6 +2094,414 @@ function StudioRequestLogForm({
       >
         {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
         Log request
+      </button>
+    </div>
+  );
+}
+
+type DecisionCreateResponse = {
+  decision?: {
+    decidedAt: string;
+    decisionNumber: string;
+    id: string;
+  };
+  error?: string;
+  ok?: boolean;
+};
+
+function StudioCommunicationHub({ communicationSummary }: { communicationSummary: PortalCommunicationSummary }) {
+  const hasCommunicationRecords =
+    communicationSummary.meetings.length ||
+    communicationSummary.threads.length ||
+    communicationSummary.decisions.length;
+
+  if (!hasCommunicationRecords) {
+    return (
+      <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
+        <p className="font-montserrat text-sm text-[#878787]">
+          Meeting requests, client message threads, and written decision records will appear here once the communication workflow is used.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-5">
+      <div className="grid gap-3 sm:grid-cols-3">
+        <DetailCard label="Open meetings" value={String(communicationSummary.openMeetingCount)} />
+        <DetailCard label="Open threads" value={String(communicationSummary.openThreadCount)} />
+        <DetailCard label="Actions due" value={String(communicationSummary.pendingActionCount)} />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="space-y-3">
+          <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Meeting queue</p>
+          {communicationSummary.meetings.length ? (
+            communicationSummary.meetings.slice(0, 3).map((meeting) => (
+              <StudioMeetingCard key={meeting.id} meeting={meeting} />
+            ))
+          ) : (
+            <EmptyMiniState label="No meeting requests yet." />
+          )}
+        </div>
+
+        <div className="space-y-3">
+          <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Message threads</p>
+          {communicationSummary.threads.length ? (
+            communicationSummary.threads.slice(0, 3).map((thread) => (
+              <StudioMessageThreadCard key={thread.id} thread={thread} />
+            ))
+          ) : (
+            <EmptyMiniState label="No message threads yet." />
+          )}
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Decision log</p>
+        {communicationSummary.decisions.length ? (
+          communicationSummary.decisions.slice(0, 4).map((decision) => (
+            <StudioDecisionCard key={decision.id} decision={decision} />
+          ))
+        ) : (
+          <EmptyMiniState label="No written decisions yet." />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function EmptyMiniState({ label }: { label: string }) {
+  return (
+    <div className="rounded-[18px] border border-dashed border-white/10 bg-white/[0.02] p-4">
+      <p className="font-montserrat text-sm text-[#878787]">{label}</p>
+    </div>
+  );
+}
+
+function StudioMeetingCard({ meeting }: { meeting: PortalMeetingRequest }) {
+  return (
+    <article className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="font-montserrat text-sm font-semibold text-white">
+            {meeting.meetingNumber} - {meeting.title}
+          </p>
+          <p className="mt-2 line-clamp-2 font-montserrat text-sm leading-6 text-[#878787]">{meeting.reason}</p>
+        </div>
+        <StudioStatusPill label={meetingStatusCopy[meeting.status]} tone={getMeetingTone(meeting.status)} />
+      </div>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <DetailCard label="Scheduled" value={meeting.scheduledFor} />
+        <DetailCard label="Related" value={meeting.relatedItemLabel || communicationContextCopy[meeting.relatedItemType]} />
+      </div>
+      <p className="mt-3 font-montserrat text-sm leading-6 text-[#FBFBFB]">{meeting.nextAction}</p>
+    </article>
+  );
+}
+
+function StudioMessageThreadCard({ thread }: { thread: PortalMessageThread }) {
+  const latestMessage = thread.messages[thread.messages.length - 1];
+
+  return (
+    <article className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="font-montserrat text-sm font-semibold text-white">{thread.subject}</p>
+          <p className="mt-2 font-montserrat text-sm text-[#878787]">
+            {communicationContextCopy[thread.contextType]} - {thread.contextLabel || 'Project'}
+          </p>
+        </div>
+        <StudioStatusPill label={threadStatusCopy[thread.status]} tone={getThreadTone(thread.status)} />
+      </div>
+      {latestMessage ? (
+        <div className="mt-4 rounded-[18px] border border-white/8 bg-white/5 p-3">
+          <p className="line-clamp-3 font-montserrat text-sm leading-6 text-[#FBFBFB]">{latestMessage.messageBody}</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <StudioStatusPill label={decisionSourceCopy[latestMessage.sourceChannel]} tone="muted" />
+            {latestMessage.actionRequired ? (
+              <StudioStatusPill label={`Action: ${latestMessage.actionOwner || 'Owner needed'}`} tone="accent" />
+            ) : null}
+          </div>
+        </div>
+      ) : null}
+    </article>
+  );
+}
+
+function StudioDecisionCard({ decision }: { decision: PortalProjectDecision }) {
+  return (
+    <article className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <p className="font-montserrat text-sm font-semibold text-white">
+            {decision.decisionNumber} - {decision.title}
+          </p>
+          <p className="mt-2 font-montserrat text-sm text-[#878787]">
+            {decisionTypeCopy[decision.decisionType]} - {decisionSourceCopy[decision.sourceChannel]}
+          </p>
+        </div>
+        <StudioStatusPill label={decision.status.replace(/_/g, ' ')} tone="muted" />
+      </div>
+      <p className="mt-4 font-montserrat text-sm leading-6 text-[#FBFBFB]">{decision.outcome}</p>
+      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        <DetailCard label="Decided" value={decision.decidedAt} />
+        <DetailCard label="Owner" value={decision.ownerName || 'Not assigned'} />
+        <DetailCard label="Due" value={decision.dueOn} />
+      </div>
+      {decision.actionItems ? (
+        <SnippetBlock label="Action items" value={decision.actionItems} />
+      ) : null}
+    </article>
+  );
+}
+
+function StudioDecisionLogForm({
+  onDecisionCreated,
+  templateDecision,
+}: {
+  onDecisionCreated: (decision: PortalProjectDecision) => void;
+  templateDecision: PortalProjectDecision | null;
+}) {
+  const [draft, setDraft] = useState({
+    actionItems: '',
+    decisionSummary: '',
+    decisionType: 'whatsapp_summary' as PortalDecisionType,
+    dueOn: '',
+    internalNote: '',
+    outcome: '',
+    ownerName: 'Kreative Reflow',
+    ownerRole: 'Studio',
+    rationale: '',
+    relatedItemLabel: '',
+    relatedItemType: 'request' as PortalCommunicationContextType,
+    sourceChannel: 'whatsapp' as PortalDecisionSourceChannel,
+    title: '',
+  });
+  const [saveError, setSaveError] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  function updateDraft(patch: Partial<typeof draft>) {
+    setDraft((currentDraft) => ({ ...currentDraft, ...patch }));
+  }
+
+  async function submitDecision() {
+    setSaving(true);
+    setSaveError('');
+    setSuccessMessage('');
+
+    try {
+      const response = await fetch('/api/portal/communications', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'decision_log',
+          actionItems: draft.actionItems,
+          decisionSummary: draft.decisionSummary,
+          decisionType: draft.decisionType,
+          dueOn: draft.dueOn,
+          internalNote: draft.internalNote,
+          outcome: draft.outcome,
+          ownerName: draft.ownerName,
+          ownerRole: draft.ownerRole,
+          projectSlug: templateDecision?.projectSlug,
+          rationale: draft.rationale,
+          relatedItemLabel: draft.relatedItemLabel,
+          relatedItemType: draft.relatedItemType,
+          sourceChannel: draft.sourceChannel,
+          title: draft.title,
+        }),
+      });
+      const payload = (await response.json()) as DecisionCreateResponse;
+
+      if (!response.ok || !payload.ok || !payload.decision) {
+        throw new Error(payload.error || 'Decision could not be logged.');
+      }
+
+      const projectContext = templateDecision ?? {
+        clientName: 'ABC Engineering',
+        projectName: 'Website Redesign',
+        projectSlug: 'abc-engineering-website-redesign',
+      };
+
+      onDecisionCreated({
+        actionItems: draft.actionItems,
+        clientName: projectContext.clientName,
+        decidedAt: 'Logged just now',
+        decidedByEmail: 'Studio',
+        decidedByRole: 'studio_admin',
+        decisionNumber: payload.decision.decisionNumber,
+        decisionSummary: draft.decisionSummary,
+        decisionType: draft.decisionType,
+        dueOn: formatStudioDate(draft.dueOn),
+        id: payload.decision.id,
+        internalNote: draft.internalNote,
+        outcome: draft.outcome,
+        ownerName: draft.ownerName,
+        ownerRole: draft.ownerRole,
+        projectName: projectContext.projectName,
+        projectSlug: projectContext.projectSlug,
+        rationale: draft.rationale,
+        relatedItemLabel: draft.relatedItemLabel,
+        relatedItemType: draft.relatedItemType,
+        source: 'supabase',
+        sourceChannel: draft.sourceChannel,
+        status: 'active',
+        title: draft.title,
+      });
+
+      setSuccessMessage(`${payload.decision.decisionNumber} was added to the official portal record.`);
+      setDraft((currentDraft) => ({
+        ...currentDraft,
+        actionItems: '',
+        decisionSummary: '',
+        dueOn: '',
+        internalNote: '',
+        outcome: '',
+        rationale: '',
+        relatedItemLabel: '',
+        title: '',
+      }));
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'Decision could not be logged.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="grid gap-3">
+        <label>
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+            Source
+          </span>
+          <select
+            value={draft.sourceChannel}
+            onChange={(event) => updateDraft({ sourceChannel: event.target.value as PortalDecisionSourceChannel })}
+            className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#151419] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+          >
+            {(['whatsapp', 'phone', 'email', 'meeting', 'approval', 'studio_logged'] as PortalDecisionSourceChannel[]).map((source) => (
+              <option key={source} value={source}>
+                {decisionSourceCopy[source]}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+            Decision type
+          </span>
+          <select
+            value={draft.decisionType}
+            onChange={(event) => updateDraft({ decisionType: event.target.value as PortalDecisionType })}
+            className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#151419] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+          >
+            {(Object.keys(decisionTypeCopy) as PortalDecisionType[]).map((decisionType) => (
+              <option key={decisionType} value={decisionType}>
+                {decisionTypeCopy[decisionType]}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <Field label="Title" value={draft.title} onChange={(value) => updateDraft({ title: value })} />
+        <TextAreaField
+          label="What was decided"
+          value={draft.decisionSummary}
+          onChange={(value) => updateDraft({ decisionSummary: value })}
+        />
+        <TextAreaField
+          label="Outcome"
+          value={draft.outcome}
+          onChange={(value) => updateDraft({ outcome: value })}
+        />
+        <TextAreaField
+          label="Rationale"
+          value={draft.rationale}
+          onChange={(value) => updateDraft({ rationale: value })}
+        />
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label>
+            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+              Related to
+            </span>
+            <select
+              value={draft.relatedItemType}
+              onChange={(event) => updateDraft({ relatedItemType: event.target.value as PortalCommunicationContextType })}
+              className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#151419] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+            >
+              {(Object.keys(communicationContextCopy) as PortalCommunicationContextType[]).map((contextType) => (
+                <option key={contextType} value={contextType}>
+                  {communicationContextCopy[contextType]}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label>
+            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+              Due date
+            </span>
+            <input
+              type="date"
+              value={draft.dueOn}
+              onChange={(event) => updateDraft({ dueOn: event.target.value })}
+              className="mt-2 min-h-12 w-full rounded-[18px] border border-white/8 bg-[#151419] px-4 font-montserrat text-sm text-white outline-none transition focus:border-[#FC6E20]"
+            />
+          </label>
+        </div>
+
+        <Field
+          label="Related milestone, request, or deliverable"
+          value={draft.relatedItemLabel}
+          onChange={(value) => updateDraft({ relatedItemLabel: value })}
+        />
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Field label="Owner" value={draft.ownerName} onChange={(value) => updateDraft({ ownerName: value })} />
+          <Field label="Owner role" value={draft.ownerRole} onChange={(value) => updateDraft({ ownerRole: value })} />
+        </div>
+
+        <TextAreaField
+          label="Action items"
+          value={draft.actionItems}
+          onChange={(value) => updateDraft({ actionItems: value })}
+        />
+        <TextAreaField
+          label="Internal note"
+          value={draft.internalNote}
+          onChange={(value) => updateDraft({ internalNote: value })}
+        />
+      </div>
+
+      {saveError ? (
+        <p className="flex items-start gap-2 rounded-[18px] border border-red-400/25 bg-red-400/10 p-3 font-montserrat text-sm leading-6 text-red-100">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          {saveError}
+        </p>
+      ) : null}
+
+      {successMessage ? (
+        <p className="rounded-[18px] border border-emerald-400/25 bg-emerald-400/10 p-3 font-montserrat text-sm leading-6 text-emerald-100">
+          {successMessage}
+        </p>
+      ) : null}
+
+      <button
+        type="button"
+        onClick={() => void submitDecision()}
+        disabled={saving}
+        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#FC6E20] px-4 font-montserrat text-sm font-semibold text-[#151419] transition hover:bg-[#e95f14] disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+        Log decision
       </button>
     </div>
   );

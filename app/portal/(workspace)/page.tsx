@@ -12,6 +12,7 @@ import {
   FolderKanban,
   LayoutDashboard,
   MessageSquareText,
+  MessagesSquare,
   ReceiptText,
   ShieldCheck,
   UploadCloud,
@@ -23,6 +24,7 @@ import { PortalAssetLibrary } from '@/components/portal/PortalAssetLibrary';
 import { PortalHeader, PortalPreviewNotice } from '@/components/portal/PortalChrome';
 import { PortalApprovalsPanel } from '@/components/portal/PortalApprovalsPanel';
 import { PortalComplianceNotice } from '@/components/portal/PortalComplianceNotice';
+import { PortalCommunicationCenter } from '@/components/portal/PortalCommunicationCenter';
 import { PortalFinancePanel, PortalHandoffPanel } from '@/components/portal/PortalFinanceHandoff';
 import { PortalReadinessGatePanel } from '@/components/portal/PortalReadinessGate';
 import { PortalRequestCenter } from '@/components/portal/PortalRequestCenter';
@@ -35,6 +37,7 @@ import { getPortalFinanceHandoffData, type PortalFinanceHandoffData } from '@/li
 import { getAuthorizedPortalProjectData } from '@/lib/portal-projects';
 import { getPortalReadinessGateData, type PortalReadinessGateData } from '@/lib/portal-readiness';
 import { getPortalProjectRequests, type PortalRequestSummary } from '@/lib/portal-requests';
+import { getPortalCommunications, type PortalCommunicationSummary } from '@/lib/portal-communications';
 
 export const metadata: Metadata = {
   title: 'Client Portal Preview | Kreative Reflow',
@@ -54,6 +57,7 @@ type PortalSectionKey =
   | 'files'
   | 'reviews'
   | 'requests'
+  | 'messages'
   | 'billing'
   | 'activity';
 
@@ -109,6 +113,12 @@ const portalSections: PortalSectionDefinition[] = [
     icon: MessageSquareText,
   },
   {
+    key: 'messages',
+    label: 'Messages',
+    helper: 'Meetings, threads, and decisions',
+    icon: MessagesSquare,
+  },
+  {
     key: 'billing',
     label: 'Billing & Launch',
     helper: 'Invoices, handoff, and support',
@@ -147,6 +157,7 @@ function getSectionBadge({
   assetBuckets,
   financeHandoff,
   portalActivity,
+  portalCommunications,
   portalProject,
   portalRequests,
   portalSteps,
@@ -157,6 +168,7 @@ function getSectionBadge({
   assetBuckets: AssetBucket[];
   financeHandoff: PortalFinanceHandoffData;
   portalActivity: ActivityItem[];
+  portalCommunications: PortalCommunicationSummary;
   portalProject: PortalProject;
   portalRequests: PortalRequestSummary;
   portalSteps: PortalStep[];
@@ -181,6 +193,11 @@ function getSectionBadge({
     return portalRequests.waitingApprovalCount
       ? `${portalRequests.waitingApprovalCount} decisions`
       : `${portalRequests.openCount} open`;
+  }
+  if (section === 'messages') {
+    return portalCommunications.pendingActionCount
+      ? `${portalCommunications.pendingActionCount} actions`
+      : `${portalCommunications.openThreadCount} threads`;
   }
   if (section === 'billing') {
     const actionCount = financeHandoff.invoices.filter((invoice) => invoice.status === 'due' || invoice.status === 'overdue').length;
@@ -216,12 +233,13 @@ export default async function PortalPage({
     );
   }
 
-  const [portalData, portalAssets, portalApprovals, portalFinanceHandoff, portalRequests] = await Promise.all([
+  const [portalData, portalAssets, portalApprovals, portalFinanceHandoff, portalRequests, portalCommunications] = await Promise.all([
     getAuthorizedPortalProjectData(access.projectSlug),
     getPortalProjectAssets(access.projectSlug),
     getPortalApprovalQueue(access.projectSlug),
     getPortalFinanceHandoffData(access.projectSlug),
     getPortalProjectRequests(access.projectSlug),
+    getPortalCommunications(access.projectSlug),
   ]);
   const portalReadinessGate = await getPortalReadinessGateData(access.projectSlug, portalFinanceHandoff.invoices);
 
@@ -271,6 +289,7 @@ export default async function PortalPage({
               assetBuckets={assetBuckets}
               financeHandoff={portalFinanceHandoff}
               portalActivity={portalActivity}
+              portalCommunications={portalCommunications}
               portalProject={portalProject}
               portalRequests={portalRequests}
               portalSteps={portalSteps}
@@ -286,6 +305,7 @@ export default async function PortalPage({
                 portalActivity={portalActivity}
                 portalApprovals={portalApprovals}
                 portalAssets={portalAssets}
+                portalCommunications={portalCommunications}
                 portalFinanceHandoff={portalFinanceHandoff}
                 portalProject={portalProject}
                 portalSteps={portalSteps}
@@ -374,6 +394,7 @@ function PortalSectionNavigation({
   assetBuckets,
   financeHandoff,
   portalActivity,
+  portalCommunications,
   portalProject,
   portalRequests,
   portalSteps,
@@ -384,6 +405,7 @@ function PortalSectionNavigation({
   assetBuckets: AssetBucket[];
   financeHandoff: PortalFinanceHandoffData;
   portalActivity: ActivityItem[];
+  portalCommunications: PortalCommunicationSummary;
   portalProject: PortalProject;
   portalRequests: PortalRequestSummary;
   portalSteps: PortalStep[];
@@ -403,6 +425,7 @@ function PortalSectionNavigation({
             assetBuckets,
             financeHandoff,
             portalActivity,
+            portalCommunications,
             portalProject,
             portalRequests,
             portalSteps,
@@ -449,6 +472,7 @@ function PortalSectionContent({
   portalActivity,
   portalApprovals,
   portalAssets,
+  portalCommunications,
   portalFinanceHandoff,
   portalProject,
   portalReadinessGate,
@@ -462,6 +486,7 @@ function PortalSectionContent({
   portalActivity: ActivityItem[];
   portalApprovals: PortalDeliverableApproval[];
   portalAssets: PortalProjectAsset[];
+  portalCommunications: PortalCommunicationSummary;
   portalFinanceHandoff: PortalFinanceHandoffData;
   portalProject: PortalProject;
   portalReadinessGate: PortalReadinessGateData;
@@ -538,6 +563,22 @@ function PortalSectionContent({
     );
   }
 
+  if (activeSection === 'messages') {
+    return (
+      <SectionFrame
+        eyebrow="Messages and decisions"
+        title="Keep project communication attached to the work."
+        body="Meeting requests, message threads, and official decisions live together so phone calls and WhatsApp notes do not disappear from the project record."
+      >
+        <PortalCommunicationCenter
+          canSubmit={accessCanSubmit}
+          communicationSummary={portalCommunications}
+          projectSlug={portalProject.slug}
+        />
+      </SectionFrame>
+    );
+  }
+
   if (activeSection === 'billing') {
     return (
       <SectionFrame
@@ -583,6 +624,7 @@ function PortalSectionContent({
         portalActivity={portalActivity}
         portalApprovals={portalApprovals}
         portalFinanceHandoff={portalFinanceHandoff}
+        portalCommunications={portalCommunications}
         portalReadinessGate={portalReadinessGate}
         portalRequests={portalRequests}
         portalSteps={portalSteps}
@@ -623,6 +665,7 @@ function OverviewSection({
   milestones,
   portalActivity,
   portalApprovals,
+  portalCommunications,
   portalFinanceHandoff,
   portalReadinessGate,
   portalRequests,
@@ -632,6 +675,7 @@ function OverviewSection({
   milestones: MilestoneRecord[];
   portalActivity: ActivityItem[];
   portalApprovals: PortalDeliverableApproval[];
+  portalCommunications: PortalCommunicationSummary;
   portalFinanceHandoff: PortalFinanceHandoffData;
   portalReadinessGate: PortalReadinessGateData;
   portalRequests: PortalRequestSummary;
@@ -645,7 +689,7 @@ function OverviewSection({
 
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-7">
         <OverviewMetric
           href="/portal?section=plan"
           icon={FolderKanban}
@@ -690,6 +734,17 @@ function OverviewSection({
             portalRequests.waitingApprovalCount
               ? 'Scope decisions waiting for client approval'
               : 'Open changes, questions, or support requests'
+          }
+        />
+        <OverviewMetric
+          href="/portal?section=messages"
+          icon={MessagesSquare}
+          label="Messages"
+          value={portalCommunications.pendingActionCount ? `${portalCommunications.pendingActionCount}` : `${portalCommunications.openThreadCount}`}
+          detail={
+            portalCommunications.pendingActionCount
+              ? 'Message actions waiting for follow-up'
+              : 'Open meeting, message, or decision threads'
           }
         />
       </div>
