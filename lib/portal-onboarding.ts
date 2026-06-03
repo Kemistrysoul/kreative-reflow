@@ -1,5 +1,5 @@
 export const onboardingServiceOptions = [
-  'Website redesign',
+  'New website / redesign',
   'Custom client portal',
   'Internal dashboard',
   'Booking or payment flow',

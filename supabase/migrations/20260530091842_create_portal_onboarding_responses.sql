@@ -58,7 +58,7 @@ select
   'Operations lead',
   'Clarify the service offer, make quote requests easier, and give the team one reliable place to track design, content, and launch handoff.',
   'Procurement teams, plant managers, and safety-conscious buyers comparing engineering suppliers before requesting a quote.',
-  array['Website redesign', 'Custom client portal'],
+  array['New website / redesign', 'Custom client portal'],
   'Domain, analytics, and current hosting access still need owner confirmation.',
   'Partly ready',
   'Hosting is owned by the client. Analytics access needs to be invited before launch QA.',

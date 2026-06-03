@@ -60,7 +60,7 @@ export function OnboardingForm({ canSubmit, projectSlug, role }: OnboardingFormP
   const [approvalRole, setApprovalRole] = useState('');
   const [projectGoals, setProjectGoals] = useState('');
   const [primaryAudience, setPrimaryAudience] = useState('');
-  const [services, setServices] = useState<string[]>(['Website redesign']);
+  const [services, setServices] = useState<string[]>(['New website / redesign']);
   const [accessNeeds, setAccessNeeds] = useState('');
   const [brandAssetsStatus, setBrandAssetsStatus] = useState(brandAssetOptions[0]);
   const [technicalAccounts, setTechnicalAccounts] = useState('');

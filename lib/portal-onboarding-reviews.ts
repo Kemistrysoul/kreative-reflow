@@ -62,7 +62,7 @@ const demoStudioOnboardingResponses: StudioOnboardingResponse[] = [
       'Clarify the service offer, make quote requests easier, and give the team one reliable place to track design, content, and launch handoff.',
     primaryAudience:
       'Procurement teams, plant managers, and safety-conscious buyers comparing engineering suppliers before requesting a quote.',
-    services: ['Website redesign', 'Custom client portal'],
+    services: ['New website / redesign', 'Custom client portal'],
     accessNeeds: 'Domain, analytics, and current hosting access still need owner confirmation.',
     brandAssetsStatus: 'Partly ready',
     technicalAccounts: 'Hosting is owned by the client. Analytics access needs to be invited before launch QA.',
