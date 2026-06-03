@@ -11,6 +11,226 @@ Last updated: 2026-06-03
 - `[ ]` Not started
 - `[!]` Blocked or needs a decision
 
+## Current Portal Dashboard Audit - 2026-06-03
+
+Source checked in this pass:
+
+- `app/portal/(workspace)/page.tsx`
+- `components/portal/PortalChrome.tsx`
+- `app/portal/onboarding/onboarding-form.tsx`
+- `components/studio/projects-workspace.tsx`
+- `lib/portal-onboarding.ts`
+- `lib/portal-onboarding-types.ts`
+- `lib/portal-onboarding-reviews.ts`
+- `supabase/migrations/20260603090000_add_onboarding_extended_fields.sql`
+- `supabase/migrations/20260603100000_add_onboarding_phone_audience_type.sql`
+- `docs/agency-onboarding-and-client-portal-research.md`
+
+What is already present on the portal/dashboard:
+
+- `[x]` Client portal is protected behind Supabase Auth.
+- `[x]` Client dashboard is no longer one endless scroll. It has section navigation for Overview, Project Plan, Onboarding, Files, Reviews, Billing & Launch, and Activity.
+- `[x]` Overview summarizes the current milestone, onboarding state, asset gaps, approvals, billing/launch action, and latest update.
+- `[x]` Project Plan groups guided flow and milestones.
+- `[x]` Files section uses the secure asset library with private upload/download/review behavior.
+- `[x]` Reviews section supports deliverable approval and revision notes.
+- `[x]` Billing & Launch section shows invoices, handoff checklist, and support next steps.
+- `[x]` Activity section shows client-visible project activity and POPIA-aware portal guidance.
+- `[x]` Studio Projects dashboard has queues for onboarding responses, asset reviews, approvals, finance/handoff, operational events, launch readiness, and client activity.
+- `[~]` Extended onboarding fields are already in the current working tree: phone, approval role options, audience type, current website, budget range, competitors, decision process, feature needs, tone/style, social presence, previous agency experience, and integrations.
+
+What is still missing or not tight enough:
+
+- `[ ]` No formal onboarding gate blocks or flags `Active delivery` until agreement, SOW, deposit, kickoff, key contacts, assets, access, and timeline constraints are complete.
+- `[ ]` No Contract/SOW status exists in the client portal yet.
+- `[ ]` No client Request Center exists for small changes, support requests, meeting requests, or scope-change requests.
+- `[ ]` No scope classification workflow exists for fix vs included revision vs paid change request vs maintenance request.
+- `[ ]` No revision-round counter exists. Current approval flow can record revision requests, but it does not enforce included rounds or consolidated feedback.
+- `[ ]` No meeting request flow exists.
+- `[ ]` No project-linked message threads exist.
+- `[ ]` No decision log exists for approvals, calls, WhatsApp summaries, and scope decisions.
+- `[ ]` No weekly client update generator exists.
+- `[ ]` No client task list exists for missing client actions, owners, due dates, and blockers.
+- `[~]` Dashboard activity automation exists for approvals, uploads, invoices, handoff, and project events, but it does not yet cover requests, messages, meetings, decisions, weekly updates, or readiness gate changes.
+- `[!]` The extended onboarding migrations are present in the working tree but still need to be applied and verified in Supabase before those fields are production-ready.
+
+## Portal Operating-System Implementation Tracker
+
+This section extends the completed launch foundation into the stricter agency workflow described in `docs/agency-onboarding-and-client-portal-research.md`.
+
+### Phase 9: Research-Aligned Onboarding Intake
+
+Goal: make onboarding collect enough information for delivery to begin without repeated back-and-forth.
+
+- `[x]` Change service option from `Website redesign` to `New website / redesign`.
+- `[~]` Add extended intake fields to the onboarding form, API payload, validation, Studio review types, and Supabase migrations.
+- `[ ]` Apply and verify `20260603090000_add_onboarding_extended_fields.sql` in Supabase.
+- `[ ]` Apply and verify `20260603100000_add_onboarding_phone_audience_type.sql` in Supabase.
+- `[ ]` Surface every extended field in the Studio onboarding review card, not only in storage/types.
+- `[ ]` Add a clearer client-facing completion summary after final submission.
+- `[ ]` Add missing-content and missing-access owner/due-date fields.
+- `[ ]` Add communication preference fields: portal, email, WhatsApp, phone, update cadence, urgent channel, meeting availability.
+- `[ ]` Add scope-boundary acknowledgement: included work, excluded work, revision rounds, and paid change request agreement.
+
+Acceptance checks:
+
+- Client can submit a new website or redesign intake with all delivery-critical information.
+- Studio can review every submitted answer without opening the database.
+- Required fields are enforced only when final submission happens, while drafts remain saveable.
+- The form stays usable on mobile and does not become an endless, confusing wall of fields.
+
+### Phase 10: Contract, SOW, And Commercial Readiness Gate
+
+Goal: prevent projects from moving into active delivery before the business side is ready.
+
+- `[ ]` Add project readiness checklist records for agreement signed, SOW approved, deposit paid, billing contact confirmed, kickoff completed, approval owner confirmed, brand/content/assets ready, technical access ready, timeline constraints confirmed, and communication rules confirmed.
+- `[ ]` Display readiness checklist inside the client portal Onboarding section.
+- `[ ]` Display readiness checklist inside Studio Projects with edit controls for studio admins.
+- `[ ]` Connect deposit/payment readiness to the existing invoice records where possible.
+- `[ ]` Add Contract/SOW status to the portal dashboard.
+- `[ ]` Add a visible `Ready for active delivery` state once required gate items are complete.
+- `[ ]` Add blocked-state copy when the project cannot start because client action is missing.
+
+Acceptance checks:
+
+- The portal can clearly answer: "Can this project start yet?"
+- Studio can update gate items without editing seed data manually.
+- Client sees what they need to do next without seeing internal notes.
+
+### Phase 11: Request Center And Scope Control
+
+Goal: give clients one clean place to ask for changes without creating invisible scope creep.
+
+- `[ ]` Add request data model for `portal_project_requests`.
+- `[ ]` Support request types: small change, support request, meeting request, scope change, bug/fix, maintenance request, and question.
+- `[ ]` Add client-facing Request Center tab or section.
+- `[ ]` Add request form fields: affected page/feature, requested change, reason, urgency, deadline, screenshot/file, and related milestone/deliverable.
+- `[ ]` Add studio classification: fix, included revision, change request, maintenance, or out-of-scope.
+- `[ ]` Add impact assessment fields: cost, time, launch impact, notes, and Phase 2 parking option.
+- `[ ]` Add client approval/decline/park flow before out-of-scope work begins.
+- `[ ]` Log request events into portal activity.
+- `[ ]` Add Studio request queue.
+
+Acceptance checks:
+
+- WhatsApp or phone requests can be logged into the portal afterward.
+- Out-of-scope work cannot be treated as approved until the client accepts cost/time impact.
+- Every request has a status, owner, and next action.
+
+### Phase 12: Meetings, Messages, And Decision Log
+
+Goal: keep communication human without losing the official project record.
+
+- `[ ]` Add meeting request data model.
+- `[ ]` Add client-facing meeting request form with topic type, reason, preferred slots, attendees, agenda, and related project item.
+- `[ ]` Add message/thread data model tied to milestone, deliverable, request, or project.
+- `[ ]` Add Messages section or contextual message threads.
+- `[ ]` Add decision log records for approvals, phone calls, WhatsApp summaries, scope decisions, and kickoff outcomes.
+- `[ ]` Add studio action to summarize an outside-channel decision into the portal.
+- `[ ]` Add post-call summary fields: decision, action items, owner, due date.
+
+Acceptance checks:
+
+- Client can request a meeting without bypassing scope/change workflow.
+- Important WhatsApp or phone decisions become written portal records.
+- The dashboard can answer: "What was decided, by whom, and when?"
+
+### Phase 13: Revision Round Tracking And Approval Tightening
+
+Goal: make revisions fair, trackable, and protected by the agreed scope.
+
+- `[x]` Deliverable approvals and revision notes exist.
+- `[ ]` Add revision round count per deliverable or project phase.
+- `[ ]` Add included revision limit from the SOW or readiness gate.
+- `[ ]` Show remaining revision rounds in the client review workspace.
+- `[ ]` Require consolidated feedback for each revision round.
+- `[ ]` Convert extra rounds into a change request automatically or through Studio review.
+- `[ ]` Add optional deemed-approval logic after an agreed response window.
+
+Acceptance checks:
+
+- Client understands whether a revision is included or billable.
+- Studio can defend scope with a clear record instead of memory.
+- Approval history remains versioned and readable.
+
+### Phase 14: Dashboard Automation And Weekly Updates
+
+Goal: reduce manual client updates by making project actions create dashboard movement.
+
+- `[x]` Activity logging exists for several portal events.
+- `[~]` Notification rules exist for current approval/asset/invoice/handoff events.
+- `[ ]` Extend event types for requests, request classification, meeting requests, messages, decision log entries, readiness gate updates, and weekly updates.
+- `[ ]` Add `update client` quick action in Studio.
+- `[ ]` Add weekly update generator that summarizes completed work, current focus, blockers, client actions, and next milestone.
+- `[ ]` Allow studio admin to edit the generated update before publishing.
+- `[ ]` Publish weekly updates to portal activity and optionally email the client.
+- `[ ]` Add client-facing "latest weekly update" card in Overview.
+
+Acceptance checks:
+
+- Studio updates one operational action and the client dashboard moves automatically.
+- Weekly updates are reviewable before publishing.
+- Client can see progress without needing to ask for a phone call every time.
+
+### Phase 15: Client Task List And Missing Items
+
+Goal: make client responsibilities visible and actionable.
+
+- `[ ]` Add `portal_tasks` data model with owner type, due date, priority, status, related item, and visibility.
+- `[ ]` Add client task summary in Overview.
+- `[ ]` Add task list in Onboarding or Project Plan.
+- `[ ]` Generate tasks from missing assets, missing access, pending approvals, unpaid invoices, meeting follow-ups, and change request decisions.
+- `[ ]` Add Studio controls to create, edit, complete, and hide client tasks.
+
+Acceptance checks:
+
+- Client can see exactly what they owe the project.
+- Studio can separate client blockers from internal blockers.
+- Tasks appear in activity when completed or overdue.
+
+### Phase 16: Compliance, Security, And Launch Verification
+
+Goal: keep the portal safe enough for real client work.
+
+- `[x]` POPIA-aware portal copy exists.
+- `[x]` Protected routes, role checks, and RLS policies exist for the current portal tables.
+- `[ ]` Document retention expectations for portal records, files, messages, decisions, and requests.
+- `[ ]` Add audit coverage for request classification, readiness gate changes, decision log entries, and message publishing.
+- `[ ]` Confirm no sensitive credentials are stored in ordinary portal notes/messages.
+- `[ ]` Run focused lint after each implementation phase.
+- `[ ]` Run production build after each major implementation phase.
+- `[ ]` Run route checks for `/portal`, `/portal/onboarding`, `/studio`, `/studio/projects`, and new API routes.
+- `[ ]` Run Supabase database lint/advisors once the database is available.
+
+Acceptance checks:
+
+- Role-scoped clients cannot see other client records.
+- Studio-only notes and internal decisions do not leak into client views.
+- New tables have RLS, indexes, grants, and server-only service-role usage.
+
+## Recommended Execution Order
+
+1. `[~]` Finish Phase 9 extended onboarding intake currently in the working tree.
+2. `[ ]` Add Phase 10 readiness gate and Contract/SOW status.
+3. `[ ]` Add Phase 11 Request Center and scope classification.
+4. `[ ]` Add Phase 12 meeting requests, message threads, and decision log.
+5. `[ ]` Add Phase 13 revision-round tracking.
+6. `[ ]` Add Phase 14 weekly update generator and expanded automation events.
+7. `[ ]` Add Phase 15 client task list.
+8. `[ ]` Run Phase 16 verification and Supabase checks.
+
+## Next Task To Execute
+
+`[~]` Phase 9 - finish the extended onboarding intake.
+
+Detailed next step:
+
+- Review the current uncommitted onboarding changes.
+- Make sure the new fields are displayed in the client form and Studio review.
+- Apply or prepare the Supabase migrations.
+- Verify validation for draft save vs final submit.
+- Run focused lint/build checks.
+
 ## Current State
 
 - `[x]` Audit complete: `/portal` is a polished static preview, not a production portal.
@@ -253,4 +473,5 @@ Acceptance checks:
 12. `[x]` Convert milestones into server-backed records with owners and richer activity generation.
 13. `[x]` Add finance status and launch handoff workflow.
 14. `[x]` Add monitoring, POPIA-aware launch copy, and route-level error/loading states.
-15. `[!]` Configure custom SMTP for Supabase Auth before real client/studio login testing.
+15. `[x]` Configure custom SMTP for Supabase Auth before real client/studio login testing.
+16. `[~]` Finish the research-aligned onboarding intake currently in the working tree.
