@@ -7,10 +7,10 @@ export const siteUrl = (
 ).replace(/\/$/, '');
 
 export const defaultSeoTitle =
-  'Web Design Johannesburg | Kreative Reflow';
+  'Web Design & Business Systems Johannesburg | Kreative Reflow';
 
 export const defaultSeoDescription =
-  'Johannesburg studio building custom websites, dashboards, SaaS products, local SEO foundations, and automation systems for service businesses.';
+  'Johannesburg studio building websites that bring in work and systems that keep them running: custom builds, dashboards, local SEO, and automation.';
 
 export const defaultOgImage = '/images/work/touch-teq-showcase.jpg';
 

@@ -109,7 +109,7 @@ export default function FloatingUI() {
         {/* Top Left Logo */}
         <div className="absolute top-8 left-8 pointer-events-auto">
           <Link href="/" className="font-sans text-xl font-bold tracking-tight">
-            kreative Reflow
+            Kreative Reflow
           </Link>
         </div>
 
@@ -123,6 +123,7 @@ export default function FloatingUI() {
           </Link>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             className="w-14 h-14 rounded-full flex flex-col items-center justify-center transition-colors hover:bg-white/10"
           >
             <MenuToggleIcon open={isMenuOpen} className="w-8 h-8" duration={500} />

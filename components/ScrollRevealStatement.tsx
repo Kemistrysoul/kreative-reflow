@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform, type MotionValue } from 'motion/react'
 const HEADLINE_WORDS = ['One', 'team.', 'The', 'whole', 'picture.'];
 
 const BODY_WORDS =
-  "Most businesses piece their digital presence together from a dozen disconnected sources — a freelancer here, a template there, a tool that almost does the job. We keep it under one roof. Every service on this page connects to the others. You don't have to use all of them. But they're better when you do."
+  "Most businesses piece their digital presence together from a dozen disconnected sources: a freelancer here, a template there, a tool that almost does the job. We keep it under one roof. Every service on this page connects to the others. You don't have to use all of them. But they're better when you do."
     .split(' ');
 
 const TOTAL = HEADLINE_WORDS.length + BODY_WORDS.length;

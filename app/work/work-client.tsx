@@ -112,6 +112,40 @@ const featuredProjects: FeaturedProject[] = [
     accent: '#FC6E20',
     serviceHref: '/services/saas-development',
   },
+  {
+    id: '03',
+    title: 'Ubuntu Memorial Services + ParlourPay',
+    eyebrow: 'Self-initiated funeral services platform concept',
+    industry: 'Funeral services, community funeral parlours, burial societies, and local service businesses',
+    audience:
+      'Funeral parlour owners, office teams, consultants, and families managing cover, monthly contributions, or funeral arrangements.',
+    headline:
+      'A funeral parlour website that turns package browsing, member registration, and monthly contribution records into one demo-ready system.',
+    summary:
+      'A self-initiated concept build for community funeral providers, combining a polished public website with demo-powered registration, receipt, status, and staff-dashboard workflows.',
+    problem:
+      'Local funeral parlours often depend on trusted walk-in relationships, booklet stamps, and manual monthly payment records, while families need clearer package information and remote ways to start admin-heavy steps.',
+    built: [
+      'Multi-page funeral parlour website with services, packages, tombstones, contact, about, how-it-works, and articles routes',
+      'Package comparison UX with practical benefits, waiting-period language, add-ons, and fine print',
+      'Multi-step registration flow with SA ID format validation, dependant rules, next-of-kin, extras, documents, and consent',
+      'Demo monthly contribution flow with member lookup, safety check, receipt download, and digital stamp-book entries',
+      'Staff dashboard with seed data, review queue, member profiles, cash payment capture, reconciliation export, and audit trail',
+    ],
+    features: ['Online registration', 'Digital stamp book', 'Review dashboard', 'Tombstone catalogue'],
+    conversion:
+      'Funeral parlour owners can request a tailored demo, while families can see how they would register, pay, contact the office, or check status.',
+    privateNotes: [
+      'Demo member, contact, ID-like, and payment details should stay sanitized in screenshots.',
+      'Raw lead research and confidential scope documents should not be used as public portfolio assets.',
+      'Do not claim client work, live payments, real cover, user traction, or production integrations.',
+    ],
+    image: '/images/work/ubuntu-memorial-services-showcase.jpg',
+    imageWidth: 960,
+    imageHeight: 8016,
+    accent: '#154230',
+    serviceHref: '/services/saas-development',
+  },
 ];
 
 const proofLenses: ProofLens[] = [
@@ -331,12 +365,12 @@ function WorkHero() {
       <Reveal>
         <SectionLabel>Selected work</SectionLabel>
         <h1 className="mt-8 max-w-5xl font-playfair text-[clamp(3.1rem,7.2vw,7.2rem)] font-bold leading-[0.93] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          Work built as proof, not decoration.
+          Work built as proof, not decoration<span className="text-[#FC6E20]">.</span>
         </h1>
         <p className="mt-8 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68 md:text-lg">
-          Yes, this page should include the content from the homepage "What
-          We've Built" section. Here, it gets more room: project context, what
-          was built, what stays private, and the system behind the screen.
+          The homepage shows the highlights. This page gives each build the
+          room it deserves: the context, what we built, what stays private,
+          and the system working behind the screen.
         </p>
         <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
           <PrimaryButton href="#featured-work">View featured builds</PrimaryButton>
@@ -360,13 +394,14 @@ function ProofIndexStage() {
       />
       <div className="relative flex items-center justify-between pb-6 font-mono text-[0.65rem] uppercase tracking-[0.24em] text-[#151419]/45 dark:text-white/45">
         <span>Proof index</span>
-        <span>02 builds</span>
+        <span>03 builds</span>
       </div>
       <div className="relative grid gap-5 lg:ml-auto lg:w-[92%] xl:w-[95%]">
         {featuredProjects.map((project) => {
           const isCoach = project.id === '01';
           const isTouchTeq = project.title === 'Touch Teq Engineering';
-          const Icon = isCoach ? PanelsTopLeft : Workflow;
+          const isUbuntu = project.title.includes('Ubuntu Memorial');
+          const Icon = isCoach ? PanelsTopLeft : isUbuntu ? ShieldCheck : Workflow;
 
           return (
             <Link
@@ -374,11 +409,11 @@ function ProofIndexStage() {
               key={project.title}
               className="group block overflow-hidden rounded-[2.25rem] p-7 text-[#151419] shadow-[0_28px_70px_rgba(21,20,25,0.12)] transition-transform duration-300 hover:-translate-y-1 sm:p-9 lg:p-10"
               style={{
-                backgroundColor: isCoach ? '#C7AA94' : '#FC6E20',
+                backgroundColor: isCoach ? '#C7AA94' : isUbuntu ? '#A6824A' : '#FC6E20',
               }}
             >
               <div className="flex items-start justify-between gap-6">
-                <div className={isTouchTeq ? 'max-w-[18rem]' : 'max-w-[16rem]'}>
+                <div className={isTouchTeq || isUbuntu ? 'max-w-[18rem]' : 'max-w-[16rem]'}>
                   <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#151419]/62">
                     {project.eyebrow}
                   </p>
@@ -387,6 +422,11 @@ function ProofIndexStage() {
                       <>
                         <span className="block">Touch Teq</span>
                         <span className="block">Engineering</span>
+                      </>
+                    ) : isUbuntu ? (
+                      <>
+                        <span className="block">Ubuntu Memorial</span>
+                        <span className="block">+ ParlourPay</span>
                       </>
                     ) : (
                       project.title
@@ -560,19 +600,18 @@ function FeaturedWork() {
         <Reveal className="lg:sticky lg:top-28 lg:self-start">
           <SectionLabel>What we've built</SectionLabel>
           <h2 className="mt-5 max-w-xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-            The same projects, with more context.
+            The full story behind each build<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="mt-6 max-w-md font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/60">
-            The homepage should show just enough to create confidence. The Work
-            page should explain why the builds matter and what kind of system
-            was created.
+            The problem each build had to solve, and the system we built
+            underneath the visible pages.
           </p>
           <div className="mt-10 grid max-w-md grid-cols-2 gap-3">
             <div className="border border-[#151419]/10 bg-[#FBFBFB]/60 p-4 dark:border-white/10 dark:bg-white/[0.035]">
               <span className="block font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#878787]">
                 Featured
               </span>
-              <span className="mt-2 block font-mono text-3xl text-[#151419] dark:text-white">02</span>
+              <span className="mt-2 block font-mono text-3xl text-[#151419] dark:text-white">03</span>
             </div>
             <div className="border border-[#151419]/10 bg-[#FBFBFB]/60 p-4 dark:border-white/10 dark:bg-white/[0.035]">
               <span className="block font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#878787]">
@@ -714,7 +753,7 @@ function ProofLenses() {
           <div className="max-w-xl">
             <SectionLabel>How to read the work</SectionLabel>
             <h2 className="mt-6 border-b border-white/18 pb-7 font-playfair text-[clamp(2.8rem,6.2vw,6rem)] font-bold leading-[0.94] tracking-tight text-white/88">
-              The screenshot is only the surface.
+              The screenshot is only the surface<span className="text-[#FC6E20]">.</span>
             </h2>
             <p className="mt-8 max-w-md font-montserrat text-base leading-8 text-white/62">
               The real work sits in the decisions behind the screen: trust,
@@ -752,7 +791,7 @@ function ServiceDirections() {
       <Reveal className="max-w-4xl">
         <SectionLabel>Project directions</SectionLabel>
         <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          The work can start from different pressure points.
+          The work can start from different pressure points<span className="text-[#FC6E20]">.</span>
         </h2>
       </Reveal>
 
@@ -805,10 +844,10 @@ function PublicBoundary() {
             <div>
               <SectionLabel>Public by design</SectionLabel>
               <h2 className="mt-5 font-playfair text-[clamp(2.5rem,5vw,5rem)] font-bold leading-[0.96] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-                Strong proof without exposing private systems.
+                Strong proof without exposing private systems<span className="text-[#FC6E20]">.</span>
               </h2>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {featuredProjects.map((project) => (
                 <article
                   key={project.title}
@@ -847,7 +886,7 @@ function FinalCta() {
             <div>
               <SectionLabel>Start the next build</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
-                Bring the business problem. We will shape the proof.
+                Bring the business problem. We will shape the proof<span className="text-[#FC6E20]">.</span>
               </h2>
               <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 Whether it is a public website, a dashboard, a quote flow, or

@@ -76,8 +76,8 @@ export default function FounderTeaser() {
           <div className="relative overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-4 text-[#FBFBFB] shadow-[0_28px_70px_rgba(21,20,25,0.14)]">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[1.65rem] bg-[#F0EFED]">
               <Image
-                src="/images/delite-founder.svg"
-                alt="Delite, Founder of Kreative Reflow"
+                src="/images/disele-founder.jpg"
+                alt="Disele, Founder of Kreative Reflow"
                 fill
                 sizes="(min-width: 1024px) 36vw, 100vw"
                 className="object-cover"
@@ -105,11 +105,11 @@ export default function FounderTeaser() {
           <Reveal delay={0.08}>
             <SectionLabel>Behind the studio</SectionLabel>
             <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight">
-              Built from the gap between excellence and visibility<span className="text-[#FC6E20]">.</span>
+              The studio exists because great work kept going unseen<span className="text-[#FC6E20]">.</span>
             </h2>
             <div className="mt-7 grid gap-5 font-montserrat text-base leading-8 text-[#151419]/66 md:text-lg">
               <p>
-                Seven years in medical sales and neurology put Delite close to
+                Seven years in medical sales and neurology put Disele close to
                 specialist teams doing excellent work while their websites,
                 content, and systems made them look smaller than they were.
               </p>

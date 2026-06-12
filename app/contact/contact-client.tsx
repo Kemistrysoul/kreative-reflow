@@ -104,7 +104,7 @@ const projectCardStyles = [
     rule: 'border-[#060808]/16',
   },
   {
-    card: 'bg-[#DD6211] text-[#060808] lg:-translate-y-4 lg:rotate-1 hover:rotate-0 hover:lg:-translate-y-5',
+    card: 'bg-[#DD6211] text-[#060808]',
     icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/58',
     rule: 'border-[#060808]/18',
   },
@@ -117,22 +117,22 @@ const projectCardStyles = [
 
 const contactCardStyles = [
   {
-    card: 'bg-[#FBFBFB] text-[#151419] hover:bg-[#596C72] hover:text-[#FFF6E9]',
-    icon: 'border-[#151419]/12 bg-[#151419]/5 text-[#151419]/55 group-hover:border-[#FFF6E9]/18 group-hover:bg-[#FFF6E9]/10 group-hover:text-[#FFF6E9]/75',
-    rule: 'border-[#151419]/10 group-hover:border-[#FFF6E9]/18',
-    muted: 'text-[#696969] group-hover:text-[#FFF6E9]/70',
+    card: 'text-[#151419] hover:border-[#596C72] hover:text-[#596C72]',
+    icon: 'border-[#151419]/12 text-[#151419]/55 group-hover:border-[#596C72]/35 group-hover:text-[#596C72]',
+    rule: 'border-[#151419]/10 group-hover:border-[#596C72]/30',
+    muted: 'text-[#696969] group-hover:text-[#596C72]/80',
   },
   {
-    card: 'bg-[#FBFBFB] text-[#151419] hover:bg-[#FC6E20] hover:text-[#060808]',
-    icon: 'border-[#151419]/12 bg-[#151419]/5 text-[#151419]/55 group-hover:border-[#060808]/18 group-hover:bg-[#060808]/8 group-hover:text-[#060808]/70',
-    rule: 'border-[#151419]/10 group-hover:border-[#060808]/18',
-    muted: 'text-[#696969] group-hover:text-[#060808]/68',
+    card: 'text-[#151419] hover:border-[#FC6E20] hover:text-[#FC6E20]',
+    icon: 'border-[#151419]/12 text-[#151419]/55 group-hover:border-[#FC6E20]/35 group-hover:text-[#FC6E20]',
+    rule: 'border-[#151419]/10 group-hover:border-[#FC6E20]/30',
+    muted: 'text-[#696969] group-hover:text-[#151419]/72',
   },
   {
-    card: 'bg-[#FBFBFB] text-[#151419] hover:bg-[#5F9FAA] hover:text-[#060808]',
-    icon: 'border-[#151419]/12 bg-[#151419]/5 text-[#151419]/55 group-hover:border-[#060808]/18 group-hover:bg-[#060808]/8 group-hover:text-[#060808]/68',
-    rule: 'border-[#151419]/10 group-hover:border-[#060808]/18',
-    muted: 'text-[#696969] group-hover:text-[#060808]/68',
+    card: 'text-[#151419] hover:border-[#5F9FAA] hover:text-[#5F9FAA]',
+    icon: 'border-[#151419]/12 text-[#151419]/55 group-hover:border-[#5F9FAA]/35 group-hover:text-[#5F9FAA]',
+    rule: 'border-[#151419]/10 group-hover:border-[#5F9FAA]/30',
+    muted: 'text-[#696969] group-hover:text-[#151419]/72',
   },
 ];
 
@@ -218,7 +218,7 @@ function HeroSection() {
         <div>
           <SectionLabel>Project intake</SectionLabel>
           <h1 className="mt-6 max-w-5xl font-playfair text-[clamp(4.4rem,10vw,8.7rem)] font-bold leading-[0.88] tracking-normal text-[#151419]">
-            Send the messy version<span className="text-[#FC6E20]">.</span>
+            Send the messy version.
             {' '}
             <br />
             We will find the next move<span className="text-[#FC6E20]">.</span>
@@ -289,10 +289,10 @@ function ProjectFitSection() {
           })}
         </Reveal>
 
-        <Reveal className="lg:ml-auto lg:max-w-xl lg:pt-16" direction="right" delay={0.08}>
+        <Reveal className="lg:ml-auto lg:max-w-xl" direction="right" delay={0.08}>
           <SectionLabel>What belongs here</SectionLabel>
           <h2 className="mt-5 font-playfair text-5xl font-bold leading-[0.96] tracking-normal text-[#FBFBFB] md:text-7xl">
-            Start with the thing that feels hard to explain.
+            Start with the thing that feels hard to explain<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="mt-6 font-montserrat text-base leading-8 text-[#FBFBFB]/68">
             The form is built for early context, not a perfect specification. Send enough signal for us to understand the work, the pressure, and the outcome you want.
@@ -313,7 +313,7 @@ function ContactMethodsSection() {
         <div>
           <SectionLabel>Direct routes</SectionLabel>
           <h2 className="mt-5 max-w-xl font-playfair text-5xl font-bold leading-[0.98] tracking-normal text-[#151419] md:text-7xl">
-            Choose the channel that fits the context.
+            Choose the channel that fits the context<span className="text-[#FC6E20]">.</span>
           </h2>
         </div>
         <p className="max-w-2xl font-montserrat text-base leading-8 text-[#696969] lg:ml-auto">
@@ -321,7 +321,7 @@ function ContactMethodsSection() {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid gap-5 md:grid-cols-3">
+      <div className="mt-12 grid gap-5 lg:grid-cols-3">
         {contactMethods.map((method, index) => {
           const Icon = method.icon;
           const style = contactCardStyles[index % contactCardStyles.length];
@@ -330,7 +330,7 @@ function ContactMethodsSection() {
             <Reveal key={method.label} delay={index * 0.06} direction="up">
               <a
                 href={method.href}
-                className={`group flex min-h-[24rem] flex-col justify-between rounded-[2.25rem] border border-[#151419]/10 p-7 shadow-[0_24px_60px_rgba(21,20,25,0.08)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_32px_80px_rgba(21,20,25,0.14)] ${style.card}`}
+                className={`group flex min-h-[24rem] flex-col justify-between rounded-[2.25rem] border border-[#151419]/10 p-7 transition-colors duration-300 ${style.card}`}
                 target={method.label === 'Location' ? '_blank' : undefined}
                 rel={method.label === 'Location' ? 'noreferrer' : undefined}
               >
@@ -346,11 +346,11 @@ function ContactMethodsSection() {
                     strokeWidth={1.7}
                   />
                 </span>
-                <span>
+                <span className="block min-h-[11.25rem]">
                   <span className="font-montserrat text-[10px] font-bold uppercase tracking-[0.22em] opacity-62">
                     {method.label}
                   </span>
-                  <span className="mt-4 block font-playfair text-4xl font-bold leading-[0.96] tracking-normal [overflow-wrap:anywhere] md:text-5xl">
+                  <span className="mt-4 block whitespace-nowrap font-playfair text-[clamp(1rem,1.72vw,2rem)] font-bold leading-[0.96] tracking-normal">
                     {method.value}
                   </span>
                   <span className={`my-7 block border-t transition-colors ${style.rule}`} />
@@ -372,12 +372,11 @@ function NextStepSection() {
     <section className="content-gutter relative z-10 pb-24 md:pb-32">
       <Reveal direction="up">
         <ExpandingCtaBackground>
-          <div className="absolute right-10 top-10 hidden h-32 w-32 rounded-full border border-[#FC6E20]/25 md:block" />
           <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
             <div className="max-w-3xl">
               <SectionLabel>Still unsure</SectionLabel>
               <h2 className="mt-5 font-playfair text-5xl font-bold leading-[0.96] tracking-normal md:text-7xl">
-                Send the rough version or choose a starting point first.
+                Not ready to write it down? Pick a starting point first<span className="text-[#FC6E20]">.</span>
               </h2>
               <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 If the project is still blurry, look through the services or use a diagnostic tool before you write the brief. Either route is fine.

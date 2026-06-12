@@ -28,7 +28,7 @@ export function ParallaxSignalCard({
     <motion.aside
       ref={ref}
       style={{ y }}
-      className="relative overflow-hidden rounded-[1.35rem] border border-[#151419]/12 bg-[#FC6E20] p-6 text-[#151419] shadow-[0_24px_80px_rgba(21,20,25,0.24)] md:p-8 lg:mb-4 lg:max-w-[25rem]"
+      className="relative w-full min-w-0 overflow-hidden rounded-[1.35rem] border border-[#151419]/12 bg-[#FC6E20] p-6 text-[#151419] shadow-[0_24px_80px_rgba(21,20,25,0.24)] md:p-8 lg:mb-4 lg:max-w-[34rem] lg:justify-self-end xl:p-9"
     >
       <div
         className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full border border-[#151419]/14"
@@ -37,7 +37,7 @@ export function ParallaxSignalCard({
       <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.28em] text-[#151419]/72">
         {signalLabel}
       </p>
-      <p className="mt-8 whitespace-nowrap font-playfair text-[clamp(3.2rem,4.7vw,5.65rem)] font-bold leading-none tracking-tight">
+      <p className="mt-8 max-w-full font-playfair text-[clamp(3.15rem,4.1vw,5.35rem)] font-bold leading-[0.92] tracking-tight [text-wrap:balance]">
         {signalValue}
       </p>
       <p className="mt-5 max-w-sm font-montserrat text-sm leading-7 text-[#151419]/72">

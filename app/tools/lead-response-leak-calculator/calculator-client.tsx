@@ -585,7 +585,7 @@ export function LeadResponseLeakCalculatorClient() {
           <div className="lg:sticky lg:top-28">
             <SectionLabel>Lead Response Leak Calculator</SectionLabel>
             <h1 className="mt-6 max-w-4xl font-playfair text-5xl font-bold leading-none text-[#FBFBFB] md:text-7xl lg:text-8xl">
-              See what slow replies are costing you.
+              See what slow replies are costing you<span className="text-[#FC6E20]">.</span>
             </h1>
             <p className="mt-7 max-w-2xl font-montserrat text-base leading-8 text-[#F0EFED]/76 md:text-lg">
               A revenue calculator for service businesses that get leads from
@@ -720,7 +720,7 @@ export function LeadResponseLeakCalculatorClient() {
             <div>
               <SectionLabel>Why this matters</SectionLabel>
               <h2 className="mt-5 max-w-xl font-playfair text-4xl font-bold leading-none text-[#151419] dark:text-[#FBFBFB] md:text-6xl">
-                Leads decay before your sales team even starts.
+                Leads decay before your sales team even starts<span className="text-[#FC6E20]">.</span>
               </h2>
               <p className="mt-6 max-w-xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
                 A slow first reply makes the buyer compare other providers,
@@ -760,7 +760,7 @@ export function LeadResponseLeakCalculatorClient() {
             <div>
               <SectionLabel>Response systems</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-4xl font-bold leading-none md:text-6xl">
-                The fastest lead is the one your system acknowledges first.
+                The fastest lead is the one your system acknowledges first<span className="text-[#FC6E20]">.</span>
               </h2>
             </div>
             <Link
@@ -994,7 +994,7 @@ function ResultsView({
             Detailed action plan
           </p>
           <h3 className="mt-4 font-playfair text-3xl font-bold leading-tight text-[#FBFBFB]">
-            Get the calculation breakdown.
+            Get the calculation breakdown<span className="text-[#FC6E20]">.</span>
           </h3>
           <p className="mt-4 font-montserrat text-sm leading-7 text-[#F0EFED]/62">
             The downloadable plan includes the full calculation, automation ROI,

@@ -11,25 +11,20 @@ import {
   Gauge,
   Globe2,
   ListChecks,
-  Menu,
   Monitor,
   RefreshCw,
   SearchCheck,
   Settings,
-  X,
   Zap,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, AnimatePresence, useMotionValue, useScroll, useSpring, useTransform, useInView, useReducedMotion, type MotionValue } from 'motion/react';
+import { motion, AnimatePresence, useMotionValue, useScroll, useSpring, useTransform, useReducedMotion, type MotionValue } from 'motion/react';
 import DottedSection from "@/components/dotted-section";
 import FounderTeaser from "@/components/FounderTeaser";
 import Waves from '@/components/Waves';
 import { AnimatedLinkText, AnimatedTextLink } from '@/components/AnimatedTextLink';
 import { ExpandingCtaBackground } from '@/components/ExpandingCtaBackground';
-
-const SERVICE_CARD_HOVER_FLEX = 1.3;
-const SERVICE_CARD_COLLAPSED_FLEX = 0.9;
 
 export default function Home() {
   return (
@@ -52,284 +47,6 @@ export default function Home() {
   );
 }
 
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const navLinks = [
-    { href: '/services', label: '01 — Services' },
-    { href: '/insights', label: '02 — Insights' },
-    { href: '/about', label: '03 — About' },
-    { href: '/faq', label: '04 — FAQ' },
-  ];
-
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#F0EFED]/90 backdrop-blur-md border-b border-black/5">
-      <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-        <Link href="/" className="font-display text-2xl font-bold tracking-tighter text-dark-void">
-          kreative Reflow
-        </Link>
-
-        <div className="flex items-center gap-6">
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-6 font-montserrat text-sm uppercase tracking-wide">
-            {navLinks.map((item) => (
-              <AnimatedTextLink key={item.href} href={item.href}>
-                {item.label}
-              </AnimatedTextLink>
-            ))}
-          </nav>
-          <Link href="/contact" className="hidden md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold uppercase tracking-tight font-montserrat text-snow bg-dark-void rounded-full hover:bg-liquid-lava transition-colors duration-300">
-            05 — Let's Talk
-          </Link>
-          <button className="text-dark-void p-2" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-      </div>
-
-      {/* Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-24 left-0 right-0 bg-[#F0EFED] border-b border-black/5 p-6 flex flex-col gap-6 font-sans text-lg text-dark-void shadow-xl"
-          >
-            {navLinks.map((item) => (
-              <AnimatedTextLink key={item.href} href={item.href} onClick={() => setIsOpen(false)}>
-                {item.label}
-              </AnimatedTextLink>
-            ))}
-            <Link href="/contact" onClick={() => setIsOpen(false)} className="inline-flex items-center justify-center px-6 py-3 font-medium text-snow bg-dark-void rounded-full hover:bg-liquid-lava transition-colors duration-300">
-              05 — Let's Talk
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
-  );
-}
-
-function LayeredAbstractShape() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-  const mouseRef = useRef(mousePos);
-  const prefersReducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    mouseRef.current = mousePos;
-  }, [mousePos]);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!canvasRef.current || prefersReducedMotion) return;
-    const rect = canvasRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setMousePos({ x: -1000, y: -1000 });
-  };
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrameId = 0;
-    let observer: IntersectionObserver | null = null;
-    let isVisible = false;
-    let particles: PixelParticle[] = [];
-    let time = 0;
-
-    const init = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      particles = [];
-      const particleSize = 3; // Smaller pixels for more detail
-      const radius = 220;
-
-      const cols = (radius * 2) / particleSize;
-      const rows = (radius * 2) / particleSize;
-
-      const offsetX = rect.width / 2;
-      const offsetY = rect.height / 2;
-
-      for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-          const x = (i * particleSize) - radius;
-          const y = (j * particleSize) - radius;
-
-          // Distance from center
-          const dist = Math.sqrt(x * x + y * y);
-
-          if (dist < radius) {
-            // Create layered undulating shape using noise-like functions
-            const angle = Math.atan2(y, x);
-
-            // Complex shape function
-            const shapeRadius = radius * 0.5 +
-              radius * 0.3 * Math.sin(angle * 3) +
-              radius * 0.2 * Math.cos(angle * 5 + dist * 0.05);
-
-            // Only add particles if they fall within the complex shape boundary
-            // We use a "thickness" to create the layered look
-            const layerThickness = 15;
-            const numLayers = 8;
-
-            let isPart = false;
-            let layerIndex = 0;
-
-            for (let l = 0; l < numLayers; l++) {
-              const layerOffset = l * 20;
-              const currentShapeRadius = shapeRadius - layerOffset;
-
-              if (Math.abs(dist - currentShapeRadius) < layerThickness) {
-                isPart = true;
-                layerIndex = l;
-                break;
-              }
-            }
-
-            if (isPart) {
-              // Determine color based on layer and position
-              // Mix of black/dark grey and peach/orange
-              const isPeach = (layerIndex % 3 === 0) || (Math.sin(angle * 2 + dist * 0.02) > 0.5);
-
-              let color;
-              if (isPeach) {
-                // Peach/Orange gradient
-                const intensity = Math.floor(150 + (layerIndex / numLayers) * 105);
-                color = `rgba(245, 150, 110, ${intensity / 255})`; // Peach/Orange
-              } else {
-                // Dark grey/Black gradient
-                const intensity = Math.floor(20 + (layerIndex / numLayers) * 60);
-                color = `rgba(${intensity}, ${intensity}, ${intensity}, 0.9)`; // Dark grey
-              }
-
-              particles.push(new PixelParticle(
-                offsetX + x,
-                offsetY + y,
-                particleSize,
-                color
-              ));
-            }
-          }
-        }
-      }
-    };
-
-    const drawFrame = () => {
-      const rect = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, rect.width, rect.height);
-
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-
-      // Slowly rotate the entire shape by updating base positions
-      const cosT = Math.cos(time * 0.2);
-      const sinT = Math.sin(time * 0.2);
-
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
-        // Calculate original relative position
-        // We need to store the very original position to rotate properly
-        if (!(p as any).origX) {
-          (p as any).origX = p.baseX - cx;
-          (p as any).origY = p.baseY - cy;
-        }
-
-        const ox = (p as any).origX;
-        const oy = (p as any).origY;
-
-        // Apply rotation to base position
-        p.baseX = cx + ox * cosT - oy * sinT;
-        p.baseY = cy + ox * sinT + oy * cosT;
-
-        // Add a subtle undulating effect to the base position
-        const dist = Math.sqrt(ox * ox + oy * oy);
-        p.baseX += Math.sin(time * 2 + dist * 0.05) * 2;
-        p.baseY += Math.cos(time * 2 + dist * 0.05) * 2;
-
-        p.update(mouseRef.current);
-        p.draw(ctx);
-      }
-    };
-
-    const animate = () => {
-      if (!isVisible) {
-        animationFrameId = 0;
-        return;
-      }
-
-      time += 0.005;
-      drawFrame();
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    const start = () => {
-      if (animationFrameId || prefersReducedMotion) return;
-      isVisible = true;
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    const stop = () => {
-      isVisible = false;
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-        animationFrameId = 0;
-      }
-    };
-
-    const handleResize = () => {
-      init();
-      drawFrame();
-    };
-
-    init();
-    drawFrame();
-
-    if (!prefersReducedMotion) {
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            start();
-          } else {
-            stop();
-          }
-        },
-        { threshold: 0.08 }
-      );
-      observer.observe(canvas);
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      observer?.disconnect();
-      stop();
-    };
-  }, [prefersReducedMotion]);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="w-full h-[500px] lg:h-[600px] cursor-crosshair touch-none"
-    />
-  );
-}
 
 function IntroSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -353,20 +70,6 @@ function IntroSection() {
 
   // Services state
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1024);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  const getFlexValue = (i: number) => {
-    if (hoveredIndex === null) return 1;
-    if (hoveredIndex === i) return SERVICE_CARD_HOVER_FLEX;
-    return SERVICE_CARD_COLLAPSED_FLEX;
-  };
 
   const services = [
     {
@@ -395,7 +98,7 @@ function IntroSection() {
       href: '/services/saas-development',
       subhead: 'Your workflow, engineered around the way the business runs.',
       desc: 'Need a portal, booking system, internal dashboard, or SaaS product? We build web applications around your real operating model, not what off-the-shelf tools can almost do.',
-      bg: '#F56E0F',
+      bg: '#FC6E20',
       textColor: '#151419',
       canvasAnimation: 'radial' as const,
     },
@@ -419,11 +122,7 @@ function IntroSection() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_36%_76%,rgba(252,110,32,0.16),transparent_30%),radial-gradient(circle_at_74%_20%,rgba(95,159,170,0.16),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.04),transparent_42%)]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-[-18rem] left-[28%] z-0 hidden h-[42rem] w-[42rem] rounded-full border border-[#FC6E20]/10 bg-[radial-gradient(circle,rgba(252,110,32,0.38)_1px,transparent_1.4px)] bg-[length:15px_15px] opacity-25 [mask-image:radial-gradient(circle_at_center,black_0%,black_38%,transparent_68%)] lg:block"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_74%_20%,rgba(95,159,170,0.14),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.035),transparent_42%)]"
       />
       <div className="absolute inset-0 pointer-events-none z-0">
         {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -438,13 +137,13 @@ function IntroSection() {
         ))}
       </div>
       <div className="w-full content-gutter relative z-10 text-snow">
-        <div className="mx-auto max-w-[1770px] px-0">
+        <div className="mx-0 max-w-[1770px] px-0">
           <div className="mb-32 grid gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(560px,1.08fr)] lg:items-start lg:gap-16 xl:gap-20">
             <motion.div
               initial={{ opacity: 0, x: -42 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.82, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              viewport={{ once: false, margin: "-100px" }}
+              viewport={{ once: true, margin: "-100px" }}
               className="lg:sticky lg:top-28 lg:pt-8"
             >
               <span className="mb-6 block font-montserrat text-xs font-bold uppercase tracking-[0.3em] text-[#FC6E20]">
@@ -491,7 +190,7 @@ function IntroSection() {
                 initial={{ opacity: 0, x: 42 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.78, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: false, margin: "-100px" }}
+                viewport={{ once: true, margin: "-100px" }}
                 className="relative overflow-hidden rounded-[1.65rem] bg-[#F4F1EA] p-7 text-[#151419] shadow-[0_34px_90px_rgba(0,0,0,0.24)] md:p-8 lg:p-9"
               >
                 <div
@@ -559,7 +258,7 @@ function IntroSection() {
                       initial={{ opacity: 0, y: 34 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.72, delay: 0.3 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                      viewport={{ once: false, margin: "-100px" }}
+                      viewport={{ once: true, margin: "-100px" }}
                       className={`group flex min-h-[18.5rem] flex-col justify-between overflow-hidden rounded-[1.35rem] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.2)] transition-transform duration-300 hover:-translate-y-2 lg:min-h-[21rem] xl:min-h-[22.5rem] ${card.className}`}
                     >
                       <div className="flex items-start justify-between gap-4">
@@ -588,7 +287,7 @@ function IntroSection() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.72, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: false, margin: "-100px" }}
+                viewport={{ once: true, margin: "-100px" }}
                 className="grid gap-4 rounded-[1.15rem] border border-white/12 bg-white/[0.035] p-5 font-montserrat text-sm leading-7 text-[#FBFBFB]/66 shadow-[0_24px_70px_rgba(0,0,0,0.18)] sm:grid-cols-[auto_1fr] sm:items-center md:p-6"
               >
                 <span className="flex h-14 w-14 items-center justify-center rounded-full border border-white/12 bg-white/[0.05] text-[#FBFBFB]">
@@ -601,8 +300,8 @@ function IntroSection() {
             </div>
           </div>
         </div>
-        <div className="px-[3%] mt-72 mb-12">
-          <span className="font-montserrat text-xs tracking-[0.2em] uppercase mb-4 block" style={{ fontWeight: 400, color: 'rgb(245, 110, 15)', fontSize: '12px', lineHeight: '16px' }}>
+        <div className="mt-72 mb-12">
+          <span className="font-montserrat text-xs tracking-[0.2em] uppercase mb-4 block" style={{ fontWeight: 400, color: '#FC6E20', fontSize: '12px', lineHeight: '16px' }}>
             [ WHAT WE DO ]
           </span>
           <h2 className="max-w-3xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-white mb-6">
@@ -613,21 +312,18 @@ function IntroSection() {
           </p>
         </div>
         <div
-          className="services-cards-wrapper mt-32"
-          style={isMobile ? { width: '100%', marginRight: 0, overflow: 'hidden' } : { width: 'calc(100% + 64px)', marginRight: '-64px', overflow: 'hidden' }}
+          className="services-cards-wrapper mt-14 md:mt-16"
         >
           <div
-            style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', width: '100%', overflow: 'hidden' }}
+            className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
             onMouseLeave={() => setHoveredIndex(null)}
           >
             {services.map((s, i) => (
               <ServiceCard
-                key={i} {...s} index={i} flexValue={getFlexValue(i)}
-                hasActiveCard={hoveredIndex !== null}
+                key={i} {...s} index={i}
                 isHovered={hoveredIndex === i}
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                isMobile={isMobile}
               />
             ))}
           </div>
@@ -644,17 +340,18 @@ function Hero() {
 
       <div className="relative z-10 text-center w-full max-w-6xl px-4 sm:px-6">
         <h1 className="font-playfair text-[clamp(3.1rem,7.2vw,7.2rem)] font-bold leading-[0.93] tracking-tight text-stone-950 dark:text-stone-50">
-          Your business deserves<span className="sr-only"> </span><br />
-          a better digital foundation
+          Websites that bring in work.<span className="sr-only"> </span><br />
+          Systems that keep it running<span className="text-[#FC6E20]">.</span>
         </h1>
         <p className="mt-6 sm:mt-8 text-base sm:text-lg md:text-xl font-montserrat text-stone-600 dark:text-stone-400 max-w-3xl mx-auto px-2">
-          We design and build websites, dashboards, portals, and systems that help you
-          show up with confidence and run with less friction.
+          Custom-built for South African service businesses and founders.
+          The public pages earn trust and capture leads, and the systems
+          behind them cut the manual admin.
         </p>
         <div className="mt-8 sm:mt-10 flex w-full flex-col items-center justify-center gap-4 px-4 sm:flex-row sm:px-0">
           <Link
             href="/contact"
-            className="group/link inline-flex min-h-[44px] w-full items-center justify-center gap-2 overflow-visible rounded-full bg-[#FC6E20] px-8 py-4 font-montserrat font-medium text-stone-950 transition-colors hover:bg-[#e05a15] sm:w-auto"
+            className="group/link inline-flex min-h-[44px] w-full items-center justify-center gap-2 overflow-visible rounded-full bg-[#FC6E20] px-8 py-4 font-montserrat font-medium text-stone-950 transition-colors hover:bg-[#DD6211] sm:w-auto"
           >
             <AnimatedLinkText hiddenClassName="text-stone-950">Book a Discovery Call</AnimatedLinkText>
             <ArrowRight
@@ -862,7 +559,6 @@ function useHelixCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>, do
 
 type ServiceCardProps = {
   num: string;
-  total: string;
   title: string;
   href: string;
   subhead: string;
@@ -870,40 +566,29 @@ type ServiceCardProps = {
   bg: string;
   textColor: string;
   canvasAnimation: 'dotmatrix' | 'sinewave' | 'radial' | 'helix';
-  flexValue: number;
-  hasActiveCard: boolean;
   index: number;
   isHovered: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
-  isMobile: boolean;
 };
 
-const serviceCardSpring = { type: 'spring', stiffness: 300, damping: 40, mass: 1 } as const;
-
-function ServiceCard({ num, total, title, href, subhead, desc, bg, textColor, canvasAnimation, flexValue, hasActiveCard, index, isHovered, onMouseEnter, onMouseLeave, isMobile }: ServiceCardProps) {
+function ServiceCard({ num, title, href, subhead, desc, bg, textColor, canvasAnimation, index, isHovered, onMouseEnter, onMouseLeave }: ServiceCardProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const dotColor = textColor === 'white' ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.75)';
-  const isExpanded = isMobile || !hasActiveCard || isHovered;
-  const isCollapsed = !isExpanded;
-  const cardPadding = isMobile
-    ? index === 3
-      ? '1.5rem 20px'
-      : '1.5rem'
-    : index === 3
-      ? isCollapsed
-        ? '2rem 18px'
-        : '2rem 64px 2rem 32px'
-      : isCollapsed
-        ? '2rem 18px'
-        : '2rem 32px';
+  const hoverTextColor = textColor === 'white' ? '#FBFBFB' : '#151419';
+  const dotColor = isHovered
+    ? textColor === 'white'
+      ? 'rgba(251,251,251,0.78)'
+      : 'rgba(21,20,25,0.7)'
+    : 'rgba(251,251,251,0.48)';
+  const cardStyle = {
+    '--service-hover-bg': bg,
+    '--service-hover-text': hoverTextColor,
+  } as React.CSSProperties;
 
   useDotMatrixCanvas(canvasAnimation === 'dotmatrix' ? canvasRef : { current: null }, dotColor);
   useSineWaveCanvas(canvasAnimation === 'sinewave' ? canvasRef : { current: null }, dotColor);
   useRadialBurstCanvas(canvasAnimation === 'radial' ? canvasRef : { current: null }, dotColor);
   useHelixCanvas(canvasAnimation === 'helix' ? canvasRef : { current: null }, dotColor);
-
-  const borderRadius = '20px 20px 20px 20px';
 
   return (
     <motion.div
@@ -911,271 +596,52 @@ function ServiceCard({ num, total, title, href, subhead, desc, bg, textColor, ca
       onMouseLeave={onMouseLeave}
       onFocus={onMouseEnter}
       onBlur={onMouseLeave}
-      data-expanded={isExpanded ? 'true' : 'false'}
-      aria-expanded={isExpanded}
-      animate={{
-        flexGrow: isMobile ? 1 : flexValue,
-        flexBasis: isMobile ? '100%' : '0%',
-      }}
-      transition={serviceCardSpring}
-      className="services-card group focus-within:outline-none"
-      style={{
-        flexShrink: 1,
-        backgroundColor: bg,
-        color: textColor,
-        overflow: 'hidden',
-        minHeight: isMobile ? '480px' : '580px',
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        marginLeft: (!isMobile && index > 0) ? '-14px' : '0',
-        zIndex: isExpanded ? 10 : index + 1,
-        borderRadius,
-        cursor: isMobile ? 'default' : 'pointer',
-      }}
+      className="services-card h-full focus-within:outline-none"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.68, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      style={cardStyle}
     >
-      <div style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', padding: cardPadding }}>
-        <style>{`
-          @media (max-width: 1280px) {
-            .services-card:nth-child(4) > div:first-child {
-              padding-right: 56px !important;
-            }
-          }
-          @media (max-width: 1024px) {
-            .services-card:nth-child(4) > div:first-child {
-              padding-right: 20px !important;
-            }
-          }
-          @media (max-width: 640px) {
-            .services-card:nth-child(4) > div:first-child {
-              padding-right: 12px !important;
-            }
-          }
-          @media (min-width: 1024px) {
-            .services-card[data-expanded="false"] > div:first-child {
-              padding-left: 18px !important;
-              padding-right: 18px !important;
-            }
-          }
-        `}</style>
-        <motion.div
-          className="mb-8 flex items-center justify-between font-mono text-[0.68rem] uppercase tracking-[0.2em]"
-          animate={{ opacity: isCollapsed ? 0.55 : 0.72 }}
-          transition={{ duration: 0.2 }}
-        >
-          <span>{num}</span>
-          <span>{total}</span>
-        </motion.div>
-        <motion.h3
-          className="font-display font-bold uppercase tracking-tight text-center"
-          animate={{
-            opacity: isCollapsed ? 0.9 : 1,
-            scale: isCollapsed ? 0.92 : 1,
-          }}
-          transition={serviceCardSpring}
-          style={{
-            fontSize: isCollapsed ? 'clamp(0.8rem, 1vw, 1rem)' : 'clamp(1rem, 1.4vw, 1.5rem)',
-            letterSpacing: '-0.02em',
-            marginBottom: isExpanded ? '1.5rem' : '0.25rem',
-            color: textColor,
-            lineHeight: isCollapsed ? 1.05 : 1.15,
-            transformOrigin: 'center top',
-          }}
-        >
-          {title.split(' and ').map((part, i, arr) => (
-            <span key={i}>
-              {i > 0 && <span style={{ fontSize: '0.75em', verticalAlign: 'middle', marginLeft: '0.15em', marginRight: '0.15em' }}>and</span>}
-              {part}
+      <Link
+        href={href}
+        className="group flex h-full min-h-[22rem] flex-col justify-between overflow-hidden rounded-[1.35rem] border border-white/12 bg-transparent p-6 text-[#FBFBFB] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[var(--service-hover-bg)] hover:bg-[var(--service-hover-bg)] hover:text-[var(--service-hover-text)] hover:shadow-[0_22px_54px_rgba(0,0,0,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FC6E20] md:min-h-[24rem]"
+      >
+        <div>
+          <div className="flex items-start justify-between gap-5">
+            <span className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-current/60">
+              {num}
             </span>
-          ))}
-        </motion.h3>
-        <motion.p
-          className="font-montserrat text-center"
-          animate={{
-            opacity: isExpanded ? 0.7 : 0,
-            height: isExpanded ? 'auto' : 0,
-            marginBottom: isExpanded ? '0.25rem' : '0rem',
-            marginTop: isExpanded ? '-1.25rem' : '0rem',
-          }}
-          transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            fontSize: 'clamp(0.65rem, 0.9vw, 0.8rem)',
-            color: textColor,
-            overflow: 'hidden',
-          }}
-        >
-          {subhead}
-        </motion.p>
-        <motion.div
-          animate={{
-            opacity: isCollapsed ? 0.42 : 1,
-            scale: isCollapsed ? 0.86 : 1,
-          }}
-          transition={serviceCardSpring}
-          style={{
-            flex: isExpanded ? 1 : '0 0 auto',
-            position: 'relative',
-            minHeight: isCollapsed ? '250px' : '220px',
-            marginTop: index === 0 && isExpanded ? '1rem' : isCollapsed ? '1.75rem' : undefined,
-            transformOrigin: 'center top',
-          }}
-        >
-          <canvas
-            ref={canvasRef}
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-          />
-        </motion.div>
-        <motion.div
-          animate={{
-            opacity: isExpanded ? 1 : 0,
-            height: isExpanded ? 'auto' : 0,
-            marginTop: isExpanded ? '1.5rem' : '0rem',
-          }}
-          transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            overflow: 'hidden',
-            pointerEvents: isExpanded ? 'auto' : 'none',
-          }}
-        >
-          <p
-            className="font-montserrat text-center"
-            style={{ fontSize: 'clamp(12.5px, 1vw, 0.9rem)', lineHeight: 1.6, opacity: 0.75, color: textColor, letterSpacing: '0.02em' }}
+            <span
+              aria-hidden="true"
+              className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[1.05rem] border border-current/12 bg-white/[0.035] transition-colors duration-300 group-hover:bg-[#151419]/[0.045] md:h-[4.5rem] md:w-[4.5rem]"
+            >
+              <canvas
+                ref={canvasRef}
+                className="absolute inset-1 h-[calc(100%-0.5rem)] w-[calc(100%-0.5rem)] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+              />
+            </span>
+          </div>
+          <h3
+            className="mt-8 max-w-[12ch] font-playfair text-[clamp(2rem,2.25vw,3rem)] font-bold leading-none tracking-tight"
           >
+            {title}
+          </h3>
+          <p className="mt-5 font-montserrat text-sm font-semibold leading-6 text-current/72">
+            {subhead}
+          </p>
+          <p className="mt-5 font-montserrat text-sm leading-7 text-current/62">
             {desc}
           </p>
-          {(index === 0 || index === 1) && (
-            <p className="font-montserrat text-center text-xs mt-3 opacity-50" style={{ color: textColor }}>
-              [ Includes ongoing support plans. ]
-            </p>
-          )}
-          <Link href={href} className="font-montserrat text-center block mt-4 text-sm opacity-60 transition-opacity hover:opacity-100" style={{ color: textColor }}>
-            Learn more →
-          </Link>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
-function Services() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  const getFlexValue = (i: number) => {
-    if (hoveredIndex === null) return 1;
-    if (hoveredIndex === i) return SERVICE_CARD_HOVER_FLEX;
-    return SERVICE_CARD_COLLAPSED_FLEX;
-  };
-
-  const services = [
-    {
-      num: '01', total: '04',
-      title: 'Web Design & Development',
-      href: '/services/web-design',
-      subhead: 'Built for your business. Not borrowed from a template.',
-      desc: 'Your website should work as hard as you do. We build custom sites that bring in leads, build trust, and run 24/7. Designed for your audience, built for speed, and made to grow with you.',
-      bg: '#151419',
-      textColor: 'white',
-      canvasAnimation: 'dotmatrix' as const,
-    },
-    {
-      num: '02', total: '04',
-      title: 'Local & AI SEO',
-      href: '/services/seo',
-      subhead: 'Get found by the people who are already looking for you.',
-      desc: 'A great website means nothing if nobody sees it. We help your business show up on Google, maps, and AI search with clearer structure, stronger local signals, and content search systems can understand.',
-      bg: '#3D7A7A',
-      textColor: 'white',
-      canvasAnimation: 'sinewave' as const,
-    },
-    {
-      num: '03', total: '04',
-      title: 'SaaS & Custom Web Applications',
-      href: '/services/saas-development',
-      subhead: 'Your workflow, engineered around the way the business runs.',
-      desc: 'Need a portal, booking system, internal dashboard, or SaaS product? We build web applications around your real operating model, not what off-the-shelf tools can almost do.',
-      bg: '#F56E0F',
-      textColor: '#151419',
-      canvasAnimation: 'radial' as const,
-    },
-    {
-      num: '04', total: '04',
-      title: 'AI & Business Automation',
-      href: '/services/automation',
-      subhead: 'Stop doing manually what a system can do for you.',
-      desc: 'Follow-ups, data entry, scheduling, reporting. If your team repeats it daily, we automate it. We build systems that handle the busywork so your people can focus on what actually needs a human.',
-      bg: '#F0EFED',
-      textColor: '#151419',
-      canvasAnimation: 'helix' as const,
-    },
-  ];
-
-  return (
-    <section id="services" className="brutalist-border-t brutalist-border-b relative overflow-hidden bg-[#1A1A1A]">
-      <div className="px-6 md:px-16 lg:px-24 pt-20 pb-12">
-        <span className="text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase text-[#6b6b6b] mb-4 block">
-          WHAT WE DO
-        </span>
-        <h2 className="max-w-3xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight uppercase text-snow mb-6">
-          One studio<span className="text-[#FC6E20]">.</span> Every layer of your digital business<span className="text-[#FC6E20]">.</span>
-        </h2>
-        <p className="text-base md:text-[19px] text-snow/50 max-w-2xl font-montserrat leading-relaxed">
-          Most agencies sell you a website and disappear. We build the website, the systems behind it, and the strategy that makes all of it work.
-        </p>
-      </div>
-      <div className="services-cards-wrapper" style={{ marginLeft: 88, marginRight: 0, paddingLeft: 0, paddingRight: 0, width: 'calc(100% - 88px)', overflow: 'hidden' }}>
-        <style>{`
-          @media (max-width: 1280px) {
-            .services-cards-wrapper {
-              margin-left: 72px;
-              width: calc(100% - 72px);
-            }
-          }
-          @media (max-width: 1024px) {
-            .services-cards-wrapper {
-              margin-left: 24px;
-              width: calc(100% - 24px);
-            }
-          }
-          @media (max-width: 640px) {
-            .services-cards-wrapper {
-              margin-left: 16px;
-              width: calc(100% - 16px);
-            }
-          }
-        `}</style>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            width: '100%',
-            overflow: 'hidden',
-          }}
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
-          {services.map((s, i) => (
-            <ServiceCard
-              key={i}
-              {...s}
-              index={i}
-              flexValue={getFlexValue(i)}
-              hasActiveCard={hoveredIndex !== null}
-              isHovered={hoveredIndex === i}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              isMobile={isMobile}
-            />
-          ))}
         </div>
-      </div>
-    </section>
+        <div className="mt-10 flex items-center justify-between border-t border-current/10 pt-4">
+          <span className="font-montserrat text-[0.7rem] font-bold uppercase tracking-[0.18em]">
+            <AnimatedLinkText>View service</AnimatedLinkText>
+          </span>
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </div>
+      </Link>
+    </motion.div>
   );
 }
 
@@ -1386,18 +852,18 @@ function HowItWorks() {
       num: "01",
       label: "Discover",
       subtitle: "We start by listening.",
-      body: "You tell us what\u2019s going on in your business. What\u2019s working, what isn\u2019t, and what you\u2019ve been putting off. We ask hard questions and give you an honest assessment \u2014 even if the answer is that you don\u2019t need us right now.",
+      body: "You tell us what is happening in the business, what is working, what feels stuck, and what keeps getting pushed back. We ask direct questions and give you a straight answer. Sometimes that answer is that you do not need us yet.",
       pills: ["Business Audit", "Market Analysis", "Goal Mapping", "Honest Assessment"],
-      accentColor: "#f56e0f",
+      accentColor: "#FC6E20",
       canvasAnimation: 'orbit' as const,
       bg: '#100c0b',
-      borderTop: '#f56e0f',
+      borderTop: '#FC6E20',
     },
     {
       num: "02",
       label: "Build",
       subtitle: "You see everything as it happens.",
-      body: "We handle design and development in focused sprints. You get access to a private project portal with live previews, feedback threads, and milestone tracking \u2014 so you never have to wonder what\u2019s happening with your investment.",
+      body: "We design and build in short, focused rounds. You can see live previews, leave feedback, and track what is done inside a private project portal. You should not have to chase for updates.",
       pills: ["UI/UX Design", "Dev Sprints", "Live Previews", "Feedback Portal"],
       accentColor: "#FC6E20",
       canvasAnimation: 'buildgrid' as const,
@@ -1408,12 +874,12 @@ function HowItWorks() {
       num: "03",
       label: "Launch & Grow",
       subtitle: "Launching is the starting line.",
-      body: "Your project goes live with thorough testing and a smooth handoff. From there, we offer ongoing maintenance, SEO, and automation \u2014 because the businesses that win online are the ones that keep showing up after launch day.",
+      body: "Before launch, we test the site, clean up the details, and hand everything over properly. After that, we can stay close with maintenance, SEO, and automation so the system keeps improving.",
       pills: ["QA Testing", "Smooth Handoff", "SEO Setup", "Ongoing Support"],
-      accentColor: "#f56e0f",
+      accentColor: "#FC6E20",
       canvasAnimation: 'launch' as const,
       bg: '#dddddd',
-      borderTop: '#f56e0f',
+      borderTop: '#FC6E20',
     },
   ];
 
@@ -1426,8 +892,8 @@ function HowItWorks() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: false, margin: "-100px" }}
-            className="font-montserrat text-[#f56e0f] text-xs uppercase tracking-[0.2em] mb-4 block"
+            viewport={{ once: true, margin: "-100px" }}
+            className="font-montserrat text-[#FC6E20] text-xs uppercase tracking-[0.2em] mb-4 block"
           >
             [ How It Works ]
           </motion.span>
@@ -1435,7 +901,7 @@ function HowItWorks() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px" }}
             className="font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight dark:text-snow text-dark-void"
           >
             From first conversation<br />
@@ -1445,8 +911,8 @@ function HowItWorks() {
             initial={{ width: 0 }}
             whileInView={{ width: 120 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: false, margin: "-100px" }}
-            className="mt-6 h-1 bg-[#e05a15] rounded-full"
+            viewport={{ once: true, margin: "-100px" }}
+            className="mt-6 h-1 bg-[#DD6211] rounded-full"
           />
         </div>
 
@@ -1543,7 +1009,7 @@ function HowItWorksCard({
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.15 + index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-      viewport={{ once: false, margin: "-80px" }}
+      viewport={{ once: true, margin: "-80px" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={{
@@ -1654,9 +1120,9 @@ function HowItWorksCard({
             style={{
               fontSize: isStackedLayout ? '14px' : '17px',
               lineHeight: isStackedLayout ? 1.65 : 1.7,
-              color: useDarkAccentText ? 'rgba(21,20,25,0.74)' : (index === 2 ? '#1a1a1a' : 'rgba(255,255,255,0.55)'),
-              textTransform: isStackedLayout ? 'none' : 'uppercase',
-              letterSpacing: isStackedLayout ? '0' : '0.04em',
+              color: useDarkAccentText ? 'rgba(21,20,25,0.74)' : (index === 2 ? '#1a1a1a' : 'rgba(255,255,255,0.72)'),
+              textTransform: 'none',
+              letterSpacing: '0',
               maxWidth: isStackedLayout ? 'min(34rem, 92%)' : '85%',
               textAlign: 'center',
               pointerEvents: 'none',
@@ -1681,7 +1147,7 @@ function HowItWorksCard({
                 padding: '0 10px',
                 border: 'none',
                 borderRadius: '9999px',
-                fontSize: '0.6rem',
+                fontSize: '0.7rem',
                 fontFamily: 'var(--font-montserrat, sans-serif)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em',
@@ -1698,50 +1164,6 @@ function HowItWorksCard({
   );
 }
 
-function Founder() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
-
-  return (
-    <section ref={ref} className="relative z-[7] py-24 w-full bg-snow dark:bg-[#1a1a1a] text-dark-void dark:text-snow">
-      <div className="max-w-7xl mx-auto content-gutter grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="order-2 lg:order-1">
-          <span className="font-mono text-liquid-lava text-sm uppercase tracking-widest mb-4 block">Leadership</span>
-          <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-8">
-            &quot;Design isn&apos;t just how it looks<span className="text-[#FC6E20]">.</span> It&apos;s how it functions at scale<span className="text-[#FC6E20]">.</span>&quot;
-          </h2>
-          <p className="text-slate-grey dark:text-snow/60 mb-8 text-lg">
-            With over a decade of experience bridging the gap between aesthetic design and robust technical architecture, our leadership ensures every project isn&apos;t just a visual success, but a measurable business asset.
-          </p>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-1 bg-liquid-lava"></div>
-            <div>
-              <p className="font-display font-bold uppercase tracking-tight">Alex Kreative</p>
-              <p className="font-mono text-sm text-dusty-grey">Founder & Creative Director</p>
-            </div>
-          </div>
-        </div>
-        <div className="order-1 lg:order-2 relative aspect-[4/5] w-full max-w-md mx-auto lg:ml-auto brutalist-border p-2">
-          <div className="w-full h-full relative bg-slate-grey overflow-hidden">
-            <motion.div style={{ y, height: "130%", top: "-15%" }} className="absolute w-full left-0">
-              <Image
-                src="https://picsum.photos/seed/founder/800/1000"
-                alt="Founder"
-                fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                sizes="(max-width: 1024px) 90vw, 38vw"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 type HomeInsightNote = {
   category: string;
@@ -1762,9 +1184,8 @@ const homeInsightNotes: HomeInsightNote[] = [
       'A practical guide to quote ranges, hidden costs, and what actually changes the price of a serious website build.',
     readTime: '10 min read',
     href: '/insights/website-cost-south-africa-2026',
-    image:
-      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Business owner reviewing website project numbers on a laptop.',
+    image: '/images/insights/website-cost-planning.webp',
+    imageAlt: 'Business owner comparing website quotes and pricing breakdowns at a desk.',
     tags: ['Pricing', 'Planning'],
   },
   {
@@ -1774,9 +1195,8 @@ const homeInsightNotes: HomeInsightNote[] = [
       'A clear breakdown of why polished pages still leak enquiries when trust, copy, mobile paths, and CTAs are weak.',
     readTime: '9 min read',
     href: '/insights/why-your-website-looks-good-but-doesnt-convert',
-    image:
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Clean office workspace used as a conversion website reference.',
+    image: '/images/insights/website-conversion-diagnostics.webp',
+    imageAlt: 'Business owner reviewing website analytics, heatmap activity, and conversion data.',
     tags: ['Conversion', 'Websites'],
   },
   {
@@ -1786,9 +1206,8 @@ const homeInsightNotes: HomeInsightNote[] = [
       'How maps, reviews, local pages, service clarity, and search structure help Johannesburg businesses get found.',
     readTime: '8 min read',
     href: '/insights/local-seo-johannesburg-service-businesses',
-    image:
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Local street and building detail representing local search visibility.',
+    image: '/images/insights/local-seo-johannesburg-visibility.webp',
+    imageAlt: 'Local business storefront with mobile search map results and local visibility signals.',
     tags: ['SEO', 'Local'],
   },
 ];
@@ -1895,67 +1314,6 @@ function Insights() {
   );
 }
 
-class PixelParticle {
-  x: number;
-  y: number;
-  baseX: number;
-  baseY: number;
-  vx: number;
-  vy: number;
-  size: number;
-  randomDriftX: number;
-  randomDriftY: number;
-  color: string;
-
-  constructor(x: number, y: number, size: number, color: string = '#F56E0F') {
-    this.x = x;
-    this.y = y;
-    this.baseX = x;
-    this.baseY = y;
-    this.vx = 0;
-    this.vy = 0;
-    this.size = size;
-    this.randomDriftX = (Math.random() - 0.5) * 2;
-    this.randomDriftY = (Math.random() - 0.5) * 2;
-    this.color = color;
-  }
-
-  update(mouse: { x: number, y: number }) {
-    const dx = mouse.x - this.x;
-    const dy = mouse.y - this.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    const maxDistance = 180;
-
-    if (distance < maxDistance && mouse.x !== -1000) {
-      // Repel strongly
-      const force = (maxDistance - distance) / maxDistance;
-      const angle = Math.atan2(dy, dx);
-
-      // Add some chaos to the explosion
-      const scatterX = Math.cos(angle) * force * 10 + this.randomDriftX * force * 5;
-      const scatterY = Math.sin(angle) * force * 10 + this.randomDriftY * force * 5;
-
-      this.vx -= scatterX;
-      this.vy -= scatterY;
-    }
-
-    // Spring back to base position
-    this.vx += (this.baseX - this.x) * 0.08;
-    this.vy += (this.baseY - this.y) * 0.08;
-
-    // Friction
-    this.vx *= 0.82;
-    this.vy *= 0.82;
-
-    this.x += this.vx;
-    this.y += this.vy;
-  }
-
-  draw(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.size, this.size);
-  }
-}
 
 type FeaturedBuild = {
   id: string;
@@ -2001,6 +1359,21 @@ const featuredBuilds: FeaturedBuild[] = [
     accent: '#FC6E20',
     tags: ['B2B Website', 'Quote Flow', 'Risk Assessment', 'Dashboard'],
     features: ['Industrial service grid', 'Facility risk lead tool', 'Office workflow foundation'],
+  },
+  {
+    id: '03',
+    title: 'Ubuntu Memorial Services',
+    eyebrow: 'Funeral services platform concept',
+    summary:
+      'A self-initiated funeral-services concept that pairs package browsing, online registration, contribution records, receipts, and staff review workflows.',
+    outcome:
+      'ParlourPay models member records, dependant rules, demo payments, digital stamp-book receipts, and office reconciliation behind a dignified public brand.',
+    image: '/images/work/ubuntu-memorial-services-showcase.jpg',
+    imageWidth: 960,
+    imageHeight: 8016,
+    accent: '#154230',
+    tags: ['Industry Concept', 'Funeral Tech', 'Registration UX', 'Payment Records', 'Dashboard'],
+    features: ['Funeral parlour website', 'Registration and payment flow', 'Staff dashboard with audit trail'],
   },
 ];
 
@@ -2075,15 +1448,15 @@ function FeaturedBuildsSection() {
               Recent builds with the system underneath<span className="text-[#FC6E20]">.</span>
             </h2>
             <p className="mt-6 max-w-md font-montserrat text-base leading-8 text-[#6b6b6b] dark:text-snow/60 md:text-lg">
-              Two client projects shown as working digital infrastructure: one coaching platform built for trust and service conversion, one industrial site built for technical credibility and qualified enquiries.
+              Selected client and self-initiated builds shown as working digital infrastructure: coaching, industrial engineering, and funeral-services systems with public trust and operational depth.
             </p>
             <p className="hidden">
-              For founders, professional practices, and engineering teams across South Africa — work built to be used, not just admired.
+              For founders, professional practices, and engineering teams across South Africa. Work built to be used, not just admired.
             </p>
             <div className="mt-10 grid max-w-md grid-cols-2 gap-3 font-montserrat">
               <div className="border border-[#151419]/10 bg-white/55 p-4 dark:border-white/10 dark:bg-white/[0.04]">
                 <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#878787]">Projects</span>
-                <span className="mt-2 block font-mono text-3xl text-[#151419] dark:text-white">02</span>
+                <span className="mt-2 block font-mono text-3xl text-[#151419] dark:text-white">03</span>
               </div>
               <div className="border border-[#151419]/10 bg-white/55 p-4 dark:border-white/10 dark:bg-white/[0.04]">
                 <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#878787]">Scope</span>
@@ -2240,24 +1613,30 @@ function FeaturedBuildCard({
   );
 }
 
-const testimonialItems = [
+const projectOutcomes = [
   {
-    quote: 'A warm coaching brand became a guided service platform with diagnostics, paid pathways, booking, intake, and resources working together.',
-    author: 'Coach Kagiso',
-    role: 'Career coaching platform',
-    company: 'Personal brand and service conversion',
+    statement: 'A warm coaching brand became a guided service platform with diagnostics, paid pathways, booking, intake, and resources working together.',
+    project: 'Coach Kagiso',
+    scope: 'Career coaching platform',
+    badge: 'Personal brand and service conversion',
   },
   {
-    quote: 'A technical engineering business now has a sharper digital presence for safety-critical services, quote requests, and risk-assessment leads.',
-    author: 'Touch Teq Engineering',
-    role: 'Industrial website and lead flow',
-    company: 'Engineering and B2B enquiries',
+    statement: 'A technical engineering business gained a sharper digital presence for safety-critical services, quote requests, and risk-assessment leads.',
+    project: 'Touch Teq Engineering',
+    scope: 'Industrial website and lead flow',
+    badge: 'Engineering and B2B enquiries',
   },
   {
-    quote: 'Both builds go beyond brochure pages: they connect public trust, lead capture, booking, and private operational workflows.',
-    author: 'Kreative Reflow',
-    role: 'Website plus workflow systems',
-    company: 'Digital infrastructure',
+    statement: 'A self-initiated funeral-services concept turned booklet-style member routines into registration, contribution, receipt, and review workflows.',
+    project: 'Ubuntu Memorial Services',
+    scope: 'Funeral services platform concept',
+    badge: 'Industry concept and operations demo',
+  },
+  {
+    statement: 'The selected builds go beyond brochure pages: they connect public trust, lead capture, member journeys, and private operational workflows.',
+    project: 'Across selected builds',
+    scope: 'Website plus workflow systems',
+    badge: 'Digital infrastructure',
   },
 ];
 
@@ -2273,8 +1652,8 @@ function Testimonial() {
   const numberX = useTransform(x, [-200, 200], [-18, 18]);
   const numberY = useTransform(y, [-200, 200], [-10, 10]);
 
-  const goNext = () => setActiveIndex((prev) => (prev + 1) % testimonialItems.length);
-  const goPrev = () => setActiveIndex((prev) => (prev - 1 + testimonialItems.length) % testimonialItems.length);
+  const goNext = () => setActiveIndex((prev) => (prev + 1) % projectOutcomes.length);
+  const goPrev = () => setActiveIndex((prev) => (prev - 1 + projectOutcomes.length) % projectOutcomes.length);
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (prefersReducedMotion) return;
@@ -2285,7 +1664,7 @@ function Testimonial() {
     mouseY.set(event.clientY - (rect.top + rect.height / 2));
   };
 
-  const current = testimonialItems[activeIndex];
+  const current = projectOutcomes[activeIndex];
 
   return (
     <section className="relative z-[7] overflow-hidden bg-[#F0EFED] py-20 text-[#151419] dark:bg-[#151419] dark:text-[#FBFBFB] md:py-28">
@@ -2326,14 +1705,14 @@ function Testimonial() {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.45 }}
             >
-              Proof notes
+              Project outcomes
             </motion.span>
             <div className="relative h-px flex-1 bg-[#151419]/14 dark:bg-white/14 md:h-36 md:w-px md:flex-none">
               <motion.div
                 className="absolute left-0 top-0 h-full bg-[#FC6E20] md:w-full"
                 animate={{
-                  width: `${((activeIndex + 1) / testimonialItems.length) * 100}%`,
-                  height: `${((activeIndex + 1) / testimonialItems.length) * 100}%`,
+                  width: `${((activeIndex + 1) / projectOutcomes.length) * 100}%`,
+                  height: `${((activeIndex + 1) / projectOutcomes.length) * 100}%`,
                 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               />
@@ -2352,14 +1731,14 @@ function Testimonial() {
               >
                 <span className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#151419]/12 px-3 py-1 font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787] dark:border-white/14">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#FC6E20]" />
-                  {current.company}
+                  {current.badge}
                 </span>
               </motion.div>
             </AnimatePresence>
 
             <div className="relative mb-10 min-h-[150px] sm:min-h-[170px] lg:min-h-[200px]">
               <AnimatePresence mode="wait">
-                <motion.blockquote
+                <motion.p
                   key={`quote-${activeIndex}`}
                   className="max-w-4xl font-playfair text-[clamp(2.5rem,5vw,5rem)] font-semibold leading-[1.04] tracking-normal text-[#151419] dark:text-white"
                   initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
@@ -2367,8 +1746,8 @@ function Testimonial() {
                   exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
                   transition={{ duration: prefersReducedMotion ? 0.18 : 0.38, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  {current.quote}
-                </motion.blockquote>
+                  {current.statement}
+                </motion.p>
               </AnimatePresence>
             </div>
 
@@ -2390,8 +1769,8 @@ function Testimonial() {
                     style={{ originX: 0 }}
                   />
                   <div>
-                    <p className="font-montserrat text-sm font-semibold text-[#151419] dark:text-white">{current.author}</p>
-                    <p className="mt-1 font-montserrat text-sm text-[#878787]">{current.role}</p>
+                    <p className="font-montserrat text-sm font-semibold text-[#151419] dark:text-white">{current.project}</p>
+                    <p className="mt-1 font-montserrat text-sm text-[#878787]">{current.scope}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -2400,7 +1779,7 @@ function Testimonial() {
                 <motion.button
                   type="button"
                   onClick={goPrev}
-                  aria-label="Previous testimonial"
+                  aria-label="Previous project outcome"
                   className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#151419]/15 text-[#151419] transition hover:border-[#FC6E20] hover:text-[#FC6E20] dark:border-white/15 dark:text-white"
                   whileTap={{ scale: 0.95 }}
                 >
@@ -2409,7 +1788,7 @@ function Testimonial() {
                 <motion.button
                   type="button"
                   onClick={goNext}
-                  aria-label="Next testimonial"
+                  aria-label="Next project outcome"
                   className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#151419]/15 text-[#151419] transition hover:border-[#FC6E20] hover:text-[#FC6E20] dark:border-white/15 dark:text-white"
                   whileTap={{ scale: 0.95 }}
                 >
@@ -2624,7 +2003,7 @@ function HomeFinalCta() {
             <div>
               <HomeSectionLabel>Start the next build</HomeSectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
-                Bring the messy version<span className="text-[#FC6E20]">.</span> We will shape the useful system<span className="text-[#FC6E20]">.</span>
+                Tell us where it leaks. We will make the next move clear<span className="text-[#FC6E20]">.</span>
               </h2>
               <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 Whether the pressure point is a website, local visibility,
@@ -2654,795 +2033,3 @@ function HomeFinalCta() {
   );
 }
 
-function GeometricSpotlightContent() {
-  return (
-    <div className="w-full h-full flex flex-col items-center justify-center p-6 md:p-12 text-center relative">
-      <div className="absolute top-12 content-gutter left-0 right-0 z-20 text-left">
-        <span className="font-mono text-sm uppercase tracking-widest mb-2 block">Interactive Demo 02</span>
-        <h2 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tighter">
-          Geometric Spotlight
-        </h2>
-        <p className="mt-4 max-w-sm font-mono text-sm">
-          Hover to reveal the hidden manifesto. Sharp contrast, brutalist reveal.
-        </p>
-      </div>
-
-      <div className="max-w-6xl mx-auto mt-20 relative w-full">
-        {/* Wireframe background graphic */}
-        <svg className="absolute inset-0 w-full h-full opacity-30 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <line x1="0" y1="0" x2="100" y2="100" stroke="currentColor" strokeWidth="0.2" />
-          <line x1="100" y1="0" x2="0" y2="100" stroke="currentColor" strokeWidth="0.2" />
-          <rect x="10" y="10" width="80" height="80" fill="none" stroke="currentColor" strokeWidth="0.2" />
-          <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="0.2" />
-          <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" strokeWidth="0.2" strokeDasharray="2 2" />
-          <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" strokeWidth="0.2" strokeDasharray="2 2" />
-        </svg>
-
-        <h3 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] leading-[0.85] font-bold uppercase tracking-tighter relative z-10">
-          We Forge <br />
-          The Unseen <br />
-          Architecture
-        </h3>
-        <p className="font-mono text-lg md:text-2xl mt-12 uppercase tracking-widest relative z-10 max-w-3xl mx-auto">
-          Design is not just what it looks like. <br /> It is how it works at scale.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function GeometricSpotlightDemo() {
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!sectionRef.current) return;
-    const rect = sectionRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setMousePos({ x: -1000, y: -1000 });
-  };
-
-  const spotlightSize = 300; // 300x300 square spotlight
-  const clipPath = `polygon(
-    ${mousePos.x - spotlightSize / 2}px ${mousePos.y - spotlightSize / 2}px, 
-    ${mousePos.x + spotlightSize / 2}px ${mousePos.y - spotlightSize / 2}px, 
-    ${mousePos.x + spotlightSize / 2}px ${mousePos.y + spotlightSize / 2}px, 
-    ${mousePos.x - spotlightSize / 2}px ${mousePos.y + spotlightSize / 2}px
-  )`;
-
-  return (
-    <section
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="relative w-full min-h-[80vh] bg-dark-void overflow-hidden cursor-crosshair brutalist-border-t"
-    >
-      {/* Base Layer (Dark, hidden text) */}
-      <div className="absolute inset-0 w-full h-full bg-dark-void text-gluon-grey">
-        <GeometricSpotlightContent />
-      </div>
-
-      {/* Spotlight Layer (Light, revealed text) */}
-      <div
-        className="absolute inset-0 w-full h-full bg-snow text-liquid-lava pointer-events-none"
-        style={{
-          clipPath: mousePos.x === -1000 ? 'polygon(0 0, 0 0, 0 0, 0 0)' : clipPath,
-          WebkitClipPath: mousePos.x === -1000 ? 'polygon(0 0, 0 0, 0 0, 0 0)' : clipPath
-        }}
-      >
-        <GeometricSpotlightContent />
-      </div>
-    </section>
-  );
-}
-
-function DataStreamDemo() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-  const mouseRef = useRef(mousePos);
-
-  useEffect(() => {
-    mouseRef.current = mousePos;
-  }, [mousePos]);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!sectionRef.current) return;
-    const rect = sectionRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setMousePos({ x: -1000, y: -1000 });
-  };
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    const fontSize = 16;
-    let cols = 0;
-    let rows = 0;
-    let grid: { char: string; targetChar: string }[][] = [];
-
-    const chars = '0123456789ABCDEF@#$%&*+=-/\\';
-    const hiddenMessage = "[KREATIVE_REFLOW] // [AI_INTEGRATION] // [SYSTEM_ARCHITECTURE] // [DATA_PIPELINES] // [SCALE_INFINITE] // ";
-
-    const init = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-
-      // Use standard monospace as fallback, JetBrains Mono if loaded
-      ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
-      ctx.textBaseline = 'top';
-
-      cols = Math.floor(rect.width / fontSize) + 1;
-      rows = Math.floor(rect.height / fontSize) + 1;
-
-      grid = [];
-      for (let i = 0; i < cols; i++) {
-        grid[i] = [];
-        for (let j = 0; j < rows; j++) {
-          const charIndex = (j * cols + i) % hiddenMessage.length;
-          grid[i][j] = {
-            char: chars[Math.floor(Math.random() * chars.length)],
-            targetChar: hiddenMessage[charIndex]
-          };
-        }
-      }
-    };
-
-    const animate = () => {
-      const rect = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, rect.width, rect.height);
-
-      const mouse = mouseRef.current;
-      const decoderSize = 120; // 240x240 square decoder
-
-      for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-          const x = i * fontSize;
-          const y = j * fontSize;
-
-          // Check if within the square decoder area
-          const inDecoder = Math.abs(x + fontSize / 2 - mouse.x) < decoderSize &&
-            Math.abs(y + fontSize / 2 - mouse.y) < decoderSize;
-
-          if (inDecoder) {
-            ctx.fillStyle = '#F56E0F'; // Liquid Lava
-            ctx.globalAlpha = 1.0;
-            ctx.fillText(grid[i][j].targetChar, x, y);
-          } else {
-            // Randomly mutate background characters
-            if (Math.random() < 0.05) {
-              grid[i][j].char = chars[Math.floor(Math.random() * chars.length)];
-            }
-            ctx.fillStyle = '#878787'; // Dusty Grey
-            ctx.globalAlpha = 0.2; // Keep it very dim
-            ctx.fillText(grid[i][j].char, x, y);
-          }
-        }
-      }
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    init();
-    // Start animation immediately
-    animate();
-
-    window.addEventListener('resize', init);
-
-    return () => {
-      window.removeEventListener('resize', init);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  return (
-    <section
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="py-32 relative w-full min-h-[80vh] flex flex-col items-center justify-center bg-dark-void brutalist-border-t overflow-hidden"
-    >
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full cursor-crosshair"
-      />
-    </section>
-  );
-}
-
-class NodeParticle {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-
-  constructor(width: number, height: number) {
-    this.x = Math.random() * width;
-    this.y = Math.random() * height;
-    this.vx = (Math.random() - 0.5) * 0.5;
-    this.vy = (Math.random() - 0.5) * 0.5;
-    this.size = Math.random() * 1.5 + 0.5;
-  }
-
-  update(width: number, height: number) {
-    this.x += this.vx;
-    this.y += this.vy;
-
-    if (this.x < 0) { this.x = 0; this.vx *= -1; }
-    if (this.x > width) { this.x = width; this.vx *= -1; }
-    if (this.y < 0) { this.y = 0; this.vy *= -1; }
-    if (this.y > height) { this.y = height; this.vy *= -1; }
-  }
-
-  draw(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = '#878787'; // Dusty Grey
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function ConstellationDemo() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-  const mouseRef = useRef(mousePos);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1.4]);
-
-  useEffect(() => {
-    mouseRef.current = mousePos;
-  }, [mousePos]);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!sectionRef.current) return;
-    const rect = sectionRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setMousePos({ x: -1000, y: -1000 });
-  };
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let particles: NodeParticle[] = [];
-
-    const init = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-
-      particles = [];
-      // Responsive particle count based on screen size
-      const numParticles = Math.floor((rect.width * rect.height) / 9000);
-      for (let i = 0; i < numParticles; i++) {
-        particles.push(new NodeParticle(rect.width, rect.height));
-      }
-    };
-
-    const animate = () => {
-      const rect = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, rect.width, rect.height);
-
-      const mouse = mouseRef.current;
-      const hoverRadius = 250;
-      const connectDist = 120;
-
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update(rect.width, rect.height);
-        particles[i].draw(ctx);
-
-        const dxMouse = mouse.x - particles[i].x;
-        const dyMouse = mouse.y - particles[i].y;
-        const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-
-        // Only draw connections if the particle is near the mouse
-        if (distMouse < hoverRadius) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < connectDist) {
-              // Opacity fades out based on distance to mouse AND distance between particles
-              const opacity = Math.max(0, (1 - distMouse / hoverRadius) * (1 - dist / connectDist));
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(245, 110, 15, ${opacity})`; // Liquid Lava
-              ctx.lineWidth = 1;
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.stroke();
-            }
-          }
-        }
-      }
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    init();
-    animate();
-
-    window.addEventListener('resize', init);
-
-    return () => {
-      window.removeEventListener('resize', init);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  return (
-    <section
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="py-32 relative w-full min-h-[80vh] flex flex-col items-center justify-center bg-gluon-grey brutalist-border-t overflow-hidden"
-    >
-      <div className="absolute top-12 content-gutter left-0 right-0 z-10 pointer-events-none">
-        <div className="inline-block bg-gluon-grey/80 p-4 brutalist-border backdrop-blur-sm">
-          <span className="font-mono text-liquid-lava text-sm uppercase tracking-widest mb-2 block">Interactive Demo 04</span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tighter text-snow">
-            The Constellation
-          </h2>
-          <p className="text-dusty-grey mt-4 max-w-sm font-mono text-sm">
-            Scroll to zoom into the network. Hover to form neural connections between the floating nodes.
-          </p>
-        </div>
-      </div>
-
-      <motion.canvas
-        ref={canvasRef}
-        style={{
-          scale,
-          transformOrigin: mousePos.x !== -1000 ? `${mousePos.x}px ${mousePos.y}px` : '50% 50%'
-        }}
-        className="absolute inset-0 w-full h-full cursor-crosshair"
-      />
-    </section>
-  );
-}
-
-function TorusKnotDemo() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const isHoveredRef = useRef(isHovered);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-
-  useEffect(() => {
-    isHoveredRef.current = isHovered;
-  }, [isHovered]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let time = 0;
-
-    const init = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-    };
-
-    const animate = () => {
-      const rect = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, rect.width, rect.height);
-
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const scrollVal = scrollYProgress.get();
-
-      if (!isHoveredRef.current) {
-        time += 0.005; // Rotation speed
-      }
-
-      // Unwind effect based on scroll
-      const R = 120 + scrollVal * 300; // Major radius expands
-      const r = 50 + scrollVal * 150;  // Minor radius expands
-      const p = 3 + scrollVal * 2;     // Complexity increases
-      const q = 4 + scrollVal * 5;
-      const maxTheta = Math.PI * 2 * (1 + scrollVal * 15); // Loop gets longer
-
-      const numDots = Math.floor(1500 + scrollVal * 2000);
-
-      const dots = [];
-
-      for (let i = 0; i < numDots; i++) {
-        const theta = (i / numDots) * maxTheta;
-
-        // Torus knot parametric equations
-        const x0 = (R + r * Math.cos(q * theta)) * Math.cos(p * theta);
-        const y0 = (R + r * Math.cos(q * theta)) * Math.sin(p * theta);
-        const z0 = r * Math.sin(q * theta);
-
-        // 3D Rotation
-        const cosT = Math.cos(time);
-        const sinT = Math.sin(time);
-
-        // Rotate around Y axis
-        const x1 = x0 * cosT - z0 * sinT;
-        const z1 = x0 * sinT + z0 * cosT;
-
-        // Rotate around X axis
-        const y2 = y0 * cosT - z1 * sinT;
-        const z2 = y0 * sinT + z1 * cosT;
-
-        const x2 = x1;
-
-        // Perspective projection
-        const perspective = 800 / (800 + z2);
-        const xProj = centerX + x2 * perspective;
-        const yProj = centerY + y2 * perspective;
-        const size = Math.max(0.5, 2.5 * perspective);
-
-        dots.push({ x: xProj, y: yProj, z: z2, size, theta });
-      }
-
-      // Sort by Z-index for pseudo-3D depth rendering
-      dots.sort((a, b) => b.z - a.z);
-
-      for (const dot of dots) {
-        // Alternate colors along the knot
-        const isLava = (dot.theta / (Math.PI / 2)) % 2 < 1;
-        ctx.fillStyle = isLava ? '#F56E0F' : '#878787'; // Liquid Lava or Dusty Grey
-
-        // Depth fading
-        const alpha = Math.max(0.1, Math.min(1, (dot.z + 400) / 800));
-        ctx.globalAlpha = alpha;
-
-        ctx.beginPath();
-        ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      ctx.globalAlpha = 1.0;
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    init();
-    animate();
-
-    window.addEventListener('resize', init);
-
-    return () => {
-      window.removeEventListener('resize', init);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [scrollYProgress]);
-
-  return (
-    <section
-      ref={sectionRef}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="py-32 relative w-full min-h-[120vh] flex flex-col items-center justify-center bg-dark-void brutalist-border-t overflow-hidden cursor-crosshair"
-    >
-      <div className="absolute top-12 content-gutter left-0 right-0 z-10 pointer-events-none">
-        <div className="inline-block bg-dark-void/80 p-4 brutalist-border backdrop-blur-sm">
-          <span className="font-mono text-liquid-lava text-sm uppercase tracking-widest mb-2 block">Interactive Demo 05</span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tighter text-snow">
-            The Torus Knot
-          </h2>
-          <p className="text-dusty-grey mt-4 max-w-sm font-mono text-sm">
-            Scroll to unwind the knot into infinite complexity. Hover to freeze the mathematical flow in place.
-          </p>
-        </div>
-      </div>
-
-      <div className="sticky top-0 w-full h-screen">
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full"
-        />
-      </div>
-    </section>
-  );
-}
-
-class MagneticParticle {
-  x: number;
-  y: number;
-  baseX: number;
-  baseY: number;
-  vx: number;
-  vy: number;
-  size: number;
-  color: string;
-
-  constructor(x: number, y: number, color: string) {
-    this.x = x;
-    this.y = y;
-    this.baseX = x;
-    this.baseY = y;
-    this.vx = 0;
-    this.vy = 0;
-    this.size = 1.5;
-    this.color = color;
-  }
-
-  update(mouse: { x: number, y: number }, scrollVelocity: number, width: number, height: number) {
-    // Constant vertical drift
-    this.baseY -= 0.5;
-    if (this.baseY < -20) {
-      this.baseY = height + 20;
-      this.y = this.baseY;
-    }
-
-    const dx = mouse.x - this.x;
-    const dy = mouse.y - this.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    const maxDistance = 200;
-
-    if (distance < maxDistance && mouse.x !== -1000) {
-      const force = (maxDistance - distance) / maxDistance;
-      // Repulsion
-      this.vx -= (dx / distance) * force * 4;
-      this.vy -= (dy / distance) * force * 4;
-    }
-
-    // Spring back to base
-    this.vx += (this.baseX - this.x) * 0.1;
-    this.vy += (this.baseY - this.y) * 0.1;
-
-    // Friction
-    this.vx *= 0.8;
-    this.vy *= 0.8;
-
-    // Jitter based on scroll velocity
-    const jitter = Math.min(Math.abs(scrollVelocity) * 0.15, 8);
-    const jitterX = (Math.random() - 0.5) * jitter;
-    const jitterY = (Math.random() - 0.5) * jitter;
-
-    this.x += this.vx + jitterX;
-    this.y += this.vy + jitterY;
-  }
-
-  draw(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = this.color;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function MagneticFieldDemo() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-  const mouseRef = useRef(mousePos);
-
-  useEffect(() => {
-    mouseRef.current = mousePos;
-  }, [mousePos]);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!sectionRef.current) return;
-    const rect = sectionRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setMousePos({ x: -1000, y: -1000 });
-  };
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let particles: MagneticParticle[] = [];
-    let lastScrollY = window.scrollY;
-    let smoothedScrollVelocity = 0;
-
-    const init = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-
-      particles = [];
-      const spacing = 25;
-      const cols = Math.floor(rect.width / spacing) + 2;
-      const rows = Math.floor(rect.height / spacing) + 2;
-
-      for (let i = -1; i < cols; i++) {
-        for (let j = -1; j < rows; j++) {
-          const x = i * spacing;
-          const y = j * spacing;
-          // Mix of Dusty Grey and Liquid Lava
-          const color = Math.random() > 0.95 ? '#F56E0F' : '#878787';
-          particles.push(new MagneticParticle(x, y, color));
-        }
-      }
-    };
-
-    const animate = () => {
-      const rect = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, rect.width, rect.height);
-
-      // Calculate scroll velocity
-      const currentScrollY = window.scrollY;
-      const rawVelocity = currentScrollY - lastScrollY;
-      lastScrollY = currentScrollY;
-
-      // Smooth the velocity
-      smoothedScrollVelocity += (rawVelocity - smoothedScrollVelocity) * 0.1;
-
-      const mouse = mouseRef.current;
-
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update(mouse, smoothedScrollVelocity, rect.width, rect.height);
-        particles[i].draw(ctx);
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    init();
-    animate();
-
-    window.addEventListener('resize', init);
-
-    return () => {
-      window.removeEventListener('resize', init);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  return (
-    <section
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="py-32 relative w-full min-h-[80vh] flex flex-col items-center justify-center bg-gluon-grey brutalist-border-t overflow-hidden"
-    >
-      <div className="absolute top-12 content-gutter left-0 right-0 z-10 pointer-events-none">
-        <div className="inline-block bg-gluon-grey/80 p-4 brutalist-border backdrop-blur-sm">
-          <span className="font-mono text-liquid-lava text-sm uppercase tracking-widest mb-2 block">Interactive Demo 06</span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tighter text-snow">
-            Magnetic Field
-          </h2>
-          <p className="text-dusty-grey mt-4 max-w-sm font-mono text-sm">
-            Scroll fast to agitate the high-frequency data grid. Hover to repel the digital fabric.
-          </p>
-        </div>
-      </div>
-
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full cursor-crosshair"
-      />
-    </section>
-  );
-}
-
-function BusinessHeroSection2() {
-  return (
-    <section className="w-full bg-[#F0EFED] overflow-hidden relative">
-      {/* Dark overlay on right side with clip path */}
-      <div className="absolute inset-0 pointer-events-none z-0 bg-[#1a1a1a] hidden md:block" style={{ clipPath: 'polygon(55% 0, 95% 0, 95% 55%, 55% 55%)' }} />
-
-      {/* Black lines - visible on light background */}
-      <div className="absolute inset-0 pointer-events-none z-0 hidden md:block">
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div
-            key={i}
-            className="absolute top-0 bottom-0 border-l"
-            style={{
-              left: `${(i / 7) * 100}%`,
-              borderColor: "rgba(0, 0, 0, 0.07)",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* White lines - visible on dark background */}
-      <div className="absolute inset-0 pointer-events-none z-0 hidden md:block" style={{ clipPath: 'polygon(55% 0, 95% 0, 95% 55%, 55% 55%)' }}>
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div
-            key={i}
-            className="absolute top-0 bottom-0 border-l"
-            style={{
-              left: `${(i / 7) * 100}%`,
-              borderColor: "rgba(255, 255, 255, 0.1)",
-            }}
-          />
-        ))}
-      </div>
-      <div className="w-full content-gutter relative z-10">
-        <div className="px-[3%] flex flex-col md:flex-row items-start gap-8 md:gap-12">
-          {/* Left: headline + subtitle */}
-          <div className="flex-1 flex flex-col justify-center py-12 md:py-20 lg:py-28 pr-4 lg:pr-12" style={{ transform: 'translateY(5%)' }}>
-            <span className="font-montserrat text-xs uppercase tracking-[0.2em] text-[#FC6E20] mb-4">
-              [ WHAT WE&apos;VE BUILT ]
-            </span>
-            <h2 className="max-w-xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#1a1a1a]">
-              Websites, SaaS, and automations that actually get used<span className="text-[#FC6E20]">.</span>
-            </h2>
-            <p className="mt-6 text-[#6b6b6b] text-base md:text-lg leading-relaxed max-w-md font-montserrat">
-              For founders, professional practices, and engineering teams across South Africa — work built to be used, not just admired.
-            </p>
-          </div>
-
-          {/* Right: text on dark background */}
-          <div className="hidden md:flex flex-1 p-10 md:p-14 lg:p-20 justify-center mt-10" style={{ transform: 'translateY(10%)' }}>
-            <p className="text-[#9a9a9a] text-base md:text-lg leading-relaxed font-montserrat max-w-sm">
-              Every project starts with{" "}
-              <strong className="text-white font-semibold">understanding your goals</strong>
-              , then we build{" "}
-              <strong className="text-white font-semibold">solutions tailored</strong>{" "}
-              to help you{" "}
-              <strong className="text-white font-semibold">succeed.</strong>
-            </p>
-          </div>
-
-          {/* Mobile: full-width dark section below */}
-          <div className="md:hidden w-full bg-[#1a1a1a] p-8">
-            <p className="text-[#9a9a9a] text-base leading-relaxed font-sans">
-              Every project starts with{" "}
-              <strong className="text-white font-semibold">understanding your goals</strong>
-              , then we build{" "}
-              <strong className="text-white font-semibold">solutions tailored</strong>{" "}
-              to help you{" "}
-              <strong className="text-white font-semibold">succeed.</strong>
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}

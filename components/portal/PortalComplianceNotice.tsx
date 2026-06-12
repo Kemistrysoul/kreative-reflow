@@ -36,7 +36,7 @@ export function PortalComplianceNotice({ compact = false }: { compact?: boolean 
             </p>
           </div>
           <h2 className="mt-4 font-playfair text-3xl font-bold text-white">
-            Client data stays scoped to the project.
+            Client data stays scoped to the project<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="mt-3 font-montserrat text-sm leading-6 text-stone-400">
             The portal is designed around minimum useful collection, role-scoped access,

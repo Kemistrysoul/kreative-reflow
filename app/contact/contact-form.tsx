@@ -90,7 +90,7 @@ export function ContactForm() {
             Build brief
           </p>
           <h2 className="mt-3 font-playfair text-3xl font-bold leading-tight text-[#FBFBFB] md:text-4xl">
-            Give us the signal.
+            Give us the signal<span className="text-[#FC6E20]">.</span>
           </h2>
         </div>
         <div className="rounded-full border border-white/10 px-4 py-2 font-mono text-xs uppercase tracking-[0.12em] text-[#878787]">

@@ -69,9 +69,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Website budgeting',
     href: '/insights/website-cost-south-africa-2026',
     ctaLabel: 'Read article',
-    image:
-      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Business owner reviewing website project numbers on a laptop.',
+    image: '/images/insights/website-cost-planning.webp',
+    imageAlt: 'Business owner comparing website quotes and pricing breakdowns at a desk.',
     tags: ['Pricing', 'Planning'],
     imageShape: 'tall',
   },
@@ -85,9 +84,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Website conversion',
     href: '/insights/why-your-website-looks-good-but-doesnt-convert',
     ctaLabel: 'Read article',
-    image:
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Clean office workspace used as a conversion website reference.',
+    image: '/images/insights/website-conversion-diagnostics.webp',
+    imageAlt: 'Business owner reviewing website analytics, heatmap activity, and conversion data.',
     tags: ['Conversion', 'Websites'],
     imageShape: 'wide',
   },
@@ -101,9 +99,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Search readiness',
     href: '/insights/local-seo-johannesburg-service-businesses',
     ctaLabel: 'Read article',
-    image:
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Local street and building detail representing local search visibility.',
+    image: '/images/insights/local-seo-johannesburg-visibility.webp',
+    imageAlt: 'Local business storefront with mobile search map results and local visibility signals.',
     tags: ['SEO', 'Local'],
     imageShape: 'tall',
   },
@@ -117,9 +114,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Operations systems',
     href: '/insights/when-does-a-business-need-a-custom-dashboard-or-client-portal',
     ctaLabel: 'Read article',
-    image:
-      'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Team reviewing a dashboard and workflow system.',
+    image: '/images/insights/custom-dashboard-decision.webp',
+    imageAlt: 'Clean operations dashboard on a monitor beside a chaotic spreadsheet.',
     tags: ['Dashboards', 'Systems'],
     imageShape: 'wide',
   },
@@ -133,9 +129,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'AI search readiness',
     href: '/insights/what-ai-seo-actually-means-for-small-business',
     ctaLabel: 'Read article',
-    image:
-      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Laptop screen and digital work setup for AI search research.',
+    image: '/images/insights/ai-seo-small-business-search-visibility.webp',
+    imageAlt: 'AI search visibility dashboard with answer, citation, review, and search growth signals.',
     tags: ['AI SEO', 'Search'],
     imageShape: 'square',
   },
@@ -149,9 +144,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Conversion diagnosis',
     href: '/tools/website-lead-leak-scorecard',
     ctaLabel: 'Use tool',
-    image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Analytics dashboard showing website performance data.',
+    image: '/images/insights/tool-lead-leak-scorecard.webp',
+    imageAlt: 'Website wireframe under a magnifying glass with conversion leak markers.',
     tags: ['Tool', 'Scorecard'],
     imageShape: 'wide',
     icon: Gauge,
@@ -166,9 +160,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Local search visibility',
     href: '/tools/local-visibility-scorecard',
     ctaLabel: 'Use tool',
-    image:
-      'https://images.unsplash.com/photo-1465447142348-e9952c393450?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'City street and storefronts representing local visibility.',
+    image: '/images/insights/tool-local-visibility.webp',
+    imageAlt: 'Smartphone showing local map search results in front of a Johannesburg storefront.',
     tags: ['Tool', 'Local SEO'],
     imageShape: 'tall',
     icon: Search,
@@ -183,9 +176,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Response automation',
     href: '/tools/lead-response-leak-calculator',
     ctaLabel: 'Use tool',
-    image:
-      'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Business team responding to enquiries and workflow messages.',
+    image: '/images/insights/tool-lead-response-calculator.webp',
+    imageAlt: 'Unanswered phone beside a laptop showing a declining revenue chart and stopwatch.',
     tags: ['Tool', 'Automation'],
     imageShape: 'square',
     icon: Calculator,
@@ -200,9 +192,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Website scope decisions',
     href: '/tools/website-rebuild-vs-refresh-quiz',
     ctaLabel: 'Use tool',
-    image:
-      'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Architectural structure used as a metaphor for rebuild decisions.',
+    image: '/images/insights/tool-rebuild-vs-refresh.webp',
+    imageAlt: 'Fresh blueprint beside a marked-up webpage printout, weighing rebuild against refresh.',
     tags: ['Tool', 'Scope'],
     imageShape: 'wide',
     icon: RefreshCw,
@@ -217,9 +208,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'Project planning',
     href: '/services/consulting',
     ctaLabel: 'Related service',
-    image:
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Planning workshop with notes and strategy discussion.',
+    image: '/images/insights/consulting-systems-map.webp',
+    imageAlt: 'Hand-drawn systems flowchart with the bottleneck circled in orange.',
     tags: ['Strategy', 'Consulting'],
     imageShape: 'square',
   },
@@ -233,9 +223,8 @@ const insightNotes: InsightNote[] = [
     usefulFor: 'After-launch care',
     href: '/services/maintenance',
     ctaLabel: 'Related service',
-    image:
-      'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Quiet workspace for ongoing support and site maintenance.',
+    image: '/images/insights/maintenance-after-launch.webp',
+    imageAlt: 'Laptop showing a healthy site status panel in a quiet workspace at dusk.',
     tags: ['Support', 'Care'],
     imageShape: 'tall',
   },
@@ -520,7 +509,7 @@ function HeroSection() {
         <div className="lg:sticky lg:top-20 lg:-mt-8 lg:self-start">
           <SectionLabel>Insights</SectionLabel>
           <h1 className="mt-8 max-w-5xl font-playfair text-[clamp(3.05rem,7.4vw,7.4rem)] font-bold leading-[0.93] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-            Field notes for the systems behind the business.
+            Field notes for the systems behind the business<span className="text-[#FC6E20]">.</span>
           </h1>
           <p className="mt-8 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68 md:text-lg">
             Practical thinking on websites, dashboards, visibility, automation,
@@ -726,7 +715,7 @@ function InsightLibrary() {
       <Reveal className="max-w-4xl">
         <SectionLabel>All field notes</SectionLabel>
         <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          Browse the working library.
+          Browse the working library<span className="text-[#FC6E20]">.</span>
         </h2>
         <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/60">
           Featured notes get the larger scroll moment above. Everything else
@@ -867,7 +856,7 @@ function InsightsToolsSection() {
         <div className="md:sticky md:top-28 md:self-start">
           <SectionLabel>Diagnostic tools</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-            Run the diagnosis before the rebuild.
+            Run the diagnosis before the rebuild<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="mt-6 max-w-md font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/60">
             Articles explain the thinking. These tools turn that thinking into a
@@ -896,7 +885,7 @@ function ReadingPaths() {
         <Reveal className="max-w-4xl">
           <SectionLabel>Reading paths</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6.8vw,6.6rem)] font-bold leading-[0.94] tracking-tight">
-            Follow the topic that matches the business problem.
+            Follow the topic that matches the business problem<span className="text-[#FC6E20]">.</span>
           </h2>
         </Reveal>
 
@@ -946,7 +935,7 @@ function PublishingRhythm() {
         <Reveal>
           <SectionLabel>Publishing rhythm</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.7rem,5.8vw,5.6rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-            Every note should earn its place.
+            Every note should earn its place<span className="text-[#FC6E20]">.</span>
           </h2>
         </Reveal>
 
@@ -981,7 +970,7 @@ function FinalCta() {
             <div>
               <SectionLabel>Apply the thinking</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
-                Useful ideas are better when they become working systems.
+                Useful ideas are better when they become working systems<span className="text-[#FC6E20]">.</span>
               </h2>
               <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 If one of these notes sounds like the problem inside your

@@ -377,7 +377,7 @@ function ProjectCommandBar({
           ) : null}
           <Link
             href="/portal/onboarding"
-            className="mt-4 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-4 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#e05a15] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20]"
+            className="mt-4 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-4 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#DD6211] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20]"
           >
             <AnimatedLinkText hiddenClassName="text-stone-950">Open onboarding</AnimatedLinkText>
             <ArrowUpRight className="h-4 w-4" />
@@ -939,7 +939,7 @@ function OnboardingSection({
           </p>
           <Link
             href="/portal/onboarding"
-            className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#e05a15] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20]"
+            className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#DD6211] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20]"
           >
             Open onboarding
             <ArrowUpRight className="h-4 w-4" />

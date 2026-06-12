@@ -40,7 +40,7 @@ const faqItems = [
   {
     question: 'What is FAQ schema and do I need it?',
     answer:
-      'FAQ schema is structured data that tells search engines and AI tools "this content is a question and answer." It helps Google show rich snippets in search results and helps AI tools extract and cite your answers. Most WordPress SEO plugins (Yoast, Rank Math) add it automatically when you format content as FAQs. Yes, you need it. It\'s the single highest-ROI technical addition for AI visibility.',
+      'FAQ schema is structured data that tells search engines and AI tools "this content is a question and answer." It helps Google show rich snippets in search results and helps AI tools extract and cite your answers. Most WordPress SEO plugins (Yoast, Rank Math) add it automatically when you format content as FAQs. Yes, you need it. It is one of the best technical additions for AI visibility.',
   },
   {
     question: 'Should I focus on ChatGPT, Perplexity, or Google AI Overviews?',
@@ -141,15 +141,15 @@ export default function AiSeoSmallBusinessArticlePage() {
         eyebrow="AI SEO"
         title="What AI SEO Actually Means for Small Business"
         updatedAt="May 10, 2026"
-        image="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1800&q=85"
-        imageAlt="Laptop screen and digital work setup for AI search research."
+        image="/images/insights/ai-seo-small-business-search-visibility.webp"
+        imageAlt="AI search visibility dashboard with answer, citation, review, and search growth signals."
         signalLabel="The shift"
         signalValue="1%"
         signalBody="AI referral traffic is growing month over month. Early movers build the citation layer now."
         signalNote="Search is becoming answer-first"
       >
         <p>ChatGPT, Perplexity, Google AI Overviews, Gemini. Everyone&apos;s talking about AI search. Most of it is hype. Some of it matters.</p>
-        <p>Here&apos;s what actually changes for small businesses in South Africa.</p>
+        <p>For small businesses in South Africa, the practical change is simpler than the hype.</p>
       </ArticleHero>
 
       <ArticleBody
@@ -158,17 +158,17 @@ export default function AiSeoSmallBusinessArticlePage() {
           eyebrow: 'Pricing',
           title: 'How Much Does a Website Cost in South Africa in 2026',
           href: '/insights/website-cost-south-africa-2026',
-          image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=900&q=85',
-          imageAlt: 'Business owner reviewing website project numbers on a laptop.',
+          image: '/images/insights/website-cost-planning.webp',
+          imageAlt: 'Business owner comparing website quotes and pricing breakdowns at a desk.',
         }}
       >
-          <ArticleSection id="google-is-not-dead-but-it-is-not-alone" title="Google Is Not Dead But It Is Not Alone">
+          <ArticleSection id="google-is-not-dead-but-it-is-not-alone" title="Google is not dead, but it is not alone">
             <p>Google still drives 345 times more website visits than ChatGPT, Perplexity, and Gemini combined. If you&apos;re ignoring traditional SEO because &quot;AI is the future,&quot; you&apos;re making a expensive mistake.</p>
             <p>But AI referral traffic is growing at 1% month over month. That compounds. Traffic doubles roughly every quarter. In two years, AI search goes from 1% of your traffic to 15% to 20%. Early movers win.</p>
             <p>The smart play is not choosing between Google and AI. It&apos;s building for both.</p>
           </ArticleSection>
 
-          <ArticleSection id="how-ai-search-is-different" title="How AI Search Is Different">
+          <ArticleSection id="how-ai-search-is-different" title="How AI search is different">
             <p>When someone Googles &quot;best accountant in Johannesburg,&quot; they get ten blue links to click through. When someone asks ChatGPT the same question, they get a paragraph naming two or three firms. The rest don&apos;t exist.</p>
             <p>There&apos;s no &quot;page two&quot; in AI search. You&apos;re either in the answer or you&apos;re not. That&apos;s the binary reality.</p>
             <p>
@@ -189,10 +189,10 @@ export default function AiSeoSmallBusinessArticlePage() {
             <p>
               <strong>Microsoft Copilot</strong>{' '}uses Bing&apos;s index. Submit your site via IndexNow for instant visibility.
             </p>
-            <p>Here&apos;s the counterintuitive part: optimizing for one AI platform doesn&apos;t optimize for another. Domain overlap between ChatGPT and Perplexity is only 11%. You need different tactics for different tools.</p>
+            <p>The awkward part: optimizing for one AI platform doesn&apos;t optimize for another. Domain overlap between ChatGPT and Perplexity is only 11%. You need different tactics for different tools.</p>
           </ArticleSection>
 
-          <ArticleSection id="what-this-means-for-your-business" title="What This Means for Your Business">
+          <ArticleSection id="what-this-means-for-your-business" title="What this means for your business">
             <p>
               <strong>The zero-click problem is real.</strong>{' '}58.5% of Google searches now end without a click. Google AI Overviews answer questions directly above the search results. If you rank number one for &quot;plumber Sandton&quot; but Google&apos;s AI Overview answers the question without anyone clicking your link, your traffic drops 58%.
             </p>
@@ -202,18 +202,18 @@ export default function AiSeoSmallBusinessArticlePage() {
             </p>
             <p>When ChatGPT recommends a business, it&apos;s drawing from indexed content across the web. Your website matters. But so do mentions of your brand on Hellopeter, BusinessTech, Daily Maverick, Reddit, LinkedIn, YouTube.</p>
             <p>
-              <strong>FAQ content is your highest-ROI tactic.</strong>{' '}One study found that adding FAQ sections boosted AI visibility by up to 40%. This works because it mirrors exactly how people ask AI tools questions.
+              <strong>FAQ content gives you a strong return.</strong>{' '}One study found that adding FAQ sections boosted AI visibility by up to 40%. This works because it mirrors exactly how people ask AI tools questions.
             </p>
             <p>Someone asks ChatGPT &quot;how much does company registration cost in South Africa.&quot; AI tools look for content that directly answers that exact question. A service page that buries the answer in paragraph seven loses. A page with a clear FAQ that states &quot;Q: How much does company registration cost in South Africa? A: [clear answer]&quot; wins.</p>
             <p>
-              <strong>Mobile speed is non-negotiable.</strong>{' '}Over 90% of South African internet users access the web via mobile. A slow mobile site is invisible to both Google and AI crawlers. Core Web Vitals aren&apos;t just a Google ranking factor. They&apos;re a trust signal for AI indexing.
+              <strong>Mobile speed matters.</strong>{' '}Over 90% of South African internet users access the web via mobile. A slow mobile site is invisible to both Google and AI crawlers. Core Web Vitals aren&apos;t just a Google ranking factor. They&apos;re a trust signal for AI indexing.
             </p>
           </ArticleSection>
 
-          <ArticleSection id="the-quick-wins" title="The Quick Wins">
+          <ArticleSection id="the-quick-wins" title="The quick wins">
             <p>These are the tactics that deliver results in weeks, not months.</p>
             <p>
-              <strong>Add FAQ sections to your key pages.</strong>{' '}Use question-format headings. &quot;How long does it take to...?&quot; &quot;What is the cost of...?&quot; Answer in the first sentence. Keep answers to two to four sentences for the core response. Add FAQ schema markup.
+              <strong>Add FAQ sections to your main pages.</strong>{' '}Use question-format headings. &quot;How long does it take to...?&quot; &quot;What is the cost of...?&quot; Answer in the first sentence. Keep answers to two to four sentences for the core response. Add FAQ schema markup.
             </p>
             <p>Example for a Johannesburg accountant:</p>
             <CodeBlock>{`Q: How much does monthly bookkeeping cost for a small business in South Africa?
@@ -243,10 +243,10 @@ Allow: /`}</CodeBlock>
             <p>Identify the three to five editorial sites AI tools cite most in your industry. For South African service businesses: Hellopeter, BusinessTech, Daily Maverick, regional news sites, industry association directories. Then actively pursue inclusion. Ask happy clients to review you on platforms that matter. Reach out to publishers of relevant roundup articles. Contribute expert quotes to journalists.</p>
           </ArticleSection>
 
-          <ArticleSection id="what-does-not-work" title="What Does Not Work">
+          <ArticleSection id="what-does-not-work" title="What does not work">
             <p>These are the tactics businesses waste money on.</p>
             <p>
-              <strong>Paying for AI visibility tools immediately.</strong>{' '}Most small businesses don&apos;t need Semrush or Ahrefs for AI tracking yet. Free tools and manual monitoring work for the first six to twelve months. Ask ChatGPT and Perplexity your key queries once a month. Check Google Search Console for AI Overview impressions. That&apos;s enough.
+              <strong>Paying for AI visibility tools immediately.</strong>{' '}Most small businesses don&apos;t need Semrush or Ahrefs for AI tracking yet. Free tools and manual monitoring work for the first six to twelve months. Ask ChatGPT and Perplexity your main queries once a month. Check Google Search Console for AI Overview impressions. That&apos;s enough.
             </p>
             <p>
               <strong>Schema markup alone.</strong>{' '}Schema helps. But schema without strong content underneath does nothing. LLM systems prioritize relevance, topical authority, and clarity over whether content has structured data. Add schema to good content. Don&apos;t add schema to weak content and expect it to rank.
@@ -255,14 +255,14 @@ Allow: /`}</CodeBlock>
               <strong>Optimizing for one AI platform and assuming it transfers.</strong>{' '}ChatGPT requires different tactics than Perplexity. Success on one doesn&apos;t predict success on another. Build for multiple platforms or accept you&apos;ll only show up in some.
             </p>
             <p>
-              <strong>Keyword stuffing.</strong>{' '}It never worked well. It definitely doesn&apos;t work for AI. Create authoritative, context-rich content that AI can parse and trust. Answer questions directly. Use natural language. Be specific.
+              <strong>Keyword stuffing.</strong>{' '}It never worked well. It definitely doesn&apos;t work for AI. Create specific content that AI can parse and trust. Answer questions directly. Use natural language. Be specific.
             </p>
             <p>
               <strong>Blocking AI crawlers while trying to get cited.</strong>{' '}Several businesses discovered they had old robots.txt rules blocking GPTBot or OAI-SearchBot. They wondered why ChatGPT never cited them. The crawler couldn&apos;t read their site. Check your robots.txt today.
             </p>
           </ArticleSection>
 
-          <ArticleSection id="the-south-african-reality" title="The South African Reality">
+          <ArticleSection id="the-south-african-reality" title="The South African reality">
             <p>South Africa ranks in the top ten globally for ChatGPT usage. 83% market share among local AI chatbots. South African users are adopting AI search faster than most countries.</p>
             <p>That creates risk if you don&apos;t adapt. And opportunity if you move early.</p>
             <p>
@@ -276,7 +276,7 @@ Allow: /`}</CodeBlock>
             </p>
           </ArticleSection>
 
-          <ArticleSection id="what-to-do-first" title="What to Do First">
+          <ArticleSection id="what-to-do-first" title="What to do first">
             <p>
               <strong>Week 1: Audit and fix the basics</strong>
             </p>
@@ -316,7 +316,7 @@ Allow: /`}</CodeBlock>
             <BulletList
               items={[
                 'Check Google Search Console for AI Overview impressions.',
-                'Manually query ChatGPT and Perplexity with your key search terms once a month.',
+                'Manually query ChatGPT and Perplexity with your main search terms once a month.',
                 'Track referrers in Google Analytics. Look for chatgpt.com, gemini.google.com, bing.com/chat.',
                 "Double down on what works. Cut what doesn't.",
               ]}
@@ -340,7 +340,7 @@ Allow: /`}</CodeBlock>
 
           <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
             <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Related Resources
+              Related resources
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Want help optimizing your website for AI search?{' '}
@@ -353,7 +353,7 @@ Allow: /`}</CodeBlock>
 
           <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
             <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              About the Author
+              About the author
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}

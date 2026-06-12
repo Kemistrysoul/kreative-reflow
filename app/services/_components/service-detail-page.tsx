@@ -112,10 +112,18 @@ const featureCardStyles = [
 ];
 
 const processCardStyles = [
-  'bg-[#151419] text-[#FBFBFB]',
-  'bg-[#FC6E20] text-[#060808]',
-  'bg-[#FAE18F] text-[#060808]',
-  'bg-[#3D7A7A] text-[#FBFBFB]',
+  {
+    card: 'hover:border-[#151419]/35',
+  },
+  {
+    card: 'hover:border-[#FC6E20]/45',
+  },
+  {
+    card: 'hover:border-[#FAE18F]/80',
+  },
+  {
+    card: 'hover:border-[#3D7A7A]/55',
+  },
 ];
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -281,7 +289,7 @@ export function ServiceDetailPage({
         <Reveal className="max-w-4xl lg:order-2 lg:ml-auto lg:max-w-[34rem] lg:pt-12" direction="right">
           <SectionLabel>Proof signals</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.4rem,5.2vw,5.4rem)] font-bold leading-[0.96] tracking-tight">
-            Evidence without pretending the results are already approved.
+            Evidence without pretending the results are already approved<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="mt-5 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/62 dark:text-[#FBFBFB]/62">
             These are the kinds of practical signals this service can create. Strong public claims still need real client approval before they become case-study copy.
@@ -293,7 +301,7 @@ export function ServiceDetailPage({
         <Reveal className="max-w-4xl" direction="up">
           <SectionLabel>When this is the right move</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.6rem,5.8vw,6rem)] font-bold leading-[0.95] tracking-tight">
-            The symptoms are usually visible before the scope is.
+            The symptoms are usually visible before the scope is<span className="text-[#FC6E20]">.</span>
           </h2>
         </Reveal>
 
@@ -345,7 +353,7 @@ export function ServiceDetailPage({
             <Reveal className="lg:order-2 lg:sticky lg:top-28 lg:ml-auto lg:max-w-[32rem] lg:text-right" direction="right">
               <SectionLabel>What we build into it</SectionLabel>
               <h2 className="mt-5 font-playfair text-[clamp(2.5rem,5.5vw,5.8rem)] font-bold leading-[0.95] tracking-tight">
-                Practical pieces, not vague deliverables.
+                Practical pieces, not vague deliverables<span className="text-[#FC6E20]">.</span>
               </h2>
               <p className="mt-6 font-montserrat text-base leading-8 text-white/58">
                 Every service is scoped around a usable outcome, clear ownership,
@@ -360,33 +368,37 @@ export function ServiceDetailPage({
         <Reveal className="max-w-4xl" direction="left">
           <SectionLabel>How the work moves</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.5rem,5.4vw,5.6rem)] font-bold leading-[0.96] tracking-tight">
-            A clear rhythm from messy idea to useful system.
+            A clear rhythm from messy idea to useful system<span className="text-[#FC6E20]">.</span>
           </h2>
         </Reveal>
 
         <div className="mt-12 grid gap-4 lg:grid-cols-4">
-          {process.map((step, index) => (
-            <Reveal
-              key={step.num}
-              delay={index * 0.06}
-              direction={index % 2 === 0 ? 'up' : 'right'}
-            >
-              <article
-                className={`relative flex min-h-[24rem] flex-col justify-between overflow-hidden rounded-[2.25rem] p-6 shadow-[0_24px_60px_rgba(21,20,25,0.12)] transition-transform duration-300 hover:-translate-y-2 md:p-7 ${processCardStyles[index % processCardStyles.length]}`}
+          {process.map((step, index) => {
+            const style = processCardStyles[index % processCardStyles.length];
+
+            return (
+              <Reveal
+                key={step.num}
+                delay={index * 0.06}
+                direction={index % 2 === 0 ? 'up' : 'right'}
               >
-                <div className="absolute right-0 top-0 h-28 w-28 rounded-bl-full border-b border-l border-current/12" />
-                <span className="font-mono text-xs uppercase tracking-[0.22em] opacity-[0.62]">
-                  Step {step.num}
-                </span>
-                <div>
-                  <h3 className="font-playfair text-4xl font-bold leading-none tracking-tight">{step.title}</h3>
-                  <p className="mt-6 border-t border-current/12 pt-5 font-montserrat text-sm leading-7 opacity-[0.68]">
-                  {step.description}
-                  </p>
-                </div>
-              </article>
-            </Reveal>
-          ))}
+                <article
+                  className={`group relative flex min-h-[24rem] flex-col justify-between overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-transparent p-6 text-[#151419] shadow-[0_24px_60px_rgba(21,20,25,0.08)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_22px_54px_rgba(21,20,25,0.12)] md:p-7 ${style.card}`}
+                >
+                  <div className="absolute right-0 top-0 h-28 w-28 rounded-bl-full border-b border-l border-current/12" />
+                  <span className="font-mono text-xs uppercase tracking-[0.22em] opacity-[0.62]">
+                    Step {step.num}
+                  </span>
+                  <div>
+                    <h3 className="font-playfair text-4xl font-bold leading-none tracking-tight">{step.title}</h3>
+                    <p className="mt-6 border-t border-current/12 pt-5 font-montserrat text-sm leading-7 opacity-[0.68]">
+                      {step.description}
+                    </p>
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 
@@ -420,7 +432,7 @@ export function ServiceDetailPage({
         <Reveal className="lg:order-2 lg:ml-auto lg:max-w-[34rem] lg:pt-8 lg:text-right" direction="right">
           <SectionLabel>Connected services</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.3rem,4.8vw,5rem)] font-bold leading-[0.98] tracking-tight">
-            This can stand alone or connect into a bigger system.
+            This can stand alone or connect into a bigger system<span className="text-[#FC6E20]">.</span>
           </h2>
         </Reveal>
       </section>
@@ -430,7 +442,7 @@ export function ServiceDetailPage({
           <Reveal direction="left">
             <SectionLabel>Questions clients ask</SectionLabel>
             <h2 className="mt-5 font-playfair text-[clamp(2.3rem,4.8vw,5rem)] font-bold leading-[0.98] tracking-tight">
-              Before you book, these are worth knowing.
+              Before you book, these are worth knowing<span className="text-[#FC6E20]">.</span>
             </h2>
           </Reveal>
           <div className="grid gap-4 rounded-[1.35rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-5 shadow-[0_22px_54px_rgba(21,20,25,0.08)] dark:border-[#FBFBFB]/10 dark:bg-white/[0.035] md:p-7">

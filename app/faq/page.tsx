@@ -79,7 +79,7 @@ export default function FAQPage() {
           No fog.
           <span className="sr-only"> </span>
           <br />
-          Just useful answers.
+          Just useful answers<span className="text-[#FC6E20]">.</span>
         </h1>
       </section>
 
@@ -121,7 +121,7 @@ export default function FAQPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center rounded-full bg-[#FC6E20] px-7 py-3.5 font-montserrat font-medium text-stone-950 hover:bg-[#e05a15] transition-colors"
+            className="inline-flex items-center justify-center rounded-full bg-[#FC6E20] px-7 py-3.5 font-montserrat font-medium text-stone-950 hover:bg-[#DD6211] transition-colors"
           >
             <AnimatedLinkText hiddenClassName="text-stone-950">Ask a question</AnimatedLinkText>
           </Link>

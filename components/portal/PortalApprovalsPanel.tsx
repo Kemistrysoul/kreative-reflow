@@ -250,7 +250,7 @@ export function PortalApprovalsPanel({
                         type="button"
                         onClick={() => void submitDecision(deliverable, 'approved')}
                         disabled={pending}
-                        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-4 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#e05a15] disabled:cursor-not-allowed disabled:opacity-60"
+                        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-4 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#DD6211] disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
                         Approve

@@ -50,7 +50,7 @@ export function PortalRouteError({
               <button
                 type="button"
                 onClick={reset}
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-sm font-semibold text-stone-950 transition hover:bg-[#e05a15] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20]"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-sm font-semibold text-stone-950 transition hover:bg-[#DD6211] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20]"
               >
                 <RefreshCw className="h-4 w-4" />
                 Retry

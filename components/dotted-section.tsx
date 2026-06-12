@@ -7,27 +7,27 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "mo
 const ITEMS = [
   {
     name: "SERVICE BUSINESSES",
-    desc: "If your business runs on relationships and reputation, your website should do the same. We build lead-generating, trust-building digital presences for professional service firms."
+    desc: "When trust drives the sale, your website has to make the next step feel obvious. We build clear service pages, enquiry paths, and follow-up systems for professional firms."
   },
   {
     name: "ENGINEERING FIRMS",
-    desc: "Technical credibility deserves a technical presence. We build project portfolios, tender-ready sites, and client dashboards for engineering businesses."
+    desc: "Your clients need to see the work, the method, and the proof. We build project portfolios, tender-ready sites, and client dashboards for engineering teams."
   },
   {
     name: "MEDICAL PRACTICES",
-    desc: "From specialist surgeries to dental clinics, we build patient-facing websites and practice management systems that reflect the precision of your work."
+    desc: "Patients need clarity before they book. We build practice websites and patient-facing systems that make services, trust, and next steps easier to understand."
   },
   {
     name: "SAAS FOUNDERS",
-    desc: "From MVP to market. We design and build SaaS products, marketing sites, and onboarding flows that turn signups into paying users."
+    desc: "Early product work gets messy fast. We help shape the site, app flow, and onboarding so people understand the product and know what to do next."
   },
   {
     name: "RETAIL & E-COMMERCE",
-    desc: "Product-first design that converts browsers into buyers. We build fast, beautiful online stores and product experiences that sell."
+    desc: "People should be able to find the right product, trust the store, and check out without friction. We build fast online shops with cleaner product paths."
   },
   {
     name: "LEGAL & PROFESSIONAL",
-    desc: "Authority and trust are your competitive advantage. We build digital presences that communicate both, instantly."
+    desc: "People come to you with serious questions. We build websites that explain your services clearly and help the right clients reach out with confidence."
   },
 ];
 
@@ -169,7 +169,7 @@ export default function DottedSection() {
             WE BUILD FOR INDUSTRIES<br className="hidden md:block" /> THAT DEMAND PRECISION<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="text-base md:text-lg text-[#6b6b6b] dark:text-snow/60 max-w-2xl mx-auto font-sans leading-relaxed">
-            From medical practices to engineering firms, from SaaS founders to service businesses — we build digital infrastructure that matches the complexity of the work you do.
+            We work with medical practices, engineering firms, SaaS founders, and service businesses that need websites and systems built around how their teams actually work.
           </p>
         </motion.div>
       </motion.div>
@@ -193,10 +193,10 @@ export default function DottedSection() {
             >
               {/* Focal Brackets */}
               <div className={`absolute -inset-x-8 -inset-y-4 transition-all duration-500 sm:-inset-x-12 ${showDetails ? 'opacity-100' : 'opacity-0'}`}>
-                <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#e05a15]" />
-                <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#e05a15]" />
-                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#e05a15]" />
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#e05a15]" />
+                <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#DD6211]" />
+                <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#DD6211]" />
+                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#DD6211]" />
+                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#DD6211]" />
               </div>
 
               <h3 className="industry-heading font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold uppercase leading-[0.94] tracking-tight text-dark-void dark:text-snow selection:bg-none transition-opacity duration-150 ease-out">

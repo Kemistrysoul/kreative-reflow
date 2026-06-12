@@ -83,12 +83,13 @@ function MagicFooterWord({
   const isIntro = index < 6;
   const hasTerminalPeriod = children.endsWith('.');
   const word = hasTerminalPeriod ? children.slice(0, -1) : children;
-  const renderedWord = (
+  const accentWord = (
     <>
       {word}
       {hasTerminalPeriod ? <span className="text-[#FC6E20]">.</span> : null}
     </>
   );
+  const ghostWord = hasTerminalPeriod ? `${word}.` : word;
 
   return (
     <span
@@ -96,9 +97,9 @@ function MagicFooterWord({
       className={`relative mr-[0.18em] inline-block ${isIntro ? 'text-white/42' : 'text-white'}`}
     >
       <span aria-hidden="true" className="absolute inset-0 opacity-20">
-        {renderedWord}
+        {ghostWord}
       </span>
-      <motion.span style={{ opacity }}>{renderedWord}</motion.span>
+      <motion.span style={{ opacity }}>{accentWord}</motion.span>
     </span>
   );
 }

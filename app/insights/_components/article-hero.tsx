@@ -47,7 +47,7 @@ export function ArticleHero({
       />
 
       <div className="content-gutter relative z-10 grid min-h-[100svh] items-end pb-12 pt-28 md:pb-16 lg:items-center lg:pt-32">
-        <div className="grid w-full gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(18rem,0.42fr)] lg:items-end">
+        <div className="grid w-full gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,clamp(24rem,32vw,34rem))] lg:items-end">
           <div className="max-w-5xl">
             <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.28em] text-[#FC6E20]">
               [ {eyebrow} ]

@@ -28,28 +28,28 @@ export const metadata: Metadata = pageMetadata({
 
 const websiteTypes = [
   {
-    title: 'Basic Business Website: R15,000 to R30,000',
+    title: 'Basic business website: R15,000 to R30,000',
     paragraphs: [
       'Five to ten pages. Custom design. Mobile works. SEO set up. Contact forms don\'t break. Loads fast. This is entry price for businesses serious about leads or trust.',
       'Budget agencies quote R5,000 to R10,000 for similar page counts. Those are template builds with minimal customization. You get what the template allows, not what your business needs.',
     ],
   },
   {
-    title: 'E-Commerce Store: R25,000 to R80,000',
+    title: 'E-commerce store: R25,000 to R80,000',
     paragraphs: [
       "Product catalogue. Cart. Payment gateway (PayFast, Yoco, Peach Payments). Shipping calculator. Order management. Price depends on how many products and what systems you're connecting.",
       'Basic WooCommerce with 10 to 20 products starts at R15,000. Functional e-commerce with real payment and shipping runs R30,000 to R60,000. Enterprise stores with hundreds of products, filtering, custom integrations go R80,000 to R150,000.',
     ],
   },
   {
-    title: 'Custom Web Application or Dashboard: R50,000 to R200,000',
+    title: 'Custom web application or dashboard: R50,000 to R200,000',
     paragraphs: [
       'Client portals. Booking systems. Internal dashboards. CRM tools. Anything needing user logins, secure data, custom functionality moves into web app territory. Starts at R50,000 for simple tools. Complex systems exceed R200,000.',
       'Medical practices needing patient portals, engineering firms needing project tracking, service businesses needing booking and payment all fall here.',
     ],
   },
   {
-    title: 'SaaS Product or MVP: R80,000 to R250,000',
+    title: 'SaaS product or MVP: R80,000 to R250,000',
     paragraphs: [
       'Building software from scratch. Something users subscribe to. Something that solves a problem at scale. Minimum viable product to test an idea starts around R80,000. Production-ready SaaS costs R200,000 to R500,000. Complex multi-tenant systems exceed R1 million.',
     ],
@@ -177,8 +177,8 @@ export default function WebsiteCostArticlePage() {
         eyebrow="Pricing guide"
         title="How Much Does a Website Cost in South Africa in 2026"
         updatedAt="May 10, 2026"
-        image="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1800&q=85"
-        imageAlt="Business owner reviewing website project numbers on a laptop."
+        image="/images/insights/website-cost-planning.webp"
+        imageAlt="Business owner comparing website quotes and pricing breakdowns at a desk."
         signalLabel="The short answer"
         signalValue="R15k - R30k"
         signalBody="A professional small business website in South Africa costs between R15,000 and R30,000 in 2026."
@@ -196,13 +196,13 @@ export default function WebsiteCostArticlePage() {
           eyebrow: 'Conversion',
           title: "Why Your Website Looks Good But Doesn't Convert",
           href: '/insights/why-your-website-looks-good-but-doesnt-convert',
-          image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85',
-          imageAlt: 'Clean office workspace used as a conversion website reference.',
+          image: '/images/insights/website-conversion-diagnostics.webp',
+          imageAlt: 'Business owner reviewing website analytics, heatmap activity, and conversion data.',
         }}
       >
-          <ArticleSection id="the-short-answer" title="The Short Answer">
+          <ArticleSection id="the-short-answer" title="The short answer">
             <p>
-              A professional small business website in South Africa costs between R15,000 and R30,000 in 2026. That&apos;s for custom design, five to ten pages, mobile responsive, SEO basics, contact forms. <em>Built to convert visitors, not just look good.</em>
+              A professional small business website in South Africa costs between R15,000 and R30,000 in 2026. That&apos;s for custom design, five to ten pages, mobile responsive, SEO basics, contact forms. <em>Built for conversion rather than decoration.</em>
             </p>
             <p>
               You&apos;ll find cheaper. Some agencies advertise R3,000 sites, even R800. You&apos;ll find more expensive too. Cape Town premium agencies charge R50,000 to R80,000 for similar scope. The difference isn&apos;t design quality alone. It&apos;s what happens after someone lands on your site.
@@ -214,7 +214,7 @@ export default function WebsiteCostArticlePage() {
 
           <ArticleSection
             id="what-different-types-of-websites-actually-cost"
-            title="What Different Types of Websites Actually Cost"
+            title="What different types of websites actually cost"
           >
             <p>Not all websites are websites. Here&apos;s what you pay based on 2026 South African market rates.</p>
             <div className="grid gap-4 md:grid-cols-2">
@@ -224,25 +224,25 @@ export default function WebsiteCostArticlePage() {
             </div>
           </ArticleSection>
 
-          <ArticleSection id="what-changes-the-price" title="What Changes the Price">
+          <ArticleSection id="what-changes-the-price" title="What changes the price">
             <p>Two websites can look identical but cost R10,000 versus R40,000. Here&apos;s the gap.</p>
 
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Design Complexity
+              Design complexity
             </h3>
             <p>
               Template with your logo and colours: R5,000 to R10,000. Custom design from scratch (wireframes, unique layouts, brand-specific elements): R15,000 to R30,000. Animations, interactive elements, completely unique visual identity add R10,000 to R20,000.
             </p>
 
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Number of Pages
+              Number of pages
             </h3>
             <p>
               Most quotes assume five to ten pages. Every page beyond that costs R500 to R1,500 depending on agency. Twenty pages with individual service pages, team bios, detailed case studies cost more than five-page brochure sites.
             </p>
 
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Features and Functionality
+              Features and functionality
             </h3>
             <p>Every feature takes time to design, build, test. Common features on top of base website:</p>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -257,34 +257,34 @@ export default function WebsiteCostArticlePage() {
             </div>
 
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Content Creation
+              Content creation
             </h3>
             <p>
               Most quotes assume you provide content: words, images, structure. Need someone to write your website copy? Add R3,000 to R8,000 for five pages. Professional photography adds R3,000 to R15,000. Video production adds R10,000 to R50,000.
             </p>
 
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              SEO Setup
+              SEO setup
             </h3>
             <p>
               Basic SEO (meta tags, clean URLs, sitemap) usually included. Comprehensive SEO (keyword research, competitor analysis, technical optimization, content strategy) costs R5,000 to R15,000 separate.
             </p>
           </ArticleSection>
 
-          <ArticleSection id="how-agencies-price-projects" title="How Agencies Price Projects">
+          <ArticleSection id="how-agencies-price-projects" title="How agencies price projects">
             <p>Most South African developers use one of three models.</p>
             <div className="grid gap-4 md:grid-cols-3">
               {[
                 {
-                  title: 'Fixed Project Price',
+                  title: 'Fixed project price',
                   body: 'Most common. Agree on scope, agency quotes total, you pay in stages. Typically 50% deposit and 50% completion, or 30% deposit, 30% design approval, 40% launch. Works for standard websites and e-commerce where scope is clear upfront.',
                 },
                 {
-                  title: 'Hourly Rates',
+                  title: 'Hourly rates',
                   body: "Used for custom development where full scope isn't known. Freelancers charge R200 to R500 per hour. Mid-level developers R400 to R700. Senior developers and agencies R700 to R1,200. Hourly billing gives flexibility to change things. Final cost is unpredictable.",
                 },
                 {
-                  title: 'Monthly Subscription',
+                  title: 'Monthly subscription',
                   body: 'Some agencies offer monthly packages. Pay R500 to R1,500 per month, site stays on their platform. Lowers upfront cost but you never own the code. Stop paying, site goes offline. Works for very small businesses with limited budgets. Expensive over time. Locks you to one provider.',
                 },
               ].map((item) => (
@@ -301,7 +301,7 @@ export default function WebsiteCostArticlePage() {
             </div>
           </ArticleSection>
 
-          <ArticleSection id="what-youll-pay-after-launch" title="What You'll Pay After Launch">
+          <ArticleSection id="what-youll-pay-after-launch" title="What you'll pay after launch">
             <p>Build cost is the beginning. Every website has ongoing costs.</p>
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
               Hosting
@@ -310,7 +310,7 @@ export default function WebsiteCostArticlePage() {
               Shared hosting: R80 to R300 per month. Cloud hosting for higher-traffic sites: R500 to R2,500 per month. Most agencies include hosting in maintenance packages.
             </p>
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Maintenance and Updates
+              Maintenance and updates
             </h3>
             <p>
               Security patches. Plugin updates. Performance monitoring. Backup management. Basic maintenance: R500 to R1,500 per month. E-commerce sites with payment processing and customer data need more active management: R1,500 to R5,000 per month.
@@ -322,14 +322,14 @@ export default function WebsiteCostArticlePage() {
               Domain name renewal: R80 to R150 per year. SSL certificate (padlock in browser): R0 to R1,000 per year. Many hosting providers include it free.
             </p>
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              SEO and Marketing
+              SEO and marketing
             </h3>
             <p>
               Website with no traffic is a digital business card nobody sees. Budget R2,000 to R10,000 per month for ongoing SEO, Google Ads, or content marketing.
             </p>
           </ArticleSection>
 
-          <ArticleSection id="the-real-cost-of-going-cheap" title="The Real Cost of Going Cheap">
+          <ArticleSection id="the-real-cost-of-going-cheap" title="The real cost of going cheap">
             <p>Websites for R800, R1,500, R3,000 exist. Almost always bad deals. Here&apos;s what you compromise.</p>
             <p>
               Template that looks like a hundred other sites. Slow loading because code is bloated and images aren&apos;t optimized. Poor SEO because nobody spent time on technical foundation. No ongoing support. Something breaks, you&apos;re alone.
@@ -344,27 +344,27 @@ export default function WebsiteCostArticlePage() {
             </p>
           </ArticleSection>
 
-          <ArticleSection id="what-to-watch-out-for" title="What to Watch Out For">
+          <ArticleSection id="what-to-watch-out-for" title="What to watch out for">
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Hidden Costs
+              Hidden costs
             </h3>
             <p>
               Some agencies quote R10,000 for build, don&apos;t mention hosting costs R300 per month, premium plugins cost R2,000 per year, content updates after handoff cost R500 per hour. Always ask for itemized quotes breaking down design, development, content, SEO, hosting, ongoing maintenance separately.
             </p>
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Platform Lock-In
+              Platform lock-in
             </h3>
             <p>
               Agencies building your site on proprietary platforms or offering monthly subscriptions often don&apos;t give code ownership. Stop paying or want to move providers, you lose the site entirely. Insist on open-source platforms like WordPress unless there&apos;s compelling reason otherwise.
             </p>
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              No Discovery Process
+              No discovery process
             </h3>
             <p>
               Agencies quoting price in first email without asking about your business, audience, goals are selling templates, not solutions. Proper agencies start with discovery call or detailed brief before quoting. Not asking questions means not building custom.
             </p>
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Vague Timelines
+              Vague timelines
             </h3>
             <p>
               &quot;Four to six weeks&quot; sounds reasonable until six becomes twelve. Ask for clear timeline with milestones. Standard five-page website should take two to four weeks from kickoff to launch if content and feedback provided on time.
@@ -373,30 +373,30 @@ export default function WebsiteCostArticlePage() {
 
           <ArticleSection
             id="which-agencies-are-transparent-about-pricing"
-            title="Which Agencies Are Transparent About Pricing"
+            title="Which agencies are transparent about pricing"
           >
             <p>Some publish pricing publicly. Others require quotes for everything. What we found across South African agencies in 2026.</p>
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Highly Transparent
+              Highly transparent
             </h3>
             <p>
               New Perspective Design publishes full package pricing: R5,590 for five-page business site, R8,590 for lead generation, R16,900 for enterprise. Growth Pulse Media publishes detailed guides: R15,000 to R50,000 for custom WordPress, R25,000 to R80,000 for e-commerce.
             </p>
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Moderately Transparent
+              Moderately transparent
             </h3>
             <p>
               Gridweb in Cape Town publishes ranges: R55,000 to R80,000 for professional business sites, R90,000 to R120,000 for e-commerce. Custom Coding lists R8,000 to R25,000 for brochure sites, R30,000 to R100,000 for e-commerce.
             </p>
             <h3 className="font-playfair text-3xl font-bold tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Less Transparent
+              Less transparent
             </h3>
             <p>
               Most premium and enterprise-focused agencies don&apos;t publish pricing. Require discovery call and custom quote. <em>Not necessarily a red flag.</em>{' '}Complex projects genuinely need scoping. But you can&apos;t compare prices without contacting multiple agencies.
             </p>
           </ArticleSection>
 
-          <ArticleSection id="what-you-should-budget" title="What You Should Budget">
+          <ArticleSection id="what-you-should-budget" title="What you should budget">
             <p>Small business, medical practice, service provider, professional services firm wanting a website that works for your business. What to budget in 2026.</p>
             <div className="grid gap-4 md:grid-cols-3">
               {[
@@ -438,7 +438,7 @@ export default function WebsiteCostArticlePage() {
 
           <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
             <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Related Resources
+              Related resources
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               <Link href="/tools/website-rebuild-vs-refresh-quiz" className="underline decoration-[#FC6E20] underline-offset-4">
@@ -450,7 +450,7 @@ export default function WebsiteCostArticlePage() {
 
           <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
             <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              About the Author
+              About the author
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}

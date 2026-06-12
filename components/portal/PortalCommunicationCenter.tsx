@@ -403,7 +403,7 @@ export function PortalCommunicationCenter({
               <p className="font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#FC6E20]">
                 Meeting request
               </p>
-              <h3 className="mt-2 font-playfair text-3xl font-bold text-white">Ask for a focused meeting.</h3>
+              <h3 className="mt-2 font-playfair text-3xl font-bold text-white">Ask for a focused meeting<span className="text-[#FC6E20]">.</span></h3>
             </div>
             <CalendarClock className="h-6 w-6 text-[#FC6E20]" />
           </div>
@@ -463,7 +463,7 @@ export function PortalCommunicationCenter({
               type="button"
               onClick={() => void submitMeeting()}
               disabled={!canSubmit || savingMeeting}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#e05a15] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#DD6211] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {savingMeeting ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowUpRight className="h-4 w-4" />}
               Request meeting
@@ -477,7 +477,7 @@ export function PortalCommunicationCenter({
               <p className="font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#FC6E20]">
                 Message thread
               </p>
-              <h3 className="mt-2 font-playfair text-3xl font-bold text-white">Post a project message.</h3>
+              <h3 className="mt-2 font-playfair text-3xl font-bold text-white">Post a project message<span className="text-[#FC6E20]">.</span></h3>
             </div>
             <MessagesSquare className="h-6 w-6 text-[#FC6E20]" />
           </div>
@@ -553,7 +553,7 @@ export function PortalCommunicationCenter({
               type="button"
               onClick={() => void submitMessage()}
               disabled={!canSubmit || savingMessage}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#e05a15] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#DD6211] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {savingMessage ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowUpRight className="h-4 w-4" />}
               Post message

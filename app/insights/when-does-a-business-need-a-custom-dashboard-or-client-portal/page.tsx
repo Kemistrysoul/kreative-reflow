@@ -133,8 +133,8 @@ export default function CustomDashboardClientPortalArticlePage() {
         eyebrow="Dashboards and portals"
         title="When Does a Business Need a Custom Dashboard or Client Portal"
         updatedAt="May 10, 2026"
-        image="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1800&q=85"
-        imageAlt="Team reviewing a dashboard and workflow system."
+        image="/images/insights/custom-dashboard-decision.webp"
+        imageAlt="Clean operations dashboard on a monitor beside a chaotic spreadsheet."
         signalLabel="The signal"
         signalValue="500 hrs"
         signalBody="One person copying data for two hours a day becomes 500 hours a year."
@@ -151,14 +151,14 @@ export default function CustomDashboardClientPortalArticlePage() {
           eyebrow: 'AI SEO',
           title: 'What AI SEO Actually Means for Small Business',
           href: '/insights/what-ai-seo-actually-means-for-small-business',
-          image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85',
-          imageAlt: 'Laptop screen and digital work setup for AI search research.',
+          image: '/images/insights/ai-seo-small-business-search-visibility.webp',
+          imageAlt: 'AI search visibility dashboard with answer, citation, review, and search growth signals.',
         }}
       >
-          <ArticleSection id="what-were-actually-talking-about" title="What We're Actually Talking About">
-            <p>Let&apos;s define terms because the market confuses these constantly.</p>
+          <ArticleSection id="what-were-actually-talking-about" title="What we're actually talking about">
+            <p>The market confuses these terms constantly.</p>
             <p>
-              <strong>A custom dashboard</strong>{' '}is a reporting interface built specifically for your business. It pulls data from your systems — your ERP, your CRM, your accounting software, your field management tool — and shows you the exact KPIs you need to run the business. Not the 47 metrics Power BI thinks you need. The five you actually check every morning.
+              <strong>A custom dashboard</strong>{' '}is a reporting interface built specifically for your business. It pulls data from your systems, including your ERP, CRM, accounting software, and field management tool, then shows you the exact KPIs you need to run the business. Not the 47 metrics Power BI thinks you need. The five you actually check every morning.
             </p>
             <p>
               <strong>A SaaS analytics tool</strong>{' '}like Power BI or Tableau is a general-purpose platform. You configure it. You don&apos;t control it. It connects to standard data sources and gives you pre-built charts. If your data fits their model, it works. If it doesn&apos;t, you spend weeks building workarounds.
@@ -175,7 +175,7 @@ export default function CustomDashboardClientPortalArticlePage() {
             <p>If your &quot;client portal&quot; is a password-protected page where you uploaded three PDFs, you don&apos;t have a portal. You have a filing cabinet with a lock.</p>
           </ArticleSection>
 
-          <ArticleSection id="the-signs-youve-outgrown-off-the-shelf-tools" title="The Signs You've Outgrown Off-the-Shelf Tools">
+          <ArticleSection id="the-signs-youve-outgrown-off-the-shelf-tools" title="The signs you've outgrown generic tools">
             <p>Most businesses know they have a problem. They don&apos;t know the problem is their tools.</p>
             <p>
               <strong>You&apos;re living in spreadsheets.</strong>
@@ -204,7 +204,7 @@ export default function CustomDashboardClientPortalArticlePage() {
             <p>Generic tools don&apos;t build this in. You either build workarounds (expensive, fragile) or you build custom (expensive, permanent).</p>
           </ArticleSection>
 
-          <ArticleSection id="when-custom-makes-sense" title="When Custom Makes Sense">
+          <ArticleSection id="when-custom-makes-sense" title="When custom makes sense">
             <p>Custom makes sense when the software runs a workflow that&apos;s core to how you make money.</p>
             <p>
               <strong>You serve clients in a unique way that&apos;s your competitive advantage.</strong>{' '}A Johannesburg law firm that handles Afrikaans, English, and isiXhosa clients needs a portal that adapts to language and cultural context. Off-the-shelf tools don&apos;t do that. Custom can.
@@ -224,7 +224,7 @@ export default function CustomDashboardClientPortalArticlePage() {
             <p>A custom system costs R300,000 to R600,000 to build. At R20,000 per month SaaS spend, that&apos;s 15 to 30 months to break even. After that, you only pay R3,000 to R6,000 per month for hosting and maintenance. No per-user fees. No forced upgrades. You own it.</p>
           </ArticleSection>
 
-          <ArticleSection id="what-it-actually-costs" title="What It Actually Costs">
+          <ArticleSection id="what-it-actually-costs" title="What it actually costs">
             <p>Don&apos;t compare a R0 spreadsheet or R200 per user SaaS against a custom quote. Compare total cost over three years.</p>
             <p>
               <strong>SaaS costs to include:</strong>
@@ -253,54 +253,54 @@ export default function CustomDashboardClientPortalArticlePage() {
             <p>Custom becomes cheaper after two to three years. And you own it. No vendor lock-in. No price increases. No per-user fees when you hire your 21st employee.</p>
           </ArticleSection>
 
-          <ArticleSection id="industry-specific-examples" title="Industry-Specific Examples">
+          <ArticleSection id="industry-specific-examples" title="Industry examples">
             <p>
-              <strong>Medical Practices</strong>
+              <strong>Medical practices</strong>
             </p>
             <p>Patients want to book online, view test results, check appointment times, and see what their medical aid covered. Practice management software like Medtech has basic portals but they&apos;re clunky, not mobile-first, and don&apos;t integrate cleanly with Discovery or Momentum APIs.</p>
             <p>A custom patient portal can auto-submit claims via medical aid API, show real-time appointment availability synced to your practice system, send WhatsApp reminders (70% of South African patients prefer WhatsApp), and log every data access for POPIA compliance.</p>
             <p>Cost: R200,000 to R600,000. Pays for itself in reduced admin time and fewer missed appointments within 18 to 24 months.</p>
             <p>
-              <strong>Engineering Firms</strong>
+              <strong>Engineering firms</strong>
             </p>
             <p>Clients want to see project milestones, drawing revisions, RFI status, payment schedules, site photos, and progress reports. Asana can track internal tasks but it doesn&apos;t handle engineering-specific workflows like SACPCMP documentation, snag lists, or version-controlled drawings.</p>
             <p>A custom project portal lets clients log in and see everything in one place. Auto-generated monthly reports pull photos from site, costs from time entries, delays from milestone tracking. No more spending two days per month compiling PDF reports.</p>
             <p>Cost: R250,000 to R800,000 depending on document management complexity.</p>
             <p>
-              <strong>Service Businesses</strong>
+              <strong>Service businesses</strong>
             </p>
             <p>Plumbers, electricians, cleaners, solar installers. Clients want to book online, track their technician in real time, see service history, and get invoices automatically.</p>
             <p>Calendly handles appointments but not field service. It doesn&apos;t account for travel time, multi-person dispatch, or job duration estimates. A custom booking system can handle: client books online, system auto-assigns nearest available tech, sends WhatsApp confirmation with tech name and ETA, tracks job in real time, auto-generates invoice on completion.</p>
             <p>Cost: R100,000 to R350,000.</p>
             <p>
-              <strong>Professional Services</strong>
+              <strong>Professional services</strong>
             </p>
             <p>Law firms, accountants, consultants. Clients want case status, document access, billing transparency, secure messaging, and deadline tracking.</p>
             <p>Generic practice management tools are expensive and don&apos;t give clients a good experience. A custom client portal shows: matter status, uploaded documents, invoices, next steps, secure messaging. Like tracking a parcel, but for legal work.</p>
             <p>Cost: R300,000 to R700,000.</p>
           </ArticleSection>
 
-          <ArticleSection id="the-south-african-reality" title="The South African Reality">
+          <ArticleSection id="the-south-african-reality" title="The South African reality">
             <p>
-              <strong>POPIA Compliance</strong>
+              <strong>POPIA compliance</strong>
             </p>
             <p>If you handle medical records, financial data, or employee information, POPIA isn&apos;t optional. You need audit logs showing who accessed what personal data and when. You need consent management. You need data stored in South Africa ideally. You need breach notification within 72 hours.</p>
             <p>Most international SaaS tools store data in the US or EU. Their terms of service don&apos;t align with POPIA. If they&apos;re breached, you might not know for weeks. But you&apos;re legally required to report within 72 hours.</p>
             <p>A custom portal hosted on AWS Cape Town or Hetzner South Africa gives you full control. You choose where data lives. You log every access. You delete data immediately when a client requests it. You can prove compliance.</p>
             <p>
-              <strong>Load Shedding and Connectivity</strong>
+              <strong>Load shedding and connectivity</strong>
             </p>
             <p>Your portal must work offline. Not &quot;mostly work.&quot; Actually work. Progressive Web App architecture with service workers means data syncs when the connection returns.</p>
             <p>92% of South African internet users are mobile. 40% are on 3G or worse. Your portal must load in under three seconds on a slow connection. No 4MB JavaScript bundles. Compressed images. Lazy loading.</p>
             <p>Off-the-shelf tools hosted on US servers add 300 to 800ms latency before the app even renders. That&apos;s why WhatsApp feels fast and your Monday.com board feels slow. Host in South Africa.</p>
             <p>
-              <strong>WhatsApp Integration</strong>
+              <strong>WhatsApp integration</strong>
             </p>
             <p>WhatsApp is the internet for many South Africans. Your portal should integrate with WhatsApp, not replace it. Send portal links via WhatsApp. Let clients check status via WhatsApp when the portal is too much. Auto-confirm bookings via WhatsApp.</p>
             <p>Any portal that ignores WhatsApp is dead on arrival in the South African market.</p>
           </ArticleSection>
 
-          <ArticleSection id="what-to-do-first" title="What to Do First">
+          <ArticleSection id="what-to-do-first" title="What to do first">
             <p>
               <strong>If you&apos;re solo or under five people:</strong>{' '}Don&apos;t build custom. Use Notion, Xero, Calendly. R2,000 to R5,000 per month total. Revisit when you hit ten people or R500,000 per month revenue.
             </p>
@@ -332,7 +332,7 @@ export default function CustomDashboardClientPortalArticlePage() {
 
           <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
             <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Related Resources
+              Related resources
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               <Link href="/contact" className="underline decoration-[#FC6E20] underline-offset-4">
@@ -344,7 +344,7 @@ export default function CustomDashboardClientPortalArticlePage() {
 
           <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
             <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              About the Author
+              About the author
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}

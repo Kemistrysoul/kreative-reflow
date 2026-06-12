@@ -174,7 +174,7 @@ function OpeningHook() {
             transition: 'opacity 1s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.2s',
           }}
         >
-          I spent years inside hospitals watching great doctors lose patients to Google.
+          I spent years inside hospitals watching great doctors lose patients to Google<span className="text-[#FC6E20]">.</span>
         </h1>
 
         {/* Closing mark + attribution */}
@@ -191,7 +191,7 @@ function OpeningHook() {
               className="text-stone-400 italic"
               style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: '15px' }}
             >
-              Delite, Founder — Kreative Reflow
+              Disele Mphafe, Founder - Kreative Reflow
             </p>
             <span className="h-[1px] w-8 bg-[#FC6E20]/50" aria-hidden="true" />
           </div>
@@ -232,8 +232,8 @@ function ChapterScene() {
             {/* Portrait — smaller editorial size */}
             <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-stone-200 dark:bg-stone-800 group">
               <Image
-                src="/images/delite-founder.svg"
-                alt="Delite, Founder of Kreative Reflow"
+                src="/images/disele-founder.jpg"
+                alt="Disele Mphafe, Founder of Kreative Reflow"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 sizes="(max-width: 768px) 90vw, 33vw"
@@ -324,7 +324,7 @@ function ChapterTurn() {
               letterSpacing: '-0.01em',
             }}
           >
-            I kept thinking: someone should fix this. Eventually I realised that someone was going to have to be me.
+            I kept thinking: someone should fix this. Eventually I realised that someone was going to have to be me<span className="text-[#FC6E20]">.</span>
           </h2>
         </div>
 
@@ -332,7 +332,7 @@ function ChapterTurn() {
         <div className="grid md:grid-cols-2 gap-10 md:gap-16">
           <BodyText delay={300} visible={visible}>
             <p>
-              I didn't come from design or tech. I came from the other side — from being in the room where the sale was lost because the company's digital presence couldn't hold up the reputation the team had built in person.
+              I didn't come from design or tech. I came from the other side: from being in the room where the sale was lost because the company's digital presence couldn't hold up the reputation the team had built in person.
             </p>
             <p>
               So I taught myself. Not how to make something pretty. How to make something that works: captures leads, builds credibility, positions a business before a single word is said in a meeting.
@@ -451,7 +451,7 @@ function ChapterBuild() {
                 transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s',
               }}
             >
-              Kreative Reflow exists because businesses deserve more than a transaction.
+              Kreative Reflow exists because businesses deserve more than a transaction<span className="text-[#FC6E20]">.</span>
             </h2>
 
             <div
@@ -632,7 +632,7 @@ function SignatureClose() {
                   letterSpacing: '-0.01em',
                 }}
               >
-                Delite
+                Disele Mphafe
               </p>
               <p
                 className="text-stone-500 uppercase mt-1"

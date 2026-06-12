@@ -148,8 +148,8 @@ export default function WebsiteConversionArticlePage() {
         eyebrow="Conversion"
         title="Why Your Website Looks Good But Doesn't Convert"
         updatedAt="May 10, 2026"
-        image="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85"
-        imageAlt="Clean office workspace used as a conversion website reference."
+        image="/images/insights/website-conversion-diagnostics.webp"
+        imageAlt="Business owner reviewing website analytics, heatmap activity, and conversion data."
         signalLabel="The leak"
         signalValue="0.2%"
         signalBody="A good-looking website can still leave customers on the table if the buyer cannot decide and act."
@@ -164,11 +164,11 @@ export default function WebsiteConversionArticlePage() {
           eyebrow: 'Visibility',
           title: 'Local SEO for Johannesburg Service Businesses',
           href: '/insights/local-seo-johannesburg-service-businesses',
-          image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85',
-          imageAlt: 'Local street and building detail representing local search visibility.',
+          image: '/images/insights/local-seo-johannesburg-visibility.webp',
+          imageAlt: 'Local business storefront with mobile search map results and local visibility signals.',
         }}
       >
-          <ArticleSection id="the-problem-most-business-owners-dont-see" title="The Problem Most Business Owners Don't See">
+          <ArticleSection id="the-problem-most-business-owners-dont-see" title="The problem most business owners don't see">
             <p>You spent R30,000 on a website. It looks professional. Clean design. Nice photos. Your logo looks sharp. You launched it six months ago.</p>
             <p>You&apos;ve had 4,000 visitors. You got eight enquiries. That&apos;s a 0.2% conversion rate.</p>
             <p>The problem isn&apos;t that people can&apos;t find your site. The problem is what happens after they land on it.</p>
@@ -178,13 +178,13 @@ export default function WebsiteConversionArticlePage() {
             </p>
           </ArticleSection>
 
-          <ArticleSection id="your-website-isnt-a-portfolio-piece" title="Your Website Isn't a Portfolio Piece">
+          <ArticleSection id="your-website-isnt-a-portfolio-piece" title="Your website isn't a portfolio piece">
             <p>Most agencies build websites that win design awards but fail commercially. They create portfolio pieces, not business tools.</p>
             <p>A portfolio piece shows what the designer can do. A business tool helps a buyer decide and act.</p>
             <p>Here&apos;s the difference:</p>
             <div className="grid gap-4 md:grid-cols-2">
               <article className="border border-[#151419]/12 bg-[#FBFBFB]/70 p-5 dark:border-[#FBFBFB]/12 dark:bg-[#1B1B1E]">
-                <h3 className="font-playfair text-2xl font-bold tracking-tight">Portfolio Piece (Design-Focused)</h3>
+                <h3 className="font-playfair text-2xl font-bold tracking-tight">Portfolio piece (design focused)</h3>
                 <div className="mt-5">
                   <BulletList
                     items={[
@@ -200,7 +200,7 @@ export default function WebsiteConversionArticlePage() {
                 </div>
               </article>
               <article className="border border-[#151419]/12 bg-[#151419] p-5 text-[#FBFBFB] dark:border-[#FBFBFB]/12 dark:bg-[#1B1B1E]">
-                <h3 className="font-playfair text-2xl font-bold tracking-tight">Business Tool (Conversion-Focused)</h3>
+                <h3 className="font-playfair text-2xl font-bold tracking-tight">Business tool (conversion focused)</h3>
                 <div className="mt-5 text-white/76">
                   <BulletList
                     items={[
@@ -208,7 +208,7 @@ export default function WebsiteConversionArticlePage() {
                       'One obvious next step',
                       'Navigation with 5 items maximum',
                       'Real photos of your actual team or work',
-                      'Headline: "Accounting for Johannesburg SMEs — fixed monthly fee, no surprises"',
+                      'Headline: "Accounting for Johannesburg SMEs: fixed monthly fee, no surprises"',
                       'Client logos and testimonials immediately visible',
                       'Designed and tested on a phone first',
                     ]}
@@ -219,7 +219,7 @@ export default function WebsiteConversionArticlePage() {
             <p>The first one impresses other designers. The second one brings in leads.</p>
           </ArticleSection>
 
-          <ArticleSection id="what-actually-kills-conversions" title="What Actually Kills Conversions">
+          <ArticleSection id="what-actually-kills-conversions" title="What actually kills conversions">
             <p>Speed kills conversions faster than anything else. A site that takes five seconds to load on mobile converts at half the rate of a site that loads in two seconds.</p>
             <p>In South Africa, where 80% of web traffic is mobile and most people are on prepaid data, speed isn&apos;t a nice-to-have. It&apos;s the difference between someone seeing your site and someone hitting back before it loads.</p>
             <p>Your website loads a 4MB video background, three tracking scripts, a chatbot that opens automatically, and twelve unoptimized images before showing the visitor what you actually do. They&apos;re gone before they see it.</p>
@@ -244,7 +244,7 @@ export default function WebsiteConversionArticlePage() {
             <p>Cut it to three: name, email or phone, and a one-line message. You can get the rest on the call.</p>
           </ArticleSection>
 
-          <ArticleSection id="the-mobile-problem-nobody-talks-about" title="The Mobile Problem Nobody Talks About">
+          <ArticleSection id="the-mobile-problem-nobody-talks-about" title="The mobile problem nobody talks about">
             <p>Your website was designed on a desktop. It looks perfect on your laptop. On a phone, it&apos;s broken.</p>
             <p>Text too small to read without zooming. Buttons too close together to tap accurately. Menu doesn&apos;t work. Forms require horizontal scrolling. Phone number isn&apos;t clickable.</p>
             <p>In South Africa, mobile isn&apos;t optional. DataReportal&apos;s 2026 report shows 127 million mobile connections for 51.7 million internet users. People are browsing on phones, not desktops.</p>
@@ -261,7 +261,7 @@ export default function WebsiteConversionArticlePage() {
             </p>
           </ArticleSection>
 
-          <ArticleSection id="why-beautiful-websites-fail" title="Why Beautiful Websites Fail">
+          <ArticleSection id="why-beautiful-websites-fail" title="Why beautiful websites fail">
             <p>Design matters. But design without strategy is decoration.</p>
             <p>The slider at the top of your homepage looks great. Five slides with beautiful imagery cycling through your services. Conversion research shows sliders kill engagement. People ignore them because they look like ads. The messaging changes before anyone reads it. And on mobile, they&apos;re actively distracting.</p>
             <p>The parallax scrolling effect where images move at different speeds looks impressive. It also adds three seconds to your load time and makes people dizzy on small screens.</p>
@@ -269,7 +269,7 @@ export default function WebsiteConversionArticlePage() {
             <p>All of these choices prioritize aesthetics over results. A plain site with clear messaging, fast loading, and an obvious next step will outperform a beautiful site with vague copy and slow speed every single time.</p>
           </ArticleSection>
 
-          <ArticleSection id="trust-is-everything-in-south-africa" title="Trust Is Everything in South Africa">
+          <ArticleSection id="trust-is-everything-in-south-africa" title="Trust is everything in South Africa">
             <p>South Africans have been burned. Scam websites. Fake online stores. Businesses that take payment and disappear. The default position is skepticism.</p>
             <p>Your website has to overcome that in seconds, or they leave.</p>
             <p>
@@ -281,10 +281,10 @@ export default function WebsiteConversionArticlePage() {
             <p>Accepted payment methods. For e-commerce, show PayFast, Yoco, SnapScan. These are local, trusted payment systems. A site showing only Visa and Mastercard feels foreign.</p>
             <p>Google reviews. Link to your Google Business Profile. If you have 4.8 stars and 47 reviews, that&apos;s worth more than anything you can say about yourself.</p>
             <p>Medical aid logos for healthcare. Dentists and doctors: if you accept Discovery, Momentum, Medshield, show those logos. Patients check this before they call.</p>
-            <p>Security badges. SSL certificate (the padlock in the browser) is non-negotiable. POPIA compliance notice shows you take data privacy seriously.</p>
+            <p>Security badges. SSL certificate (the padlock in the browser) matters. POPIA compliance notice shows you take data privacy seriously.</p>
           </ArticleSection>
 
-          <ArticleSection id="how-to-diagnose-your-conversion-problem" title="How to Diagnose Your Conversion Problem">
+          <ArticleSection id="how-to-diagnose-your-conversion-problem" title="How to diagnose your conversion problem">
             <p>Most business owners guess. Don&apos;t guess. Look at the data.</p>
             <p>
               <strong>Google Analytics</strong>{' '}shows exactly where people leave. If 80% of visitors leave your homepage without clicking anything, your value proposition or speed is broken. If they reach your contact page and 70% leave without submitting, your form is the problem.
@@ -334,7 +334,7 @@ export default function WebsiteConversionArticlePage() {
 
           <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
             <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Related Resources
+              Related resources
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Want to improve your website&apos;s conversion rate?{' '}
@@ -347,7 +347,7 @@ export default function WebsiteConversionArticlePage() {
 
           <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
             <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              About the Author
+              About the author
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}

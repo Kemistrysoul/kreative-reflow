@@ -663,7 +663,7 @@ function ServiceWalkthrough() {
       <Reveal className="max-w-3xl">
         <SectionLabel>Service walkthrough</SectionLabel>
         <h2 className="mt-5 font-playfair text-[clamp(2.7rem,6.5vw,6.7rem)] font-bold leading-[0.92] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          Six ways to build the next layer.
+          Six ways to build the next layer<span className="text-[#FC6E20]">.</span>
         </h2>
       </Reveal>
 
@@ -683,7 +683,7 @@ function ServiceCombinations() {
         <Reveal className="lg:sticky lg:top-28">
           <SectionLabel>How they connect</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.7rem,5.8vw,5.6rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-            Services should work together, not compete for attention.
+            Services should work together, not compete for attention<span className="text-[#FC6E20]">.</span>
           </h2>
         </Reveal>
 
@@ -718,7 +718,7 @@ function ProcessRhythm() {
         <Reveal className="max-w-4xl">
           <SectionLabel>Process rhythm</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6.8vw,6.6rem)] font-bold leading-[0.94] tracking-tight">
-            From first conversation to live product.
+            From first conversation to live product<span className="text-[#FC6E20]">.</span>
           </h2>
         </Reveal>
 
@@ -753,7 +753,7 @@ function IncludedSection() {
         <Reveal>
           <SectionLabel>What is included</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.7rem,5.8vw,5.6rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-            The work is clear before the work begins.
+            The work is clear before the work begins<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="mt-6 max-w-xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
             No package table, no public guesswork. Every project gets scoped
@@ -789,7 +789,7 @@ function ServicesFaq() {
         <Reveal className="lg:sticky lg:top-28 lg:self-start">
           <SectionLabel>Before we begin</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6vw,5.8rem)] font-bold leading-[0.92] tracking-tight">
-            Clear answers before the call.
+            Clear answers before the call<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="mt-6 max-w-md font-montserrat text-sm leading-7 text-white/58">
             The page should help you understand the shape of the work before we
@@ -832,7 +832,7 @@ function FinalCta() {
             <div>
               <SectionLabel>Start here</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
-                Bring the messy version. We will shape the system.
+                Pick the layer that is holding the business back<span className="text-[#FC6E20]">.</span>
               </h2>
               <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 You do not need a perfect brief. Bring the goal, the friction,

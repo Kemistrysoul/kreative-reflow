@@ -51,7 +51,7 @@ export function StudioAccessState({ state }: StudioAccessStateProps) {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/portal/login?next=%2Fstudio"
-            className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#FC6E20] px-5 font-montserrat text-sm font-semibold text-[#151419] transition-colors hover:bg-[#e05a15]"
+            className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#FC6E20] px-5 font-montserrat text-sm font-semibold text-[#151419] transition-colors hover:bg-[#DD6211]"
           >
             {copy.action}
           </Link>

@@ -232,7 +232,7 @@ export default function ToolsPage() {
             <div className="lg:sticky lg:top-20 lg:-mt-8">
               <SectionLabel>Tools</SectionLabel>
               <h1 className="mt-8 max-w-5xl font-playfair text-[clamp(3.1rem,7.2vw,7.2rem)] font-bold leading-[0.93] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-                Diagnose the leak before you rebuild the whole pipe.
+                Diagnose the leak before you rebuild the whole pipe<span className="text-[#FC6E20]">.</span>
               </h1>
               <p className="mt-8 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68 md:text-lg">
                 Practical interactive tools for South African service businesses
@@ -275,7 +275,7 @@ export default function ToolsPage() {
           <div className="lg:sticky lg:top-28">
             <SectionLabel>Lead magnets</SectionLabel>
             <h2 className="mt-5 max-w-xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Downloads should support the diagnosis.
+              Downloads should support the diagnosis<span className="text-[#FC6E20]">.</span>
             </h2>
             <p className="mt-6 max-w-xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
               The scorecard gives the moment of truth. The downloadable assets
@@ -320,7 +320,7 @@ export default function ToolsPage() {
             <div>
               <SectionLabel>Start with the live tool</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
-                Run the scorecard, then turn the result into a fix plan.
+                Run the scorecard, then turn the result into a fix plan<span className="text-[#FC6E20]">.</span>
               </h2>
               <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 Start with a practical diagnostic, then use the downloadable

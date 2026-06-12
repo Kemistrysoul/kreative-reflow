@@ -135,7 +135,7 @@ export function PortalLoginForm({ authConfigured, nextPath }: LoginFormProps) {
       <button
         type="submit"
         disabled={!authConfigured || sending || isCoolingDown}
-        className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.14em] text-stone-950 transition-colors hover:bg-[#e05a15] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20] disabled:cursor-not-allowed disabled:opacity-50"
+        className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.14em] text-stone-950 transition-colors hover:bg-[#DD6211] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20] disabled:cursor-not-allowed disabled:opacity-50"
       >
         {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
         {isCoolingDown ? `Try again in ${cooldownSeconds}s` : 'Send magic link'}

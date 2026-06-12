@@ -346,7 +346,7 @@ export function PortalRequestCenter({
             <p className="font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#FC6E20]">
               Request Center
             </p>
-            <h3 className="mt-2 font-playfair text-3xl font-bold text-white">Send one clear project request.</h3>
+            <h3 className="mt-2 font-playfair text-3xl font-bold text-white">Send one clear project request<span className="text-[#FC6E20]">.</span></h3>
           </div>
           <MessageSquareText className="h-6 w-6 text-[#FC6E20]" />
         </div>
@@ -444,7 +444,7 @@ export function PortalRequestCenter({
             type="button"
             onClick={() => void submitRequest()}
             disabled={!canSubmit || submitting}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#e05a15] disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#DD6211] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowUpRight className="h-4 w-4" />}
             Submit request
@@ -472,7 +472,7 @@ export function PortalRequestCenter({
               <p className="font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#FC6E20]">
                 Scope decisions
               </p>
-              <h3 className="mt-2 font-playfair text-3xl font-bold text-white">Approve only what should move.</h3>
+              <h3 className="mt-2 font-playfair text-3xl font-bold text-white">Approve only what should move<span className="text-[#FC6E20]">.</span></h3>
             </div>
             <Pill
               className={
@@ -512,7 +512,7 @@ export function PortalRequestCenter({
                       type="button"
                       onClick={() => void submitDecision(requestItem, 'approved')}
                       disabled={Boolean(decisionId)}
-                      className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-4 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition hover:bg-[#e05a15] disabled:cursor-not-allowed disabled:opacity-50"
+                      className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-4 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition hover:bg-[#DD6211] disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {decisionId === requestItem.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
                       Approve
