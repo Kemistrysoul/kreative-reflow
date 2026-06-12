@@ -170,29 +170,42 @@ export function faqJsonLd(
 
 export const organizationJsonLd = {
   '@context': 'https://schema.org',
-  '@type': ['Organization', 'LocalBusiness'],
+  '@type': ['Organization', 'LocalBusiness', 'ProfessionalService'],
   '@id': `${siteUrl}/#organization`,
   name: siteName,
   url: siteUrl,
   description: defaultSeoDescription,
   image: absoluteUrl(defaultOgImage),
-  logo: absoluteUrl('/icon.svg'),
+  logo: {
+    '@type': 'ImageObject',
+    url: absoluteUrl('/icon.svg'),
+  },
   email: 'hello@kreativereflow.com',
   telephone: '+27655750713',
+  priceRange: 'R15,000 – R100,000+',
+  currenciesAccepted: 'ZAR',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Johannesburg',
+    addressRegion: 'Gauteng',
     addressCountry: 'ZA',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: -26.2041,
+    longitude: 28.0473,
+  },
   areaServed: [
-    {
-      '@type': 'Country',
-      name: 'South Africa',
-    },
-    {
-      '@type': 'Place',
-      name: 'International',
-    },
+    { '@type': 'City', name: 'Johannesburg', sameAs: 'https://www.wikidata.org/wiki/Q34647' },
+    { '@type': 'City', name: 'Pretoria', sameAs: 'https://www.wikidata.org/wiki/Q3926' },
+    { '@type': 'City', name: 'Cape Town', sameAs: 'https://www.wikidata.org/wiki/Q5465' },
+    { '@type': 'Country', name: 'South Africa', sameAs: 'https://www.wikidata.org/wiki/Q258' },
+  ],
+  sameAs: [
+    // Add your Google Business Profile URL here once claimed:
+    // 'https://maps.google.com/?cid=YOUR_CID',
+    // Add social profiles as you create them:
+    // 'https://www.linkedin.com/company/kreative-reflow',
   ],
   contactPoint: [
     {
