@@ -370,7 +370,7 @@ function OriginTimeline() {
               <article className="grid gap-6 rounded-[1.35rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:grid-cols-[0.28fr_1fr] md:p-8">
                 <div>
                   <span className="font-mono text-sm text-[#FC6E20]">{item.num}</span>
-                  <p className="mt-8 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#878787]">
+                  <p className="mt-8 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#595959]">
                     {item.label}
                   </p>
                 </div>

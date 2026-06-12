@@ -19,7 +19,7 @@ const ideaColumns: StudioTableColumn<(typeof contentIdeas)[number]>[] = [
     render: (row) => (
       <div>
         <p className="font-semibold text-white">{row.title}</p>
-        <p className="mt-2 text-[#878787]">{row.goal}</p>
+        <p className="mt-2 text-[#595959]">{row.goal}</p>
       </div>
     ),
   },

@@ -719,7 +719,7 @@ export function StudioProjectsWorkspace({
       render: (row) => (
         <div>
           <p className="font-semibold text-white">{row.project}</p>
-          <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[#878787]">
+          <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[#595959]">
             {row.kind === 'handoff' ? 'CRM intake' : row.kind === 'active' ? 'Live project' : 'Existing record'}
           </p>
         </div>
@@ -751,7 +751,7 @@ export function StudioProjectsWorkspace({
         activeTab="Active"
         actions={
           <div className="rounded-2xl border border-white/8 bg-[#151419] px-4 py-3">
-            <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Kickoff queue</p>
+            <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Kickoff queue</p>
             <p className="mt-2 font-montserrat text-sm font-semibold text-white">
               {intakeRows.length} project intake item{intakeRows.length === 1 ? '' : 's'} waiting for review
             </p>
@@ -779,28 +779,28 @@ export function StudioProjectsWorkspace({
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="font-montserrat text-sm font-semibold text-white">{row.client}</p>
-                      <p className="mt-2 text-sm text-[#878787]">{row.project}</p>
+                      <p className="mt-2 text-sm text-[#595959]">{row.project}</p>
                     </div>
                     <StudioStatusPill label={row.health} tone="accent" />
                   </div>
                   <div className="mt-4 grid gap-3 sm:grid-cols-2">
                     <div className="rounded-[18px] border border-white/8 bg-white/5 p-3">
-                      <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787]">Budget</p>
+                      <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959]">Budget</p>
                       <p className="mt-2 font-mono text-sm text-[#FC6E20]">{row.value}</p>
                     </div>
                     <div className="rounded-[18px] border border-white/8 bg-white/5 p-3">
-                      <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787]">Owner</p>
+                      <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959]">Owner</p>
                       <p className="mt-2 text-sm text-white">{row.owner ?? 'Delite'}</p>
                     </div>
                   </div>
                   {row.notes ? (
-                    <p className="mt-4 text-sm leading-6 text-[#878787]">{row.notes}</p>
+                    <p className="mt-4 text-sm leading-6 text-[#595959]">{row.notes}</p>
                   ) : null}
                 </button>
               ))
             ) : (
               <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-                <p className="font-montserrat text-sm text-[#878787]">
+                <p className="font-montserrat text-sm text-[#595959]">
                   No new project handoffs yet. Won leads from CRM will land here automatically.
                 </p>
               </div>
@@ -914,7 +914,7 @@ export function StudioProjectsWorkspace({
               assetReviews.map((asset) => <AssetReviewCard key={asset.id} asset={asset} />)
             ) : (
               <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-                <p className="font-montserrat text-sm text-[#878787]">
+                <p className="font-montserrat text-sm text-[#595959]">
                   Uploaded client assets will appear here with review status, category, size, and submitter context.
                 </p>
               </div>
@@ -928,7 +928,7 @@ export function StudioProjectsWorkspace({
             <DetailCard label="Client access" value="Project members only" />
             <DetailCard label="Storage" value="Private Supabase bucket" />
             <div className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
-              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Before use</p>
+              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Before use</p>
               <p className="mt-3 font-montserrat text-sm leading-6 text-[#FBFBFB]">
                 Keep client uploads out of production work until the studio marks the file accepted or requests a replacement.
               </p>
@@ -956,7 +956,7 @@ export function StudioProjectsWorkspace({
               approvalQueue.map((approval) => <ApprovalReviewCard key={approval.id} approval={approval} />)
             ) : (
               <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-                <p className="font-montserrat text-sm text-[#878787]">
+                <p className="font-montserrat text-sm text-[#595959]">
                   Client approval decisions will appear here with version, approver, timestamp, and revision notes.
                 </p>
               </div>
@@ -967,9 +967,9 @@ export function StudioProjectsWorkspace({
         <StudioPanel title="Notification rules" eyebrow="Client-visible activity" icon={BellRing}>
           <div className="space-y-3">
             <div className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
-              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Enabled rules</p>
+              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Enabled rules</p>
               <p className="mt-2 font-playfair text-4xl font-semibold text-white">{enabledNotificationCount}</p>
-              <p className="mt-2 font-montserrat text-sm leading-6 text-[#878787]">
+              <p className="mt-2 font-montserrat text-sm leading-6 text-[#595959]">
                 Portal activity is written only when its project notification rule is enabled.
               </p>
             </div>
@@ -977,7 +977,7 @@ export function StudioProjectsWorkspace({
               notificationRules.map((rule) => <NotificationRuleCard key={rule.id} rule={rule} />)
             ) : (
               <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-                <p className="font-montserrat text-sm text-[#878787]">
+                <p className="font-montserrat text-sm text-[#595959]">
                   Notification rules will appear after the project workflow tables are configured.
                 </p>
               </div>
@@ -993,7 +993,7 @@ export function StudioProjectsWorkspace({
               operationalEvents.map((event) => <OperationalEventCard key={event.id} event={event} />)
             ) : (
               <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-                <p className="font-montserrat text-sm text-[#878787]">
+                <p className="font-montserrat text-sm text-[#595959]">
                   Auth, upload, approval, onboarding, and project data failures will appear here as launch-readiness events.
                 </p>
               </div>
@@ -1030,7 +1030,7 @@ export function StudioProjectsWorkspace({
             <DetailCard label="SOW" value={readinessGate.sowStatusLabel} />
             <DetailCard label="Deposit" value={readinessGate.depositStatusLabel} />
             <div className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
-              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Next action</p>
+              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Next action</p>
               <p className="mt-3 font-montserrat text-sm leading-6 text-[#FBFBFB]">{readinessGate.nextAction}</p>
             </div>
           </div>
@@ -1056,7 +1056,7 @@ export function StudioProjectsWorkspace({
               financeHandoff.invoices.map((invoice) => <StudioInvoiceCard key={invoice.id} invoice={invoice} />)
             ) : (
               <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-                <p className="font-montserrat text-sm text-[#878787]">
+                <p className="font-montserrat text-sm text-[#595959]">
                   Client-safe invoice status will appear here without exposing internal finance notes.
                 </p>
               </div>
@@ -1071,7 +1071,7 @@ export function StudioProjectsWorkspace({
                 financeHandoff.handoffItems.map((item) => <StudioHandoffCard key={item.id} item={item} />)
               ) : (
                 <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-                  <p className="font-montserrat text-sm text-[#878787]">
+                  <p className="font-montserrat text-sm text-[#595959]">
                     Launch, final asset, credential, and support handoff checks will appear when the project reaches testing.
                   </p>
                 </div>
@@ -1081,7 +1081,7 @@ export function StudioProjectsWorkspace({
             <div className="border-t border-white/8 pt-4">
               <div className="mb-3 flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-[#FC6E20]" />
-                <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Support next steps</p>
+                <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Support next steps</p>
               </div>
               <div className="grid gap-3">
                 {financeHandoff.supportNextSteps.length ? (
@@ -1090,7 +1090,7 @@ export function StudioProjectsWorkspace({
                   ))
                 ) : (
                   <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-                    <p className="font-montserrat text-sm text-[#878787]">
+                    <p className="font-montserrat text-sm text-[#595959]">
                       Maintenance and support next steps will appear once launch timing is confirmed.
                     </p>
                   </div>
@@ -1122,7 +1122,7 @@ export function StudioProjectsWorkspace({
               ))
             ) : (
               <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-                <p className="font-montserrat text-sm text-[#878787]">
+                <p className="font-montserrat text-sm text-[#595959]">
                   No onboarding responses have been saved yet. Once a client saves a draft or submits the form,
                   the studio can review the project context here.
                 </p>
@@ -1138,7 +1138,7 @@ export function StudioProjectsWorkspace({
               <DetailCard label="Approval owner" value={`${latestOnboardingResponse.contactName || 'Not provided'} (${latestOnboardingResponse.approvalRole || 'Role missing'})`} />
               <DetailCard label="Deadline target" value={latestOnboardingResponse.preferredDeadline} />
               <div className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
-                <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Data boundary</p>
+                <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Data boundary</p>
                 <p className="mt-3 font-montserrat text-sm leading-6 text-[#FBFBFB]">
                   Review goals, audience, services, and handoff blockers here. Keep private credentials and finance
                   commentary out of the onboarding response.
@@ -1147,7 +1147,7 @@ export function StudioProjectsWorkspace({
             </div>
           ) : (
             <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-              <p className="font-montserrat text-sm text-[#878787]">
+              <p className="font-montserrat text-sm text-[#595959]">
                 Onboarding handoff checks will appear after the first portal response is saved.
               </p>
             </div>
@@ -1184,7 +1184,7 @@ export function StudioProjectsWorkspace({
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="font-montserrat text-sm font-semibold text-white">{item.title}</p>
-                      <p className="mt-2 font-montserrat text-sm text-[#878787]">{item.meta}</p>
+                      <p className="mt-2 font-montserrat text-sm text-[#595959]">{item.meta}</p>
                     </div>
                     <StudioStatusPill label={item.time} tone="accent" />
                   </div>
@@ -1200,9 +1200,9 @@ export function StudioProjectsWorkspace({
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="font-montserrat text-sm font-semibold text-white">{item.title}</p>
-                      <p className="mt-2 font-montserrat text-sm text-[#878787]">{item.meta}</p>
+                      <p className="mt-2 font-montserrat text-sm text-[#595959]">{item.meta}</p>
                     </div>
-                    <span className="font-mono text-xs text-[#878787]">{item.time}</span>
+                    <span className="font-mono text-xs text-[#595959]">{item.time}</span>
                   </div>
                 </div>
               ))}
@@ -1286,7 +1286,7 @@ function OperationalEventCard({ event }: { event: PortalOperationalEvent }) {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
           <p className="font-montserrat text-sm font-semibold text-white">{event.title}</p>
-          <p className="mt-2 font-montserrat text-sm text-[#878787]">
+          <p className="mt-2 font-montserrat text-sm text-[#595959]">
             {event.clientName} - {event.projectName}
           </p>
         </div>
@@ -1304,7 +1304,7 @@ function OperationalEventCard({ event }: { event: PortalOperationalEvent }) {
         <DetailCard label="Created" value={event.createdAtLabel} />
       </div>
 
-      <p className="mt-3 font-montserrat text-xs uppercase tracking-[0.16em] text-[#878787]">
+      <p className="mt-3 font-montserrat text-xs uppercase tracking-[0.16em] text-[#595959]">
         Actor: {actor}
       </p>
     </article>
@@ -1326,7 +1326,7 @@ function ReadinessGateCard({
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="font-montserrat text-sm font-semibold text-white">{item.label}</p>
-          <p className="mt-2 font-montserrat text-sm leading-6 text-[#878787]">{item.detail}</p>
+          <p className="mt-2 font-montserrat text-sm leading-6 text-[#595959]">{item.detail}</p>
         </div>
         <StudioStatusPill label={item.status} tone={item.tone} />
       </div>
@@ -1400,7 +1400,7 @@ function StudioReadinessGateEditor({ readinessGate }: { readinessGate: PortalRea
   if (!items.length) {
     return (
       <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-        <p className="font-montserrat text-sm text-[#878787]">
+        <p className="font-montserrat text-sm text-[#595959]">
           Readiness gate records will appear here after the Supabase migration is applied.
         </p>
       </div>
@@ -1428,14 +1428,14 @@ function StudioReadinessGateEditor({ readinessGate }: { readinessGate: PortalRea
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div className="min-w-0">
                 <p className="font-montserrat text-sm font-semibold text-white">{item.label}</p>
-                <p className="mt-2 font-montserrat text-sm leading-6 text-[#878787]">{item.detail}</p>
+                <p className="mt-2 font-montserrat text-sm leading-6 text-[#595959]">{item.detail}</p>
               </div>
               <StudioStatusPill label={readinessStatusCopy[item.status]} tone={getReadinessTone(item.status)} />
             </div>
 
             <div className="mt-4 grid gap-3 md:grid-cols-3">
               <label>
-                <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+                <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
                   Status
                 </span>
                 <select
@@ -1463,7 +1463,7 @@ function StudioReadinessGateEditor({ readinessGate }: { readinessGate: PortalRea
                 onChange={(value) => updateItem(item.id, { ownerRole: value })}
               />
               <label>
-                <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+                <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
                   Due date
                 </span>
                 <input
@@ -1581,7 +1581,7 @@ function StudioRequestQueue({
   if (!requests.length) {
     return (
       <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-        <p className="font-montserrat text-sm text-[#878787]">
+        <p className="font-montserrat text-sm text-[#595959]">
           Client change, support, meeting, and scope requests will appear here after the Request Center is used.
         </p>
       </div>
@@ -1715,7 +1715,7 @@ function StudioRequestQueueCard({
           <p className="font-montserrat text-sm font-semibold text-white">
             {request.requestNumber} - {request.title}
           </p>
-          <p className="mt-2 font-montserrat text-sm text-[#878787]">
+          <p className="mt-2 font-montserrat text-sm text-[#595959]">
             {request.clientName} - {request.projectName}
           </p>
         </div>
@@ -1745,7 +1745,7 @@ function StudioRequestQueueCard({
 
       <div className="mt-4 grid gap-3 md:grid-cols-3">
         <label>
-          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
             Classification
           </span>
           <select
@@ -1761,7 +1761,7 @@ function StudioRequestQueueCard({
           </select>
         </label>
         <label>
-          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
             Status
           </span>
           <select
@@ -1990,7 +1990,7 @@ function StudioRequestLogForm({
     <div className="space-y-4">
       <div className="grid gap-3">
         <label>
-          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
             Source
           </span>
           <select
@@ -2006,7 +2006,7 @@ function StudioRequestLogForm({
           </select>
         </label>
         <label>
-          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
             Request type
           </span>
           <select
@@ -2039,7 +2039,7 @@ function StudioRequestLogForm({
         />
         <div className="grid gap-3 sm:grid-cols-2">
           <label>
-            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
               Urgency
             </span>
             <select
@@ -2055,7 +2055,7 @@ function StudioRequestLogForm({
             </select>
           </label>
           <label>
-            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
               Desired deadline
             </span>
             <input
@@ -2118,7 +2118,7 @@ function StudioCommunicationHub({ communicationSummary }: { communicationSummary
   if (!hasCommunicationRecords) {
     return (
       <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-        <p className="font-montserrat text-sm text-[#878787]">
+        <p className="font-montserrat text-sm text-[#595959]">
           Meeting requests, client message threads, and written decision records will appear here once the communication workflow is used.
         </p>
       </div>
@@ -2135,7 +2135,7 @@ function StudioCommunicationHub({ communicationSummary }: { communicationSummary
 
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="space-y-3">
-          <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Meeting queue</p>
+          <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Meeting queue</p>
           {communicationSummary.meetings.length ? (
             communicationSummary.meetings.slice(0, 3).map((meeting) => (
               <StudioMeetingCard key={meeting.id} meeting={meeting} />
@@ -2146,7 +2146,7 @@ function StudioCommunicationHub({ communicationSummary }: { communicationSummary
         </div>
 
         <div className="space-y-3">
-          <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Message threads</p>
+          <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Message threads</p>
           {communicationSummary.threads.length ? (
             communicationSummary.threads.slice(0, 3).map((thread) => (
               <StudioMessageThreadCard key={thread.id} thread={thread} />
@@ -2158,7 +2158,7 @@ function StudioCommunicationHub({ communicationSummary }: { communicationSummary
       </div>
 
       <div className="space-y-3">
-        <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Decision log</p>
+        <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Decision log</p>
         {communicationSummary.decisions.length ? (
           communicationSummary.decisions.slice(0, 4).map((decision) => (
             <StudioDecisionCard key={decision.id} decision={decision} />
@@ -2174,7 +2174,7 @@ function StudioCommunicationHub({ communicationSummary }: { communicationSummary
 function EmptyMiniState({ label }: { label: string }) {
   return (
     <div className="rounded-[18px] border border-dashed border-white/10 bg-white/[0.02] p-4">
-      <p className="font-montserrat text-sm text-[#878787]">{label}</p>
+      <p className="font-montserrat text-sm text-[#595959]">{label}</p>
     </div>
   );
 }
@@ -2187,7 +2187,7 @@ function StudioMeetingCard({ meeting }: { meeting: PortalMeetingRequest }) {
           <p className="font-montserrat text-sm font-semibold text-white">
             {meeting.meetingNumber} - {meeting.title}
           </p>
-          <p className="mt-2 line-clamp-2 font-montserrat text-sm leading-6 text-[#878787]">{meeting.reason}</p>
+          <p className="mt-2 line-clamp-2 font-montserrat text-sm leading-6 text-[#595959]">{meeting.reason}</p>
         </div>
         <StudioStatusPill label={meetingStatusCopy[meeting.status]} tone={getMeetingTone(meeting.status)} />
       </div>
@@ -2208,7 +2208,7 @@ function StudioMessageThreadCard({ thread }: { thread: PortalMessageThread }) {
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="font-montserrat text-sm font-semibold text-white">{thread.subject}</p>
-          <p className="mt-2 font-montserrat text-sm text-[#878787]">
+          <p className="mt-2 font-montserrat text-sm text-[#595959]">
             {communicationContextCopy[thread.contextType]} - {thread.contextLabel || 'Project'}
           </p>
         </div>
@@ -2237,7 +2237,7 @@ function StudioDecisionCard({ decision }: { decision: PortalProjectDecision }) {
           <p className="font-montserrat text-sm font-semibold text-white">
             {decision.decisionNumber} - {decision.title}
           </p>
-          <p className="mt-2 font-montserrat text-sm text-[#878787]">
+          <p className="mt-2 font-montserrat text-sm text-[#595959]">
             {decisionTypeCopy[decision.decisionType]} - {decisionSourceCopy[decision.sourceChannel]}
           </p>
         </div>
@@ -2377,7 +2377,7 @@ function StudioDecisionLogForm({
     <div className="space-y-4">
       <div className="grid gap-3">
         <label>
-          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
             Source
           </span>
           <select
@@ -2394,7 +2394,7 @@ function StudioDecisionLogForm({
         </label>
 
         <label>
-          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+          <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
             Decision type
           </span>
           <select
@@ -2429,7 +2429,7 @@ function StudioDecisionLogForm({
 
         <div className="grid gap-3 sm:grid-cols-2">
           <label>
-            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
               Related to
             </span>
             <select
@@ -2446,7 +2446,7 @@ function StudioDecisionLogForm({
           </label>
 
           <label>
-            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">
+            <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">
               Due date
             </span>
             <input
@@ -2517,7 +2517,7 @@ function ApprovalReviewCard({ approval }: { approval: PortalDeliverableApproval 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
           <p className="font-montserrat text-sm font-semibold text-white">{approval.title}</p>
-          <p className="mt-2 font-montserrat text-sm text-[#878787]">
+          <p className="mt-2 font-montserrat text-sm text-[#595959]">
             {approval.clientName} - {approval.projectName}
           </p>
         </div>
@@ -2536,18 +2536,18 @@ function ApprovalReviewCard({ approval }: { approval: PortalDeliverableApproval 
       </div>
 
       <div className="mt-4 rounded-[18px] border border-white/8 bg-white/5 p-3">
-        <p className="flex items-center gap-2 font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787]">
+        <p className="flex items-center gap-2 font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959]">
           <MessageSquareText className="h-3.5 w-3.5 text-[#FC6E20]" />
           Latest decision
         </p>
         <p className="mt-2 font-montserrat text-sm text-white">{latestDecision}</p>
         {approval.latestEvent?.note ? (
-          <p className="mt-2 line-clamp-3 font-montserrat text-sm leading-6 text-[#878787]">
+          <p className="mt-2 line-clamp-3 font-montserrat text-sm leading-6 text-[#595959]">
             {approval.latestEvent.note}
           </p>
         ) : null}
         {approval.latestEvent ? (
-          <p className="mt-2 font-mono text-xs text-[#878787]">{approval.latestEvent.decidedAt}</p>
+          <p className="mt-2 font-mono text-xs text-[#595959]">{approval.latestEvent.decidedAt}</p>
         ) : null}
       </div>
     </article>
@@ -2560,7 +2560,7 @@ function NotificationRuleCard({ rule }: { rule: PortalNotificationRule }) {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="font-montserrat text-sm font-semibold text-white">{rule.label}</p>
-          <p className="mt-2 font-mono text-xs text-[#878787]">{rule.eventType.replace(/_/g, ' ')}</p>
+          <p className="mt-2 font-mono text-xs text-[#595959]">{rule.eventType.replace(/_/g, ' ')}</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <StudioStatusPill label={rule.enabled ? 'Enabled' : 'Paused'} tone={rule.enabled ? 'neutral' : 'muted'} />
@@ -2584,7 +2584,7 @@ function StudioInvoiceCard({ invoice }: { invoice: PortalProjectInvoice }) {
             {invoice.invoiceNumber} - {invoice.label}
           </p>
           <p className="mt-2 font-playfair text-3xl font-semibold text-white">{invoice.amountLabel}</p>
-          <p className="mt-2 font-montserrat text-sm text-[#878787]">
+          <p className="mt-2 font-montserrat text-sm text-[#595959]">
             {invoice.clientName} - {invoice.projectName}
           </p>
         </div>
@@ -2603,7 +2603,7 @@ function StudioInvoiceCard({ invoice }: { invoice: PortalProjectInvoice }) {
       </div>
 
       <div className="mt-4 rounded-[18px] border border-white/8 bg-white/5 p-3">
-        <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787]">Payment reference</p>
+        <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959]">Payment reference</p>
         <p className="mt-2 font-mono text-sm text-[#FBFBFB]">{invoice.paymentReference || 'Not issued'}</p>
       </div>
     </article>
@@ -2616,7 +2616,7 @@ function StudioHandoffCard({ item }: { item: PortalProjectHandoffItem }) {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="font-montserrat text-sm font-semibold text-white">{item.title}</p>
-          <p className="mt-2 font-montserrat text-sm leading-6 text-[#878787]">{item.detail}</p>
+          <p className="mt-2 font-montserrat text-sm leading-6 text-[#595959]">{item.detail}</p>
         </div>
         <StudioStatusPill label={handoffStatusCopy[item.status]} tone={getHandoffTone(item.status)} />
       </div>
@@ -2641,7 +2641,7 @@ function StudioSupportCard({ supportStep }: { supportStep: PortalProjectSupportN
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="font-montserrat text-sm font-semibold text-white">{supportStep.title}</p>
-          <p className="mt-2 font-montserrat text-sm leading-6 text-[#878787]">{supportStep.description}</p>
+          <p className="mt-2 font-montserrat text-sm leading-6 text-[#595959]">{supportStep.description}</p>
         </div>
         <StudioStatusPill label={supportStatusCopy[supportStep.status]} tone="muted" />
       </div>
@@ -2664,7 +2664,7 @@ function OnboardingReviewCard({ response }: { response: StudioOnboardingResponse
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="font-montserrat text-sm font-semibold text-white">{response.clientName}</p>
-          <p className="mt-2 font-montserrat text-sm text-[#878787]">{response.projectName}</p>
+          <p className="mt-2 font-montserrat text-sm text-[#595959]">{response.projectName}</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <StudioStatusPill label={response.status} tone={response.status === 'submitted' ? 'accent' : 'muted'} />
@@ -2674,9 +2674,9 @@ function OnboardingReviewCard({ response }: { response: StudioOnboardingResponse
 
       <div className="mt-4 grid gap-3 sm:grid-cols-3">
         <div className="rounded-[18px] border border-white/8 bg-white/5 p-3">
-          <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787]">Approver</p>
+          <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959]">Approver</p>
           <p className="mt-2 font-montserrat text-sm text-white">{response.contactName || 'Not provided'}</p>
-          <p className="mt-2 inline-flex items-center gap-2 font-mono text-xs text-[#878787]">
+          <p className="mt-2 inline-flex items-center gap-2 font-mono text-xs text-[#595959]">
             <Mail className="h-3.5 w-3.5" />
             {maskEmail(response.contactEmail)}
           </p>
@@ -2713,7 +2713,7 @@ function OnboardingReviewCard({ response }: { response: StudioOnboardingResponse
       </div>
 
       <div className="mt-4">
-        <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787]">Existing integrations</p>
+        <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959]">Existing integrations</p>
         <TagList emptyLabel="No integrations selected" id={`${response.id}-integrations`} items={response.existingIntegrations} />
       </div>
 
@@ -2902,7 +2902,7 @@ function AssetReviewCard({ asset }: { asset: PortalProjectAsset }) {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
           <p className="truncate font-montserrat text-sm font-semibold text-white">{currentAsset.fileName}</p>
-          <p className="mt-2 font-montserrat text-sm text-[#878787]">
+          <p className="mt-2 font-montserrat text-sm text-[#595959]">
             {currentAsset.clientName} - {currentAsset.projectName}
           </p>
         </div>
@@ -2922,7 +2922,7 @@ function AssetReviewCard({ asset }: { asset: PortalProjectAsset }) {
       </div>
 
       <div className="mt-4 rounded-[18px] border border-white/8 bg-white/5 p-3">
-        <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787]">Submitted by</p>
+        <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959]">Submitted by</p>
         <p className="mt-2 inline-flex items-center gap-2 font-mono text-xs text-[#FBFBFB]">
           <Mail className="h-3.5 w-3.5" />
           {maskEmail(currentAsset.uploadedByEmail)}
@@ -2983,7 +2983,7 @@ function AssetReviewCard({ asset }: { asset: PortalProjectAsset }) {
 function SnippetBlock({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-[18px] border border-white/8 bg-white/5 p-3">
-      <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787]">{label}</p>
+      <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959]">{label}</p>
       <p className="mt-2 line-clamp-4 font-montserrat text-sm leading-6 text-[#FBFBFB]">
         {value || 'Not provided yet.'}
       </p>
@@ -3051,7 +3051,7 @@ function ProjectKickoffDrawer({
               {row.kind === 'handoff' ? 'Kickoff intake' : row.kind === 'active' ? 'Active project' : 'Project record'}
             </p>
             <h3 className="mt-3 font-playfair text-4xl font-semibold text-white">{row.project}</h3>
-            <p className="mt-3 text-sm leading-7 text-[#878787]">{row.client}</p>
+            <p className="mt-3 text-sm leading-7 text-[#595959]">{row.client}</p>
           </div>
           <div className="flex items-center gap-2">
             {row.kind !== 'seed' ? (
@@ -3084,7 +3084,7 @@ function ProjectKickoffDrawer({
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#FC6E20]">Kickoff decision</p>
-                <p className="mt-3 text-sm leading-7 text-[#878787]">
+                <p className="mt-3 text-sm leading-7 text-[#595959]">
                   Review this intake, fill in the delivery basics, then promote it into the active project register.
                 </p>
               </div>
@@ -3165,7 +3165,7 @@ function ProjectKickoffDrawer({
 function DetailCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-[22px] border border-white/8 bg-[#1B1B1E] p-4">
-      <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{label}</p>
+      <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{label}</p>
       <p className="mt-3 font-montserrat text-sm font-semibold text-white">{value}</p>
     </div>
   );
@@ -3184,7 +3184,7 @@ function Field({
 }) {
   return (
     <label className={className}>
-      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{label}</span>
+      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{label}</span>
       <input
         value={value}
         onChange={(event) => onChange(event.target.value)}
@@ -3207,7 +3207,7 @@ function TextAreaField({
 }) {
   return (
     <label className={className}>
-      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{label}</span>
+      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{label}</span>
       <textarea
         value={value}
         onChange={(event) => onChange(event.target.value)}

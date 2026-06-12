@@ -164,6 +164,7 @@ export default function FloatingUI() {
         <div className="absolute bottom-8 left-8 pointer-events-auto">
           <button
             onClick={() => setIsSearchOpen(true)}
+            aria-label="Open search"
             className="w-11 h-11 rounded-full flex items-center justify-center border border-white/30 hover:bg-white/10 transition-colors"
           >
             <Search className="w-4 h-4" />
@@ -368,6 +369,7 @@ export default function FloatingUI() {
                   setIsSearchOpen(false);
                   setSearchQuery('');
                 }}
+                aria-label="Close search"
                 className="absolute right-0 top-4 text-white/50 hover:text-white p-4"
               >
                 <X className="w-8 h-8" />

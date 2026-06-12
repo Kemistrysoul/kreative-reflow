@@ -23,7 +23,7 @@ const productionColumns: StudioTableColumn<ContentRecord>[] = [
     render: (row) => (
       <div>
         <p className="font-semibold text-white">{row.title}</p>
-        <p className="mt-2 text-[#878787]">{row.contentType}</p>
+        <p className="mt-2 text-[#595959]">{row.contentType}</p>
       </div>
     ),
   },
@@ -98,14 +98,14 @@ export default function StudioContentPipelinePage() {
                           <StudioStatusPill label={item.workspace} tone={item.workspace === 'Kreative Reflow' ? 'accent' : 'neutral'} />
                           <StudioStatusPill label={item.contentType} tone="muted" />
                         </div>
-                        <p className="mt-3 font-montserrat text-sm text-[#878787]">
+                        <p className="mt-3 font-montserrat text-sm text-[#595959]">
                           {item.client === '-' ? 'Internal system work' : item.client}
                         </p>
-                        <p className="mt-2 font-mono text-xs text-[#878787]">Due {item.due}</p>
+                        <p className="mt-2 font-mono text-xs text-[#595959]">Due {item.due}</p>
                       </button>
                     )) : (
                       <div className="rounded-[20px] border border-dashed border-white/10 bg-[#1B1B1E] p-4">
-                        <p className="font-montserrat text-sm text-[#878787]">Nothing in this stage yet.</p>
+                        <p className="font-montserrat text-sm text-[#595959]">Nothing in this stage yet.</p>
                       </div>
                     )}
                   </div>
@@ -123,7 +123,7 @@ export default function StudioContentPipelinePage() {
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="font-montserrat text-sm font-semibold text-white">{item.title}</p>
-                      <p className="mt-2 font-montserrat text-sm text-[#878787]">{item.meta}</p>
+                      <p className="mt-2 font-montserrat text-sm text-[#595959]">{item.meta}</p>
                     </div>
                     <StudioStatusPill label={item.time} tone="accent" />
                   </div>

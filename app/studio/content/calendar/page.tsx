@@ -26,7 +26,7 @@ const calendarColumns: StudioTableColumn<(typeof contentCalendarEntries)[number]
     render: (row) => (
       <div>
         <p className="font-semibold text-white">{row.title}</p>
-        <p className="mt-2 text-[#878787]">{row.channel}</p>
+        <p className="mt-2 text-[#595959]">{row.channel}</p>
       </div>
     ),
   },
@@ -102,7 +102,7 @@ export default function StudioContentCalendarPage() {
               {channelMix.map((item) => (
                 <div key={item.label} className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
                   <p className="font-montserrat text-sm font-semibold text-white">{item.label}</p>
-                  <p className="mt-2 font-montserrat text-sm text-[#878787]">{item.value}</p>
+                  <p className="mt-2 font-montserrat text-sm text-[#595959]">{item.value}</p>
                 </div>
               ))}
             </div>

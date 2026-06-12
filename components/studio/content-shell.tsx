@@ -192,7 +192,7 @@ function FilterSelect({
 }) {
   return (
     <label className="rounded-[20px] border border-white/8 bg-[#151419] px-4 py-3 transition hover:border-[#FC6E20]/40">
-      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{label}</span>
+      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{label}</span>
       <select
         aria-label={label}
         value={value}
@@ -244,7 +244,7 @@ function ContentDetailDrawer({
             <p className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#FC6E20]">{item.kind}</p>
             <h3 className="mt-3 font-playfair text-4xl font-semibold text-white">{item.title}</h3>
             {item.summary ? (
-              <p className="mt-3 font-montserrat text-sm leading-7 text-[#878787]">{item.summary}</p>
+              <p className="mt-3 font-montserrat text-sm leading-7 text-[#595959]">{item.summary}</p>
             ) : null}
           </div>
           <div className="flex items-center gap-2">
@@ -491,7 +491,7 @@ function ContentComposerModal({
           <div>
             <p className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#FC6E20]">Quick capture</p>
             <h3 className="mt-3 font-playfair text-4xl font-semibold text-white">Create a new content item</h3>
-            <p className="mt-3 max-w-2xl font-montserrat text-sm leading-7 text-[#878787]">
+            <p className="mt-3 max-w-2xl font-montserrat text-sm leading-7 text-[#595959]">
               Capture the next worthwhile thing before it gets lost: research, ideas, or something ready to schedule.
             </p>
           </div>
@@ -604,7 +604,7 @@ function ContentComposerModal({
 function DetailCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-[22px] border border-white/8 bg-[#1B1B1E] p-4">
-      <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{label}</p>
+      <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{label}</p>
       <p className="mt-3 font-montserrat text-sm font-semibold text-white">{value}</p>
     </div>
   );
@@ -632,7 +632,7 @@ function Field({
 }) {
   return (
     <label className={className}>
-      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{label}</span>
+      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{label}</span>
       <input
         value={value}
         onChange={(event) => onChange(event.target.value)}
@@ -655,7 +655,7 @@ function TextAreaField({
 }) {
   return (
     <label className={className}>
-      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{label}</span>
+      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{label}</span>
       <textarea
         value={value}
         onChange={(event) => onChange(event.target.value)}

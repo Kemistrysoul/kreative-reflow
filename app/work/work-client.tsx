@@ -508,7 +508,7 @@ function ProjectCaseStudy({ project, index }: { project: FeaturedProject; index:
         <div className="flex min-h-full flex-col justify-between">
           <div>
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <span className="font-mono text-sm text-[#878787]">{project.id}</span>
+              <span className="font-mono text-sm text-[#595959]">{project.id}</span>
               <span
                 className="rounded-full border px-3 py-1 font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.18em]"
                 style={{ borderColor: `${project.accent}55`, color: project.accent }}
@@ -516,7 +516,7 @@ function ProjectCaseStudy({ project, index }: { project: FeaturedProject; index:
                 Featured build
               </span>
             </div>
-            <p className="mt-8 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#878787]">
+            <p className="mt-8 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#595959]">
               {project.eyebrow}
             </p>
             <h2 className="mt-4 max-w-[12ch] font-playfair text-[clamp(2.45rem,4.2vw,4.7rem)] font-bold leading-[0.94] tracking-tight sm:max-w-none">
@@ -608,13 +608,13 @@ function FeaturedWork() {
           </p>
           <div className="mt-10 grid max-w-md grid-cols-2 gap-3">
             <div className="border border-[#151419]/10 bg-[#FBFBFB]/60 p-4 dark:border-white/10 dark:bg-white/[0.035]">
-              <span className="block font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#878787]">
+              <span className="block font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#595959]">
                 Featured
               </span>
               <span className="mt-2 block font-mono text-3xl text-[#151419] dark:text-white">03</span>
             </div>
             <div className="border border-[#151419]/10 bg-[#FBFBFB]/60 p-4 dark:border-white/10 dark:bg-white/[0.035]">
-              <span className="block font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#878787]">
+              <span className="block font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#595959]">
                 Scope
               </span>
               <span className="mt-2 block font-mono text-3xl text-[#151419] dark:text-white">Full</span>

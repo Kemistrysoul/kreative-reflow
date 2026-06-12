@@ -20,7 +20,7 @@ export function StudioRouteError({
         <p className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#FC6E20]">Studio error</p>
       </div>
       <h1 className="mt-5 font-playfair text-4xl font-semibold text-white lg:text-5xl">{title}</h1>
-      <p className="mt-3 max-w-3xl font-montserrat text-sm leading-7 text-[#878787] lg:text-base">{detail}</p>
+      <p className="mt-3 max-w-3xl font-montserrat text-sm leading-7 text-[#595959] lg:text-base">{detail}</p>
       <button
         type="button"
         onClick={reset}

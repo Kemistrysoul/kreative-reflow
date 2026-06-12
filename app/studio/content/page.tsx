@@ -28,7 +28,7 @@ const overviewColumns: StudioTableColumn<ContentCalendarEntry>[] = [
     render: (row) => (
       <div>
         <p className="font-semibold text-white">{row.title}</p>
-        <p className="mt-2 text-[#878787]">{row.channel}</p>
+        <p className="mt-2 text-[#595959]">{row.channel}</p>
       </div>
     ),
   },
@@ -85,9 +85,9 @@ export default function StudioContentPage() {
           <div className="space-y-3">
             {filteredSplit.map((item) => (
               <div key={item.label} className="rounded-[22px] border border-white/8 bg-[#151419] p-5">
-                <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787]">{item.label}</p>
+                <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959]">{item.label}</p>
                 <p className="mt-3 font-playfair text-4xl font-semibold text-white">{item.value}</p>
-                <p className="mt-2 font-montserrat text-sm text-[#878787]">
+                <p className="mt-2 font-montserrat text-sm text-[#595959]">
                   {item.label === 'Kreative Reflow'
                     ? 'Internal publishing, offer support, and thought-leadership work.'
                     : 'Client deliverables, campaigns, case studies, and distribution support.'}
@@ -105,7 +105,7 @@ export default function StudioContentPage() {
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="font-montserrat text-sm font-semibold text-white">{handoff.client}</p>
-                      <p className="mt-2 text-sm text-[#878787]">{handoff.requestedService ?? handoff.business}</p>
+                      <p className="mt-2 text-sm text-[#595959]">{handoff.requestedService ?? handoff.business}</p>
                     </div>
                     <StudioStatusPill label={handoff.stage} tone="accent" />
                   </div>
@@ -114,12 +114,12 @@ export default function StudioContentPage() {
               ))
             ) : (
               <div className="rounded-[22px] border border-dashed border-white/10 bg-white/[0.02] p-5">
-                <p className="font-montserrat text-sm text-[#878787]">No CRM content handoffs yet. New client content work will land here automatically.</p>
+                <p className="font-montserrat text-sm text-[#595959]">No CRM content handoffs yet. New client content work will land here automatically.</p>
               </div>
             )}
           </div>
           <div className="mt-4 rounded-[22px] border border-white/8 bg-white/5 p-4">
-            <p className="font-montserrat text-sm leading-6 text-[#878787]">
+            <p className="font-montserrat text-sm leading-6 text-[#595959]">
               Every intake above is also inserted into the Ideas queue as a real briefable content record.
             </p>
           </div>

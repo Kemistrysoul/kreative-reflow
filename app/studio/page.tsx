@@ -46,7 +46,7 @@ export default function StudioOverviewPage() {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="font-montserrat text-sm font-semibold text-white">{item.title}</p>
-                    <p className="mt-2 font-montserrat text-sm text-[#878787]">{item.meta}</p>
+                    <p className="mt-2 font-montserrat text-sm text-[#595959]">{item.meta}</p>
                   </div>
                   <StudioStatusPill label={item.time} tone={item.tone === 'accent' ? 'accent' : 'muted'} />
                 </div>
@@ -62,9 +62,9 @@ export default function StudioOverviewPage() {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="font-montserrat text-sm font-semibold text-white">{item.title}</p>
-                    <p className="mt-2 font-montserrat text-sm text-[#878787]">{item.meta}</p>
+                    <p className="mt-2 font-montserrat text-sm text-[#595959]">{item.meta}</p>
                   </div>
-                  <span className="font-mono text-xs text-[#878787]">{item.time}</span>
+                  <span className="font-mono text-xs text-[#595959]">{item.time}</span>
                 </div>
               </div>
             ))}
@@ -80,10 +80,10 @@ export default function StudioOverviewPage() {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="font-montserrat text-sm font-semibold text-white">{project.project}</p>
-                    <p className="mt-1 font-montserrat text-sm text-[#878787]">
+                    <p className="mt-1 font-montserrat text-sm text-[#595959]">
                       {project.client} - {project.phase}
                     </p>
-                    <p className="mt-2 font-montserrat text-sm text-[#878787]">Deadline {project.deadline}</p>
+                    <p className="mt-2 font-montserrat text-sm text-[#595959]">Deadline {project.deadline}</p>
                   </div>
                   <StudioStatusPill label={project.health} tone="accent" />
                 </div>
@@ -96,7 +96,7 @@ export default function StudioOverviewPage() {
           <div className="grid gap-3">
             {overviewCrmSnapshot.map((item) => (
               <div key={item.label} className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
-                <p className="font-montserrat text-xs uppercase tracking-[0.16em] text-[#878787]">{item.label}</p>
+                <p className="font-montserrat text-xs uppercase tracking-[0.16em] text-[#595959]">{item.label}</p>
                 <p className="mt-2 font-playfair text-4xl text-white">{item.value}</p>
               </div>
             ))}
@@ -107,7 +107,7 @@ export default function StudioOverviewPage() {
           <div className="grid gap-3">
             {overviewFinanceSnapshot.map((item) => (
               <div key={item.label} className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
-                <p className="font-montserrat text-xs uppercase tracking-[0.16em] text-[#878787]">{item.label}</p>
+                <p className="font-montserrat text-xs uppercase tracking-[0.16em] text-[#595959]">{item.label}</p>
                 <p className="mt-2 font-playfair text-4xl text-white">{item.value}</p>
               </div>
             ))}

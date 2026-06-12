@@ -205,7 +205,7 @@ export default function StartPage() {
                         <Icon aria-hidden="true" className="h-5 w-5" />
                       </span>
                       <span>
-                        <span className="block font-montserrat text-[10px] font-bold uppercase tracking-[0.18em] text-[#878787]">
+                        <span className="block font-montserrat text-[10px] font-bold uppercase tracking-[0.18em] text-[#595959]">
                           {link.label}
                         </span>
                         <span className="mt-1 block font-montserrat text-sm font-semibold [overflow-wrap:anywhere]">
@@ -215,7 +215,7 @@ export default function StartPage() {
                     </span>
                     <ArrowUpRight
                       aria-hidden="true"
-                      className="h-4 w-4 shrink-0 text-[#878787] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#FC6E20]"
+                      className="h-4 w-4 shrink-0 text-[#595959] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#FC6E20]"
                     />
                   </a>
                 );

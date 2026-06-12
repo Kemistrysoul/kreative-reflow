@@ -33,7 +33,7 @@ const budgetOptions = [
 ];
 
 const fieldClass =
-  'min-h-[56px] w-full rounded-[1.15rem] border border-white/10 bg-[#060808]/55 px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#878787] focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20';
+  'min-h-[56px] w-full rounded-[1.15rem] border border-white/10 bg-[#060808]/55 px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20';
 
 const inputClass = `mt-2 ${fieldClass}`;
 
@@ -93,7 +93,7 @@ export function ContactForm() {
             Give us the signal<span className="text-[#FC6E20]">.</span>
           </h2>
         </div>
-        <div className="rounded-full border border-white/10 px-4 py-2 font-mono text-xs uppercase tracking-[0.12em] text-[#878787]">
+        <div className="rounded-full border border-white/10 px-4 py-2 font-mono text-xs uppercase tracking-[0.12em] text-[#595959]">
           Direct enquiry
         </div>
       </div>
@@ -202,7 +202,7 @@ export function ContactForm() {
           onChange={(event) => setMessage(event.target.value)}
           required
           rows={7}
-          className="mt-2 w-full resize-none rounded-[1.15rem] border border-white/10 bg-[#060808]/55 px-4 py-4 font-montserrat text-sm leading-7 text-[#FBFBFB] outline-none transition-colors placeholder:text-[#878787] focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20"
+          className="mt-2 w-full resize-none rounded-[1.15rem] border border-white/10 bg-[#060808]/55 px-4 py-4 font-montserrat text-sm leading-7 text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20] focus:ring-2 focus:ring-[#FC6E20]/20"
           placeholder="Tell us what you want to build, fix, simplify, automate, or understand better."
         />
       </label>
@@ -217,7 +217,7 @@ export function ContactForm() {
           <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
         </button>
 
-        <p className="max-w-xs font-montserrat text-xs leading-6 text-[#878787]">
+        <p className="max-w-xs font-montserrat text-xs leading-6 text-[#595959]">
           The studio receives your project context and can reply with the next
           practical step.
         </p>

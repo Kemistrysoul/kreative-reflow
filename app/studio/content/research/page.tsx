@@ -24,7 +24,7 @@ const researchColumns: StudioTableColumn<(typeof contentResearchRecords)[number]
     render: (row) => (
       <div>
         <p className="font-semibold text-white">{row.topic}</p>
-        <p className="mt-2 text-[#878787]">{row.focus}</p>
+        <p className="mt-2 text-[#595959]">{row.focus}</p>
       </div>
     ),
   },
@@ -90,7 +90,7 @@ export default function StudioContentResearchPage() {
             <article key={lane.title} className="rounded-[24px] border border-white/8 bg-[#151419] p-5">
               <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#FC6E20]">Focus</p>
               <h3 className="mt-3 font-playfair text-3xl font-semibold text-white">{lane.title}</h3>
-              <p className="mt-3 font-montserrat text-sm leading-7 text-[#878787]">{lane.description}</p>
+              <p className="mt-3 font-montserrat text-sm leading-7 text-[#595959]">{lane.description}</p>
             </article>
           ))}
         </div>

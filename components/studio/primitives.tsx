@@ -27,7 +27,7 @@ export function StudioPageHeader({
         <div className="min-w-0">
           <p className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#FC6E20]">{eyebrow}</p>
           <h2 className="mt-3 font-playfair text-4xl font-semibold text-white lg:text-5xl">{title}</h2>
-          <p className="mt-3 max-w-3xl font-montserrat text-sm leading-7 text-[#878787] lg:text-base">{description}</p>
+          <p className="mt-3 max-w-3xl font-montserrat text-sm leading-7 text-[#595959] lg:text-base">{description}</p>
         </div>
         {actions ? <div className="shrink-0">{actions}</div> : null}
       </div>
@@ -89,7 +89,7 @@ export function StudioPanel({
           ) : null}
           <div>
             {eyebrow ? (
-              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{eyebrow}</p>
+              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{eyebrow}</p>
             ) : null}
             <h3 className="font-playfair text-3xl font-semibold text-white">{title}</h3>
           </div>
@@ -118,9 +118,9 @@ export function StudioMetricCard({ metric }: { metric: StudioMetric }) {
         </div>
         {metric.spark?.length ? <MiniSpark bars={metric.spark} /> : null}
       </div>
-      <p className="mt-5 font-montserrat text-xs uppercase tracking-[0.18em] text-[#878787]">{metric.label}</p>
+      <p className="mt-5 font-montserrat text-xs uppercase tracking-[0.18em] text-[#595959]">{metric.label}</p>
       <p className="mt-2 font-playfair text-5xl font-semibold text-white">{metric.value}</p>
-      <p className="mt-2 font-montserrat text-sm text-[#878787]">{metric.detail}</p>
+      <p className="mt-2 font-montserrat text-sm text-[#595959]">{metric.detail}</p>
     </article>
   );
 }
@@ -152,7 +152,7 @@ export function StudioStatusPill({
     tone === 'accent'
       ? 'border-[#FC6E20]/40 bg-[#FC6E20]/12 text-[#FC6E20]'
       : tone === 'muted'
-        ? 'border-white/8 bg-white/5 text-[#878787]'
+        ? 'border-white/8 bg-white/5 text-[#595959]'
         : 'border-white/10 bg-white/6 text-[#F0EFED]';
 
   return (
@@ -190,7 +190,7 @@ export function StudioDataTable<T>({
             {columns.map((column) => (
               <th
                 key={column.key}
-                className={`px-4 py-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.16em] text-[#878787] ${column.className ?? ''}`}
+                className={`px-4 py-4 font-montserrat text-[11px] font-medium uppercase tracking-[0.16em] text-[#595959] ${column.className ?? ''}`}
               >
                 {column.label}
               </th>
@@ -216,7 +216,7 @@ export function StudioDataTable<T>({
             <tr>
               <td
                 colSpan={columns.length}
-                className="px-4 py-10 text-center font-montserrat text-sm text-[#878787]"
+                className="px-4 py-10 text-center font-montserrat text-sm text-[#595959]"
               >
                 {emptyMessage}
               </td>
@@ -240,10 +240,10 @@ export function StudioList({
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
               <p className="font-montserrat text-sm font-semibold text-white">{item.title}</p>
-              {item.meta ? <p className="mt-2 font-montserrat text-sm text-[#878787]">{item.meta}</p> : null}
+              {item.meta ? <p className="mt-2 font-montserrat text-sm text-[#595959]">{item.meta}</p> : null}
             </div>
             {item.time ? (
-              <span className="shrink-0 font-mono text-xs text-[#878787]">{item.time}</span>
+              <span className="shrink-0 font-mono text-xs text-[#595959]">{item.time}</span>
             ) : null}
           </div>
         </div>
@@ -263,7 +263,7 @@ export function StudioLinkRow({
     <div className="flex items-center justify-between gap-4 rounded-[22px] border border-white/8 bg-[#151419] p-4">
       <div>
         <p className="font-montserrat text-sm font-semibold text-white">{title}</p>
-        <p className="mt-2 font-montserrat text-sm text-[#878787]">{description}</p>
+        <p className="mt-2 font-montserrat text-sm text-[#595959]">{description}</p>
       </div>
       <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/8 bg-white/5 text-[#FBFBFB]">
         <ChevronRight className="h-4 w-4" />

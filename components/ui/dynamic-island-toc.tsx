@@ -243,7 +243,7 @@ export function DynamicIslandTOC({
             className={cn('absolute inset-0 flex flex-col', !isExpanded && 'pointer-events-none')}
           >
             <div className="flex shrink-0 items-center justify-between px-6 pb-3 pt-5">
-              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-[#878787]">
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-[#595959]">
                 Table of contents
               </span>
               <button
@@ -253,7 +253,7 @@ export function DynamicIslandTOC({
                   e.stopPropagation();
                   setIsExpanded(false);
                 }}
-                className="text-[#878787] transition-colors hover:text-[#FC6E20]"
+                className="text-[#595959] transition-colors hover:text-[#FC6E20]"
               >
                 <X className="h-5 w-5" />
               </button>

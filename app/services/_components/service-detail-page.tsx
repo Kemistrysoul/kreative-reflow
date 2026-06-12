@@ -208,8 +208,8 @@ export function ServiceDetailPage({
 
       <section className="content-gutter relative z-10 grid min-h-screen gap-12 py-28 md:py-32 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.78fr)] lg:items-center lg:gap-16">
         <Reveal direction="left">
-          <nav className="mb-10 flex flex-wrap items-center gap-2 font-montserrat text-xs uppercase tracking-[0.22em] text-[#878787]">
-            <AnimatedTextLink href="/services" className="text-[#878787]" underline={false}>
+          <nav className="mb-10 flex flex-wrap items-center gap-2 font-montserrat text-xs uppercase tracking-[0.22em] text-[#595959]">
+            <AnimatedTextLink href="/services" className="text-[#595959]" underline={false}>
               Services
             </AnimatedTextLink>
             <span>/</span>

@@ -336,7 +336,7 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
       render: (row) => (
         <div>
           <p className="font-semibold text-white">{row.name}</p>
-          <p className="mt-1 text-[#878787]">{row.business}</p>
+          <p className="mt-1 text-[#595959]">{row.business}</p>
         </div>
       ),
     },
@@ -358,7 +358,7 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
       render: (row) => (
         <div>
           <p className="text-white">{row.nextAction}</p>
-          <p className="mt-1 text-xs text-[#878787]">{row.requestedService ?? 'General enquiry'}</p>
+          <p className="mt-1 text-xs text-[#595959]">{row.requestedService ?? 'General enquiry'}</p>
         </div>
       ),
     },
@@ -415,7 +415,7 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
               New lead
             </button>
             <div className="rounded-2xl border border-white/8 bg-[#151419] px-4 py-3">
-              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Current pressure</p>
+              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Current pressure</p>
               <p className="mt-2 font-montserrat text-sm font-semibold text-white">
                 {readyToConvert.length} won lead{readyToConvert.length === 1 ? '' : 's'} ready for handoff
               </p>
@@ -439,7 +439,7 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="font-montserrat text-sm font-semibold text-white">{stage.label}</p>
-                      <p className="mt-1 font-montserrat text-xs uppercase tracking-[0.16em] text-[#878787]">
+                      <p className="mt-1 font-montserrat text-xs uppercase tracking-[0.16em] text-[#595959]">
                         {stage.items.length} records
                       </p>
                     </div>
@@ -457,17 +457,17 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
                           <div className="flex items-start justify-between gap-3">
                             <div className="min-w-0">
                               <p className="font-montserrat text-sm font-semibold text-white">{lead.name}</p>
-                              <p className="mt-1 text-sm text-[#878787]">{lead.business}</p>
+                              <p className="mt-1 text-sm text-[#595959]">{lead.business}</p>
                             </div>
                             <span className="font-mono text-xs text-[#FC6E20]">{lead.budget}</span>
                           </div>
-                          <p className="mt-3 text-xs uppercase tracking-[0.16em] text-[#878787]">{lead.requestedService}</p>
+                          <p className="mt-3 text-xs uppercase tracking-[0.16em] text-[#595959]">{lead.requestedService}</p>
                           <p className="mt-3 text-sm text-[#F0EFED]">{lead.nextAction}</p>
                         </button>
                       ))
                     ) : (
                       <div className="rounded-[20px] border border-dashed border-white/10 bg-white/[0.02] p-4">
-                        <p className="font-montserrat text-sm text-[#878787]">No leads in this stage right now.</p>
+                        <p className="font-montserrat text-sm text-[#595959]">No leads in this stage right now.</p>
                       </div>
                     )}
                   </div>
@@ -490,7 +490,7 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
                     <div className="flex items-center justify-between gap-3">
                       <div>
                         <p className="font-montserrat text-sm font-semibold text-white">{item.label}</p>
-                        <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[#878787]">{item.count} leads</p>
+                        <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[#595959]">{item.count} leads</p>
                       </div>
                       <p className="font-playfair text-3xl text-white">{item.value}</p>
                     </div>
@@ -529,7 +529,7 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <p className="font-montserrat text-sm font-semibold text-white">{lead.name}</p>
-                          <p className="mt-2 text-sm text-[#878787]">{lead.requestedService}</p>
+                          <p className="mt-2 text-sm text-[#595959]">{lead.requestedService}</p>
                         </div>
                         <StudioStatusPill label={lead.stage} tone={lead.stage === 'Won' ? 'accent' : 'neutral'} />
                       </div>
@@ -546,7 +546,7 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
                     <div className="flex items-center justify-between gap-3">
                       <div>
                         <p className="font-montserrat text-sm font-semibold text-white">{item.label}</p>
-                        <p className="mt-2 text-sm text-[#878787]">{item.count} lead{item.count === 1 ? '' : 's'} in the current mix</p>
+                        <p className="mt-2 text-sm text-[#595959]">{item.count} lead{item.count === 1 ? '' : 's'} in the current mix</p>
                       </div>
                       <p className="font-playfair text-3xl text-white">{item.value}</p>
                     </div>
@@ -567,7 +567,7 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="font-montserrat text-sm font-semibold text-white">{item.title}</p>
-                      <p className="mt-2 font-montserrat text-sm text-[#878787]">{item.meta}</p>
+                      <p className="mt-2 font-montserrat text-sm text-[#595959]">{item.meta}</p>
                     </div>
                     <StudioStatusPill label={item.time} tone="muted" />
                   </div>
@@ -579,7 +579,7 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
                 <MessageSquareText className="h-4 w-4 text-[#FC6E20]" />
                 <p className="font-montserrat text-sm font-semibold text-white">Follow-up stays inside CRM on purpose</p>
               </div>
-              <p className="mt-3 font-montserrat text-sm leading-6 text-[#878787]">
+              <p className="mt-3 font-montserrat text-sm leading-6 text-[#595959]">
                 These messages exist to move commercial conversations forward. They should stay attached to lead stage, requested service, and the next real decision.
               </p>
             </div>
@@ -606,7 +606,7 @@ export function StudioCrmWorkspace({ openIntake = false }: { openIntake?: boolea
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <p className="font-montserrat text-sm font-semibold text-white">{lead.name}</p>
-                          <p className="mt-2 text-sm text-[#878787]">{lead.nextAction}</p>
+                          <p className="mt-2 text-sm text-[#595959]">{lead.nextAction}</p>
                         </div>
                         <ArrowRight className="mt-1 h-4 w-4 text-[#FC6E20]" />
                       </div>
@@ -663,7 +663,7 @@ function HandoffPanel({
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="font-montserrat text-sm font-semibold text-white">Ready to convert</p>
-              <p className="mt-2 text-sm text-[#878787]">Won leads should not stall here. Move them into the next operating system.</p>
+              <p className="mt-2 text-sm text-[#595959]">Won leads should not stall here. Move them into the next operating system.</p>
             </div>
             <StudioStatusPill label={`${readyToConvert.length} won`} tone="accent" />
           </div>
@@ -679,14 +679,14 @@ function HandoffPanel({
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="font-montserrat text-sm font-semibold text-white">{lead.name}</p>
-                      <p className="mt-1 text-sm text-[#878787]">{lead.requestedService}</p>
+                      <p className="mt-1 text-sm text-[#595959]">{lead.requestedService}</p>
                     </div>
                     <span className="font-mono text-xs text-[#FC6E20]">{lead.budget}</span>
                   </div>
                 </button>
               ))
             ) : (
-              <p className="font-montserrat text-sm text-[#878787]">No won leads are waiting right now.</p>
+              <p className="font-montserrat text-sm text-[#595959]">No won leads are waiting right now.</p>
             )}
           </div>
         </div>
@@ -728,7 +728,7 @@ function HandoffQueueCard({
           </span>
           <div>
             <p className="font-montserrat text-sm font-semibold text-white">{title}</p>
-            <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[#878787]">{records.length} queued</p>
+            <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[#595959]">{records.length} queued</p>
           </div>
         </div>
         <Link
@@ -744,7 +744,7 @@ function HandoffQueueCard({
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="font-montserrat text-sm font-semibold text-white">{record.client}</p>
-                <p className="mt-1 text-sm text-[#878787]">{record.business}</p>
+                <p className="mt-1 text-sm text-[#595959]">{record.business}</p>
               </div>
               <StudioStatusPill label={record.stage} tone="muted" />
             </div>
@@ -788,7 +788,7 @@ function LeadDetailDrawer({
           <div>
             <p className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#FC6E20]">Lead detail</p>
             <h3 className="mt-3 font-playfair text-4xl font-semibold text-white">{lead.name}</h3>
-            <p className="mt-3 text-sm leading-7 text-[#878787]">{lead.business}</p>
+            <p className="mt-3 text-sm leading-7 text-[#595959]">{lead.business}</p>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -818,8 +818,8 @@ function LeadDetailDrawer({
         <div className="mt-6 rounded-[24px] border border-white/8 bg-[#1B1B1E] p-5">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">Stage progression</p>
-              <p className="mt-2 text-sm text-[#878787]">Move the lead deliberately. The CRM should make the next commercial action obvious.</p>
+              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Stage progression</p>
+              <p className="mt-2 text-sm text-[#595959]">Move the lead deliberately. The CRM should make the next commercial action obvious.</p>
             </div>
             {lead.stage !== 'Won' ? (
               <button
@@ -854,7 +854,7 @@ function LeadDetailDrawer({
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#FC6E20]">Handoff actions</p>
-                <p className="mt-3 text-sm leading-7 text-[#878787]">
+                <p className="mt-3 text-sm leading-7 text-[#595959]">
                   Won leads should leave CRM with intention. Convert them into delivery or content work instead of letting them sit here.
                 </p>
               </div>
@@ -962,7 +962,7 @@ function LeadIntakeModal({
           <div>
             <p className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#FC6E20]">Quick intake</p>
             <h3 className="mt-3 font-playfair text-4xl font-semibold text-white">Capture a new lead</h3>
-            <p className="mt-3 max-w-2xl font-montserrat text-sm leading-7 text-[#878787]">
+            <p className="mt-3 max-w-2xl font-montserrat text-sm leading-7 text-[#595959]">
               Keep this fast. The goal is to get a commercial record into the system with enough context to move it forward today.
             </p>
           </div>
@@ -1021,7 +1021,7 @@ function LeadIntakeModal({
 function DetailCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-[22px] border border-white/8 bg-[#1B1B1E] p-4">
-      <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{label}</p>
+      <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{label}</p>
       <p className="mt-3 font-montserrat text-sm font-semibold text-white">{value}</p>
     </div>
   );
@@ -1049,7 +1049,7 @@ function Field({
 }) {
   return (
     <label className={className}>
-      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{label}</span>
+      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{label}</span>
       <input
         value={value}
         onChange={(event) => onChange(event.target.value)}
@@ -1072,7 +1072,7 @@ function TextAreaField({
 }) {
   return (
     <label className={className}>
-      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#878787]">{label}</span>
+      <span className="block font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">{label}</span>
       <textarea
         value={value}
         onChange={(event) => onChange(event.target.value)}

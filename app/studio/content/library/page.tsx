@@ -114,7 +114,7 @@ export default function StudioContentLibraryPage() {
                   ))}
                 </div>
                 <h3 className="mt-4 font-playfair text-3xl font-semibold text-white">{item.title}</h3>
-                <p className="mt-3 font-montserrat text-sm leading-7 text-[#878787]">{item.description}</p>
+                <p className="mt-3 font-montserrat text-sm leading-7 text-[#595959]">{item.description}</p>
                 <div className="mt-4 rounded-[18px] border border-[#FC6E20]/20 bg-[#FC6E20]/8 px-4 py-3">
                   <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#FC6E20]">Default CTA</p>
                   <p className="mt-2 font-montserrat text-sm text-[#FBFBFB]">{item.defaultCta}</p>
@@ -124,7 +124,7 @@ export default function StudioContentLibraryPage() {
           })}
           {!filteredLibrary.length ? (
             <div className="rounded-[24px] border border-dashed border-white/12 bg-[#151419] p-6">
-              <p className="font-montserrat text-sm text-[#878787]">
+              <p className="font-montserrat text-sm text-[#595959]">
                 No library templates match the current filters.
               </p>
             </div>

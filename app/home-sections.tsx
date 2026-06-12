@@ -1398,11 +1398,11 @@ function FeaturedBuildsSection() {
             </p>
             <div className="mt-10 grid max-w-md grid-cols-2 gap-3 font-montserrat">
               <div className="border border-[#151419]/10 bg-white/55 p-4 dark:border-white/10 dark:bg-white/[0.04]">
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#878787]">Projects</span>
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#595959]">Projects</span>
                 <span className="mt-2 block font-mono text-3xl text-[#151419] dark:text-white">03</span>
               </div>
               <div className="border border-[#151419]/10 bg-white/55 p-4 dark:border-white/10 dark:bg-white/[0.04]">
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#878787]">Scope</span>
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#595959]">Scope</span>
                 <span className="mt-2 block font-mono text-3xl text-[#151419] dark:text-white">Full</span>
               </div>
             </div>
@@ -1484,7 +1484,7 @@ function FeaturedBuildCard({
           <div className="flex min-h-full flex-col justify-between">
             <div>
               <div className="flex items-center justify-between gap-4 font-montserrat">
-                <span className="font-mono text-sm text-[#878787]">{build.id}</span>
+                <span className="font-mono text-sm text-[#595959]">{build.id}</span>
                 <span
                   className="rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]"
                   style={{ borderColor: `${build.accent}55`, color: build.accent }}
@@ -1492,7 +1492,7 @@ function FeaturedBuildCard({
                   Featured build
                 </span>
               </div>
-              <p className="mt-8 font-montserrat text-xs font-semibold uppercase tracking-[0.24em] text-[#878787]">
+              <p className="mt-8 font-montserrat text-xs font-semibold uppercase tracking-[0.24em] text-[#595959]">
                 {build.eyebrow}
               </p>
               <h3 className="mt-4 font-playfair text-4xl font-bold leading-[1.02] tracking-tight text-[#151419] dark:text-white md:text-5xl">
@@ -1641,7 +1641,7 @@ export function Testimonial() {
         <div className="relative grid gap-8 border-y border-[#151419]/12 py-10 dark:border-white/12 md:grid-cols-[88px_minmax(0,1fr)] md:gap-12 lg:grid-cols-[120px_minmax(0,1fr)] lg:py-16">
           <div className="flex items-center gap-4 md:flex-col md:justify-center md:border-r md:border-[#151419]/12 md:pr-8 md:dark:border-white/12 lg:pr-12">
             <motion.span
-              className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#878787] md:[writing-mode:vertical-rl]"
+              className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#595959] md:[writing-mode:vertical-rl]"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: '-80px' }}
@@ -1671,7 +1671,7 @@ export function Testimonial() {
                 transition={{ duration: 0.35 }}
                 className="mb-8"
               >
-                <span className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#151419]/12 px-3 py-1 font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#878787] dark:border-white/14">
+                <span className="inline-flex min-h-9 items-center gap-2 rounded-full border border-[#151419]/12 px-3 py-1 font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959] dark:border-white/14">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#FC6E20]" />
                   {current.badge}
                 </span>
@@ -1712,7 +1712,7 @@ export function Testimonial() {
                   />
                   <div>
                     <p className="font-montserrat text-sm font-semibold text-[#151419] dark:text-white">{current.project}</p>
-                    <p className="mt-1 font-montserrat text-sm text-[#878787]">{current.scope}</p>
+                    <p className="mt-1 font-montserrat text-sm text-[#595959]">{current.scope}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>

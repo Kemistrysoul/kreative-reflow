@@ -868,7 +868,7 @@ export function ScorecardClient() {
                 ['Full report', 'Unlocked at result'],
               ].map(([label, value]) => (
                 <div key={label} className="border border-white/10 bg-white/[0.035] p-4">
-                  <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#878787]">
+                  <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#595959]">
                     {label}
                   </p>
                   <p className="mt-3 font-mono text-sm text-[#FBFBFB]">{value}</p>
@@ -889,13 +889,13 @@ export function ScorecardClient() {
                       {activeCategory.description}
                     </p>
                   </div>
-                  <div className="shrink-0 border border-white/10 px-4 py-3 font-mono text-xs uppercase tracking-[0.16em] text-[#878787]">
+                  <div className="shrink-0 border border-white/10 px-4 py-3 font-mono text-xs uppercase tracking-[0.16em] text-[#595959]">
                     {currentCategoryPosition}/{currentCategoryQuestions.length}
                   </div>
                 </div>
 
                 <div className="mt-6">
-                  <div className="flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-[0.16em] text-[#878787]">
+                  <div className="flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-[0.16em] text-[#595959]">
                     <span>
                       Question {currentIndex + 1}/{scorecardQuestions.length}
                     </span>
@@ -1155,7 +1155,7 @@ function ResultsView({
               className="border border-white/10 bg-white/[0.035] p-4 text-[#FBFBFB]"
             >
               <Icon className="h-4 w-4 text-[#FC6E20]" strokeWidth={1.7} />
-              <p className="mt-5 font-montserrat text-[10px] font-bold uppercase tracking-[0.18em] text-[#878787]">
+              <p className="mt-5 font-montserrat text-[10px] font-bold uppercase tracking-[0.18em] text-[#595959]">
                 {category.name}
               </p>
               <p className="mt-3 font-mono text-xl text-[#FBFBFB]">
@@ -1221,19 +1221,19 @@ function ResultsView({
           {!reportReady ? (
             <form onSubmit={onLeadSubmit} className="mt-6 grid gap-4">
               <label className="block">
-                <span className="font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#878787]">
+                <span className="font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#595959]">
                   Name
                 </span>
                 <input
                   value={leadName}
                   onChange={(event) => onLeadNameChange(event.target.value)}
-                  className="mt-2 min-h-12 w-full border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#878787] focus:border-[#FC6E20]"
+                  className="mt-2 min-h-12 w-full border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20]"
                   placeholder="Your name"
                   autoComplete="name"
                 />
               </label>
               <label className="block">
-                <span className="font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#878787]">
+                <span className="font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#595959]">
                   Email
                 </span>
                 <input
@@ -1242,19 +1242,19 @@ function ResultsView({
                   required
                   type="email"
                   inputMode="email"
-                  className="mt-2 min-h-12 w-full border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#878787] focus:border-[#FC6E20]"
+                  className="mt-2 min-h-12 w-full border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20]"
                   placeholder="you@example.com"
                   autoComplete="email"
                 />
               </label>
               <label className="block">
-                <span className="font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#878787]">
+                <span className="font-montserrat text-[11px] font-bold uppercase tracking-[0.18em] text-[#595959]">
                   Business
                 </span>
                 <input
                   value={leadBusiness}
                   onChange={(event) => onLeadBusinessChange(event.target.value)}
-                  className="mt-2 min-h-12 w-full border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#878787] focus:border-[#FC6E20]"
+                  className="mt-2 min-h-12 w-full border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20]"
                   placeholder="Business name"
                   autoComplete="organization"
                 />

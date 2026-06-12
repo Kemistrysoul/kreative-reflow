@@ -869,7 +869,7 @@ export function WebsiteRebuildRefreshQuizClient() {
                 ['Forced triggers', 'Critical issues override score'],
               ].map(([label, value]) => (
                 <div key={label} className="border border-white/10 bg-white/[0.035] p-4">
-                  <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#878787]">
+                  <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#595959]">
                     {label}
                   </p>
                   <p className="mt-3 font-mono text-sm text-[#FBFBFB]">{value}</p>
@@ -898,7 +898,7 @@ export function WebsiteRebuildRefreshQuizClient() {
                 </p>
 
                 <div className="mt-6">
-                  <div className="flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-[0.16em] text-[#878787]">
+                  <div className="flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-[0.16em] text-[#595959]">
                     <span>
                       Question {currentIndex + 1}/{quizQuestions.length}
                     </span>
@@ -1127,7 +1127,7 @@ function ResultsView({
           ['ROI timeline', details.roiTimeline],
         ].map(([label, value]) => (
           <article key={label} className="border border-white/10 bg-white/[0.035] p-4">
-            <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#878787]">
+            <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#595959]">
               {label}
             </p>
             <p className="mt-4 font-playfair text-2xl font-bold leading-none text-[#FBFBFB]">
@@ -1146,7 +1146,7 @@ function ResultsView({
           return (
             <article key={categoryId} className="border border-white/10 bg-white/[0.035] p-4">
               <Icon className="h-4 w-4 text-[#FC6E20]" strokeWidth={1.7} />
-              <p className="mt-5 font-montserrat text-[10px] font-bold uppercase tracking-[0.18em] text-[#878787]">
+              <p className="mt-5 font-montserrat text-[10px] font-bold uppercase tracking-[0.18em] text-[#595959]">
                 {category.name}
               </p>
               <p className="mt-3 font-mono text-sm text-[#FBFBFB]">
@@ -1225,7 +1225,7 @@ function ResultsView({
                 value={leadName}
                 onChange={(event) => onLeadNameChange(event.target.value)}
                 placeholder="Your name"
-                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#878787] focus:border-[#FC6E20]"
+                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#595959] focus:border-[#FC6E20]"
               />
               <input
                 value={leadEmail}
@@ -1233,13 +1233,13 @@ function ResultsView({
                 type="email"
                 placeholder="Email address"
                 required
-                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#878787] focus:border-[#FC6E20]"
+                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#595959] focus:border-[#FC6E20]"
               />
               <input
                 value={leadBusiness}
                 onChange={(event) => onLeadBusinessChange(event.target.value)}
                 placeholder="Business name"
-                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#878787] focus:border-[#FC6E20]"
+                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#595959] focus:border-[#FC6E20]"
               />
               <button
                 type="submit"
@@ -1296,7 +1296,7 @@ function ResultsView({
           <p className="mt-5 font-montserrat text-sm leading-7 text-[#F0EFED]/68">
             {details.whatIfWrong}
           </p>
-          <p className="mt-6 font-montserrat text-xs font-bold uppercase tracking-[0.22em] text-[#878787]">
+          <p className="mt-6 font-montserrat text-xs font-bold uppercase tracking-[0.22em] text-[#595959]">
             Main risks
           </p>
           <ul className="mt-4 grid gap-2 font-montserrat text-sm leading-7 text-[#F0EFED]/62">

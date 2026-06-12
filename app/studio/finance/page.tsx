@@ -70,7 +70,7 @@ export default function StudioFinancePage() {
           <div className="grid gap-3 sm:grid-cols-2">
             {financeSummary.map((item) => (
               <div key={item.label} className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
-                <p className="font-montserrat text-xs uppercase tracking-[0.16em] text-[#878787]">{item.label}</p>
+                <p className="font-montserrat text-xs uppercase tracking-[0.16em] text-[#595959]">{item.label}</p>
                 <p className="mt-2 font-playfair text-4xl text-white">{item.value}</p>
               </div>
             ))}
@@ -100,7 +100,7 @@ export default function StudioFinancePage() {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="font-montserrat text-sm font-semibold text-white">{item.title}</p>
-                    <p className="mt-2 font-montserrat text-sm text-[#878787]">{item.meta}</p>
+                    <p className="mt-2 font-montserrat text-sm text-[#595959]">{item.meta}</p>
                   </div>
                   <StudioStatusPill label={item.time} tone={item.tone === 'accent' ? 'accent' : 'muted'} />
                 </div>

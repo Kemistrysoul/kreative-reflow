@@ -383,7 +383,7 @@ function NumberInput({
         {helpText}
       </span>
       <span className="mt-5 flex min-h-14 items-center border border-white/12 bg-[#151419] px-4 focus-within:border-[#FC6E20]">
-        {prefix ? <span className="font-mono text-sm text-[#878787]">{prefix}</span> : null}
+        {prefix ? <span className="font-mono text-sm text-[#595959]">{prefix}</span> : null}
         <input
           value={value}
           onChange={(event) => onChange(event.target.value)}
@@ -392,9 +392,9 @@ function NumberInput({
           max={max}
           inputMode="decimal"
           placeholder={placeholder}
-          className="min-h-12 w-full bg-transparent px-3 font-mono text-base text-[#FBFBFB] outline-none placeholder:text-[#878787]/70"
+          className="min-h-12 w-full bg-transparent px-3 font-mono text-base text-[#FBFBFB] outline-none placeholder:text-[#595959]/70"
         />
-        {suffix ? <span className="font-mono text-sm text-[#878787]">{suffix}</span> : null}
+        {suffix ? <span className="font-mono text-sm text-[#595959]">{suffix}</span> : null}
       </span>
     </label>
   );
@@ -601,7 +601,7 @@ export function LeadResponseLeakCalculatorClient() {
                 ['ROI view', 'Automation case'],
               ].map(([label, value]) => (
                 <div key={label} className="border border-white/10 bg-white/[0.035] p-4">
-                  <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#878787]">
+                  <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#595959]">
                     {label}
                   </p>
                   <p className="mt-3 font-mono text-sm text-[#FBFBFB]">{value}</p>
@@ -851,7 +851,7 @@ function ResultsView({
           ['Potential lift', `${formatDecimal(results.conversionMultiplier)}x`],
         ].map(([label, value]) => (
           <article key={label} className="border border-white/10 bg-white/[0.035] p-4">
-            <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#878787]">
+            <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#595959]">
               {label}
             </p>
             <p className="mt-4 font-playfair text-3xl font-bold leading-none text-[#FBFBFB]">
@@ -868,7 +868,7 @@ function ResultsView({
           </p>
           <div className="mt-6 grid gap-5">
             <div>
-              <div className="mb-2 flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-[0.14em] text-[#878787]">
+              <div className="mb-2 flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-[0.14em] text-[#595959]">
                 <span>Current</span>
                 <span>{formatDecimal(results.currentLeadsConverted)} customers/mo</span>
               </div>
@@ -877,7 +877,7 @@ function ResultsView({
               </div>
             </div>
             <div>
-              <div className="mb-2 flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-[0.14em] text-[#878787]">
+              <div className="mb-2 flex items-center justify-between gap-4 font-mono text-xs uppercase tracking-[0.14em] text-[#595959]">
                 <span>Potential</span>
                 <span>{formatDecimal(results.potentialLeadsConverted)} customers/mo</span>
               </div>
@@ -889,7 +889,7 @@ function ResultsView({
 
           <div className="mt-7 grid gap-3 border-t border-white/10 pt-5 md:grid-cols-2">
             <div>
-              <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#878787]">
+              <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#595959]">
                 Your response time
               </p>
               <p className="mt-2 font-mono text-sm text-[#FBFBFB]">
@@ -897,7 +897,7 @@ function ResultsView({
               </p>
             </div>
             <div>
-              <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#878787]">
+              <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#595959]">
                 Industry benchmark
               </p>
               <p className="mt-2 font-mono text-sm text-[#FBFBFB]">
@@ -1007,7 +1007,7 @@ function ResultsView({
                 value={lead.name}
                 onChange={(event) => onLeadChange('name', event.target.value)}
                 placeholder="Your name"
-                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#878787] focus:border-[#FC6E20]"
+                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#595959] focus:border-[#FC6E20]"
               />
               <input
                 value={lead.email}
@@ -1015,13 +1015,13 @@ function ResultsView({
                 type="email"
                 placeholder="Email address"
                 required
-                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#878787] focus:border-[#FC6E20]"
+                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#595959] focus:border-[#FC6E20]"
               />
               <input
                 value={lead.business}
                 onChange={(event) => onLeadChange('business', event.target.value)}
                 placeholder="Business name"
-                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#878787] focus:border-[#FC6E20]"
+                className="min-h-12 border border-white/12 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none placeholder:text-[#595959] focus:border-[#FC6E20]"
               />
               <button
                 type="submit"

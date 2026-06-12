@@ -16,7 +16,7 @@ export function StudioRouteFallback({
         <p className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#FC6E20]">Studio route</p>
       </div>
       <h1 className="mt-5 font-playfair text-4xl font-semibold text-white lg:text-5xl">{title}</h1>
-      <p className="mt-3 max-w-3xl font-montserrat text-sm leading-7 text-[#878787] lg:text-base">{detail}</p>
+      <p className="mt-3 max-w-3xl font-montserrat text-sm leading-7 text-[#595959] lg:text-base">{detail}</p>
       <div className="mt-6 flex items-center gap-3 rounded-[22px] border border-white/8 bg-[#151419] p-4">
         <ShieldCheck className="h-5 w-5 text-[#FC6E20]" />
         <p className="font-montserrat text-sm leading-6 text-[#FBFBFB]">

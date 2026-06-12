@@ -81,20 +81,20 @@ function StudioTopBar({
             <Menu className="h-5 w-5" />
           </button>
           <div>
-            <p className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#878787]">Studio OS</p>
+            <p className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-[#595959]">Studio OS</p>
             <h1 className="mt-1 font-playfair text-3xl font-semibold text-white">{currentLabel}</h1>
-            <p className="mt-1 max-w-2xl font-montserrat text-sm text-[#878787]">{currentDescription}</p>
+            <p className="mt-1 max-w-2xl font-montserrat text-sm text-[#595959]">{currentDescription}</p>
           </div>
         </div>
 
         <div className="flex flex-col gap-3 xl:items-end">
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex min-w-[260px] flex-1 items-center gap-3 rounded-2xl border border-white/8 bg-[#151419] px-4 py-3 xl:min-w-[360px]">
-              <Search className="h-4 w-4 text-[#878787]" />
+              <Search className="h-4 w-4 text-[#595959]" />
               <input
                 aria-label="Search studio"
                 placeholder="Search projects, leads, invoices, tasks"
-                className="w-full bg-transparent font-montserrat text-sm text-white outline-none placeholder:text-[#878787]"
+                className="w-full bg-transparent font-montserrat text-sm text-white outline-none placeholder:text-[#595959]"
               />
             </div>
 
@@ -133,10 +133,10 @@ function DesktopSidebar({ pathname }: { pathname: string }) {
       <PortalCard />
       <div className="mt-auto rounded-[26px] border border-white/8 bg-[#151419] p-4">
         <p className="font-playfair text-2xl text-white">{studioWorkspace.name}</p>
-        <p className="mt-2 font-montserrat text-xs uppercase tracking-[0.18em] text-[#878787]">
+        <p className="mt-2 font-montserrat text-xs uppercase tracking-[0.18em] text-[#595959]">
           {studioWorkspace.role}
         </p>
-        <p className="mt-3 font-montserrat text-sm leading-6 text-[#878787]">{studioWorkspace.blurb}</p>
+        <p className="mt-3 font-montserrat text-sm leading-6 text-[#595959]">{studioWorkspace.blurb}</p>
       </div>
     </div>
   );
@@ -187,7 +187,7 @@ function PrimaryNav({
             </span>
             <span className="min-w-0">
               <span className="block font-montserrat text-sm font-semibold">{item.label}</span>
-              <span className={`mt-1 block font-montserrat text-xs leading-5 ${active ? 'text-[#151419]/70' : 'text-[#878787]'}`}>
+              <span className={`mt-1 block font-montserrat text-xs leading-5 ${active ? 'text-[#151419]/70' : 'text-[#595959]'}`}>
                 {item.description}
               </span>
             </span>

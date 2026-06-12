@@ -53,7 +53,7 @@ export default function StudioSettingsPage() {
           <div className="space-y-3">
             {settingsPreferences.map((item) => (
               <div key={item.label} className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
-                <p className="font-montserrat text-xs uppercase tracking-[0.16em] text-[#878787]">{item.label}</p>
+                <p className="font-montserrat text-xs uppercase tracking-[0.16em] text-[#595959]">{item.label}</p>
                 <p className="mt-2 font-montserrat text-sm font-semibold text-white">{item.value}</p>
               </div>
             ))}
@@ -70,7 +70,7 @@ export default function StudioSettingsPage() {
           </StudioPanel>
 
           <StudioPanel title={studioFocusNote.title} eyebrow="Design rule" icon={studioFocusNote.icon}>
-            <p className="font-montserrat text-sm leading-7 text-[#878787]">{studioFocusNote.body}</p>
+            <p className="font-montserrat text-sm leading-7 text-[#595959]">{studioFocusNote.body}</p>
           </StudioPanel>
         </div>
       </section>

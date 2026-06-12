@@ -204,7 +204,7 @@ export default function DottedSection() {
                 <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#DD6211]" />
               </div>
 
-              <h3 className="industry-heading font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold uppercase leading-[0.94] tracking-tight text-dark-void dark:text-snow selection:bg-none transition-opacity duration-150 ease-out">
+              <h3 className="industry-heading font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold uppercase leading-[0.94] tracking-tight text-[#151419] dark:text-snow selection:bg-none transition-opacity duration-150 ease-out">
                 {item.name}
               </h3>
 
