@@ -306,10 +306,21 @@ const Waves = ({ isDark: isDarkProp, className = '' }: WavesProps) => {
     setSize();
     setLines();
 
-    if (prefersReducedMotion) {
-      drawLines();
+    // Keep all canvas work off the critical path: the first frame is drawn in
+    // the idle callback so it never competes with first paint or hydration.
+    let idleHandle = 0;
+    const startDrawing = () => {
+      if (prefersReducedMotion) {
+        movePoints(0);
+        drawLines();
+      } else {
+        state.animationFrameId = requestAnimationFrame(tick);
+      }
+    };
+    if (typeof window.requestIdleCallback === 'function') {
+      idleHandle = window.requestIdleCallback(startDrawing, { timeout: 1500 });
     } else {
-      state.animationFrameId = requestAnimationFrame(tick);
+      idleHandle = window.setTimeout(startDrawing, 350);
     }
 
     const observer = new IntersectionObserver(
@@ -333,6 +344,11 @@ const Waves = ({ isDark: isDarkProp, className = '' }: WavesProps) => {
       window.removeEventListener('mousemove', onMouseMove);
       observer.disconnect();
       cancelAnimationFrame(state.animationFrameId);
+      if (typeof window.cancelIdleCallback === 'function') {
+        window.cancelIdleCallback(idleHandle);
+      } else {
+        window.clearTimeout(idleHandle);
+      }
     };
   }, [isDark, moved]);
 
