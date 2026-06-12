@@ -42,7 +42,26 @@ export default function DottedSection() {
   const rafRef = useRef<number>(0);
   const activeIndexRef = useRef<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [surfaceReady, setSurfaceReady] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+
+  // DottedSurface pulls in three.js (~160KB gz); only fetch it once the
+  // section is within a viewport's distance of being seen.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSurfaceReady(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '100% 0px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -156,7 +175,7 @@ export default function DottedSection() {
     >
       {/* Layer 1 — Sticky dot background (marginBottom trick keeps it pinned) */}
       <div className="sticky top-0 h-screen w-full pointer-events-none z-0" style={{ marginBottom: '-100vh' }}>
-        <DottedSurface sectionRef={sectionRef} className="inset-0" />
+        {surfaceReady && <DottedSurface sectionRef={sectionRef} className="inset-0" />}
       </div>
 
       {/* Layer 2 — Sticky intro heading (fades out as you scroll) */}
