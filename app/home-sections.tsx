@@ -319,6 +319,7 @@ function useDotMatrixCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
     if (!ctx) return;
     let raf = 0;
     let t = 0;
+    let isVisible = false;
     const resize = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
@@ -327,6 +328,7 @@ function useDotMatrixCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     const draw = () => {
+      if (!isVisible) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const spacing = 18;
       const cols = Math.floor(canvas.width / spacing);
@@ -346,12 +348,23 @@ function useDotMatrixCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
       }
       ctx.globalAlpha = 1;
       t += 0.012;
-      if (!prefersReducedMotion) {
+      if (!prefersReducedMotion && isVisible) {
         raf = requestAnimationFrame(draw);
       }
     };
-    draw();
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !prefersReducedMotion) {
+          raf = requestAnimationFrame(draw);
+        } else {
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); observer.disconnect(); };
   }, [canvasRef, dotColor, prefersReducedMotion]);
 }
 
@@ -365,11 +378,13 @@ function useSineWaveCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>,
     if (!ctx) return;
     let raf = 0;
     let t = 0;
+    let isVisible = false;
     const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     const draw = () => {
+      if (!isVisible) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const numWaves = 4;
       const dotsPerWave = 60;
@@ -390,12 +405,23 @@ function useSineWaveCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>,
       }
       ctx.globalAlpha = 1;
       t += 0.01;
-      if (!prefersReducedMotion) {
+      if (!prefersReducedMotion && isVisible) {
         raf = requestAnimationFrame(draw);
       }
     };
-    draw();
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !prefersReducedMotion) {
+          raf = requestAnimationFrame(draw);
+        } else {
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); observer.disconnect(); };
   }, [canvasRef, dotColor, prefersReducedMotion]);
 }
 
@@ -409,11 +435,13 @@ function useRadialBurstCanvas(canvasRef: React.RefObject<HTMLCanvasElement | nul
     if (!ctx) return;
     let raf = 0;
     let t = 0;
+    let isVisible = false;
     const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     const draw = () => {
+      if (!isVisible) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const cx = canvas.width / 2;
       const cy = canvas.height / 2;
@@ -437,12 +465,23 @@ function useRadialBurstCanvas(canvasRef: React.RefObject<HTMLCanvasElement | nul
       }
       ctx.globalAlpha = 1;
       t += 0.004;
-      if (!prefersReducedMotion) {
+      if (!prefersReducedMotion && isVisible) {
         raf = requestAnimationFrame(draw);
       }
     };
-    draw();
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !prefersReducedMotion) {
+          raf = requestAnimationFrame(draw);
+        } else {
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); observer.disconnect(); };
   }, [canvasRef, lineColor, prefersReducedMotion]);
 }
 
@@ -456,11 +495,13 @@ function useHelixCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>, do
     if (!ctx) return;
     let raf = 0;
     let t = 0;
+    let isVisible = false;
     const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     const draw = () => {
+      if (!isVisible) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const cx = canvas.width / 2;
       const cy = canvas.height / 2;
@@ -482,12 +523,23 @@ function useHelixCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>, do
       }
       ctx.globalAlpha = 1;
       t += 0.006;
-      if (!prefersReducedMotion) {
+      if (!prefersReducedMotion && isVisible) {
         raf = requestAnimationFrame(draw);
       }
     };
-    draw();
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !prefersReducedMotion) {
+          raf = requestAnimationFrame(draw);
+        } else {
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); observer.disconnect(); };
   }, [canvasRef, dotColor, prefersReducedMotion]);
 }
 
@@ -592,11 +644,13 @@ function useOrbitCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>, co
     if (!ctx) return;
     let raf = 0;
     let t = 0;
+    let isVisible = false;
     const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     const draw = () => {
+      if (!isVisible) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const cx = canvas.width / 2;
       const cy = canvas.height / 2;
@@ -604,14 +658,12 @@ function useOrbitCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>, co
       const speeds = [0.018, -0.012, 0.009, -0.006];
       const dotCounts = [3, 5, 7, 9];
       radii.forEach((r, ri) => {
-        // orbit ring
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, Math.PI * 2);
         ctx.strokeStyle = color;
         ctx.globalAlpha = 0.08;
         ctx.lineWidth = 0.8;
         ctx.stroke();
-        // orbiting dots
         for (let d = 0; d < dotCounts[ri]; d++) {
           const angle = (d / dotCounts[ri]) * Math.PI * 2 + t * speeds[ri] * 60;
           const x = cx + Math.cos(angle) * r;
@@ -624,7 +676,6 @@ function useOrbitCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>, co
           ctx.fill();
         }
       });
-      // centre glow
       const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 28);
       grad.addColorStop(0, color.replace(')', ', 0.35)').replace('rgb', 'rgba'));
       grad.addColorStop(1, 'transparent');
@@ -635,12 +686,23 @@ function useOrbitCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>, co
       ctx.fill();
       ctx.globalAlpha = 1;
       t += 0.008;
-      if (!prefersReducedMotion) {
+      if (!prefersReducedMotion && isVisible) {
         raf = requestAnimationFrame(draw);
       }
     };
-    draw();
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !prefersReducedMotion) {
+          raf = requestAnimationFrame(draw);
+        } else {
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); observer.disconnect(); };
   }, [canvasRef, color, prefersReducedMotion]);
 }
 
@@ -654,11 +716,13 @@ function useBuildGridCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
     if (!ctx) return;
     let raf = 0;
     let t = 0;
+    let isVisible = false;
     const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     const draw = () => {
+      if (!isVisible) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const cells = 6;
       const size = Math.min(canvas.width, canvas.height) * 0.72;
@@ -670,11 +734,9 @@ function useBuildGridCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
           const wave = Math.sin((c + r) * 0.7 + t * 1.5) * 0.5 + 0.5;
           const x = ox + c * cell;
           const y = oy + r * cell;
-          // filled block
           ctx.fillStyle = color;
           ctx.globalAlpha = wave * 0.22;
           ctx.fillRect(x + 2, y + 2, cell - 4, cell - 4);
-          // border
           ctx.strokeStyle = color;
           ctx.globalAlpha = 0.12 + wave * 0.18;
           ctx.lineWidth = 0.7;
@@ -682,12 +744,23 @@ function useBuildGridCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
         }
       }
       t += 0.018;
-      if (!prefersReducedMotion) {
+      if (!prefersReducedMotion && isVisible) {
         raf = requestAnimationFrame(draw);
       }
     };
-    draw();
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !prefersReducedMotion) {
+          raf = requestAnimationFrame(draw);
+        } else {
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); observer.disconnect(); };
   }, [canvasRef, color, prefersReducedMotion]);
 }
 
@@ -701,11 +774,13 @@ function useLaunchArcCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
     if (!ctx) return;
     let raf = 0;
     let t = 0;
+    let isVisible = false;
     const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     const draw = () => {
+      if (!isVisible) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const cx = canvas.width / 2;
       const cy = canvas.height * 0.72;
@@ -721,7 +796,6 @@ function useLaunchArcCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
         ctx.globalAlpha = 0.08 + (a / arcs) * 0.2;
         ctx.lineWidth = 1;
         ctx.stroke();
-        // particle on arc
         const particleAngle = startA + (endA - startA) * ((t * 0.6) % 1);
         const px = cx + Math.cos(particleAngle) * r;
         const py = cy + Math.sin(particleAngle) * r;
@@ -732,7 +806,6 @@ function useLaunchArcCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
         ctx.globalAlpha = 0.5 + pulse * 0.4;
         ctx.fill();
       }
-      // rising streak lines
       for (let s = 0; s < 8; s++) {
         const sx = cx - 80 + s * 24;
         const progress = ((t * 0.7 + s * 0.3) % 1);
@@ -752,12 +825,23 @@ function useLaunchArcCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
       }
       ctx.globalAlpha = 1;
       t += 0.007;
-      if (!prefersReducedMotion) {
+      if (!prefersReducedMotion && isVisible) {
         raf = requestAnimationFrame(draw);
       }
     };
-    draw();
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !prefersReducedMotion) {
+          raf = requestAnimationFrame(draw);
+        } else {
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(canvas);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); observer.disconnect(); };
   }, [canvasRef, color, prefersReducedMotion]);
 }
 

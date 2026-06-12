@@ -72,10 +72,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} ${montserrat.variable}`} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
       <body className="cursor-none bg-[#F0EFED] text-dark-void font-sans antialiased selection:bg-liquid-lava selection:text-snow dark:bg-[#1a1a1a] dark:text-snow" suppressHydrationWarning>
         <Providers>
           <CustomCursor />
