@@ -15,10 +15,14 @@ import { StartGlowTracker } from './start-glow-tracker';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Kreative Reflow Coming Soon | Project Enquiries',
+  title: 'Project Enquiries | Kreative Reflow',
   description:
-    'Kreative Reflow is in development. Project enquiries are open for websites, custom web apps, SEO, automation, and support.',
+    'Send a project enquiry for a website, custom web app, local SEO foundation, automation workflow, or support plan with Kreative Reflow.',
   path: '/start',
+  robots: {
+    index: false,
+    follow: true,
+  },
 });
 
 const services = [
@@ -120,9 +124,7 @@ export default function StartPage() {
                 [ Coming soon ]
               </p>
               <h1 className="mt-5 max-w-full break-words font-playfair text-[clamp(2.35rem,10.5vw,2.95rem)] font-bold leading-[0.93] tracking-normal text-[#151419] sm:max-w-5xl sm:break-normal sm:text-[clamp(3.4rem,7.4vw,7.25rem)]">
-                Kreative Reflow is in development
-                <span className="text-[#FC6E20]">.</span> Project enquiries are
-                open
+                Kreative Reflow is in development. Project enquiries are open
                 <span className="text-[#FC6E20]">.</span>
               </h1>
               <p className="mt-7 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/68 md:text-lg">

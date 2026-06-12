@@ -1,0 +1,869 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - link "kreative Reflow" [ref=e3] [cursor=pointer]:
+      - /url: /
+    - generic [ref=e4]:
+      - link "Contact" [ref=e5] [cursor=pointer]:
+        - /url: /contact
+      - button [ref=e6]:
+        - img [ref=e7]
+    - generic [ref=e10]:
+      - button "Light mode" [ref=e11]:
+        - img [ref=e12]
+      - button "Toggle theme" [ref=e18]
+      - button "Dark mode" [ref=e20]:
+        - img [ref=e21]
+    - button [ref=e24]:
+      - img [ref=e25]
+    - navigation "Social links" [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e30]: Follow Us -
+        - generic [ref=e31]:
+          - link "LinkedIn" [ref=e32] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/kreativereflow
+          - generic [ref=e33]: /
+        - generic [ref=e34]:
+          - link "Instagram" [ref=e35] [cursor=pointer]:
+            - /url: https://www.instagram.com/kreativereflow
+          - generic [ref=e36]: /
+        - generic [ref=e37]:
+          - link "Facebook" [ref=e38] [cursor=pointer]:
+            - /url: https://www.facebook.com/KreativeReflow
+          - generic [ref=e39]: /
+        - link "TikTok" [ref=e41] [cursor=pointer]:
+          - /url: https://www.tiktok.com/@kreativereflow
+  - main [ref=e42]:
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - generic [ref=e46]: "["
+          - text: About the studio
+          - generic [ref=e47]: "]"
+        - heading "Built from the gap between excellence and visibility." [level=1] [ref=e48]
+        - paragraph [ref=e49]: Kreative Reflow is a founder-led Johannesburg studio for businesses whose digital presence, systems, and workflows need to work as hard as the people behind them.
+        - generic [ref=e50]:
+          - link "V i e w s e r v i c e s" [ref=e51] [cursor=pointer]:
+            - /url: /services
+            - generic [ref=e52]:
+              - generic [ref=e53]:
+                - generic [ref=e54]: V
+                - generic [ref=e55]: i
+                - generic [ref=e56]: e
+                - generic [ref=e57]: w
+                - generic [ref=e59]: s
+                - generic [ref=e60]: e
+                - generic [ref=e61]: r
+                - generic [ref=e62]: v
+                - generic [ref=e63]: i
+                - generic [ref=e64]: c
+                - generic [ref=e65]: e
+                - generic [ref=e66]: s
+              - generic:
+                - generic: V
+                - generic: i
+                - generic: e
+                - generic: w
+                - generic: s
+                - generic: e
+                - generic: r
+                - generic: v
+                - generic: i
+                - generic: c
+                - generic: e
+                - generic: s
+            - img [ref=e68]
+          - link "S t a r t a c o n v e r s a t i o n" [ref=e70] [cursor=pointer]:
+            - /url: /contact
+            - generic [ref=e71]:
+              - generic [ref=e72]:
+                - generic [ref=e73]: S
+                - generic [ref=e74]: t
+                - generic [ref=e75]: a
+                - generic [ref=e76]: r
+                - generic [ref=e77]: t
+                - generic [ref=e79]: a
+                - generic [ref=e81]: c
+                - generic [ref=e82]: o
+                - generic [ref=e83]: "n"
+                - generic [ref=e84]: v
+                - generic [ref=e85]: e
+                - generic [ref=e86]: r
+                - generic [ref=e87]: s
+                - generic [ref=e88]: a
+                - generic [ref=e89]: t
+                - generic [ref=e90]: i
+                - generic [ref=e91]: o
+                - generic [ref=e92]: "n"
+              - generic:
+                - generic: S
+                - generic: t
+                - generic: a
+                - generic: r
+                - generic: t
+                - generic: a
+                - generic: c
+                - generic: o
+                - generic: "n"
+                - generic: v
+                - generic: e
+                - generic: r
+                - generic: s
+                - generic: a
+                - generic: t
+                - generic: i
+                - generic: o
+                - generic: "n"
+      - generic [ref=e95]:
+        - img "Delite, Founder of Kreative Reflow" [ref=e97]
+        - generic [ref=e99]:
+          - generic [ref=e100]:
+            - generic [ref=e101]: 7+
+            - generic [ref=e102]: Years industry
+          - generic [ref=e103]:
+            - generic [ref=e104]: Small
+            - generic [ref=e105]: Client roster
+          - generic [ref=e106]:
+            - generic [ref=e107]: One
+            - generic [ref=e108]: Connected system
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - generic [ref=e112]:
+          - generic [ref=e113]: "["
+          - text: Founder note
+          - generic [ref=e114]: "]"
+        - heading "I saw brilliant businesses lose trust before they ever spoke." [level=2] [ref=e115]
+      - generic [ref=e117]:
+        - paragraph [ref=e118]: Seven years in medical sales and neurology put me in operating theatres and specialist offices. I saw teams doing exceptional work, while their websites, content, and systems made them look smaller than they were.
+        - paragraph [ref=e119]: "The pattern kept repeating: capability in the room, weak proof online, manual work behind the scenes, and missed trust before the first conversation."
+        - paragraph [ref=e120]: The work was not just to make things look better. It was to make the business easier to understand, find, trust, and run.
+    - generic [ref=e122]:
+      - generic [ref=e123]:
+        - generic [ref=e124]:
+          - generic [ref=e125]: "["
+          - text: How it formed
+          - generic [ref=e126]: "]"
+        - heading "The studio came from a practical frustration." [level=2] [ref=e127]
+        - paragraph [ref=e128]: Too many providers treat strategy, design, development, SEO, and automation as separate pieces. Kreative Reflow was shaped around making those pieces work together from the start.
+      - generic [ref=e129]:
+        - article [ref=e131]:
+          - generic [ref=e132]:
+            - text: "01"
+            - paragraph [ref=e133]: The gap
+          - generic [ref=e134]:
+            - heading "Great work was not being seen." [level=3] [ref=e135]
+            - paragraph [ref=e136]: Years in medical sales and neurology put Delite in rooms where specialists, practices, and technical teams were excellent in person but invisible or unclear online.
+        - article [ref=e138]:
+          - generic [ref=e139]:
+            - text: "02"
+            - paragraph [ref=e140]: The turn
+          - generic [ref=e141]:
+            - heading "The problem was bigger than design." [level=3] [ref=e142]
+            - paragraph [ref=e143]: A website alone was not enough. Lead capture, trust, SEO, booking, dashboards, and follow-up needed to be treated as one connected system.
+        - article [ref=e145]:
+          - generic [ref=e146]:
+            - text: "03"
+            - paragraph [ref=e147]: The studio
+          - generic [ref=e148]:
+            - heading "Kreative Reflow became the integrated answer." [level=3] [ref=e149]
+            - paragraph [ref=e150]: The studio was shaped around practical strategy, strong design, careful development, visibility, and automation that work together from the beginning.
+    - generic [ref=e151]:
+      - generic [ref=e152]:
+        - generic [ref=e153]:
+          - generic [ref=e154]: "["
+          - text: Principles
+          - generic [ref=e155]: "]"
+        - heading "The rules behind the work." [level=2] [ref=e156]
+      - generic [ref=e157]:
+        - article [ref=e159]:
+          - generic [ref=e160]: "01"
+          - generic [ref=e161]:
+            - heading "Build around the business, not the template." [level=3] [ref=e162]
+            - paragraph [ref=e163]: The site, dashboard, or workflow has to match how the business earns trust, handles enquiries, and delivers the work.
+        - article [ref=e165]:
+          - generic [ref=e166]: "02"
+          - generic [ref=e167]:
+            - heading "Make the technical layer understandable." [level=3] [ref=e168]
+            - paragraph [ref=e169]: Clients should know what was built, why it matters, and how to own it after launch.
+        - article [ref=e171]:
+          - generic [ref=e172]: "03"
+          - generic [ref=e173]:
+            - heading "Keep accountability close." [level=3] [ref=e174]
+            - paragraph [ref=e175]: A small client roster means the thinking, design, build, and support stay connected.
+        - article [ref=e177]:
+          - generic [ref=e178]: "04"
+          - generic [ref=e179]:
+            - heading "Design for after launch." [level=3] [ref=e180]
+            - paragraph [ref=e181]: A polished first release is only useful if the system can be maintained, improved, and trusted later.
+    - generic [ref=e183]:
+      - generic [ref=e184]:
+        - generic [ref=e185]:
+          - generic [ref=e186]: "["
+          - text: How the studio works
+          - generic [ref=e187]: "]"
+        - heading "Small by design. Serious by default." [level=2] [ref=e188]
+        - paragraph [ref=e189]: "The model is intentionally focused: fewer clients, deeper context, and builds where the visible layer and operational layer are planned together."
+      - generic [ref=e190]:
+        - article [ref=e192]:
+          - generic [ref=e193]:
+            - img [ref=e195]
+            - heading "Founder-led" [level=3] [ref=e200]
+          - paragraph [ref=e202]: You work close to the person responsible for the thinking, not a sales layer passing notes around.
+        - article [ref=e204]:
+          - generic [ref=e205]:
+            - img [ref=e207]
+            - heading "System-minded" [level=3] [ref=e210]
+          - paragraph [ref=e212]: Every page, form, dashboard, and workflow is mapped against the way the business actually operates.
+        - article [ref=e214]:
+          - generic [ref=e215]:
+            - img [ref=e217]
+            - heading "Visibility-aware" [level=3] [ref=e220]
+          - paragraph [ref=e222]: Search, structure, proof, and AI-readable content are considered as part of the build, not later decoration.
+        - article [ref=e224]:
+          - generic [ref=e225]:
+            - img [ref=e227]
+            - heading "Maintenance-ready" [level=3] [ref=e230]
+          - paragraph [ref=e232]: The goal is a digital foundation that can keep working after the launch excitement fades.
+    - generic [ref=e233]:
+      - generic [ref=e234]:
+        - generic [ref=e235]:
+          - generic [ref=e236]: "["
+          - text: Who it is for
+          - generic [ref=e237]: "]"
+        - heading "Best fit for businesses with real complexity underneath." [level=2] [ref=e238]
+      - generic [ref=e239]:
+        - link "01 Service businesses For businesses that sell trust, expertise, and relationships before anyone fills in a form. Related service" [ref=e241] [cursor=pointer]:
+          - /url: /services/web-design
+          - generic [ref=e242]:
+            - generic [ref=e243]:
+              - generic [ref=e244]: "01"
+              - img [ref=e245]
+            - heading "Service businesses" [level=3] [ref=e248]
+            - paragraph [ref=e249]: For businesses that sell trust, expertise, and relationships before anyone fills in a form.
+          - generic [ref=e250]:
+            - generic [ref=e251]: Related service
+            - img [ref=e252]
+        - link "02 Specialist practices For practices and professionals whose credibility needs to be clear before the first conversation. Related service" [ref=e255] [cursor=pointer]:
+          - /url: /services/seo
+          - generic [ref=e256]:
+            - generic [ref=e257]:
+              - generic [ref=e258]: "02"
+              - img [ref=e259]
+            - heading "Specialist practices" [level=3] [ref=e262]
+            - paragraph [ref=e263]: For practices and professionals whose credibility needs to be clear before the first conversation.
+          - generic [ref=e264]:
+            - generic [ref=e265]: Related service
+            - img [ref=e266]
+        - link "03 Operations-heavy teams For teams with scattered data, manual admin, unclear handoffs, and workflows that need one home. Related service" [ref=e270] [cursor=pointer]:
+          - /url: /services/saas-development
+          - generic [ref=e271]:
+            - generic [ref=e272]:
+              - generic [ref=e273]: "03"
+              - img [ref=e274]
+            - heading "Operations-heavy teams" [level=3] [ref=e278]
+            - paragraph [ref=e279]: For teams with scattered data, manual admin, unclear handoffs, and workflows that need one home.
+          - generic [ref=e280]:
+            - generic [ref=e281]: Related service
+            - img [ref=e282]
+        - link "04 Growing founders For founders who know something is messy, but need help turning it into a clear build plan. Related service" [ref=e285] [cursor=pointer]:
+          - /url: /services/consulting
+          - generic [ref=e286]:
+            - generic [ref=e287]:
+              - generic [ref=e288]: "04"
+              - img [ref=e289]
+            - heading "Growing founders" [level=3] [ref=e291]
+            - paragraph [ref=e292]: For founders who know something is messy, but need help turning it into a clear build plan.
+          - generic [ref=e293]:
+            - generic [ref=e294]: Related service
+            - img [ref=e295]
+    - generic [ref=e301]:
+      - generic [ref=e302]:
+        - generic [ref=e303]:
+          - generic [ref=e304]: "["
+          - text: Work with the studio
+          - generic [ref=e305]: "]"
+        - heading "Bring the messy version. We will shape the system." [level=2] [ref=e306]
+        - paragraph [ref=e307]: You do not need a perfect brief. A rough problem, a broken workflow, or a website that no longer reflects the business is enough to start.
+      - generic [ref=e308]:
+        - link "S t a r t a p r o j e c t" [ref=e309] [cursor=pointer]:
+          - /url: /contact
+          - generic [ref=e310]:
+            - generic [ref=e311]:
+              - generic [ref=e312]: S
+              - generic [ref=e313]: t
+              - generic [ref=e314]: a
+              - generic [ref=e315]: r
+              - generic [ref=e316]: t
+              - generic [ref=e318]: a
+              - generic [ref=e320]: p
+              - generic [ref=e321]: r
+              - generic [ref=e322]: o
+              - generic [ref=e323]: j
+              - generic [ref=e324]: e
+              - generic [ref=e325]: c
+              - generic [ref=e326]: t
+            - generic:
+              - generic: S
+              - generic: t
+              - generic: a
+              - generic: r
+              - generic: t
+              - generic: a
+              - generic: p
+              - generic: r
+              - generic: o
+              - generic: j
+              - generic: e
+              - generic: c
+              - generic: t
+          - img [ref=e328]
+        - link "V i e w t h e w o r k" [ref=e330] [cursor=pointer]:
+          - /url: /work
+          - generic [ref=e331]:
+            - generic [ref=e332]:
+              - generic [ref=e333]: V
+              - generic [ref=e334]: i
+              - generic [ref=e335]: e
+              - generic [ref=e336]: w
+              - generic [ref=e338]: t
+              - generic [ref=e339]: h
+              - generic [ref=e340]: e
+              - generic [ref=e342]: w
+              - generic [ref=e343]: o
+              - generic [ref=e344]: r
+              - generic [ref=e345]: k
+            - generic:
+              - generic: V
+              - generic: i
+              - generic: e
+              - generic: w
+              - generic: t
+              - generic: h
+              - generic: e
+              - generic: w
+              - generic: o
+              - generic: r
+              - generic: k
+  - contentinfo [ref=e347]:
+    - generic [ref=e348]:
+      - generic [ref=e349]:
+        - heading "Build the website, dashboard, or automation your business keeps trying to run without." [level=2] [ref=e350]:
+          - generic [ref=e351]:
+            - generic [ref=e352]: Build
+            - text: Build
+          - generic [ref=e353]:
+            - generic [ref=e354]: the
+            - text: the
+          - generic [ref=e355]:
+            - generic [ref=e356]: website,
+            - text: website,
+          - generic [ref=e357]:
+            - generic [ref=e358]: dashboard,
+            - text: dashboard,
+          - generic [ref=e359]:
+            - generic [ref=e360]: or
+            - text: or
+          - generic [ref=e361]:
+            - generic [ref=e362]: automation
+            - text: automation
+          - generic [ref=e363]:
+            - generic [ref=e364]: your
+            - text: your
+          - generic [ref=e365]:
+            - generic [ref=e366]: business
+            - text: business
+          - generic [ref=e367]:
+            - generic [ref=e368]: keeps
+            - text: keeps
+          - generic [ref=e369]:
+            - generic [ref=e370]: trying
+            - text: trying
+          - generic [ref=e371]:
+            - generic [ref=e372]: to
+            - text: to
+          - generic [ref=e373]:
+            - generic [ref=e374]: run
+            - text: run
+          - generic [ref=e375]:
+            - generic [ref=e376]: without.
+            - generic [ref=e377]: without.
+        - link "S t a r t a p r o j e c t" [ref=e378] [cursor=pointer]:
+          - /url: /contact
+          - generic [ref=e379]:
+            - generic [ref=e380]:
+              - generic [ref=e381]: S
+              - generic [ref=e382]: t
+              - generic [ref=e383]: a
+              - generic [ref=e384]: r
+              - generic [ref=e385]: t
+              - generic [ref=e387]: a
+              - generic [ref=e389]: p
+              - generic [ref=e390]: r
+              - generic [ref=e391]: o
+              - generic [ref=e392]: j
+              - generic [ref=e393]: e
+              - generic [ref=e394]: c
+              - generic [ref=e395]: t
+            - generic:
+              - generic: S
+              - generic: t
+              - generic: a
+              - generic: r
+              - generic: t
+              - generic: a
+              - generic: p
+              - generic: r
+              - generic: o
+              - generic: j
+              - generic: e
+              - generic: c
+              - generic: t
+          - img [ref=e398]
+      - generic [ref=e401]:
+        - generic [ref=e402]:
+          - link "Kreative Reflow" [ref=e403] [cursor=pointer]:
+            - /url: /
+            - text: Kreative
+            - generic [ref=e404]: Reflow
+          - paragraph [ref=e405]: We build websites, SaaS products, dashboards, and automation systems for businesses that need more than a pretty page.
+        - generic [ref=e406]:
+          - paragraph [ref=e407]: Tell us what you need built
+          - generic [ref=e408]:
+            - generic [ref=e409]: Project idea
+            - textbox "Project idea" [ref=e410]:
+              - /placeholder: Website, dashboard, automation...
+            - button "Start project enquiry" [ref=e411]:
+              - img [ref=e412]
+          - paragraph [ref=e414]: No newsletter detour. This goes straight to the project conversation.
+      - generic [ref=e415]:
+        - generic [ref=e416]:
+          - heading "[ Studio ]" [level=3] [ref=e417]
+          - list [ref=e418]:
+            - listitem [ref=e419]:
+              - link "W o r k" [ref=e420] [cursor=pointer]:
+                - /url: /work
+                - generic [ref=e421]:
+                  - generic [ref=e422]:
+                    - generic [ref=e423]: W
+                    - generic [ref=e424]: o
+                    - generic [ref=e425]: r
+                    - generic [ref=e426]: k
+                  - generic:
+                    - generic: W
+                    - generic: o
+                    - generic: r
+                    - generic: k
+            - listitem [ref=e428]:
+              - link "A b o u t" [ref=e429] [cursor=pointer]:
+                - /url: /about
+                - generic [ref=e430]:
+                  - generic [ref=e431]:
+                    - generic [ref=e432]: A
+                    - generic [ref=e433]: b
+                    - generic [ref=e434]: o
+                    - generic [ref=e435]: u
+                    - generic [ref=e436]: t
+                  - generic:
+                    - generic: A
+                    - generic: b
+                    - generic: o
+                    - generic: u
+                    - generic: t
+            - listitem [ref=e438]:
+              - link "I n s i g h t s" [ref=e439] [cursor=pointer]:
+                - /url: /insights
+                - generic [ref=e440]:
+                  - generic [ref=e441]:
+                    - generic [ref=e442]: I
+                    - generic [ref=e443]: "n"
+                    - generic [ref=e444]: s
+                    - generic [ref=e445]: i
+                    - generic [ref=e446]: g
+                    - generic [ref=e447]: h
+                    - generic [ref=e448]: t
+                    - generic [ref=e449]: s
+                  - generic:
+                    - generic: I
+                    - generic: "n"
+                    - generic: s
+                    - generic: i
+                    - generic: g
+                    - generic: h
+                    - generic: t
+                    - generic: s
+            - listitem [ref=e451]:
+              - link "C o n t a c t" [ref=e452] [cursor=pointer]:
+                - /url: /contact
+                - generic [ref=e453]:
+                  - generic [ref=e454]:
+                    - generic [ref=e455]: C
+                    - generic [ref=e456]: o
+                    - generic [ref=e457]: "n"
+                    - generic [ref=e458]: t
+                    - generic [ref=e459]: a
+                    - generic [ref=e460]: c
+                    - generic [ref=e461]: t
+                  - generic:
+                    - generic: C
+                    - generic: o
+                    - generic: "n"
+                    - generic: t
+                    - generic: a
+                    - generic: c
+                    - generic: t
+        - generic [ref=e463]:
+          - heading "[ Services ]" [level=3] [ref=e464]
+          - list [ref=e465]:
+            - listitem [ref=e466]:
+              - link "W e b s i t e s" [ref=e467] [cursor=pointer]:
+                - /url: /services/web-design
+                - generic [ref=e468]:
+                  - generic [ref=e469]:
+                    - generic [ref=e470]: W
+                    - generic [ref=e471]: e
+                    - generic [ref=e472]: b
+                    - generic [ref=e473]: s
+                    - generic [ref=e474]: i
+                    - generic [ref=e475]: t
+                    - generic [ref=e476]: e
+                    - generic [ref=e477]: s
+                  - generic:
+                    - generic: W
+                    - generic: e
+                    - generic: b
+                    - generic: s
+                    - generic: i
+                    - generic: t
+                    - generic: e
+                    - generic: s
+            - listitem [ref=e479]:
+              - link "S a a S p r o d u c t s" [ref=e480] [cursor=pointer]:
+                - /url: /services/saas-development
+                - generic [ref=e481]:
+                  - generic [ref=e482]:
+                    - generic [ref=e483]: S
+                    - generic [ref=e484]: a
+                    - generic [ref=e485]: a
+                    - generic [ref=e486]: S
+                    - generic [ref=e488]: p
+                    - generic [ref=e489]: r
+                    - generic [ref=e490]: o
+                    - generic [ref=e491]: d
+                    - generic [ref=e492]: u
+                    - generic [ref=e493]: c
+                    - generic [ref=e494]: t
+                    - generic [ref=e495]: s
+                  - generic:
+                    - generic: S
+                    - generic: a
+                    - generic: a
+                    - generic: S
+                    - generic: p
+                    - generic: r
+                    - generic: o
+                    - generic: d
+                    - generic: u
+                    - generic: c
+                    - generic: t
+                    - generic: s
+            - listitem [ref=e497]:
+              - link "A u t o m a t i o n" [ref=e498] [cursor=pointer]:
+                - /url: /services/automation
+                - generic [ref=e499]:
+                  - generic [ref=e500]:
+                    - generic [ref=e501]: A
+                    - generic [ref=e502]: u
+                    - generic [ref=e503]: t
+                    - generic [ref=e504]: o
+                    - generic [ref=e505]: m
+                    - generic [ref=e506]: a
+                    - generic [ref=e507]: t
+                    - generic [ref=e508]: i
+                    - generic [ref=e509]: o
+                    - generic [ref=e510]: "n"
+                  - generic:
+                    - generic: A
+                    - generic: u
+                    - generic: t
+                    - generic: o
+                    - generic: m
+                    - generic: a
+                    - generic: t
+                    - generic: i
+                    - generic: o
+                    - generic: "n"
+            - listitem [ref=e512]:
+              - link "S E O s y s t e m s" [ref=e513] [cursor=pointer]:
+                - /url: /services/seo
+                - generic [ref=e514]:
+                  - generic [ref=e515]:
+                    - generic [ref=e516]: S
+                    - generic [ref=e517]: E
+                    - generic [ref=e518]: O
+                    - generic [ref=e520]: s
+                    - generic [ref=e521]: "y"
+                    - generic [ref=e522]: s
+                    - generic [ref=e523]: t
+                    - generic [ref=e524]: e
+                    - generic [ref=e525]: m
+                    - generic [ref=e526]: s
+                  - generic:
+                    - generic: S
+                    - generic: E
+                    - generic: O
+                    - generic: s
+                    - generic: "y"
+                    - generic: s
+                    - generic: t
+                    - generic: e
+                    - generic: m
+                    - generic: s
+        - generic [ref=e528]:
+          - heading "[ Resources ]" [level=3] [ref=e529]
+          - list [ref=e530]:
+            - listitem [ref=e531]:
+              - link "S e r v i c e s" [ref=e532] [cursor=pointer]:
+                - /url: /services
+                - generic [ref=e533]:
+                  - generic [ref=e534]:
+                    - generic [ref=e535]: S
+                    - generic [ref=e536]: e
+                    - generic [ref=e537]: r
+                    - generic [ref=e538]: v
+                    - generic [ref=e539]: i
+                    - generic [ref=e540]: c
+                    - generic [ref=e541]: e
+                    - generic [ref=e542]: s
+                  - generic:
+                    - generic: S
+                    - generic: e
+                    - generic: r
+                    - generic: v
+                    - generic: i
+                    - generic: c
+                    - generic: e
+                    - generic: s
+            - listitem [ref=e544]:
+              - link "F A Q" [ref=e545] [cursor=pointer]:
+                - /url: /faq
+                - generic [ref=e546]:
+                  - generic [ref=e547]:
+                    - generic [ref=e548]: F
+                    - generic [ref=e549]: A
+                    - generic [ref=e550]: Q
+                  - generic:
+                    - generic: F
+                    - generic: A
+                    - generic: Q
+            - listitem [ref=e552]:
+              - link "T o o l s" [ref=e553] [cursor=pointer]:
+                - /url: /tools
+                - generic [ref=e554]:
+                  - generic [ref=e555]:
+                    - generic [ref=e556]: T
+                    - generic [ref=e557]: o
+                    - generic [ref=e558]: o
+                    - generic [ref=e559]: l
+                    - generic [ref=e560]: s
+                  - generic:
+                    - generic: T
+                    - generic: o
+                    - generic: o
+                    - generic: l
+                    - generic: s
+            - listitem [ref=e562]:
+              - link "S t a r t a p r o j e c t" [ref=e563] [cursor=pointer]:
+                - /url: /contact
+                - generic [ref=e564]:
+                  - generic [ref=e565]:
+                    - generic [ref=e566]: S
+                    - generic [ref=e567]: t
+                    - generic [ref=e568]: a
+                    - generic [ref=e569]: r
+                    - generic [ref=e570]: t
+                    - generic [ref=e572]: a
+                    - generic [ref=e574]: p
+                    - generic [ref=e575]: r
+                    - generic [ref=e576]: o
+                    - generic [ref=e577]: j
+                    - generic [ref=e578]: e
+                    - generic [ref=e579]: c
+                    - generic [ref=e580]: t
+                  - generic:
+                    - generic: S
+                    - generic: t
+                    - generic: a
+                    - generic: r
+                    - generic: t
+                    - generic: a
+                    - generic: p
+                    - generic: r
+                    - generic: o
+                    - generic: j
+                    - generic: e
+                    - generic: c
+                    - generic: t
+        - generic [ref=e582]:
+          - heading "[ Social ]" [level=3] [ref=e583]
+          - list [ref=e584]:
+            - listitem [ref=e585]:
+              - link "L i n k e d I n" [ref=e586] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/kreativereflow
+                - generic [ref=e587]:
+                  - generic [ref=e588]:
+                    - generic [ref=e589]: L
+                    - generic [ref=e590]: i
+                    - generic [ref=e591]: "n"
+                    - generic [ref=e592]: k
+                    - generic [ref=e593]: e
+                    - generic [ref=e594]: d
+                    - generic [ref=e595]: I
+                    - generic [ref=e596]: "n"
+                  - generic:
+                    - generic: L
+                    - generic: i
+                    - generic: "n"
+                    - generic: k
+                    - generic: e
+                    - generic: d
+                    - generic: I
+                    - generic: "n"
+            - listitem [ref=e598]:
+              - link "I n s t a g r a m" [ref=e599] [cursor=pointer]:
+                - /url: https://www.instagram.com/kreativereflow
+                - generic [ref=e600]:
+                  - generic [ref=e601]:
+                    - generic [ref=e602]: I
+                    - generic [ref=e603]: "n"
+                    - generic [ref=e604]: s
+                    - generic [ref=e605]: t
+                    - generic [ref=e606]: a
+                    - generic [ref=e607]: g
+                    - generic [ref=e608]: r
+                    - generic [ref=e609]: a
+                    - generic [ref=e610]: m
+                  - generic:
+                    - generic: I
+                    - generic: "n"
+                    - generic: s
+                    - generic: t
+                    - generic: a
+                    - generic: g
+                    - generic: r
+                    - generic: a
+                    - generic: m
+            - listitem [ref=e612]:
+              - link "F a c e b o o k" [ref=e613] [cursor=pointer]:
+                - /url: https://www.facebook.com/KreativeReflow
+                - generic [ref=e614]:
+                  - generic [ref=e615]:
+                    - generic [ref=e616]: F
+                    - generic [ref=e617]: a
+                    - generic [ref=e618]: c
+                    - generic [ref=e619]: e
+                    - generic [ref=e620]: b
+                    - generic [ref=e621]: o
+                    - generic [ref=e622]: o
+                    - generic [ref=e623]: k
+                  - generic:
+                    - generic: F
+                    - generic: a
+                    - generic: c
+                    - generic: e
+                    - generic: b
+                    - generic: o
+                    - generic: o
+                    - generic: k
+            - listitem [ref=e625]:
+              - link "T i k T o k" [ref=e626] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@kreativereflow
+                - generic [ref=e627]:
+                  - generic [ref=e628]:
+                    - generic [ref=e629]: T
+                    - generic [ref=e630]: i
+                    - generic [ref=e631]: k
+                    - generic [ref=e632]: T
+                    - generic [ref=e633]: o
+                    - generic [ref=e634]: k
+                  - generic:
+                    - generic: T
+                    - generic: i
+                    - generic: k
+                    - generic: T
+                    - generic: o
+                    - generic: k
+      - generic [ref=e636]:
+        - paragraph [ref=e637]: © 2026 Kreative Reflow. All rights reserved.
+        - generic [ref=e638]:
+          - link "P r i v a c y P o l i c y" [ref=e639] [cursor=pointer]:
+            - /url: /privacy
+            - generic [ref=e640]:
+              - generic [ref=e641]:
+                - generic [ref=e642]: P
+                - generic [ref=e643]: r
+                - generic [ref=e644]: i
+                - generic [ref=e645]: v
+                - generic [ref=e646]: a
+                - generic [ref=e647]: c
+                - generic [ref=e648]: "y"
+                - generic [ref=e650]: P
+                - generic [ref=e651]: o
+                - generic [ref=e652]: l
+                - generic [ref=e653]: i
+                - generic [ref=e654]: c
+                - generic [ref=e655]: "y"
+              - generic:
+                - generic: P
+                - generic: r
+                - generic: i
+                - generic: v
+                - generic: a
+                - generic: c
+                - generic: "y"
+                - generic: P
+                - generic: o
+                - generic: l
+                - generic: i
+                - generic: c
+                - generic: "y"
+          - link "T e r m s o f S e r v i c e" [ref=e657] [cursor=pointer]:
+            - /url: /terms
+            - generic [ref=e658]:
+              - generic [ref=e659]:
+                - generic [ref=e660]: T
+                - generic [ref=e661]: e
+                - generic [ref=e662]: r
+                - generic [ref=e663]: m
+                - generic [ref=e664]: s
+                - generic [ref=e666]: o
+                - generic [ref=e667]: f
+                - generic [ref=e669]: S
+                - generic [ref=e670]: e
+                - generic [ref=e671]: r
+                - generic [ref=e672]: v
+                - generic [ref=e673]: i
+                - generic [ref=e674]: c
+                - generic [ref=e675]: e
+              - generic:
+                - generic: T
+                - generic: e
+                - generic: r
+                - generic: m
+                - generic: s
+                - generic: o
+                - generic: f
+                - generic: S
+                - generic: e
+                - generic: r
+                - generic: v
+                - generic: i
+                - generic: c
+                - generic: e
+    - generic [ref=e678]:
+      - generic [ref=e679]: KREATIVE REFLOW
+      - generic [ref=e680]: KREATIVE REFLOW
+      - generic [ref=e681]: KREATIVE REFLOW
+      - generic [ref=e682]: KREATIVE REFLOW
+      - generic [ref=e683]: KREATIVE REFLOW
+      - generic [ref=e684]: KREATIVE REFLOW
+      - generic [ref=e685]: KREATIVE REFLOW
+      - generic [ref=e686]: KREATIVE REFLOW

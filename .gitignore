@@ -4,12 +4,14 @@ coverage/
 .DS_Store
 *.log
 .lead-captures/
+.codex-screenshots/
 .env*
 !.env.example
 .vercel/
 .claude/
 .kilocode/
 .ruff_cache/
+supabase/.temp/
 tsconfig.tsbuildinfo
 homepage-check.png
 awesome-design-md/

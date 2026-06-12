@@ -854,7 +854,7 @@ export function ScorecardClient() {
           <div>
             <SectionLabel>Website Lead Leak Scorecard</SectionLabel>
             <h1 className="mt-6 max-w-4xl font-playfair text-5xl font-bold leading-none text-[#FBFBFB] md:text-7xl lg:text-8xl">
-              Find where your website is losing leads.
+              Find where your website is losing leads<span className="text-[#FC6E20]">.</span>
             </h1>
             <p className="mt-7 max-w-2xl font-montserrat text-base leading-8 text-[#F0EFED]/76 md:text-lg">
               A five-category diagnostic for South African service businesses:
@@ -1015,7 +1015,7 @@ export function ScorecardClient() {
           <div>
             <SectionLabel>How to use the result</SectionLabel>
             <h2 className="mt-5 max-w-xl font-playfair text-4xl font-bold leading-none text-[#151419] dark:text-[#FBFBFB] md:text-6xl">
-              Fix the leak in the right order.
+              Fix the leak in the right order<span className="text-[#FC6E20]">.</span>
             </h2>
             <p className="mt-6 max-w-xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
               The score is useful, but the order matters more. Speed, mobile
@@ -1053,7 +1053,7 @@ export function ScorecardClient() {
             <div>
               <SectionLabel>Need a second pair of eyes?</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-4xl font-bold leading-none md:text-6xl">
-                Bring the score. We will turn it into a practical fix plan.
+                Bring the score. We will turn it into a practical fix plan<span className="text-[#FC6E20]">.</span>
               </h2>
             </div>
             <Link
@@ -1212,7 +1212,7 @@ function ResultsView({
             Full report
           </p>
           <h3 className="mt-4 font-playfair text-3xl font-bold leading-tight text-[#FBFBFB]">
-            Get the downloadable action plan.
+            Get the downloadable action plan<span className="text-[#FC6E20]">.</span>
           </h3>
           <p className="mt-4 font-montserrat text-sm leading-7 text-[#F0EFED]/62">
             {interpretation.ctaMessage}

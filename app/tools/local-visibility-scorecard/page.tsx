@@ -9,7 +9,7 @@ import { LocalVisibilityScorecardClient } from './scorecard-client';
 
 const title = 'Local Visibility Scorecard';
 const description =
-  'An interactive Johannesburg local visibility scorecard for service businesses to assess Google Business Profile, reviews, directories, local SEO, and AI search readiness.';
+  'Score your Johannesburg local visibility across Google Business Profile, reviews, directories, local SEO structure, and AI search readiness.';
 const path = '/tools/local-visibility-scorecard';
 
 export const metadata = pageMetadata({

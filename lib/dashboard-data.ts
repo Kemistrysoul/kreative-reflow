@@ -36,6 +36,9 @@ export type MilestoneRecord = {
   label: string;
   state: string;
   date: string;
+  detail?: string;
+  owner?: string;
+  ownerRole?: string;
 };
 
 export type AssetBucket = {
@@ -282,8 +285,8 @@ export const portalProject = {
   phase: 'Design Phase',
   status: 'In progress',
   progress: 42,
-  started: 'June 15, 2026',
-  targetLaunch: 'August 10, 2026',
+  started: 'May 15, 2026',
+  targetLaunch: 'July 10, 2026',
   nextAction: 'Review homepage concept and upload final team photos.',
 };
 
@@ -315,12 +318,54 @@ export const portalSteps: PortalStep[] = [
 ];
 
 export const milestones: MilestoneRecord[] = [
-  { label: 'Onboarding complete', state: 'Done', date: 'Jun 15' },
-  { label: 'Sitemap and wireframes', state: 'Done', date: 'Jun 22' },
-  { label: 'Homepage design concept', state: 'Review', date: 'Jun 30' },
-  { label: 'Development sprint', state: 'Upcoming', date: 'Jul 10' },
-  { label: 'Testing and revisions', state: 'Upcoming', date: 'Jul 28' },
-  { label: 'Launch and handoff', state: 'Upcoming', date: 'Aug 10' },
+  {
+    label: 'Onboarding complete',
+    state: 'Done',
+    date: 'May 15',
+    detail: 'Kickoff questionnaire and discovery inputs are captured.',
+    owner: 'ABC Engineering',
+    ownerRole: 'Client owner',
+  },
+  {
+    label: 'Sitemap and wireframes',
+    state: 'Done',
+    date: 'May 22',
+    detail: 'Structure and wireframes are approved for design.',
+    owner: 'Kreative Reflow',
+    ownerRole: 'Studio',
+  },
+  {
+    label: 'Homepage design concept',
+    state: 'Review',
+    date: 'May 30',
+    detail: 'Homepage concept v1 is waiting for client approval or revision notes.',
+    owner: 'Kreative Reflow',
+    ownerRole: 'Studio',
+  },
+  {
+    label: 'Development sprint',
+    state: 'Upcoming',
+    date: 'Jun 10',
+    detail: 'Development begins after homepage direction is approved.',
+    owner: 'Kreative Reflow',
+    ownerRole: 'Studio',
+  },
+  {
+    label: 'Testing and revisions',
+    state: 'Upcoming',
+    date: 'Jun 28',
+    detail: 'QA and revision checks before launch handoff.',
+    owner: 'Kreative Reflow',
+    ownerRole: 'Studio + client',
+  },
+  {
+    label: 'Launch and handoff',
+    state: 'Upcoming',
+    date: 'Jul 10',
+    detail: 'Final launch, training notes, and support handoff.',
+    owner: 'Kreative Reflow',
+    ownerRole: 'Studio',
+  },
 ];
 
 export const assetBuckets: AssetBucket[] = [

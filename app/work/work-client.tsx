@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRef, useSyncExternalStore } from 'react';
 import type React from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react';
 import {
   ArrowRight,
   CalendarCheck,
@@ -15,6 +16,7 @@ import {
   Workflow,
 } from 'lucide-react';
 import { AnimatedLinkText } from '@/components/AnimatedTextLink';
+import { ExpandingCtaBackground } from '@/components/ExpandingCtaBackground';
 
 type FeaturedProject = {
   id: string;
@@ -39,6 +41,8 @@ type FeaturedProject = {
 type ProofLens = {
   title: string;
   body: string;
+  ctaLabel?: string;
+  href?: string;
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
 };
 
@@ -108,6 +112,40 @@ const featuredProjects: FeaturedProject[] = [
     accent: '#FC6E20',
     serviceHref: '/services/saas-development',
   },
+  {
+    id: '03',
+    title: 'Ubuntu Memorial Services + ParlourPay',
+    eyebrow: 'Self-initiated funeral services platform concept',
+    industry: 'Funeral services, community funeral parlours, burial societies, and local service businesses',
+    audience:
+      'Funeral parlour owners, office teams, consultants, and families managing cover, monthly contributions, or funeral arrangements.',
+    headline:
+      'A funeral parlour website that turns package browsing, member registration, and monthly contribution records into one demo-ready system.',
+    summary:
+      'A self-initiated concept build for community funeral providers, combining a polished public website with demo-powered registration, receipt, status, and staff-dashboard workflows.',
+    problem:
+      'Local funeral parlours often depend on trusted walk-in relationships, booklet stamps, and manual monthly payment records, while families need clearer package information and remote ways to start admin-heavy steps.',
+    built: [
+      'Multi-page funeral parlour website with services, packages, tombstones, contact, about, how-it-works, and articles routes',
+      'Package comparison UX with practical benefits, waiting-period language, add-ons, and fine print',
+      'Multi-step registration flow with SA ID format validation, dependant rules, next-of-kin, extras, documents, and consent',
+      'Demo monthly contribution flow with member lookup, safety check, receipt download, and digital stamp-book entries',
+      'Staff dashboard with seed data, review queue, member profiles, cash payment capture, reconciliation export, and audit trail',
+    ],
+    features: ['Online registration', 'Digital stamp book', 'Review dashboard', 'Tombstone catalogue'],
+    conversion:
+      'Funeral parlour owners can request a tailored demo, while families can see how they would register, pay, contact the office, or check status.',
+    privateNotes: [
+      'Demo member, contact, ID-like, and payment details should stay sanitized in screenshots.',
+      'Raw lead research and confidential scope documents should not be used as public portfolio assets.',
+      'Do not claim client work, live payments, real cover, user traction, or production integrations.',
+    ],
+    image: '/images/work/ubuntu-memorial-services-showcase.jpg',
+    imageWidth: 960,
+    imageHeight: 8016,
+    accent: '#154230',
+    serviceHref: '/services/saas-development',
+  },
 ];
 
 const proofLenses: ProofLens[] = [
@@ -131,28 +169,45 @@ const proofLenses: ProofLens[] = [
     body: 'Client data, payment references, internal dashboards, and unapproved claims stay out of the showcase.',
     icon: LockKeyhole,
   },
+  {
+    title: 'Start the next build',
+    body: 'Use this page as the reference point: public proof on the surface, useful business infrastructure underneath.',
+    ctaLabel: 'Start similar work',
+    href: '/contact',
+    icon: ArrowRight,
+  },
 ];
 
 const proofLensCardStyles = [
   {
     card: 'bg-[#5F9FAA] text-[#060808]',
     icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/62',
+    number: 'opacity-[0.68]',
     rule: 'border-[#060808]/18',
   },
   {
     card: 'bg-[#DD6211] text-[#060808]',
     icon: 'border-[#060808]/18 bg-[#060808]/8 text-[#060808]/58',
+    number: 'opacity-[0.68]',
     rule: 'border-[#060808]/18',
   },
   {
     card: 'bg-[#FFF6E9] text-[#0A171D]',
     icon: 'border-[#0A171D]/16 bg-[#0A171D]/[0.07] text-[#0A171D]/56',
+    number: 'opacity-[0.68]',
     rule: 'border-[#0A171D]/16',
   },
   {
     card: 'bg-[#B92717] text-[#FFF6E9]',
     icon: 'border-[#FFF6E9]/20 bg-[#FFF6E9]/8 text-[#FFF6E9]/68',
+    number: 'opacity-[0.68]',
     rule: 'border-[#FFF6E9]/22',
+  },
+  {
+    card: 'bg-[#151419] text-[#FBFBFB] ring-1 ring-[#FC6E20]/28',
+    icon: 'border-[#FC6E20]/22 bg-[#FC6E20]/10 text-[#FC6E20]',
+    number: 'text-[#FC6E20]',
+    rule: 'border-[#FBFBFB]/14',
   },
 ];
 
@@ -269,18 +324,53 @@ function GridLines() {
   );
 }
 
+function useIsDesktopViewport() {
+  return useSyncExternalStore(
+    (callback) => {
+      const mediaQuery = window.matchMedia('(min-width: 1024px)');
+      mediaQuery.addEventListener('change', callback);
+
+      return () => {
+        mediaQuery.removeEventListener('change', callback);
+      };
+    },
+    () => window.matchMedia('(min-width: 1024px)').matches,
+    () => false,
+  );
+}
+
+function buildScrollStackKeyframes(index: number, total: number) {
+  const lastIndex = Math.max(total - 1, 1);
+  const input = Array.from({ length: total }, (_, itemIndex) => itemIndex / lastIndex);
+  const scale = input.map((_, itemIndex) => 1 - Math.max(0, itemIndex - index) * 0.045);
+  const rotate = input.map((_, itemIndex) => -Math.max(0, itemIndex - index) * 1.15);
+  const entryStart = index === 0 ? 0 : (index - 1) / lastIndex;
+  const entryEnd = index / lastIndex;
+
+  return {
+    input,
+    scale,
+    rotate,
+    yInput: index === 0 ? [0, 1] : [entryStart, entryEnd],
+    yOutput:
+      index === 0
+        ? ['0px', `${-28 * Math.max(total - 1, 0)}px`]
+        : ['18vh', `${index * 34}px`],
+  };
+}
+
 function WorkHero() {
   return (
     <section className="content-gutter relative z-10 grid min-h-screen grid-cols-1 items-start gap-12 py-28 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.78fr)] lg:items-center lg:gap-16 lg:py-32">
       <Reveal>
         <SectionLabel>Selected work</SectionLabel>
         <h1 className="mt-8 max-w-5xl font-playfair text-[clamp(3.1rem,7.2vw,7.2rem)] font-bold leading-[0.93] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          Work built as proof, not decoration.
+          Work built as proof, not decoration<span className="text-[#FC6E20]">.</span>
         </h1>
         <p className="mt-8 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68 md:text-lg">
-          Yes, this page should include the content from the homepage "What
-          We've Built" section. Here, it gets more room: project context, what
-          was built, what stays private, and the system behind the screen.
+          The homepage shows the highlights. This page gives each build the
+          room it deserves: the context, what we built, what stays private,
+          and the system working behind the screen.
         </p>
         <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
           <PrimaryButton href="#featured-work">View featured builds</PrimaryButton>
@@ -304,13 +394,14 @@ function ProofIndexStage() {
       />
       <div className="relative flex items-center justify-between pb-6 font-mono text-[0.65rem] uppercase tracking-[0.24em] text-[#151419]/45 dark:text-white/45">
         <span>Proof index</span>
-        <span>02 builds</span>
+        <span>03 builds</span>
       </div>
       <div className="relative grid gap-5 lg:ml-auto lg:w-[92%] xl:w-[95%]">
         {featuredProjects.map((project) => {
           const isCoach = project.id === '01';
           const isTouchTeq = project.title === 'Touch Teq Engineering';
-          const Icon = isCoach ? PanelsTopLeft : Workflow;
+          const isUbuntu = project.title.includes('Ubuntu Memorial');
+          const Icon = isCoach ? PanelsTopLeft : isUbuntu ? ShieldCheck : Workflow;
 
           return (
             <Link
@@ -318,11 +409,11 @@ function ProofIndexStage() {
               key={project.title}
               className="group block overflow-hidden rounded-[2.25rem] p-7 text-[#151419] shadow-[0_28px_70px_rgba(21,20,25,0.12)] transition-transform duration-300 hover:-translate-y-1 sm:p-9 lg:p-10"
               style={{
-                backgroundColor: isCoach ? '#C7AA94' : '#FC6E20',
+                backgroundColor: isCoach ? '#C7AA94' : isUbuntu ? '#A6824A' : '#FC6E20',
               }}
             >
               <div className="flex items-start justify-between gap-6">
-                <div className={isTouchTeq ? 'max-w-[18rem]' : 'max-w-[16rem]'}>
+                <div className={isTouchTeq || isUbuntu ? 'max-w-[18rem]' : 'max-w-[16rem]'}>
                   <p className="font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#151419]/62">
                     {project.eyebrow}
                   </p>
@@ -331,6 +422,11 @@ function ProofIndexStage() {
                       <>
                         <span className="block">Touch Teq</span>
                         <span className="block">Engineering</span>
+                      </>
+                    ) : isUbuntu ? (
+                      <>
+                        <span className="block">Ubuntu Memorial</span>
+                        <span className="block">+ ParlourPay</span>
                       </>
                     ) : (
                       project.title
@@ -504,19 +600,18 @@ function FeaturedWork() {
         <Reveal className="lg:sticky lg:top-28 lg:self-start">
           <SectionLabel>What we've built</SectionLabel>
           <h2 className="mt-5 max-w-xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-            The same projects, with more context.
+            The full story behind each build<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="mt-6 max-w-md font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/60">
-            The homepage should show just enough to create confidence. The Work
-            page should explain why the builds matter and what kind of system
-            was created.
+            The problem each build had to solve, and the system we built
+            underneath the visible pages.
           </p>
           <div className="mt-10 grid max-w-md grid-cols-2 gap-3">
             <div className="border border-[#151419]/10 bg-[#FBFBFB]/60 p-4 dark:border-white/10 dark:bg-white/[0.035]">
               <span className="block font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#878787]">
                 Featured
               </span>
-              <span className="mt-2 block font-mono text-3xl text-[#151419] dark:text-white">02</span>
+              <span className="mt-2 block font-mono text-3xl text-[#151419] dark:text-white">03</span>
             </div>
             <div className="border border-[#151419]/10 bg-[#FBFBFB]/60 p-4 dark:border-white/10 dark:bg-white/[0.035]">
               <span className="block font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#878787]">
@@ -537,9 +632,118 @@ function FeaturedWork() {
   );
 }
 
-function ProofLenses() {
+function ProofLensArticle({
+  lens,
+  index,
+  className = '',
+  inlineStyle,
+}: {
+  lens: ProofLens;
+  index: number;
+  className?: string;
+  inlineStyle?: React.CSSProperties;
+}) {
+  const Icon = lens.icon;
+  const style = proofLensCardStyles[index % proofLensCardStyles.length];
+  const isCta = Boolean(lens.href);
+
   return (
-    <section className="relative z-10 overflow-hidden bg-[#060808] py-20 text-[#FBFBFB] md:py-28">
+    <article
+      className={`relative flex flex-col justify-between rounded-[1.35rem] p-7 shadow-[0_22px_60px_rgba(0,0,0,0.22)] md:p-9 ${style.card} ${className}`}
+      style={inlineStyle}
+    >
+      <div className="flex items-start justify-between gap-8">
+        <div>
+          <span className={`font-mono text-xs font-bold uppercase tracking-[0.18em] ${style.number}`}>
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <h3 className="mt-8 max-w-lg font-playfair text-[clamp(2.25rem,4.6vw,4rem)] font-bold leading-none tracking-tight">
+            {lens.title}
+          </h3>
+        </div>
+        <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.05rem] border ${style.icon}`}>
+          <Icon className="h-6 w-6" strokeWidth={1.8} />
+        </div>
+      </div>
+      <div className={`mt-14 border-t pt-6 ${style.rule}`}>
+        <p className="max-w-xl font-montserrat text-base leading-7 opacity-[0.82]">
+          {lens.body}
+        </p>
+        {isCta && lens.href && lens.ctaLabel ? (
+          <Link
+            href={lens.href}
+            className="group mt-7 inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-[#060808] transition-colors hover:bg-[#FBFBFB]"
+          >
+            <AnimatedLinkText hiddenClassName="text-[#060808]">
+              {lens.ctaLabel}
+            </AnimatedLinkText>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        ) : null}
+      </div>
+    </article>
+  );
+}
+
+function ProofLensStackCard({
+  lens,
+  index,
+  total,
+  scrollYProgress,
+  isDesktop,
+}: {
+  lens: ProofLens;
+  index: number;
+  total: number;
+  scrollYProgress: MotionValue<number>;
+  isDesktop: boolean;
+}) {
+  const keyframes = buildScrollStackKeyframes(index, total);
+  const y = useTransform(scrollYProgress, keyframes.yInput, keyframes.yOutput);
+  const scale = useTransform(scrollYProgress, keyframes.input, keyframes.scale);
+  const rotate = useTransform(scrollYProgress, keyframes.input, keyframes.rotate);
+  const desktopInset = index * 28;
+
+  return (
+    <motion.div
+      className="lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-10"
+      style={{ zIndex: 20 + index }}
+    >
+      <motion.div
+        className="w-full"
+        style={
+          isDesktop
+            ? {
+                y,
+                scale,
+                rotate,
+                width: `calc(100% - ${desktopInset}px)`,
+                marginLeft: `${desktopInset}px`,
+                transformOrigin: 'top center',
+              }
+            : undefined
+        }
+      >
+        <ProofLensArticle
+          lens={lens}
+          index={index}
+          className="min-h-[19rem] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_28px_72px_rgba(0,0,0,0.28)] md:min-h-[21rem] lg:min-h-[24rem]"
+        />
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function ProofLenses() {
+  const stackRef = useRef<HTMLDivElement>(null);
+  const isDesktop = useIsDesktopViewport();
+  const { scrollYProgress } = useScroll({
+    target: stackRef,
+    offset: ['start start', 'end end'],
+  });
+
+  return (
+    <section className="relative z-10 overflow-x-clip bg-[#060808] py-20 text-[#FBFBFB] md:py-28">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-[29%] top-1/2 hidden h-[38rem] w-[38rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.2)_1.1px,transparent_1.1px)] bg-[length:13px_13px] opacity-45 [mask-image:radial-gradient(circle_at_center,black_0%,black_48%,transparent_73%)] lg:block"
@@ -549,7 +753,7 @@ function ProofLenses() {
           <div className="max-w-xl">
             <SectionLabel>How to read the work</SectionLabel>
             <h2 className="mt-6 border-b border-white/18 pb-7 font-playfair text-[clamp(2.8rem,6.2vw,6rem)] font-bold leading-[0.94] tracking-tight text-white/88">
-              The screenshot is only the surface.
+              The screenshot is only the surface<span className="text-[#FC6E20]">.</span>
             </h2>
             <p className="mt-8 max-w-md font-montserrat text-base leading-8 text-white/62">
               The real work sits in the decisions behind the screen: trust,
@@ -564,38 +768,17 @@ function ProofLenses() {
           </div>
         </Reveal>
 
-        <div className="grid gap-5">
-          {proofLenses.map((lens, index) => {
-            const Icon = lens.icon;
-            const style = proofLensCardStyles[index % proofLensCardStyles.length];
-
-            return (
-              <Reveal key={lens.title} delay={index * 0.06}>
-                <article
-                  className={`flex min-h-[19rem] flex-col justify-between rounded-[1.35rem] p-7 shadow-[0_22px_60px_rgba(0,0,0,0.22)] transition-transform duration-300 hover:-translate-y-1 md:min-h-[21rem] md:p-9 ${style.card}`}
-                >
-                  <div className="flex items-start justify-between gap-8">
-                    <div>
-                      <span className="font-mono text-xs font-bold uppercase tracking-[0.18em] opacity-[0.68]">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <h3 className="mt-8 max-w-lg font-playfair text-[clamp(2.25rem,4.6vw,4rem)] font-bold leading-none tracking-tight">
-                        {lens.title}
-                      </h3>
-                    </div>
-                    <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-[1.05rem] border ${style.icon}`}>
-                      <Icon className="h-6 w-6" strokeWidth={1.8} />
-                    </div>
-                  </div>
-                  <div className={`mt-14 border-t pt-6 ${style.rule}`}>
-                    <p className="max-w-xl font-montserrat text-base leading-7 opacity-[0.82]">
-                      {lens.body}
-                    </p>
-                  </div>
-                </article>
-              </Reveal>
-            );
-          })}
+        <div ref={stackRef} className="grid content-start gap-5 lg:block lg:pb-[18vh]">
+          {proofLenses.map((lens, index) => (
+            <ProofLensStackCard
+              key={lens.title}
+              lens={lens}
+              index={index}
+              total={proofLenses.length}
+              scrollYProgress={scrollYProgress}
+              isDesktop={isDesktop}
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -608,7 +791,7 @@ function ServiceDirections() {
       <Reveal className="max-w-4xl">
         <SectionLabel>Project directions</SectionLabel>
         <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          The work can start from different pressure points.
+          The work can start from different pressure points<span className="text-[#FC6E20]">.</span>
         </h2>
       </Reveal>
 
@@ -661,10 +844,10 @@ function PublicBoundary() {
             <div>
               <SectionLabel>Public by design</SectionLabel>
               <h2 className="mt-5 font-playfair text-[clamp(2.5rem,5vw,5rem)] font-bold leading-[0.96] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-                Strong proof without exposing private systems.
+                Strong proof without exposing private systems<span className="text-[#FC6E20]">.</span>
               </h2>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {featuredProjects.map((project) => (
                 <article
                   key={project.title}
@@ -698,14 +881,14 @@ function FinalCta() {
   return (
     <section className="content-gutter relative z-10 pb-24 md:pb-32">
       <Reveal>
-        <div className="border border-[#151419]/10 bg-[#151419] p-7 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-14">
+        <ExpandingCtaBackground>
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div>
               <SectionLabel>Start the next build</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
-                Bring the business problem. We will shape the proof.
+                Bring the business problem. We will shape the proof<span className="text-[#FC6E20]">.</span>
               </h2>
-              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
+              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 Whether it is a public website, a dashboard, a quote flow, or
                 the workflow behind the scenes, the work starts with clarity.
               </p>
@@ -720,13 +903,13 @@ function FinalCta() {
               </Link>
               <Link
                 href="/services"
-                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/18 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#FBFBFB] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#151419]/15 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
               >
                 <AnimatedLinkText>View services</AnimatedLinkText>
               </Link>
             </div>
           </div>
-        </div>
+        </ExpandingCtaBackground>
       </Reveal>
     </section>
   );

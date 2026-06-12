@@ -7,19 +7,20 @@ export const siteUrl = (
 ).replace(/\/$/, '');
 
 export const defaultSeoTitle =
-  'Kreative Reflow | Websites, Dashboards & Automation';
+  'Web Design & Business Systems Johannesburg | Kreative Reflow';
 
 export const defaultSeoDescription =
-  'Johannesburg creative-tech studio building websites, dashboards, SaaS products, SEO foundations, and business automation systems.';
+  'Johannesburg studio building websites that bring in work and systems that keep them running: custom builds, dashboards, local SEO, and automation.';
 
 export const defaultOgImage = '/images/work/touch-teq-showcase.jpg';
 
 export const publicSitemapRoutes = [
   '/',
   '/about',
-  '/start',
   '/contact',
   '/faq',
+  '/privacy',
+  '/terms',
   '/insights',
   '/insights/website-cost-south-africa-2026',
   '/insights/why-your-website-looks-good-but-doesnt-convert',
@@ -50,15 +51,18 @@ export function pageMetadata({
   description,
   path,
   image = defaultOgImage,
+  robots,
 }: {
   title: string;
   description: string;
   path: string;
   image?: string;
+  robots?: Metadata['robots'];
 }): Metadata {
   return {
     title,
     description,
+    robots,
     alternates: {
       canonical: path,
     },
@@ -130,6 +134,7 @@ export function serviceJsonLd({
     url: absoluteUrl(path),
     provider: {
       '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
       name: siteName,
       url: siteUrl,
     },
@@ -166,8 +171,10 @@ export function faqJsonLd(
 export const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': ['Organization', 'LocalBusiness'],
+  '@id': `${siteUrl}/#organization`,
   name: siteName,
   url: siteUrl,
+  description: defaultSeoDescription,
   image: absoluteUrl(defaultOgImage),
   logo: absoluteUrl('/icon.svg'),
   email: 'hello@kreativereflow.com',
@@ -187,4 +194,51 @@ export const organizationJsonLd = {
       name: 'International',
     },
   ],
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      contactType: 'sales',
+      email: 'hello@kreativereflow.com',
+      telephone: '+27655750713',
+      areaServed: ['ZA'],
+      availableLanguage: ['en'],
+    },
+  ],
+  knowsAbout: [
+    'Web design Johannesburg',
+    'Custom website development',
+    'Local SEO',
+    'AI search optimization',
+    'Business automation',
+    'SaaS development',
+    'Custom dashboards',
+    'Client portals',
+  ],
+  makesOffer: [
+    'Web design and development',
+    'Local and AI SEO',
+    'SaaS and custom web applications',
+    'AI and business automation',
+    'Business and technology consulting',
+    'Website maintenance and support',
+  ].map((name) => ({
+    '@type': 'Offer',
+    itemOffered: {
+      '@type': 'Service',
+      name,
+    },
+  })),
+};
+
+export const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  name: siteName,
+  alternateName: ['KreativeReflow', 'Kreative Reflow Studio'],
+  url: siteUrl,
+  inLanguage: 'en-ZA',
+  publisher: {
+    '@id': `${siteUrl}/#organization`,
+  },
 };

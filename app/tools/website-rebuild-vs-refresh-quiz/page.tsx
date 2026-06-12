@@ -9,7 +9,7 @@ import { WebsiteRebuildRefreshQuizClient } from './quiz-client';
 
 const title = 'Website Rebuild vs Refresh Quiz';
 const description =
-  'A decision quiz for business owners to decide whether their website needs a rebuild, refresh, or optimization roadmap.';
+  'Use this website decision quiz to choose a rebuild, focused refresh, or optimization roadmap before spending the next design and development budget.';
 const path = '/tools/website-rebuild-vs-refresh-quiz';
 
 export const metadata = pageMetadata({

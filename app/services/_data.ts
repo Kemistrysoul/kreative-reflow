@@ -145,7 +145,7 @@ export const serviceDetails = {
     ],
     ctaTitle: 'Build the site your business keeps trying to explain manually.',
     ctaBody:
-      'Bring the messy version of the offer. We will shape it into a website that helps buyers understand, trust, and act.',
+      'Tell us what the current site fails to explain. We will shape it into a website buyers understand and trust.',
   },
   saasDevelopment: {
     eyebrow: 'Systems and dashboards',

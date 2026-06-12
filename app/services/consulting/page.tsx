@@ -3,9 +3,9 @@ import { serviceDetails } from '../_data';
 import { ServiceRoute } from '../_components/service-route';
 
 export const metadata = pageMetadata({
-  title: 'Business & Tech Consulting | Kreative Reflow',
+  title: 'Tech Consulting Johannesburg | Kreative Reflow',
   description:
-    'Systems audits, offer mapping, roadmaps, and practical technology guidance before a website, dashboard, or automation build.',
+    'Business and technology consulting for founders who need a clear roadmap before investing in a website, dashboard, automation workflow, or custom system.',
   path: '/services/consulting',
 });
 

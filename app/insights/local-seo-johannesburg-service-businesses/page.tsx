@@ -14,13 +14,14 @@ import {
 } from '@/lib/seo';
 
 const title = 'Local SEO for Johannesburg Service Businesses';
+const metaTitle = 'Local SEO Johannesburg Guide | Kreative Reflow';
 const description =
-  'A practical local SEO guide for Johannesburg service businesses covering Google Business Profile, location pages, reviews, citations, AI search, and first steps.';
+  'A local SEO guide for Johannesburg service businesses covering Google Business Profile, location pages, reviews, citations, AI search, and first steps.';
 const path = '/insights/local-seo-johannesburg-service-businesses';
 const publishedDate = '2026-05-10';
 
 export const metadata: Metadata = pageMetadata({
-  title: `${title} | Kreative Reflow`,
+  title: metaTitle,
   description,
   path,
 });
@@ -47,9 +48,9 @@ const faqItems = [
       'More than your competitors. Check the top three businesses in the Local Pack for your main keyword. If they have 40, 60, and 80 reviews, you need at least 50 to compete. But recency matters more than count. 30 fresh reviews in the past three months beats 100 old reviews from two years ago.',
   },
   {
-    question: 'What if I serve all of Johannesburg, not just one suburb?',
+    question: 'What if I serve all of Johannesburg instead of one suburb?',
     answer:
-      'Create location pages for the highest-value suburbs. Sandton, Rosebank, Fourways, Randburg, Braamfontein. You can\'t rank for "plumber Johannesburg" — that\'s too broad and competitive. But you can rank for "plumber Sandton" and "plumber Fourways" and capture those specific high-intent searches.',
+      'Create location pages for the highest value suburbs. Sandton, Rosebank, Fourways, Randburg, Braamfontein. You can\'t rank for "plumber Johannesburg" because that\'s too broad and competitive. But you can rank for "plumber Sandton" and "plumber Fourways" and capture those specific high intent searches.',
   },
 ];
 
@@ -132,8 +133,8 @@ export default function LocalSeoJohannesburgArticlePage() {
         eyebrow="Local SEO"
         title="Local SEO for Johannesburg Service Businesses"
         updatedAt="May 10, 2026"
-        image="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=85"
-        imageAlt="Local street and building detail representing local search visibility."
+        image="/images/insights/local-seo-johannesburg-visibility.webp"
+        imageAlt="Local business storefront with mobile search map results and local visibility signals."
         signalLabel="The local fight"
         signalValue="Local Pack"
         signalBody="The fight isn't for page one anymore. It's for the three map results that get seen first."
@@ -155,11 +156,11 @@ export default function LocalSeoJohannesburgArticlePage() {
           eyebrow: 'Dashboards',
           title: 'When Does a Business Need a Custom Dashboard or Client Portal',
           href: '/insights/when-does-a-business-need-a-custom-dashboard-or-client-portal',
-          image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=85',
-          imageAlt: 'Team reviewing a dashboard and workflow system.',
+          image: '/images/insights/custom-dashboard-decision.webp',
+          imageAlt: 'Clean operations dashboard on a monitor beside a chaotic spreadsheet.',
         }}
       >
-          <ArticleSection id="why-local-seo-matters-in-johannesburg" title="Why Local SEO Matters in Johannesburg">
+          <ArticleSection id="why-local-seo-matters-in-johannesburg" title="Why local SEO matters in Johannesburg">
             <p>
               Johannesburg is South Africa&apos;s economic center. Sandton alone generates more economic activity than most African countries. The competition is brutal.
             </p>
@@ -167,14 +168,14 @@ export default function LocalSeoJohannesburgArticlePage() {
               76% of people who search for a local service on their phone visit a business within 24 hours. 46% of all Google searches have local intent. If you&apos;re not showing up in the top three results when someone in your area searches for your service, you don&apos;t exist.
             </p>
             <p>
-              The fight isn&apos;t for page one anymore. It&apos;s for the Local Pack — those three businesses that show up in the map at the top of search results with their Google Business Profile, address, phone number, reviews, and hours.
+              The fight isn&apos;t for page one anymore. It&apos;s for the Local Pack, the three businesses that show up in the map at the top of search results with their Google Business Profile, address, phone number, reviews, and hours.
             </p>
             <p>
               Get into that pack and you win half the calls in your area. Miss it and you&apos;re competing with everyone on page two, which gets 5% of clicks.
             </p>
           </ArticleSection>
 
-          <ArticleSection id="google-business-profile-is-everything" title="Google Business Profile Is Everything">
+          <ArticleSection id="google-business-profile-is-everything" title="Google Business Profile is everything">
             <p>Your Google Business Profile is the single most important factor in local search. Not your website. Your GBP.</p>
             <p>If you haven&apos;t claimed and verified your Google Business Profile, do it today. Right now. Before you finish reading this article.</p>
             <p>Google uses three main factors to decide which businesses show up in the Local Pack: relevance, distance, and prominence. Your GBP controls all three.</p>
@@ -196,8 +197,8 @@ export default function LocalSeoJohannesburgArticlePage() {
                 'Correct primary category (be specific: "Divorce Lawyer" not "Lawyer," "Emergency Plumber" not "Plumber")',
                 'Full list of services with descriptions',
                 'Accurate business hours including holidays',
-                'High-quality photos (minimum 1080×1080 pixels, at least 10 photos)',
-                'Service areas clearly listed (Sandton, Rosebank, Fourways — whatever suburbs you serve)',
+                'High quality photos (minimum 1080 x 1080 pixels, at least 10 photos)',
+                'Service areas clearly listed (Sandton, Rosebank, Fourways, or whichever suburbs you serve)',
                 'Booking link or contact button',
                 'Regular posts (weekly if possible)',
               ]}
@@ -215,7 +216,7 @@ export default function LocalSeoJohannesburgArticlePage() {
             <p>No response to reviews. Respond to every review within 48 hours. Good or bad. It signals you&apos;re active and care.</p>
           </ArticleSection>
 
-          <ArticleSection id="your-website-needs-local-pages" title="Your Website Needs Local Pages">
+          <ArticleSection id="your-website-needs-local-pages" title="Your website needs local pages">
             <p>Your homepage shouldn&apos;t be your only page targeting local search. You need dedicated pages for each major suburb you serve.</p>
             <p>If you&apos;re a plumber serving Sandton, Rosebank, Fourways, and Randburg, you need four separate location pages. Not one page listing all four. Four pages.</p>
             <p>
@@ -223,14 +224,14 @@ export default function LocalSeoJohannesburgArticlePage() {
             </p>
             <BulletList
               items={[
-                'Unique headline with the service and suburb: "Emergency Plumber in Sandton — 24/7 Response"',
+                'Unique headline with the service and suburb: "Emergency plumber in Sandton with 24/7 response"',
                 'Your full service list specific to that area',
                 'Local landmarks and references: "Serving Sandton City, Melrose Arch, and Nelson Mandela Square"',
                 'Testimonials from clients in that suburb if you have them',
                 'Embedded Google Map showing your service area',
                 'Click-to-call phone number',
                 'WhatsApp button',
-                'Schema markup (LocalBusiness structured data with your exact NAP — Name, Address, Phone — matching your GBP)',
+                'Schema markup (LocalBusiness structured data with your exact NAP, meaning Name, Address, Phone, matching your GBP)',
               ]}
             />
             <p>
@@ -244,10 +245,10 @@ export default function LocalSeoJohannesburgArticlePage() {
             </p>
           </ArticleSection>
 
-          <ArticleSection id="reviews-are-not-optional" title="Reviews Are Not Optional">
+          <ArticleSection id="reviews-are-not-optional" title="Reviews are not optional">
             <p>Reviews are the most visible trust signal for local businesses. 4.2 stars is the minimum acceptable rating in 2026. Below that and people scroll past you.</p>
             <p>
-              But the star rating isn&apos;t the only thing that matters. Review velocity — how often you get new reviews — matters more than total count. 100 reviews from 2022 are worth less than 20 reviews from the past three months.
+              But the star rating isn&apos;t the only thing that matters. Review velocity, or how often you get new reviews, matters more than total count. 100 reviews from 2022 are worth less than 20 reviews from the past three months.
             </p>
             <p>Google looks at review recency. Reviews older than six months carry 40% less weight. You need fresh reviews constantly.</p>
             <p>
@@ -266,7 +267,7 @@ export default function LocalSeoJohannesburgArticlePage() {
             <p>Encourage customers to be specific. &quot;It really helps me if you can mention what I fixed and where you&apos;re based in your review.&quot;</p>
           </ArticleSection>
 
-          <ArticleSection id="citations-and-directories-that-actually-matter" title="Citations and Directories That Actually Matter">
+          <ArticleSection id="citations-and-directories-that-actually-matter" title="Citations and directories that actually matter">
             <p>Citations are mentions of your business name, address, and phone number on other websites. The more consistent citations you have across trusted directories, the more Google trusts that you&apos;re a real, established business.</p>
             <p>
               <strong>South African directories that matter:</strong>
@@ -281,11 +282,11 @@ export default function LocalSeoJohannesburgArticlePage() {
               <strong>Industry-specific directories:</strong>
             </p>
             <p>If you&apos;re a medical practice, get on RateMDs and HealthPages. If you&apos;re a lawyer, get on LawyersDirectory and LegalWise. If you&apos;re an engineer or contractor, get on Snupit and Bark.</p>
-            <p>Don&apos;t spam 200 low-quality directories. Focus on 15 to 20 high-quality, relevant listings. Quality beats quantity.</p>
+            <p>Don&apos;t spam 200 low quality directories. Focus on 15 to 20 high quality, relevant listings. Quality beats quantity.</p>
           </ArticleSection>
 
-          <ArticleSection id="the-ai-search-problem" title="The AI Search Problem">
-            <p>ChatGPT, Perplexity, Google Gemini — people are using AI tools to search for local businesses now. These tools don&apos;t work like Google.</p>
+          <ArticleSection id="the-ai-search-problem" title="The AI search problem">
+            <p>ChatGPT, Perplexity, Google Gemini. People are using AI tools to search for local businesses now. These tools don&apos;t work like Google.</p>
             <p>When someone asks ChatGPT &quot;who&apos;s the best dentist in Rosebank,&quot; it pulls from Bing&apos;s index, Yelp, Foursquare, structured data on websites, and other sources. If your business isn&apos;t in those systems with clean, structured information, the AI won&apos;t recommend you.</p>
             <p>
               <strong>How to show up in AI search results:</strong>
@@ -296,7 +297,7 @@ export default function LocalSeoJohannesburgArticlePage() {
             <p>Publish local content regularly. Blog posts about local events, news, case studies with suburb names and dates. AI tools pull from recent, relevant content.</p>
           </ArticleSection>
 
-          <ArticleSection id="what-to-do-first" title="What to Do First">
+          <ArticleSection id="what-to-do-first" title="What to do first">
             <p>You don&apos;t need to do everything at once. Here&apos;s the priority order.</p>
             <p>
               <strong>Week 1: Claim and optimize your Google Business Profile</strong>
@@ -311,7 +312,7 @@ export default function LocalSeoJohannesburgArticlePage() {
               ]}
             />
             <p>
-              <strong>Week 2-4: Get your first 10 reviews</strong>
+              <strong>Week 2 to 4: Get your first 10 reviews</strong>
             </p>
             <BulletList
               items={[
@@ -370,25 +371,30 @@ export default function LocalSeoJohannesburgArticlePage() {
 
           <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
             <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              Related Resources
+              Related resources
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
-                Download: Local SEO Checklist for Johannesburg Businesses
+              <Link href="/tools/local-visibility-scorecard" className="underline decoration-[#FC6E20] underline-offset-4">
+                Run the Local Visibility Scorecard
               </Link>{' '}
-              — A step-by-step checklist to get your local SEO set up in 90 days.
+              - a practical first check for maps, reviews, directories, and local search readiness.
             </p>
           </section>
 
           <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
             <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              About the Author
+              About the author
             </h2>
             <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
               Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}
-              <Link href="#" className="underline decoration-[#FC6E20] underline-offset-4">
+              <a
+                href="https://www.linkedin.com/company/kreativereflow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-[#FC6E20] underline-offset-4"
+              >
                 LinkedIn
-              </Link>
+              </a>
             </p>
           </section>
       </ArticleBody>

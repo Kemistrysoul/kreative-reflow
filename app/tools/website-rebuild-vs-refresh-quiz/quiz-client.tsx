@@ -855,7 +855,7 @@ export function WebsiteRebuildRefreshQuizClient() {
           <div>
             <SectionLabel>Website Rebuild vs Refresh Quiz</SectionLabel>
             <h1 className="mt-6 max-w-4xl font-playfair text-5xl font-bold leading-none text-[#FBFBFB] md:text-7xl lg:text-8xl">
-              Decide the scope before you spend the budget.
+              Decide the scope before you spend the budget<span className="text-[#FC6E20]">.</span>
             </h1>
             <p className="mt-7 max-w-2xl font-montserrat text-base leading-8 text-[#F0EFED]/76 md:text-lg">
               A weighted decision framework for business owners who are not
@@ -999,7 +999,7 @@ export function WebsiteRebuildRefreshQuizClient() {
           <div>
             <SectionLabel>Decision logic</SectionLabel>
             <h2 className="mt-5 max-w-xl font-playfair text-4xl font-bold leading-none text-[#151419] dark:text-[#FBFBFB] md:text-6xl">
-              Three scopes. Very different budgets.
+              Three scopes. Very different budgets<span className="text-[#FC6E20]">.</span>
             </h2>
             <p className="mt-6 max-w-xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
               The expensive mistake is choosing the wrong scope. This quiz
@@ -1037,7 +1037,7 @@ export function WebsiteRebuildRefreshQuizClient() {
             <div>
               <SectionLabel>Need the scope checked?</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-4xl font-bold leading-none md:text-6xl">
-                Bring the result. We will turn it into a practical build plan.
+                Bring the result. We will turn it into a practical build plan<span className="text-[#FC6E20]">.</span>
               </h2>
             </div>
             <Link
@@ -1212,7 +1212,7 @@ function ResultsView({
             Downloadable decision plan
           </p>
           <h3 className="mt-4 font-playfair text-3xl font-bold leading-tight text-[#FBFBFB]">
-            Keep the scope recommendation.
+            Keep the scope recommendation<span className="text-[#FC6E20]">.</span>
           </h3>
           <p className="mt-4 font-montserrat text-sm leading-7 text-[#F0EFED]/62">
             The report includes your score, category breakdown, forced triggers,

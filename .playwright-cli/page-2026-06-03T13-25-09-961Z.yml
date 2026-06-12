@@ -1,0 +1,1519 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - link "kreative Reflow" [ref=e3] [cursor=pointer]:
+      - /url: /
+    - generic [ref=e4]:
+      - link "Contact" [ref=e5] [cursor=pointer]:
+        - /url: /contact
+      - button [ref=e6]:
+        - img [ref=e7]
+    - generic [ref=e10]:
+      - button "Light mode" [ref=e11]:
+        - img [ref=e12]
+      - button "Toggle theme" [ref=e18]
+      - button "Dark mode" [ref=e20]:
+        - img [ref=e21]
+    - button [ref=e24]:
+      - img [ref=e25]
+    - navigation "Social links" [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e30]: Follow Us -
+        - generic [ref=e31]:
+          - link "LinkedIn" [ref=e32] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/kreativereflow
+          - generic [ref=e33]: /
+        - generic [ref=e34]:
+          - link "Instagram" [ref=e35] [cursor=pointer]:
+            - /url: https://www.instagram.com/kreativereflow
+          - generic [ref=e36]: /
+        - generic [ref=e37]:
+          - link "Facebook" [ref=e38] [cursor=pointer]:
+            - /url: https://www.facebook.com/KreativeReflow
+          - generic [ref=e39]: /
+        - link "TikTok" [ref=e41] [cursor=pointer]:
+          - /url: https://www.tiktok.com/@kreativereflow
+  - main [ref=e43]:
+    - generic [ref=e47]:
+      - heading "Your business deserves a better digital foundation" [level=1] [ref=e48]:
+        - text: Your business deserves
+        - text: a better digital foundation
+      - paragraph [ref=e50]: We design and build websites, dashboards, portals, and systems that help you show up with confidence and run with less friction.
+      - generic [ref=e51]:
+        - link "B o o k a D i s c o v e r y C a l l" [ref=e52] [cursor=pointer]:
+          - /url: /contact
+          - generic [ref=e53]:
+            - generic [ref=e54]:
+              - generic [ref=e55]: B
+              - generic [ref=e56]: o
+              - generic [ref=e57]: o
+              - generic [ref=e58]: k
+              - generic [ref=e60]: a
+              - generic [ref=e62]: D
+              - generic [ref=e63]: i
+              - generic [ref=e64]: s
+              - generic [ref=e65]: c
+              - generic [ref=e66]: o
+              - generic [ref=e67]: v
+              - generic [ref=e68]: e
+              - generic [ref=e69]: r
+              - generic [ref=e70]: "y"
+              - generic [ref=e72]: C
+              - generic [ref=e73]: a
+              - generic [ref=e74]: l
+              - generic [ref=e75]: l
+            - generic:
+              - generic: B
+              - generic: o
+              - generic: o
+              - generic: k
+              - generic: a
+              - generic: D
+              - generic: i
+              - generic: s
+              - generic: c
+              - generic: o
+              - generic: v
+              - generic: e
+              - generic: r
+              - generic: "y"
+              - generic: C
+              - generic: a
+              - generic: l
+              - generic: l
+          - img [ref=e77]
+        - link "V i e w S e l e c t e d W o r k" [ref=e79] [cursor=pointer]:
+          - /url: /work
+          - generic [ref=e80]:
+            - generic [ref=e81]:
+              - generic [ref=e82]: V
+              - generic [ref=e83]: i
+              - generic [ref=e84]: e
+              - generic [ref=e85]: w
+              - generic [ref=e87]: S
+              - generic [ref=e88]: e
+              - generic [ref=e89]: l
+              - generic [ref=e90]: e
+              - generic [ref=e91]: c
+              - generic [ref=e92]: t
+              - generic [ref=e93]: e
+              - generic [ref=e94]: d
+              - generic [ref=e96]: W
+              - generic [ref=e97]: o
+              - generic [ref=e98]: r
+              - generic [ref=e99]: k
+            - generic:
+              - generic: V
+              - generic: i
+              - generic: e
+              - generic: w
+              - generic: S
+              - generic: e
+              - generic: l
+              - generic: e
+              - generic: c
+              - generic: t
+              - generic: e
+              - generic: d
+              - generic: W
+              - generic: o
+              - generic: r
+              - generic: k
+          - img [ref=e101]
+    - generic [ref=e104]:
+      - generic [ref=e106]:
+        - generic [ref=e107]:
+          - generic [ref=e108]: "[ Digital infrastructure ]"
+          - heading "We build websites, systems, and automation that give your business an unfair advantage." [level=2] [ref=e109]
+          - paragraph [ref=e110]: Custom-built digital infrastructure for businesses ready to grow beyond templates, manual processes, and agencies that disappear after launch.
+          - generic [ref=e111]:
+            - link "V i e w s e r v i c e s" [ref=e112] [cursor=pointer]:
+              - /url: /services
+              - generic [ref=e113]:
+                - generic [ref=e114]:
+                  - generic [ref=e115]: V
+                  - generic [ref=e116]: i
+                  - generic [ref=e117]: e
+                  - generic [ref=e118]: w
+                  - generic [ref=e120]: s
+                  - generic [ref=e121]: e
+                  - generic [ref=e122]: r
+                  - generic [ref=e123]: v
+                  - generic [ref=e124]: i
+                  - generic [ref=e125]: c
+                  - generic [ref=e126]: e
+                  - generic [ref=e127]: s
+                - generic:
+                  - generic: V
+                  - generic: i
+                  - generic: e
+                  - generic: w
+                  - generic: s
+                  - generic: e
+                  - generic: r
+                  - generic: v
+                  - generic: i
+                  - generic: c
+                  - generic: e
+                  - generic: s
+              - img [ref=e129]
+            - link "S e e t h e p r o o f" [ref=e131] [cursor=pointer]:
+              - /url: /work
+              - generic [ref=e132]:
+                - generic [ref=e133]:
+                  - generic [ref=e134]: S
+                  - generic [ref=e135]: e
+                  - generic [ref=e136]: e
+                  - generic [ref=e138]: t
+                  - generic [ref=e139]: h
+                  - generic [ref=e140]: e
+                  - generic [ref=e142]: p
+                  - generic [ref=e143]: r
+                  - generic [ref=e144]: o
+                  - generic [ref=e145]: o
+                  - generic [ref=e146]: f
+                - generic:
+                  - generic: S
+                  - generic: e
+                  - generic: e
+                  - generic: t
+                  - generic: h
+                  - generic: e
+                  - generic: p
+                  - generic: r
+                  - generic: o
+                  - generic: o
+                  - generic: f
+              - img [ref=e148]
+          - generic [ref=e151]:
+            - img [ref=e153]
+            - generic [ref=e158]: Based in Johannesburg and working with clients across South Africa and internationally.
+        - generic [ref=e159]:
+          - article [ref=e160]:
+            - generic [ref=e163]:
+              - generic [ref=e164]:
+                - paragraph [ref=e165]: The signal
+                - paragraph [ref=e167]: Built properly, from the ground up.
+              - generic [ref=e168]:
+                - paragraph [ref=e169]: Whether you need a high-performance website, a custom dashboard, a SaaS product, or an automated system that runs while you sleep, we build the foundation around the way your business actually works.
+                - paragraph [ref=e170]:
+                  - text: No page builders. No shortcuts.
+                  - text: No unnecessary complexity.
+          - generic [ref=e171]:
+            - article [ref=e172]:
+              - generic [ref=e173]:
+                - generic [ref=e174]: "01"
+                - img [ref=e175]
+              - generic [ref=e177]:
+                - heading "Website clarity" [level=3] [ref=e178]
+                - paragraph [ref=e180]: Public pages that explain the offer, earn trust, and move people toward the right enquiry.
+              - link "E x p l o r e" [ref=e181] [cursor=pointer]:
+                - /url: /services/web-design
+                - generic [ref=e182]:
+                  - generic [ref=e183]:
+                    - generic [ref=e184]: E
+                    - generic [ref=e185]: x
+                    - generic [ref=e186]: p
+                    - generic [ref=e187]: l
+                    - generic [ref=e188]: o
+                    - generic [ref=e189]: r
+                    - generic [ref=e190]: e
+                  - generic:
+                    - generic: E
+                    - generic: x
+                    - generic: p
+                    - generic: l
+                    - generic: o
+                    - generic: r
+                    - generic: e
+                - img [ref=e192]
+            - article [ref=e194]:
+              - generic [ref=e195]:
+                - generic [ref=e196]: "02"
+                - img [ref=e197]
+              - generic [ref=e200]:
+                - heading "Systems underneath" [level=3] [ref=e201]
+                - paragraph [ref=e203]: Dashboards, portals, forms, and workflows shaped around the real operating model.
+              - link "E x p l o r e" [ref=e204] [cursor=pointer]:
+                - /url: /services/saas-development
+                - generic [ref=e205]:
+                  - generic [ref=e206]:
+                    - generic [ref=e207]: E
+                    - generic [ref=e208]: x
+                    - generic [ref=e209]: p
+                    - generic [ref=e210]: l
+                    - generic [ref=e211]: o
+                    - generic [ref=e212]: r
+                    - generic [ref=e213]: e
+                  - generic:
+                    - generic: E
+                    - generic: x
+                    - generic: p
+                    - generic: l
+                    - generic: o
+                    - generic: r
+                    - generic: e
+                - img [ref=e215]
+            - article [ref=e217]:
+              - generic [ref=e218]:
+                - generic [ref=e219]: "03"
+                - img [ref=e220]
+              - generic [ref=e222]:
+                - heading "Follow-up logic" [level=3] [ref=e223]
+                - paragraph [ref=e225]: Automation and lead response paths that keep momentum after the first enquiry.
+              - link "E x p l o r e" [ref=e226] [cursor=pointer]:
+                - /url: /services/automation
+                - generic [ref=e227]:
+                  - generic [ref=e228]:
+                    - generic [ref=e229]: E
+                    - generic [ref=e230]: x
+                    - generic [ref=e231]: p
+                    - generic [ref=e232]: l
+                    - generic [ref=e233]: o
+                    - generic [ref=e234]: r
+                    - generic [ref=e235]: e
+                  - generic:
+                    - generic: E
+                    - generic: x
+                    - generic: p
+                    - generic: l
+                    - generic: o
+                    - generic: r
+                    - generic: e
+                - img [ref=e237]
+          - generic [ref=e239]:
+            - img [ref=e241]
+            - generic [ref=e243]: We combine technical depth with a clear understanding of what actually moves the needle for small and growing businesses.
+      - generic [ref=e244]:
+        - generic [ref=e245]: "[ WHAT WE DO ]"
+        - heading "One studio Every layer of your digital business." [level=2] [ref=e246]:
+          - text: One studio
+          - text: Every layer of your digital business.
+        - paragraph [ref=e247]: Most agencies sell you a website and disappear. We build the website, the systems behind it, and the strategy that makes all of it work.
+      - generic [ref=e249]:
+        - generic [ref=e251] [cursor=pointer]:
+          - generic [ref=e252]:
+            - generic [ref=e253]: "01"
+            - generic [ref=e254]: "04"
+          - heading "Web Design & Development" [level=3] [ref=e255]
+          - paragraph [ref=e256]: Built for your business. Not borrowed from a template.
+          - generic [ref=e259]:
+            - paragraph [ref=e260]: Your website should work as hard as you do. We build custom sites that bring in leads, build trust, and run 24/7. Designed for your audience, built for speed, and made to grow with you.
+            - paragraph [ref=e261]: "[ Includes ongoing support plans. ]"
+            - link "Learn more →" [ref=e262]:
+              - /url: /services/web-design
+        - generic [ref=e264] [cursor=pointer]:
+          - generic [ref=e265]:
+            - generic [ref=e266]: "02"
+            - generic [ref=e267]: "04"
+          - heading "Local & AI SEO" [level=3] [ref=e268]
+          - paragraph [ref=e269]: Get found by the people who are already looking for you.
+          - generic [ref=e272]:
+            - paragraph [ref=e273]: A great website means nothing if nobody sees it. We help your business show up on Google, maps, and AI search with clearer structure, stronger local signals, and content search systems can understand.
+            - paragraph [ref=e274]: "[ Includes ongoing support plans. ]"
+            - link "Learn more →" [ref=e275]:
+              - /url: /services/seo
+        - generic [ref=e277] [cursor=pointer]:
+          - generic [ref=e278]:
+            - generic [ref=e279]: "03"
+            - generic [ref=e280]: "04"
+          - heading "SaaS & Custom Web Applications" [level=3] [ref=e281]
+          - paragraph [ref=e282]: Your workflow, engineered around the way the business runs.
+          - generic [ref=e285]:
+            - paragraph [ref=e286]: Need a portal, booking system, internal dashboard, or SaaS product? We build web applications around your real operating model, not what off-the-shelf tools can almost do.
+            - link "Learn more →" [ref=e287]:
+              - /url: /services/saas-development
+        - generic [ref=e289] [cursor=pointer]:
+          - generic [ref=e290]:
+            - generic [ref=e291]: "04"
+            - generic [ref=e292]: "04"
+          - heading "AI & Business Automation" [level=3] [ref=e293]
+          - paragraph [ref=e294]: Stop doing manually what a system can do for you.
+          - generic [ref=e297]:
+            - paragraph [ref=e298]: Follow-ups, data entry, scheduling, reporting. If your team repeats it daily, we automate it. We build systems that handle the busywork so your people can focus on what actually needs a human.
+            - link "Learn more →" [ref=e299]:
+              - /url: /services/automation
+    - generic [ref=e300]:
+      - generic:
+        - generic:
+          - generic: "[ OUR FOCUS ]"
+          - heading "WE BUILD FOR INDUSTRIES THAT DEMAND PRECISION." [level=2]:
+            - text: WE BUILD FOR INDUSTRIES
+            - text: THAT DEMAND PRECISION.
+          - paragraph: From medical practices to engineering firms, from SaaS founders to service businesses — we build digital infrastructure that matches the complexity of the work you do.
+      - generic [ref=e301]:
+        - generic [ref=e302] [cursor=pointer]:
+          - heading "SERVICE BUSINESSES" [level=3] [ref=e308]
+          - paragraph [ref=e309]: If your business runs on relationships and reputation, your website should do the same. We build lead-generating, trust-building digital presences for professional service firms.
+        - generic [ref=e310] [cursor=pointer]:
+          - heading "ENGINEERING FIRMS" [level=3] [ref=e316]
+          - paragraph [ref=e317]: Technical credibility deserves a technical presence. We build project portfolios, tender-ready sites, and client dashboards for engineering businesses.
+        - generic [ref=e318] [cursor=pointer]:
+          - heading "MEDICAL PRACTICES" [level=3] [ref=e324]
+          - paragraph [ref=e325]: From specialist surgeries to dental clinics, we build patient-facing websites and practice management systems that reflect the precision of your work.
+        - generic [ref=e326] [cursor=pointer]:
+          - heading "SAAS FOUNDERS" [level=3] [ref=e332]
+          - paragraph [ref=e333]: From MVP to market. We design and build SaaS products, marketing sites, and onboarding flows that turn signups into paying users.
+        - generic [ref=e334] [cursor=pointer]:
+          - heading "RETAIL & E-COMMERCE" [level=3] [ref=e340]
+          - paragraph [ref=e341]: Product-first design that converts browsers into buyers. We build fast, beautiful online stores and product experiences that sell.
+        - generic [ref=e342] [cursor=pointer]:
+          - heading "LEGAL & PROFESSIONAL" [level=3] [ref=e348]
+          - paragraph [ref=e349]: Authority and trust are your competitive advantage. We build digital presences that communicate both, instantly.
+    - generic [ref=e354]:
+      - generic [ref=e355]:
+        - generic [ref=e356]: "[ WHAT WE'VE BUILT ]"
+        - heading "Recent builds with the system underneath." [level=2] [ref=e357]
+        - paragraph [ref=e358]: "Two client projects shown as working digital infrastructure: one coaching platform built for trust and service conversion, one industrial site built for technical credibility and qualified enquiries."
+        - generic [ref=e359]:
+          - generic [ref=e360]:
+            - generic [ref=e361]: Projects
+            - generic [ref=e362]: "02"
+          - generic [ref=e363]:
+            - generic [ref=e364]: Scope
+            - generic [ref=e365]: Full
+        - link "V i e w t h e w o r k" [ref=e366] [cursor=pointer]:
+          - /url: /work
+          - generic [ref=e367]:
+            - generic [ref=e368]:
+              - generic [ref=e369]: V
+              - generic [ref=e370]: i
+              - generic [ref=e371]: e
+              - generic [ref=e372]: w
+              - generic [ref=e374]: t
+              - generic [ref=e375]: h
+              - generic [ref=e376]: e
+              - generic [ref=e378]: w
+              - generic [ref=e379]: o
+              - generic [ref=e380]: r
+              - generic [ref=e381]: k
+            - generic:
+              - generic: V
+              - generic: i
+              - generic: e
+              - generic: w
+              - generic: t
+              - generic: h
+              - generic: e
+              - generic: w
+              - generic: o
+              - generic: r
+              - generic: k
+          - img [ref=e383]
+      - generic [ref=e386]:
+        - article [ref=e388]:
+          - generic [ref=e390]:
+            - generic [ref=e391]:
+              - generic [ref=e392]:
+                - generic [ref=e393]:
+                  - generic [ref=e394]: "01"
+                  - generic [ref=e395]: Featured build
+                - paragraph [ref=e396]: Career coaching platform
+                - heading "Coach Kagiso" [level=3] [ref=e397]
+                - paragraph [ref=e398]: A warm editorial personal-brand website that turns career clarity into bookings, paid services, diagnostics, and lead capture.
+                - paragraph [ref=e399]: Built around service pathways for diagnostics, PayFast checkout, Cal.com booking, lead magnets, intake, and resources.
+              - generic [ref=e400]:
+                - generic [ref=e401]:
+                  - generic [ref=e404]: 5-minute career diagnostic
+                  - generic [ref=e407]: Paid service buying flow
+                  - generic [ref=e410]: Resource and insights hub
+                - generic [ref=e411]:
+                  - generic [ref=e412]: Website
+                  - generic [ref=e413]: Booking Flow
+                  - generic [ref=e414]: PayFast
+                  - generic [ref=e415]: Lead Magnet
+            - generic [ref=e417]:
+              - generic [ref=e423]: Full homepage capture
+              - img "Coach Kagiso homepage screenshot" [ref=e425]
+        - article [ref=e427]:
+          - generic [ref=e429]:
+            - generic [ref=e430]:
+              - generic [ref=e431]:
+                - generic [ref=e432]:
+                  - generic [ref=e433]: "02"
+                  - generic [ref=e434]: Featured build
+                - paragraph [ref=e435]: Industrial engineering website
+                - heading "Touch Teq Engineering" [level=3] [ref=e436]
+                - paragraph [ref=e437]: A safety-critical engineering website that makes complex services feel credible, clear, and ready for qualified enquiries.
+                - paragraph [ref=e438]: Built with service architecture, quote paths, facility risk assessment, technical insights, and private operations tooling behind the public site.
+              - generic [ref=e439]:
+                - generic [ref=e440]:
+                  - generic [ref=e443]: Industrial service grid
+                  - generic [ref=e446]: Facility risk lead tool
+                  - generic [ref=e449]: Office workflow foundation
+                - generic [ref=e450]:
+                  - generic [ref=e451]: B2B Website
+                  - generic [ref=e452]: Quote Flow
+                  - generic [ref=e453]: Risk Assessment
+                  - generic [ref=e454]: Dashboard
+            - generic [ref=e456]:
+              - generic [ref=e462]: Full homepage capture
+              - img "Touch Teq Engineering homepage screenshot" [ref=e464]
+    - generic [ref=e466]:
+      - generic:
+        - generic: "01"
+      - generic [ref=e467]:
+        - generic [ref=e469]: Proof notes
+        - generic [ref=e472]:
+          - generic [ref=e474]: Personal brand and service conversion
+          - blockquote [ref=e477]: A warm coaching brand became a guided service platform with diagnostics, paid pathways, booking, intake, and resources working together.
+          - generic [ref=e478]:
+            - generic [ref=e480]:
+              - paragraph [ref=e481]: Coach Kagiso
+              - paragraph [ref=e482]: Career coaching platform
+            - generic [ref=e483]:
+              - button "Previous testimonial" [ref=e484]:
+                - img [ref=e485]
+              - button "Next testimonial" [ref=e487]:
+                - img [ref=e488]
+    - generic [ref=e491]:
+      - generic [ref=e492]:
+        - generic [ref=e493]:
+          - generic [ref=e494]: "["
+          - text: Diagnostic tools
+          - generic [ref=e495]: "]"
+        - heading "Start with the leak before you rebuild the whole system." [level=2] [ref=e496]
+        - paragraph [ref=e497]: "The newer Tools page gives business owners a practical first step: score the page, check local visibility, estimate response loss, or decide whether the current site needs a rebuild or a tighter refresh."
+        - link "O p e n t o o l s h u b" [ref=e498] [cursor=pointer]:
+          - /url: /tools
+          - img [ref=e499]
+          - generic [ref=e502]:
+            - generic [ref=e503]:
+              - generic [ref=e504]: O
+              - generic [ref=e505]: p
+              - generic [ref=e506]: e
+              - generic [ref=e507]: "n"
+              - generic [ref=e509]: t
+              - generic [ref=e510]: o
+              - generic [ref=e511]: o
+              - generic [ref=e512]: l
+              - generic [ref=e513]: s
+              - generic [ref=e515]: h
+              - generic [ref=e516]: u
+              - generic [ref=e517]: b
+            - generic:
+              - generic: O
+              - generic: p
+              - generic: e
+              - generic: "n"
+              - generic: t
+              - generic: o
+              - generic: o
+              - generic: l
+              - generic: s
+              - generic: h
+              - generic: u
+              - generic: b
+          - img [ref=e519]
+      - generic [ref=e521]:
+        - link "01 Website conversion Website Lead Leak Scorecard Find the speed, mobile, trust, clarity, and CTA issues that could be costing the site qualified enquiries. R u n s c o r e c a r d" [ref=e524] [cursor=pointer]:
+          - /url: /tools/website-lead-leak-scorecard
+          - generic [ref=e525]:
+            - generic [ref=e526]:
+              - generic [ref=e527]: "01"
+              - img [ref=e529]
+            - paragraph [ref=e532]: Website conversion
+            - heading "Website Lead Leak Scorecard" [level=3] [ref=e533]
+            - paragraph [ref=e534]: Find the speed, mobile, trust, clarity, and CTA issues that could be costing the site qualified enquiries.
+          - generic [ref=e535]:
+            - generic [ref=e536]:
+              - generic [ref=e537]:
+                - generic [ref=e538]: R
+                - generic [ref=e539]: u
+                - generic [ref=e540]: "n"
+                - generic [ref=e542]: s
+                - generic [ref=e543]: c
+                - generic [ref=e544]: o
+                - generic [ref=e545]: r
+                - generic [ref=e546]: e
+                - generic [ref=e547]: c
+                - generic [ref=e548]: a
+                - generic [ref=e549]: r
+                - generic [ref=e550]: d
+              - generic:
+                - generic: R
+                - generic: u
+                - generic: "n"
+                - generic: s
+                - generic: c
+                - generic: o
+                - generic: r
+                - generic: e
+                - generic: c
+                - generic: a
+                - generic: r
+                - generic: d
+            - img [ref=e552]
+        - link "02 Local search and maps Local Visibility Scorecard Assess Google Business Profile, reviews, local pages, directories, and AI-search readiness for Johannesburg queries. C h e c k v i s i b i l i t y" [ref=e556] [cursor=pointer]:
+          - /url: /tools/local-visibility-scorecard
+          - generic [ref=e557]:
+            - generic [ref=e558]:
+              - generic [ref=e559]: "02"
+              - img [ref=e561]
+            - paragraph [ref=e565]: Local search and maps
+            - heading "Local Visibility Scorecard" [level=3] [ref=e566]
+            - paragraph [ref=e567]: Assess Google Business Profile, reviews, local pages, directories, and AI-search readiness for Johannesburg queries.
+          - generic [ref=e568]:
+            - generic [ref=e569]:
+              - generic [ref=e570]:
+                - generic [ref=e571]: C
+                - generic [ref=e572]: h
+                - generic [ref=e573]: e
+                - generic [ref=e574]: c
+                - generic [ref=e575]: k
+                - generic [ref=e577]: v
+                - generic [ref=e578]: i
+                - generic [ref=e579]: s
+                - generic [ref=e580]: i
+                - generic [ref=e581]: b
+                - generic [ref=e582]: i
+                - generic [ref=e583]: l
+                - generic [ref=e584]: i
+                - generic [ref=e585]: t
+                - generic [ref=e586]: "y"
+              - generic:
+                - generic: C
+                - generic: h
+                - generic: e
+                - generic: c
+                - generic: k
+                - generic: v
+                - generic: i
+                - generic: s
+                - generic: i
+                - generic: b
+                - generic: i
+                - generic: l
+                - generic: i
+                - generic: t
+                - generic: "y"
+            - img [ref=e588]
+        - link "03 Lead response speed Lead Response Leak Calculator Turn slow replies into a monthly and annual revenue-leak estimate before deciding what to automate. C a l c u l a t e l e a k" [ref=e592] [cursor=pointer]:
+          - /url: /tools/lead-response-leak-calculator
+          - generic [ref=e593]:
+            - generic [ref=e594]:
+              - generic [ref=e595]: "03"
+              - img [ref=e597]
+            - paragraph [ref=e599]: Lead response speed
+            - heading "Lead Response Leak Calculator" [level=3] [ref=e600]
+            - paragraph [ref=e601]: Turn slow replies into a monthly and annual revenue-leak estimate before deciding what to automate.
+          - generic [ref=e602]:
+            - generic [ref=e603]:
+              - generic [ref=e604]:
+                - generic [ref=e605]: C
+                - generic [ref=e606]: a
+                - generic [ref=e607]: l
+                - generic [ref=e608]: c
+                - generic [ref=e609]: u
+                - generic [ref=e610]: l
+                - generic [ref=e611]: a
+                - generic [ref=e612]: t
+                - generic [ref=e613]: e
+                - generic [ref=e615]: l
+                - generic [ref=e616]: e
+                - generic [ref=e617]: a
+                - generic [ref=e618]: k
+              - generic:
+                - generic: C
+                - generic: a
+                - generic: l
+                - generic: c
+                - generic: u
+                - generic: l
+                - generic: a
+                - generic: t
+                - generic: e
+                - generic: l
+                - generic: e
+                - generic: a
+                - generic: k
+            - img [ref=e620]
+        - link "04 Website scope decision Website Rebuild vs Refresh Quiz Separate deep technical debt from content, design, and conversion problems before choosing the scope. T a k e q u i z" [ref=e624] [cursor=pointer]:
+          - /url: /tools/website-rebuild-vs-refresh-quiz
+          - generic [ref=e625]:
+            - generic [ref=e626]:
+              - generic [ref=e627]: "04"
+              - img [ref=e629]
+            - paragraph [ref=e634]: Website scope decision
+            - heading "Website Rebuild vs Refresh Quiz" [level=3] [ref=e635]
+            - paragraph [ref=e636]: Separate deep technical debt from content, design, and conversion problems before choosing the scope.
+          - generic [ref=e637]:
+            - generic [ref=e638]:
+              - generic [ref=e639]:
+                - generic [ref=e640]: T
+                - generic [ref=e641]: a
+                - generic [ref=e642]: k
+                - generic [ref=e643]: e
+                - generic [ref=e645]: q
+                - generic [ref=e646]: u
+                - generic [ref=e647]: i
+                - generic [ref=e648]: z
+              - generic:
+                - generic: T
+                - generic: a
+                - generic: k
+                - generic: e
+                - generic: q
+                - generic: u
+                - generic: i
+                - generic: z
+            - img [ref=e650]
+    - generic [ref=e653]:
+      - generic [ref=e654]:
+        - generic [ref=e655]: "[ How It Works ]"
+        - heading "From first conversation to live product." [level=2] [ref=e656]:
+          - text: From first conversation
+          - text: to live product.
+      - generic [ref=e658]:
+        - generic [ref=e660]:
+          - generic [ref=e662]: "01"
+          - heading "Discover" [level=3] [ref=e664]
+          - paragraph [ref=e665]: We start by listening.
+          - generic [ref=e666]:
+            - generic: You tell us what’s going on in your business. What’s working, what isn’t, and what you’ve been putting off. We ask hard questions and give you an honest assessment — even if the answer is that you don’t need us right now.
+          - generic [ref=e667]:
+            - generic [ref=e668]: Business Audit
+            - generic [ref=e669]: Market Analysis
+            - generic [ref=e670]: Goal Mapping
+            - generic [ref=e671]: Honest Assessment
+        - generic [ref=e673]:
+          - generic [ref=e675]: "02"
+          - heading "Build" [level=3] [ref=e677]
+          - paragraph [ref=e678]: You see everything as it happens.
+          - generic [ref=e679]:
+            - generic: We handle design and development in focused sprints. You get access to a private project portal with live previews, feedback threads, and milestone tracking — so you never have to wonder what’s happening with your investment.
+          - generic [ref=e680]:
+            - generic [ref=e681]: UI/UX Design
+            - generic [ref=e682]: Dev Sprints
+            - generic [ref=e683]: Live Previews
+            - generic [ref=e684]: Feedback Portal
+        - generic [ref=e686]:
+          - generic [ref=e688]: "03"
+          - heading "Launch & Grow" [level=3] [ref=e690]
+          - paragraph [ref=e691]: Launching is the starting line.
+          - generic [ref=e692]:
+            - generic: Your project goes live with thorough testing and a smooth handoff. From there, we offer ongoing maintenance, SEO, and automation — because the businesses that win online are the ones that keep showing up after launch day.
+          - generic [ref=e693]:
+            - generic [ref=e694]: QA Testing
+            - generic [ref=e695]: Smooth Handoff
+            - generic [ref=e696]: SEO Setup
+            - generic [ref=e697]: Ongoing Support
+    - generic [ref=e698]:
+      - generic [ref=e699]:
+        - generic [ref=e701]:
+          - img "Delite, Founder of Kreative Reflow" [ref=e703]
+          - generic [ref=e705]:
+            - generic [ref=e706]:
+              - generic [ref=e707]: 7+
+              - generic [ref=e708]: Years industry
+            - generic [ref=e709]:
+              - generic [ref=e710]: Small
+              - generic [ref=e711]: Client roster
+            - generic [ref=e712]:
+              - generic [ref=e713]: One
+              - generic [ref=e714]: Connected system
+        - generic [ref=e716]:
+          - generic [ref=e717]:
+            - generic [ref=e718]: "["
+            - text: Behind the studio
+            - generic [ref=e719]: "]"
+          - heading "Built from the gap between excellence and visibility." [level=2] [ref=e720]
+          - generic [ref=e721]:
+            - paragraph [ref=e722]: Seven years in medical sales and neurology put Delite close to specialist teams doing excellent work while their websites, content, and systems made them look smaller than they were.
+            - paragraph [ref=e723]: The work was never just to make things look better. It was to make the business easier to understand, find, trust, and run.
+          - generic [ref=e724]:
+            - link "R e a d t h e f u l l s t o r y" [ref=e725] [cursor=pointer]:
+              - /url: /about
+              - generic [ref=e726]:
+                - generic [ref=e727]:
+                  - generic [ref=e728]: R
+                  - generic [ref=e729]: e
+                  - generic [ref=e730]: a
+                  - generic [ref=e731]: d
+                  - generic [ref=e733]: t
+                  - generic [ref=e734]: h
+                  - generic [ref=e735]: e
+                  - generic [ref=e737]: f
+                  - generic [ref=e738]: u
+                  - generic [ref=e739]: l
+                  - generic [ref=e740]: l
+                  - generic [ref=e742]: s
+                  - generic [ref=e743]: t
+                  - generic [ref=e744]: o
+                  - generic [ref=e745]: r
+                  - generic [ref=e746]: "y"
+                - generic:
+                  - generic: R
+                  - generic: e
+                  - generic: a
+                  - generic: d
+                  - generic: t
+                  - generic: h
+                  - generic: e
+                  - generic: f
+                  - generic: u
+                  - generic: l
+                  - generic: l
+                  - generic: s
+                  - generic: t
+                  - generic: o
+                  - generic: r
+                  - generic: "y"
+              - img [ref=e748]
+            - link "S t a r t a c o n v e r s a t i o n" [ref=e750] [cursor=pointer]:
+              - /url: /contact
+              - generic [ref=e751]:
+                - generic [ref=e752]:
+                  - generic [ref=e753]: S
+                  - generic [ref=e754]: t
+                  - generic [ref=e755]: a
+                  - generic [ref=e756]: r
+                  - generic [ref=e757]: t
+                  - generic [ref=e759]: a
+                  - generic [ref=e761]: c
+                  - generic [ref=e762]: o
+                  - generic [ref=e763]: "n"
+                  - generic [ref=e764]: v
+                  - generic [ref=e765]: e
+                  - generic [ref=e766]: r
+                  - generic [ref=e767]: s
+                  - generic [ref=e768]: a
+                  - generic [ref=e769]: t
+                  - generic [ref=e770]: i
+                  - generic [ref=e771]: o
+                  - generic [ref=e772]: "n"
+                - generic:
+                  - generic: S
+                  - generic: t
+                  - generic: a
+                  - generic: r
+                  - generic: t
+                  - generic: a
+                  - generic: c
+                  - generic: o
+                  - generic: "n"
+                  - generic: v
+                  - generic: e
+                  - generic: r
+                  - generic: s
+                  - generic: a
+                  - generic: t
+                  - generic: i
+                  - generic: o
+                  - generic: "n"
+      - generic [ref=e774]:
+        - article [ref=e776]:
+          - generic [ref=e777]:
+            - generic [ref=e778]: "01"
+            - img [ref=e779]
+          - generic [ref=e782]:
+            - heading "Founder-led" [level=3] [ref=e783]
+            - paragraph [ref=e784]: The strategy, design, build, and support stay close to the person responsible for the thinking.
+        - article [ref=e786]:
+          - generic [ref=e787]:
+            - generic [ref=e788]: "02"
+            - img [ref=e789]
+          - generic [ref=e792]:
+            - heading "Visibility-aware" [level=3] [ref=e793]
+            - paragraph [ref=e794]: Search, structure, proof, and AI-readable content are considered from the start.
+        - article [ref=e796]:
+          - generic [ref=e797]:
+            - generic [ref=e798]: "03"
+            - img [ref=e799]
+          - generic [ref=e803]:
+            - heading "System-minded" [level=3] [ref=e804]
+            - paragraph [ref=e805]: Websites, forms, dashboards, follow-ups, and workflows are mapped as one operating layer.
+        - article [ref=e807]:
+          - generic [ref=e808]:
+            - generic [ref=e809]: "04"
+            - img [ref=e810]
+          - generic [ref=e815]:
+            - heading "After-launch ready" [level=3] [ref=e816]
+            - paragraph [ref=e817]: The goal is a digital foundation that can keep improving once the first release is live.
+    - generic [ref=e818]:
+      - generic [ref=e819]:
+        - generic [ref=e820]:
+          - generic [ref=e821]:
+            - generic [ref=e822]: "["
+            - text: Insights
+            - generic [ref=e823]: "]"
+          - heading "Field notes that lead back to practical decisions." [level=2] [ref=e824]
+        - generic [ref=e825]:
+          - paragraph [ref=e826]: "Start with the question the business is already asking: what should this cost, why is the site not converting, or why are the right clients not finding us?"
+          - link "B r o w s e a l l i n s i g h t s" [ref=e827] [cursor=pointer]:
+            - /url: /insights
+            - generic [ref=e828]:
+              - generic [ref=e829]:
+                - generic [ref=e830]: B
+                - generic [ref=e831]: r
+                - generic [ref=e832]: o
+                - generic [ref=e833]: w
+                - generic [ref=e834]: s
+                - generic [ref=e835]: e
+                - generic [ref=e837]: a
+                - generic [ref=e838]: l
+                - generic [ref=e839]: l
+                - generic [ref=e841]: i
+                - generic [ref=e842]: "n"
+                - generic [ref=e843]: s
+                - generic [ref=e844]: i
+                - generic [ref=e845]: g
+                - generic [ref=e846]: h
+                - generic [ref=e847]: t
+                - generic [ref=e848]: s
+              - generic:
+                - generic: B
+                - generic: r
+                - generic: o
+                - generic: w
+                - generic: s
+                - generic: e
+                - generic: a
+                - generic: l
+                - generic: l
+                - generic: i
+                - generic: "n"
+                - generic: s
+                - generic: i
+                - generic: g
+                - generic: h
+                - generic: t
+                - generic: s
+            - img [ref=e850]
+      - generic [ref=e852]:
+        - article [ref=e853]:
+          - link "Business owner reviewing website project numbers on a laptop. Pricing - 10 min read How Much Does a Website Cost in South Africa in 2026 A practical guide to quote ranges, hidden costs, and what actually changes the price of a serious website build. Pricing Planning" [ref=e854] [cursor=pointer]:
+            - /url: /insights/website-cost-south-africa-2026
+            - img "Business owner reviewing website project numbers on a laptop." [ref=e856]
+            - generic [ref=e858]:
+              - paragraph [ref=e859]: Pricing - 10 min read
+              - heading "How Much Does a Website Cost in South Africa in 2026" [level=3] [ref=e860]
+              - paragraph [ref=e861]: A practical guide to quote ranges, hidden costs, and what actually changes the price of a serious website build.
+              - generic [ref=e862]:
+                - generic [ref=e863]: Pricing
+                - generic [ref=e864]: Planning
+        - article [ref=e865]:
+          - link "Clean office workspace used as a conversion website reference. Conversion - 9 min read Why Your Website Looks Good But Doesn't Convert A clear breakdown of why polished pages still leak enquiries when trust, copy, mobile paths, and CTAs are weak. Conversion Websites" [ref=e866] [cursor=pointer]:
+            - /url: /insights/why-your-website-looks-good-but-doesnt-convert
+            - img "Clean office workspace used as a conversion website reference." [ref=e868]
+            - generic [ref=e870]:
+              - paragraph [ref=e871]: Conversion - 9 min read
+              - heading "Why Your Website Looks Good But Doesn't Convert" [level=3] [ref=e872]
+              - paragraph [ref=e873]: A clear breakdown of why polished pages still leak enquiries when trust, copy, mobile paths, and CTAs are weak.
+              - generic [ref=e874]:
+                - generic [ref=e875]: Conversion
+                - generic [ref=e876]: Websites
+        - article [ref=e877]:
+          - link "Local street and building detail representing local search visibility. Visibility - 8 min read Local SEO for Johannesburg Service Businesses How maps, reviews, local pages, service clarity, and search structure help Johannesburg businesses get found. SEO Local" [ref=e878] [cursor=pointer]:
+            - /url: /insights/local-seo-johannesburg-service-businesses
+            - img "Local street and building detail representing local search visibility." [ref=e880]
+            - generic [ref=e882]:
+              - paragraph [ref=e883]: Visibility - 8 min read
+              - heading "Local SEO for Johannesburg Service Businesses" [level=3] [ref=e884]
+              - paragraph [ref=e885]: How maps, reviews, local pages, service clarity, and search structure help Johannesburg businesses get found.
+              - generic [ref=e886]:
+                - generic [ref=e887]: SEO
+                - generic [ref=e888]: Local
+    - generic [ref=e893]:
+      - generic [ref=e894]:
+        - generic [ref=e895]:
+          - generic [ref=e896]: "["
+          - text: Start the next build
+          - generic [ref=e897]: "]"
+        - heading "Bring the messy version. We will shape the useful system." [level=2] [ref=e898]
+        - paragraph [ref=e899]: Whether the pressure point is a website, local visibility, manual admin, or a dashboard the business keeps describing in spreadsheets, the first move is to make the problem clear.
+      - generic [ref=e900]:
+        - link "S t a r t a p r o j e c t" [ref=e901] [cursor=pointer]:
+          - /url: /contact
+          - generic [ref=e902]:
+            - generic [ref=e903]:
+              - generic [ref=e904]: S
+              - generic [ref=e905]: t
+              - generic [ref=e906]: a
+              - generic [ref=e907]: r
+              - generic [ref=e908]: t
+              - generic [ref=e910]: a
+              - generic [ref=e912]: p
+              - generic [ref=e913]: r
+              - generic [ref=e914]: o
+              - generic [ref=e915]: j
+              - generic [ref=e916]: e
+              - generic [ref=e917]: c
+              - generic [ref=e918]: t
+            - generic:
+              - generic: S
+              - generic: t
+              - generic: a
+              - generic: r
+              - generic: t
+              - generic: a
+              - generic: p
+              - generic: r
+              - generic: o
+              - generic: j
+              - generic: e
+              - generic: c
+              - generic: t
+          - img [ref=e920]
+        - link "R u n s c o r e c a r d f i r s t" [ref=e922] [cursor=pointer]:
+          - /url: /tools/website-lead-leak-scorecard
+          - generic [ref=e923]:
+            - generic [ref=e924]:
+              - generic [ref=e925]: R
+              - generic [ref=e926]: u
+              - generic [ref=e927]: "n"
+              - generic [ref=e929]: s
+              - generic [ref=e930]: c
+              - generic [ref=e931]: o
+              - generic [ref=e932]: r
+              - generic [ref=e933]: e
+              - generic [ref=e934]: c
+              - generic [ref=e935]: a
+              - generic [ref=e936]: r
+              - generic [ref=e937]: d
+              - generic [ref=e939]: f
+              - generic [ref=e940]: i
+              - generic [ref=e941]: r
+              - generic [ref=e942]: s
+              - generic [ref=e943]: t
+            - generic:
+              - generic: R
+              - generic: u
+              - generic: "n"
+              - generic: s
+              - generic: c
+              - generic: o
+              - generic: r
+              - generic: e
+              - generic: c
+              - generic: a
+              - generic: r
+              - generic: d
+              - generic: f
+              - generic: i
+              - generic: r
+              - generic: s
+              - generic: t
+  - contentinfo [ref=e945]:
+    - generic [ref=e946]:
+      - generic [ref=e947]:
+        - heading "Build the website, dashboard, or automation your business keeps trying to run without." [level=2] [ref=e948]:
+          - generic [ref=e949]:
+            - generic [ref=e950]: Build
+            - text: Build
+          - generic [ref=e951]:
+            - generic [ref=e952]: the
+            - text: the
+          - generic [ref=e953]:
+            - generic [ref=e954]: website,
+            - text: website,
+          - generic [ref=e955]:
+            - generic [ref=e956]: dashboard,
+            - text: dashboard,
+          - generic [ref=e957]:
+            - generic [ref=e958]: or
+            - text: or
+          - generic [ref=e959]:
+            - generic [ref=e960]: automation
+            - text: automation
+          - generic [ref=e961]:
+            - generic [ref=e962]: your
+            - text: your
+          - generic [ref=e963]:
+            - generic [ref=e964]: business
+            - text: business
+          - generic [ref=e965]:
+            - generic [ref=e966]: keeps
+            - text: keeps
+          - generic [ref=e967]:
+            - generic [ref=e968]: trying
+            - text: trying
+          - generic [ref=e969]:
+            - generic [ref=e970]: to
+            - text: to
+          - generic [ref=e971]:
+            - generic [ref=e972]: run
+            - text: run
+          - generic [ref=e973]:
+            - generic [ref=e974]: without.
+            - generic [ref=e975]: without.
+        - link "S t a r t a p r o j e c t" [ref=e976] [cursor=pointer]:
+          - /url: /contact
+          - generic [ref=e977]:
+            - generic [ref=e978]:
+              - generic [ref=e979]: S
+              - generic [ref=e980]: t
+              - generic [ref=e981]: a
+              - generic [ref=e982]: r
+              - generic [ref=e983]: t
+              - generic [ref=e985]: a
+              - generic [ref=e987]: p
+              - generic [ref=e988]: r
+              - generic [ref=e989]: o
+              - generic [ref=e990]: j
+              - generic [ref=e991]: e
+              - generic [ref=e992]: c
+              - generic [ref=e993]: t
+            - generic:
+              - generic: S
+              - generic: t
+              - generic: a
+              - generic: r
+              - generic: t
+              - generic: a
+              - generic: p
+              - generic: r
+              - generic: o
+              - generic: j
+              - generic: e
+              - generic: c
+              - generic: t
+          - img [ref=e996]
+      - generic [ref=e999]:
+        - generic [ref=e1000]:
+          - link "Kreative Reflow" [ref=e1001] [cursor=pointer]:
+            - /url: /
+            - text: Kreative
+            - generic [ref=e1002]: Reflow
+          - paragraph [ref=e1003]: We build websites, SaaS products, dashboards, and automation systems for businesses that need more than a pretty page.
+        - generic [ref=e1004]:
+          - paragraph [ref=e1005]: Tell us what you need built
+          - generic [ref=e1006]:
+            - generic [ref=e1007]: Project idea
+            - textbox "Project idea" [ref=e1008]:
+              - /placeholder: Website, dashboard, automation...
+            - button "Start project enquiry" [ref=e1009]:
+              - img [ref=e1010]
+          - paragraph [ref=e1012]: No newsletter detour. This goes straight to the project conversation.
+      - generic [ref=e1013]:
+        - generic [ref=e1014]:
+          - heading "[ Studio ]" [level=3] [ref=e1015]
+          - list [ref=e1016]:
+            - listitem [ref=e1017]:
+              - link "W o r k" [ref=e1018] [cursor=pointer]:
+                - /url: /work
+                - generic [ref=e1019]:
+                  - generic [ref=e1020]:
+                    - generic [ref=e1021]: W
+                    - generic [ref=e1022]: o
+                    - generic [ref=e1023]: r
+                    - generic [ref=e1024]: k
+                  - generic:
+                    - generic: W
+                    - generic: o
+                    - generic: r
+                    - generic: k
+            - listitem [ref=e1026]:
+              - link "A b o u t" [ref=e1027] [cursor=pointer]:
+                - /url: /about
+                - generic [ref=e1028]:
+                  - generic [ref=e1029]:
+                    - generic [ref=e1030]: A
+                    - generic [ref=e1031]: b
+                    - generic [ref=e1032]: o
+                    - generic [ref=e1033]: u
+                    - generic [ref=e1034]: t
+                  - generic:
+                    - generic: A
+                    - generic: b
+                    - generic: o
+                    - generic: u
+                    - generic: t
+            - listitem [ref=e1036]:
+              - link "I n s i g h t s" [ref=e1037] [cursor=pointer]:
+                - /url: /insights
+                - generic [ref=e1038]:
+                  - generic [ref=e1039]:
+                    - generic [ref=e1040]: I
+                    - generic [ref=e1041]: "n"
+                    - generic [ref=e1042]: s
+                    - generic [ref=e1043]: i
+                    - generic [ref=e1044]: g
+                    - generic [ref=e1045]: h
+                    - generic [ref=e1046]: t
+                    - generic [ref=e1047]: s
+                  - generic:
+                    - generic: I
+                    - generic: "n"
+                    - generic: s
+                    - generic: i
+                    - generic: g
+                    - generic: h
+                    - generic: t
+                    - generic: s
+            - listitem [ref=e1049]:
+              - link "C o n t a c t" [ref=e1050] [cursor=pointer]:
+                - /url: /contact
+                - generic [ref=e1051]:
+                  - generic [ref=e1052]:
+                    - generic [ref=e1053]: C
+                    - generic [ref=e1054]: o
+                    - generic [ref=e1055]: "n"
+                    - generic [ref=e1056]: t
+                    - generic [ref=e1057]: a
+                    - generic [ref=e1058]: c
+                    - generic [ref=e1059]: t
+                  - generic:
+                    - generic: C
+                    - generic: o
+                    - generic: "n"
+                    - generic: t
+                    - generic: a
+                    - generic: c
+                    - generic: t
+        - generic [ref=e1061]:
+          - heading "[ Services ]" [level=3] [ref=e1062]
+          - list [ref=e1063]:
+            - listitem [ref=e1064]:
+              - link "W e b s i t e s" [ref=e1065] [cursor=pointer]:
+                - /url: /services/web-design
+                - generic [ref=e1066]:
+                  - generic [ref=e1067]:
+                    - generic [ref=e1068]: W
+                    - generic [ref=e1069]: e
+                    - generic [ref=e1070]: b
+                    - generic [ref=e1071]: s
+                    - generic [ref=e1072]: i
+                    - generic [ref=e1073]: t
+                    - generic [ref=e1074]: e
+                    - generic [ref=e1075]: s
+                  - generic:
+                    - generic: W
+                    - generic: e
+                    - generic: b
+                    - generic: s
+                    - generic: i
+                    - generic: t
+                    - generic: e
+                    - generic: s
+            - listitem [ref=e1077]:
+              - link "S a a S p r o d u c t s" [ref=e1078] [cursor=pointer]:
+                - /url: /services/saas-development
+                - generic [ref=e1079]:
+                  - generic [ref=e1080]:
+                    - generic [ref=e1081]: S
+                    - generic [ref=e1082]: a
+                    - generic [ref=e1083]: a
+                    - generic [ref=e1084]: S
+                    - generic [ref=e1086]: p
+                    - generic [ref=e1087]: r
+                    - generic [ref=e1088]: o
+                    - generic [ref=e1089]: d
+                    - generic [ref=e1090]: u
+                    - generic [ref=e1091]: c
+                    - generic [ref=e1092]: t
+                    - generic [ref=e1093]: s
+                  - generic:
+                    - generic: S
+                    - generic: a
+                    - generic: a
+                    - generic: S
+                    - generic: p
+                    - generic: r
+                    - generic: o
+                    - generic: d
+                    - generic: u
+                    - generic: c
+                    - generic: t
+                    - generic: s
+            - listitem [ref=e1095]:
+              - link "A u t o m a t i o n" [ref=e1096] [cursor=pointer]:
+                - /url: /services/automation
+                - generic [ref=e1097]:
+                  - generic [ref=e1098]:
+                    - generic [ref=e1099]: A
+                    - generic [ref=e1100]: u
+                    - generic [ref=e1101]: t
+                    - generic [ref=e1102]: o
+                    - generic [ref=e1103]: m
+                    - generic [ref=e1104]: a
+                    - generic [ref=e1105]: t
+                    - generic [ref=e1106]: i
+                    - generic [ref=e1107]: o
+                    - generic [ref=e1108]: "n"
+                  - generic:
+                    - generic: A
+                    - generic: u
+                    - generic: t
+                    - generic: o
+                    - generic: m
+                    - generic: a
+                    - generic: t
+                    - generic: i
+                    - generic: o
+                    - generic: "n"
+            - listitem [ref=e1110]:
+              - link "S E O s y s t e m s" [ref=e1111] [cursor=pointer]:
+                - /url: /services/seo
+                - generic [ref=e1112]:
+                  - generic [ref=e1113]:
+                    - generic [ref=e1114]: S
+                    - generic [ref=e1115]: E
+                    - generic [ref=e1116]: O
+                    - generic [ref=e1118]: s
+                    - generic [ref=e1119]: "y"
+                    - generic [ref=e1120]: s
+                    - generic [ref=e1121]: t
+                    - generic [ref=e1122]: e
+                    - generic [ref=e1123]: m
+                    - generic [ref=e1124]: s
+                  - generic:
+                    - generic: S
+                    - generic: E
+                    - generic: O
+                    - generic: s
+                    - generic: "y"
+                    - generic: s
+                    - generic: t
+                    - generic: e
+                    - generic: m
+                    - generic: s
+        - generic [ref=e1126]:
+          - heading "[ Resources ]" [level=3] [ref=e1127]
+          - list [ref=e1128]:
+            - listitem [ref=e1129]:
+              - link "S e r v i c e s" [ref=e1130] [cursor=pointer]:
+                - /url: /services
+                - generic [ref=e1131]:
+                  - generic [ref=e1132]:
+                    - generic [ref=e1133]: S
+                    - generic [ref=e1134]: e
+                    - generic [ref=e1135]: r
+                    - generic [ref=e1136]: v
+                    - generic [ref=e1137]: i
+                    - generic [ref=e1138]: c
+                    - generic [ref=e1139]: e
+                    - generic [ref=e1140]: s
+                  - generic:
+                    - generic: S
+                    - generic: e
+                    - generic: r
+                    - generic: v
+                    - generic: i
+                    - generic: c
+                    - generic: e
+                    - generic: s
+            - listitem [ref=e1142]:
+              - link "F A Q" [ref=e1143] [cursor=pointer]:
+                - /url: /faq
+                - generic [ref=e1144]:
+                  - generic [ref=e1145]:
+                    - generic [ref=e1146]: F
+                    - generic [ref=e1147]: A
+                    - generic [ref=e1148]: Q
+                  - generic:
+                    - generic: F
+                    - generic: A
+                    - generic: Q
+            - listitem [ref=e1150]:
+              - link "T o o l s" [ref=e1151] [cursor=pointer]:
+                - /url: /tools
+                - generic [ref=e1152]:
+                  - generic [ref=e1153]:
+                    - generic [ref=e1154]: T
+                    - generic [ref=e1155]: o
+                    - generic [ref=e1156]: o
+                    - generic [ref=e1157]: l
+                    - generic [ref=e1158]: s
+                  - generic:
+                    - generic: T
+                    - generic: o
+                    - generic: o
+                    - generic: l
+                    - generic: s
+            - listitem [ref=e1160]:
+              - link "S t a r t a p r o j e c t" [ref=e1161] [cursor=pointer]:
+                - /url: /contact
+                - generic [ref=e1162]:
+                  - generic [ref=e1163]:
+                    - generic [ref=e1164]: S
+                    - generic [ref=e1165]: t
+                    - generic [ref=e1166]: a
+                    - generic [ref=e1167]: r
+                    - generic [ref=e1168]: t
+                    - generic [ref=e1170]: a
+                    - generic [ref=e1172]: p
+                    - generic [ref=e1173]: r
+                    - generic [ref=e1174]: o
+                    - generic [ref=e1175]: j
+                    - generic [ref=e1176]: e
+                    - generic [ref=e1177]: c
+                    - generic [ref=e1178]: t
+                  - generic:
+                    - generic: S
+                    - generic: t
+                    - generic: a
+                    - generic: r
+                    - generic: t
+                    - generic: a
+                    - generic: p
+                    - generic: r
+                    - generic: o
+                    - generic: j
+                    - generic: e
+                    - generic: c
+                    - generic: t
+        - generic [ref=e1180]:
+          - heading "[ Social ]" [level=3] [ref=e1181]
+          - list [ref=e1182]:
+            - listitem [ref=e1183]:
+              - link "L i n k e d I n" [ref=e1184] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/kreativereflow
+                - generic [ref=e1185]:
+                  - generic [ref=e1186]:
+                    - generic [ref=e1187]: L
+                    - generic [ref=e1188]: i
+                    - generic [ref=e1189]: "n"
+                    - generic [ref=e1190]: k
+                    - generic [ref=e1191]: e
+                    - generic [ref=e1192]: d
+                    - generic [ref=e1193]: I
+                    - generic [ref=e1194]: "n"
+                  - generic:
+                    - generic: L
+                    - generic: i
+                    - generic: "n"
+                    - generic: k
+                    - generic: e
+                    - generic: d
+                    - generic: I
+                    - generic: "n"
+            - listitem [ref=e1196]:
+              - link "I n s t a g r a m" [ref=e1197] [cursor=pointer]:
+                - /url: https://www.instagram.com/kreativereflow
+                - generic [ref=e1198]:
+                  - generic [ref=e1199]:
+                    - generic [ref=e1200]: I
+                    - generic [ref=e1201]: "n"
+                    - generic [ref=e1202]: s
+                    - generic [ref=e1203]: t
+                    - generic [ref=e1204]: a
+                    - generic [ref=e1205]: g
+                    - generic [ref=e1206]: r
+                    - generic [ref=e1207]: a
+                    - generic [ref=e1208]: m
+                  - generic:
+                    - generic: I
+                    - generic: "n"
+                    - generic: s
+                    - generic: t
+                    - generic: a
+                    - generic: g
+                    - generic: r
+                    - generic: a
+                    - generic: m
+            - listitem [ref=e1210]:
+              - link "F a c e b o o k" [ref=e1211] [cursor=pointer]:
+                - /url: https://www.facebook.com/KreativeReflow
+                - generic [ref=e1212]:
+                  - generic [ref=e1213]:
+                    - generic [ref=e1214]: F
+                    - generic [ref=e1215]: a
+                    - generic [ref=e1216]: c
+                    - generic [ref=e1217]: e
+                    - generic [ref=e1218]: b
+                    - generic [ref=e1219]: o
+                    - generic [ref=e1220]: o
+                    - generic [ref=e1221]: k
+                  - generic:
+                    - generic: F
+                    - generic: a
+                    - generic: c
+                    - generic: e
+                    - generic: b
+                    - generic: o
+                    - generic: o
+                    - generic: k
+            - listitem [ref=e1223]:
+              - link "T i k T o k" [ref=e1224] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@kreativereflow
+                - generic [ref=e1225]:
+                  - generic [ref=e1226]:
+                    - generic [ref=e1227]: T
+                    - generic [ref=e1228]: i
+                    - generic [ref=e1229]: k
+                    - generic [ref=e1230]: T
+                    - generic [ref=e1231]: o
+                    - generic [ref=e1232]: k
+                  - generic:
+                    - generic: T
+                    - generic: i
+                    - generic: k
+                    - generic: T
+                    - generic: o
+                    - generic: k
+      - generic [ref=e1234]:
+        - paragraph [ref=e1235]: © 2026 Kreative Reflow. All rights reserved.
+        - generic [ref=e1236]:
+          - link "P r i v a c y P o l i c y" [ref=e1237] [cursor=pointer]:
+            - /url: /privacy
+            - generic [ref=e1238]:
+              - generic [ref=e1239]:
+                - generic [ref=e1240]: P
+                - generic [ref=e1241]: r
+                - generic [ref=e1242]: i
+                - generic [ref=e1243]: v
+                - generic [ref=e1244]: a
+                - generic [ref=e1245]: c
+                - generic [ref=e1246]: "y"
+                - generic [ref=e1248]: P
+                - generic [ref=e1249]: o
+                - generic [ref=e1250]: l
+                - generic [ref=e1251]: i
+                - generic [ref=e1252]: c
+                - generic [ref=e1253]: "y"
+              - generic:
+                - generic: P
+                - generic: r
+                - generic: i
+                - generic: v
+                - generic: a
+                - generic: c
+                - generic: "y"
+                - generic: P
+                - generic: o
+                - generic: l
+                - generic: i
+                - generic: c
+                - generic: "y"
+          - link "T e r m s o f S e r v i c e" [ref=e1255] [cursor=pointer]:
+            - /url: /terms
+            - generic [ref=e1256]:
+              - generic [ref=e1257]:
+                - generic [ref=e1258]: T
+                - generic [ref=e1259]: e
+                - generic [ref=e1260]: r
+                - generic [ref=e1261]: m
+                - generic [ref=e1262]: s
+                - generic [ref=e1264]: o
+                - generic [ref=e1265]: f
+                - generic [ref=e1267]: S
+                - generic [ref=e1268]: e
+                - generic [ref=e1269]: r
+                - generic [ref=e1270]: v
+                - generic [ref=e1271]: i
+                - generic [ref=e1272]: c
+                - generic [ref=e1273]: e
+              - generic:
+                - generic: T
+                - generic: e
+                - generic: r
+                - generic: m
+                - generic: s
+                - generic: o
+                - generic: f
+                - generic: S
+                - generic: e
+                - generic: r
+                - generic: v
+                - generic: i
+                - generic: c
+                - generic: e
+    - generic [ref=e1276]:
+      - generic [ref=e1277]: KREATIVE REFLOW
+      - generic [ref=e1278]: KREATIVE REFLOW
+      - generic [ref=e1279]: KREATIVE REFLOW
+      - generic [ref=e1280]: KREATIVE REFLOW
+      - generic [ref=e1281]: KREATIVE REFLOW
+      - generic [ref=e1282]: KREATIVE REFLOW
+      - generic [ref=e1283]: KREATIVE REFLOW
+      - generic [ref=e1284]: KREATIVE REFLOW

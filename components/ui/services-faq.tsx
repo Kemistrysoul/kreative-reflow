@@ -18,13 +18,13 @@ const FAQ_CATEGORIES = [
         id: '1',
         title: 'How do I know which service is right for me?',
         content:
-          "Start with a free 30-minute discovery call. We'll talk through your business, your goals, and what's been holding you back — and you'll get an honest recommendation, even if the answer isn't one of our services.",
+          "Start with a free 30-minute discovery call. We talk through the business and what's been holding it back, and you get an honest recommendation, even if the answer isn't one of our services.",
       },
       {
         id: '2',
         title: 'What does the process look like from first contact to launch?',
         content:
-          "It starts with a conversation, then a clear proposal with fixed scope and pricing. Once you're in, we move through design, development, and testing — all tracked through a private client portal so you can see progress in real time. We launch when it's ready, not when it's rushed.",
+          "It starts with a conversation, then a clear proposal with fixed scope and pricing. From there, the design and build are tracked in a private client portal, so you can see progress without chasing for updates. We launch when it's ready, not when it's rushed.",
       },
     ],
   },
@@ -35,19 +35,19 @@ const FAQ_CATEGORIES = [
         id: '3',
         title: 'Who will I actually be working with?',
         content:
-          "The founder. Kreative Reflow is a boutique, founder-led studio — you'll have direct contact from day one. The person you speak to in the first call is the person designing, building, and delivering your project.",
+          "The founder. Kreative Reflow is a small, founder-led studio, so you have direct contact from day one. The person you speak to on the first call is the person who designs and builds your project.",
       },
       {
         id: '4',
         title: 'How do you keep me updated on progress?',
         content:
-          "We use a shared project dashboard where you can see the roadmap, completed tasks, and upcoming milestones. You'll also have a direct line for quick updates, and we hold regular check-ins to ensure everything is aligned with your vision.",
+          "You get a shared project dashboard showing the roadmap, what's done, and what's coming next. There's also a direct line for quick questions, plus regular check-ins so nothing drifts.",
       },
       {
         id: '5',
         title: 'Where are you based, and do you work with clients outside Johannesburg?',
         content:
-          "We are based in Johannesburg, South Africa, but we work with clients globally. Our processes are designed for seamless remote collaboration, using the best tools for communication and project management regardless of time zones.",
+          "We are based in Johannesburg, South Africa, and work with clients elsewhere too. Most of the project lives in a shared portal, so distance and time zones rarely get in the way.",
       },
     ],
   },
@@ -58,7 +58,7 @@ const FAQ_CATEGORIES = [
         id: '6',
         title: 'How much should I budget?',
         content:
-          "Most custom websites start from £2,500 depending on scope and complexity. You'll receive a clear, fixed-price proposal before we start — no hidden fees, no scope creep, no surprise invoices.",
+          "Most custom websites start from R15,000, depending on scope and complexity. You get a fixed-price proposal before we start, so there are no surprise invoices halfway through.",
       },
       {
         id: '7',
@@ -75,13 +75,13 @@ const FAQ_CATEGORIES = [
         id: '8',
         title: 'What happens after my site goes live?',
         content:
-          "We don't disappear. Monthly maintenance and support plans keep your site secure, fast, and up to date. That includes security patches, performance monitoring, and content updates whenever you need them.",
+          "We don't disappear. A monthly maintenance plan keeps the site fast and secure: security patches, performance monitoring, and content updates whenever you need them.",
       },
       {
         id: '9',
         title: 'Do I own my website and all the assets?',
         content:
-          "Yes — 100%. Everything built for you is yours. The code, the design files, the content. No licensing fees, no platform lock-in, no strings attached.",
+          "Yes, all of it. The code, the design files, and the content are yours, with no licensing fees and no platform lock-in.",
       },
     ],
   },
@@ -146,7 +146,7 @@ export function ServicesFaq() {
             >
               No fine print.<br />
               No gatekeeping.<br />
-              Just clarity.
+              Just clarity<span className="text-[#FC6E20]">.</span>
             </h2>
 
             <p className="font-montserrat text-stone-400 text-sm md:text-base leading-relaxed mb-4">
@@ -161,7 +161,7 @@ export function ServicesFaq() {
 
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-7 py-3.5 rounded-full font-montserrat font-medium text-sm text-stone-950 bg-[#FC6E20] hover:bg-[#e05a15] transition-colors duration-300"
+              className="inline-flex items-center justify-center px-7 py-3.5 rounded-full font-montserrat font-medium text-sm text-stone-950 bg-[#FC6E20] hover:bg-[#DD6211] transition-colors duration-300"
             >
               Book a discovery call
             </Link>

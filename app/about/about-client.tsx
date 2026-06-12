@@ -16,6 +16,7 @@ import {
   Workflow,
 } from 'lucide-react';
 import { AnimatedLinkText } from '@/components/AnimatedTextLink';
+import { ExpandingCtaBackground } from '@/components/ExpandingCtaBackground';
 
 type Principle = {
   title: string;
@@ -66,7 +67,7 @@ const timeline: TimelineItem[] = [
     num: '01',
     label: 'The gap',
     title: 'Great work was not being seen.',
-    body: 'Years in medical sales and neurology put Delite in rooms where specialists, practices, and technical teams were excellent in person but invisible or unclear online.',
+    body: 'Years in medical sales and neurology put Disele Mphafe in rooms where specialists, practices, and technical teams were excellent in person but invisible or unclear online.',
   },
   {
     num: '02',
@@ -133,10 +134,10 @@ const clientFits: ClientFit[] = [
 ];
 
 const principleCardStyles = [
-  'bg-[#5F9FAA] text-[#060808]',
-  'bg-[#DD6211] text-[#060808]',
-  'bg-[#FFF6E9] text-[#0A171D]',
-  'bg-[#B92717] text-[#FFF6E9]',
+  'border border-[#151419]/10 text-[#151419] dark:border-[#FBFBFB]/12 dark:text-[#FBFBFB]',
+  'border border-[#151419]/10 text-[#151419] dark:border-[#FBFBFB]/12 dark:text-[#FBFBFB]',
+  'border border-[#151419]/10 text-[#151419] dark:border-[#FBFBFB]/12 dark:text-[#FBFBFB]',
+  'border border-[#151419]/10 text-[#151419] dark:border-[#FBFBFB]/12 dark:text-[#FBFBFB]',
 ];
 
 const studioSignalCardStyles = [
@@ -246,11 +247,11 @@ function GridLines() {
 
 function FounderPortrait() {
   return (
-    <div className="relative overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-4 text-[#FBFBFB] shadow-[0_28px_70px_rgba(21,20,25,0.14)] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]">
+    <div className="relative overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-4 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[1.65rem] bg-[#F0EFED]">
         <Image
-          src="/images/delite-founder.svg"
-          alt="Delite, Founder of Kreative Reflow"
+          src="/images/disele-founder-lifestyle.webp"
+          alt="Disele Mphafe, Founder of Kreative Reflow"
           fill
           priority
           sizes="(min-width: 1024px) 36vw, 100vw"
@@ -288,7 +289,7 @@ function HeroSection() {
       <Reveal>
         <SectionLabel>About the studio</SectionLabel>
         <h1 className="mt-8 max-w-5xl font-playfair text-[clamp(3.1rem,7.2vw,7.2rem)] font-bold leading-[0.93] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          Built from the gap between excellence and visibility.
+          Built from the gap between excellence and visibility<span className="text-[#FC6E20]">.</span>
         </h1>
         <p className="mt-8 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68 md:text-lg">
           Kreative Reflow is a founder-led Johannesburg studio for businesses
@@ -319,7 +320,7 @@ function FounderNote() {
         <Reveal>
           <SectionLabel>Founder note</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6vw,6rem)] font-bold leading-[0.94] tracking-tight">
-            I saw brilliant businesses lose trust before they ever spoke.
+            I saw brilliant businesses lose trust before they ever spoke<span className="text-[#FC6E20]">.</span>
           </h2>
         </Reveal>
 
@@ -354,7 +355,7 @@ function OriginTimeline() {
         <Reveal className="lg:sticky lg:top-28 lg:self-start">
           <SectionLabel>How it formed</SectionLabel>
           <h2 className="mt-5 max-w-xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-            The studio came from a practical frustration.
+            The studio came from a practical frustration<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="mt-6 max-w-md font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/60">
             Too many providers treat strategy, design, development, SEO, and
@@ -366,7 +367,7 @@ function OriginTimeline() {
         <div className="ml-auto w-full max-w-[54rem] space-y-4">
           {timeline.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.06}>
-              <article className="grid gap-6 rounded-[1.35rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 shadow-[0_18px_44px_rgba(21,20,25,0.05)] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:grid-cols-[0.28fr_1fr] md:p-8">
+              <article className="grid gap-6 rounded-[1.35rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-6 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:grid-cols-[0.28fr_1fr] md:p-8">
                 <div>
                   <span className="font-mono text-sm text-[#FC6E20]">{item.num}</span>
                   <p className="mt-8 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#878787]">
@@ -396,7 +397,7 @@ function PrinciplesSection() {
       <Reveal className="max-w-4xl">
         <SectionLabel>Principles</SectionLabel>
         <h2 className="mt-5 font-playfair text-[clamp(2.7rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          The rules behind the work.
+          The rules behind the work<span className="text-[#FC6E20]">.</span>
         </h2>
       </Reveal>
 
@@ -404,7 +405,7 @@ function PrinciplesSection() {
         {principles.map((principle, index) => (
           <Reveal key={principle.title} delay={index * 0.06}>
             <article
-              className={`flex min-h-[19rem] flex-col justify-between rounded-[1.35rem] p-6 shadow-[0_22px_60px_rgba(0,0,0,0.12)] transition-transform duration-300 hover:-translate-y-1 ${principleCardStyles[index % principleCardStyles.length]}`}
+              className={`flex min-h-[19rem] flex-col justify-between rounded-[1.35rem] p-6 transition-transform duration-300 hover:-translate-y-1 ${principleCardStyles[index % principleCardStyles.length]}`}
             >
               <span className="font-mono text-sm text-current/62">
                 {String(index + 1).padStart(2, '0')}
@@ -436,7 +437,7 @@ function StudioModel() {
         <Reveal className="ml-auto max-w-4xl text-right lg:w-[74%] xl:w-[68%]">
           <SectionLabel>How the studio works</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6.8vw,6.6rem)] font-bold leading-[0.94] tracking-tight">
-            Small by design. Serious by default.
+            Small by design. Serious by default<span className="text-[#FC6E20]">.</span>
           </h2>
           <p className="ml-auto mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
             The model is intentionally focused: fewer clients, deeper context,
@@ -453,7 +454,7 @@ function StudioModel() {
             return (
               <Reveal key={signal.title} className="h-full" delay={index * 0.06}>
                 <article
-                  className={`flex h-full min-h-[20rem] flex-col justify-between rounded-[1.35rem] p-6 shadow-[0_22px_60px_rgba(0,0,0,0.22)] transition-transform duration-300 hover:-translate-y-1 md:p-8 ${style.card}`}
+                  className={`flex h-full min-h-[20rem] flex-col justify-between rounded-[1.35rem] p-6 transition-transform duration-300 hover:-translate-y-1 md:p-8 ${style.card}`}
                 >
                   <div>
                     <div className={`flex h-14 w-14 items-center justify-center rounded-[1.05rem] border ${style.icon}`}>
@@ -484,7 +485,7 @@ function ClientFitSection() {
       <Reveal className="max-w-4xl">
         <SectionLabel>Who it is for</SectionLabel>
         <h2 className="mt-5 font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-          Best fit for businesses with real complexity underneath.
+          Best fit for businesses with real complexity underneath<span className="text-[#FC6E20]">.</span>
         </h2>
       </Reveal>
 
@@ -493,7 +494,7 @@ function ClientFitSection() {
           const Icon = fit.icon;
           const isAnomaly = index === 1;
           const cardStyle = isAnomaly
-            ? '-translate-y-4 rotate-[1.5deg] border-[#151419]/15 bg-[#FC6E20] text-[#151419] shadow-[0_28px_70px_rgba(21,20,25,0.18)] hover:translate-y-0 hover:rotate-0 hover:bg-[#DD6211] dark:border-[#151419]/15 dark:bg-[#FC6E20] dark:text-[#151419] dark:hover:bg-[#DD6211]'
+            ? '-translate-y-4 rotate-[3deg] border-[#151419]/15 bg-[#FC6E20] text-[#151419] hover:translate-y-0 hover:rotate-0 hover:bg-[#DD6211] dark:border-[#151419]/15 dark:bg-[#FC6E20] dark:text-[#151419] dark:hover:bg-[#DD6211]'
             : clientFitCardStyles[index % clientFitCardStyles.length];
 
           return (
@@ -535,14 +536,14 @@ function FinalCta() {
   return (
     <section className="content-gutter relative z-10 pb-24 md:pb-32">
       <Reveal>
-        <div className="rounded-[1.35rem] border border-[#151419]/10 bg-[#151419] p-7 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:p-14">
+        <ExpandingCtaBackground>
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div>
               <SectionLabel>Work with the studio</SectionLabel>
               <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.7rem,6.6vw,6.8rem)] font-bold leading-[0.9] tracking-tight">
-                Bring the messy version. We will shape the system.
+                Work directly with the person who builds it<span className="text-[#FC6E20]">.</span>
               </h2>
-              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-white/62">
+              <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64">
                 You do not need a perfect brief. A rough problem, a broken
                 workflow, or a website that no longer reflects the business is
                 enough to start.
@@ -558,13 +559,13 @@ function FinalCta() {
               </Link>
               <Link
                 href="/work"
-                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/18 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#FBFBFB] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#151419]/15 px-6 py-3 text-center font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] sm:w-auto"
               >
                 <AnimatedLinkText>View the work</AnimatedLinkText>
               </Link>
             </div>
           </div>
-        </div>
+        </ExpandingCtaBackground>
       </Reveal>
     </section>
   );

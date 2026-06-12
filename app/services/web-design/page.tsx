@@ -3,9 +3,9 @@ import { serviceDetails } from '../_data';
 import { ServiceRoute } from '../_components/service-route';
 
 export const metadata = pageMetadata({
-  title: 'Web Design & Development | Kreative Reflow',
+  title: 'Web Design Johannesburg | Kreative Reflow',
   description:
-    'Custom websites built for trust, conversion, speed, and clear buyer journeys.',
+    'Custom website design and development in Johannesburg for service businesses that need faster pages, clearer offers, stronger trust, and qualified enquiries.',
   path: '/services/web-design',
 });
 
