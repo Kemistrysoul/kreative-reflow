@@ -928,14 +928,23 @@ function HowItWorksCard({
   const [dy, setDy] = useState(-180);
 
   useEffect(() => {
+    let rafId = 0;
     const update = () => {
       if (wrapperRef.current) {
-        setDy(12 - wrapperRef.current.offsetTop);
+        const rect = wrapperRef.current.getBoundingClientRect();
+        setDy(12 - rect.top + window.scrollY);
       }
     };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    const scheduleUpdate = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(update);
+    };
+    scheduleUpdate();
+    window.addEventListener('resize', scheduleUpdate);
+    return () => {
+      window.removeEventListener('resize', scheduleUpdate);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (

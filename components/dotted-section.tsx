@@ -1,8 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { DottedSurface } from "@/components/ui/dotted-surface";
+import dynamic from "next/dynamic";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+
+const DottedSurface = dynamic(
+  () => import("@/components/ui/dotted-surface").then((m) => ({ default: m.DottedSurface })),
+  { ssr: false }
+);
 
 const ITEMS = [
   {

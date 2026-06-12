@@ -9,10 +9,14 @@ import {
   ShieldCheck,
   Workflow,
 } from 'lucide-react';
-import { InteractiveGridShell } from './interactive-grid-shell';
+import dynamic from 'next/dynamic';
 import { StartForm } from './start-form';
 import { StartGlowTracker } from './start-glow-tracker';
 import { pageMetadata } from '@/lib/seo';
+
+const InteractiveGridShell = dynamic(
+  () => import('./interactive-grid-shell').then((m) => ({ default: m.InteractiveGridShell }))
+);
 
 export const metadata = pageMetadata({
   title: 'Project Enquiries | Kreative Reflow',
