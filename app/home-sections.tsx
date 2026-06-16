@@ -55,7 +55,7 @@ export function IntroSection() {
       desc: 'Your website should work as hard as you do. We build custom sites that bring in leads, build trust, and run 24/7. Designed for your audience, built for speed, and made to grow with you.',
       bg: '#151419',
       textColor: 'white',
-      canvasAnimation: 'dotmatrix' as const,
+      icon: Monitor,
     },
     {
       num: '02', total: '04',
@@ -65,7 +65,7 @@ export function IntroSection() {
       desc: 'A great website means nothing if nobody sees it. We help your business show up on Google, maps, and AI search with clearer structure, stronger local signals, and content search systems can understand.',
       bg: '#3D7A7A',
       textColor: 'white',
-      canvasAnimation: 'sinewave' as const,
+      icon: Globe2,
     },
     {
       num: '03', total: '04',
@@ -75,7 +75,7 @@ export function IntroSection() {
       desc: 'Need a portal, booking system, internal dashboard, or SaaS product? We build web applications around your real operating model, not what off-the-shelf tools can almost do.',
       bg: '#FC6E20',
       textColor: '#151419',
-      canvasAnimation: 'radial' as const,
+      icon: Settings,
     },
     {
       num: '04', total: '04',
@@ -85,7 +85,7 @@ export function IntroSection() {
       desc: 'Follow-ups, data entry, scheduling, reporting. If your team repeats it daily, we automate it. We build systems that handle the busywork so your people can focus on what actually needs a human.',
       bg: '#F0EFED',
       textColor: '#151419',
-      canvasAnimation: 'helix' as const,
+      icon: Zap,
     },
   ];
 
@@ -551,30 +551,19 @@ type ServiceCardProps = {
   desc: string;
   bg: string;
   textColor: string;
-  canvasAnimation: 'dotmatrix' | 'sinewave' | 'radial' | 'helix';
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   index: number;
   isHovered: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
 };
 
-function ServiceCard({ num, title, href, subhead, desc, bg, textColor, canvasAnimation, index, isHovered, onMouseEnter, onMouseLeave }: ServiceCardProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+function ServiceCard({ num, title, href, subhead, desc, bg, textColor, icon: Icon, index, isHovered, onMouseEnter, onMouseLeave }: ServiceCardProps) {
   const hoverTextColor = textColor === 'white' ? '#FBFBFB' : '#151419';
-  const dotColor = isHovered
-    ? textColor === 'white'
-      ? 'rgba(251,251,251,0.78)'
-      : 'rgba(21,20,25,0.7)'
-    : 'rgba(251,251,251,0.48)';
   const cardStyle = {
     '--service-hover-bg': bg,
     '--service-hover-text': hoverTextColor,
   } as React.CSSProperties;
-
-  useDotMatrixCanvas(canvasAnimation === 'dotmatrix' ? canvasRef : { current: null }, dotColor);
-  useSineWaveCanvas(canvasAnimation === 'sinewave' ? canvasRef : { current: null }, dotColor);
-  useRadialBurstCanvas(canvasAnimation === 'radial' ? canvasRef : { current: null }, dotColor);
-  useHelixCanvas(canvasAnimation === 'helix' ? canvasRef : { current: null }, dotColor);
 
   return (
     <motion.div
@@ -600,12 +589,9 @@ function ServiceCard({ num, title, href, subhead, desc, bg, textColor, canvasAni
             </span>
             <span
               aria-hidden="true"
-              className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[1.05rem] border border-current/12 bg-white/[0.035] transition-colors duration-300 group-hover:bg-[#151419]/[0.045] md:h-[4.5rem] md:w-[4.5rem]"
+              className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-[1.05rem] border border-current/12 bg-white/[0.035] transition-colors duration-300 group-hover:bg-[#151419]/[0.045] md:h-[4.5rem] md:w-[4.5rem]"
             >
-              <canvas
-                ref={canvasRef}
-                className="absolute inset-1 h-[calc(100%-0.5rem)] w-[calc(100%-0.5rem)] opacity-80 transition-opacity duration-300 group-hover:opacity-100"
-              />
+              <Icon className="h-8 w-8 opacity-80 transition-opacity duration-300 group-hover:opacity-100" strokeWidth={1.5} />
             </span>
           </div>
           <h3

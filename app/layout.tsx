@@ -73,9 +73,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} ${montserrat.variable}`} suppressHydrationWarning>
       <body className="cursor-none bg-[#F0EFED] text-dark-void font-sans antialiased selection:bg-liquid-lava selection:text-snow dark:bg-[#1a1a1a] dark:text-snow" suppressHydrationWarning>
+        <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
         <Providers>
           <CustomCursor />
-          <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
           <AppChrome>
             {children}
           </AppChrome>

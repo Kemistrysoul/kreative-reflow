@@ -3,6 +3,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { Plus, X, MoonIcon, SunIcon, Search } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
 
@@ -48,6 +49,7 @@ function ThemeToggleThumb({ isDarkMode }: { isDarkMode: boolean }) {
 }
 
 export default function FloatingUI() {
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -106,12 +108,14 @@ export default function FloatingUI() {
     <>
       {/* Fixed UI Elements */}
       <div className="fixed inset-0 pointer-events-none z-50 mix-blend-difference text-white">
-        {/* Top Left Logo */}
-        <div className="absolute top-8 left-8 pointer-events-auto">
-          <Link href="/" className="font-sans text-xl font-bold tracking-tight">
-            Kreative Reflow
-          </Link>
-        </div>
+        {/* Top Left Logo — hidden on home page */}
+        {pathname !== '/' && (
+          <div className="absolute top-8 left-8 pointer-events-auto">
+            <Link href="/" className="font-sans text-xl font-bold tracking-tight">
+              Kreative Reflow
+            </Link>
+          </div>
+        )}
 
         {/* Top Right — Contact + Menu */}
         <div className="absolute top-8 right-8 flex items-center gap-4 pointer-events-auto">
