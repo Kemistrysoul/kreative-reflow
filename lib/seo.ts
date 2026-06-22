@@ -64,7 +64,7 @@ export function pageMetadata({
     description,
     robots,
     alternates: {
-      canonical: path,
+      canonical: absoluteUrl(path),
     },
     openGraph: {
       title,
