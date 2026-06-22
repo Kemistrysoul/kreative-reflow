@@ -4,7 +4,6 @@ import './globals.css'; // Global styles
 import { Providers } from './providers';
 import { AppChrome } from '@/components/AppChrome';
 import CustomCursor from '@/components/CustomCursor';
-import { JsonLd } from '@/components/JsonLd';
 import {
   defaultOgImage,
   defaultSeoDescription,
@@ -70,10 +69,17 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const jsonLd = JSON.stringify([organizationJsonLd, websiteJsonLd]).replace(/</g, '\\u003c');
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} ${montserrat.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+          suppressHydrationWarning
+        />
+      </head>
       <body className="cursor-none bg-[#F0EFED] text-dark-void font-sans antialiased selection:bg-liquid-lava selection:text-snow dark:bg-[#1a1a1a] dark:text-snow" suppressHydrationWarning>
-        <JsonLd data={[organizationJsonLd, websiteJsonLd]} />
         <Providers>
           <CustomCursor />
           <AppChrome>

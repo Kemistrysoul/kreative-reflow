@@ -165,9 +165,12 @@ export function SiteFooter() {
           <div>
             <Link
               href="/"
-              className="inline-flex font-montserrat text-2xl font-black uppercase text-white"
+              className="inline-flex items-center gap-4"
             >
-              Kreative<span className="text-[#FC6E20]">Reflow</span>
+              <img src="/images/kr_logo.png" alt="Kreative Reflow" className="h-12 w-auto" />
+              <span className="font-playfair text-2xl font-bold uppercase leading-none text-white">
+                KREATIVE<br /><span className="tracking-[0.14em] text-[#F0EFED]">REFLOW</span>
+              </span>
             </Link>
             <p className="mt-6 max-w-md font-montserrat text-base leading-8 text-white/68">
               We build websites, SaaS products, dashboards, and automation

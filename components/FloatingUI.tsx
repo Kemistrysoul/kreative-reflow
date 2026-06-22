@@ -106,17 +106,33 @@ export default function FloatingUI() {
 
   return (
     <>
+      {/* Logo image — separate fixed element, no blend, stays orange */}
+      <div className="fixed left-8 top-8 z-50 pointer-events-auto">
+        <Link href="/" className="block">
+          <img src="/images/kr_logo_orange.png" alt="Kreative Reflow" className="h-16 w-auto" />
+        </Link>
+      </div>
+
+      {/* Wordmark — separate fixed element so mix-blend-difference blends against the page */}
+      <div className="fixed left-8 z-50 mix-blend-difference text-white pointer-events-auto" style={{ top: '101.5px' }}>
+        <Link href="/" className="flex gap-0">
+          <span
+            className="text-[0.8rem] font-bold uppercase tracking-[0.2em] whitespace-nowrap"
+            style={{ fontFamily: 'var(--font-playfair)', writingMode: 'vertical-rl', textOrientation: 'sideways', transform: 'rotate(180deg)' }}
+          >
+            Kreative
+          </span>
+          <span
+            className="text-[0.8rem] font-bold uppercase whitespace-nowrap"
+            style={{ fontFamily: 'var(--font-playfair)', writingMode: 'vertical-rl', textOrientation: 'sideways', transform: 'rotate(180deg)', letterSpacing: '0.4em', lineHeight: '0.9' }}
+          >
+            Reflow
+          </span>
+        </Link>
+      </div>
+
       {/* Fixed UI Elements */}
       <div className="fixed inset-0 pointer-events-none z-50 mix-blend-difference text-white">
-        {/* Top Left Logo — hidden on home page */}
-        {pathname !== '/' && (
-          <div className="absolute top-8 left-8 pointer-events-auto">
-            <Link href="/" className="font-sans text-xl font-bold tracking-tight">
-              Kreative Reflow
-            </Link>
-          </div>
-        )}
-
         {/* Top Right — Contact + Menu */}
         <div className="absolute top-8 right-8 flex items-center gap-4 pointer-events-auto">
           <Link

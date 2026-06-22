@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" fill="none">
+  <!-- Top left vertical form -->
+  <path d="M8 8 Q8 42 8 42 L8 68 Q8 74 14 74 L50 74 Q58 74 58 68 L58 8 Z" fill="#FC6E20"/>
+  <!-- Top right curved lobe -->
+  <path d="M58 8 Q58 8 78 8 Q110 8 110 30 Q110 46 88 48 Q68 50 58 42 L58 8 Z" fill="#FC6E20"/>
+  <!-- Middle left petal -->
+  <path d="M8 80 Q8 80 8 108 Q8 138 38 130 Q50 126 50 108 L50 80 Z" fill="#FC6E20"/>
+  <!-- Middle right petal -->
+  <path d="M62 80 Q62 80 62 108 Q62 126 74 130 Q104 138 104 108 L104 80 Z" fill="#FC6E20"/>
+  <!-- Bottom base -->
+  <path d="M8 140 Q8 160 30 160 L90 160 Q112 160 112 140 L112 132 L8 132 Z" fill="#FC6E20"/>
+</svg>
