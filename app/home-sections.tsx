@@ -1627,28 +1627,10 @@ function FeaturedBuildCard({
 
 const projectOutcomes = [
   {
-    statement: 'A warm coaching brand became a guided service platform with diagnostics, paid pathways, booking, intake, and resources working together.',
+    statement: "When I came to Kreative Reflow, I knew I wanted to establish myself as a career coach but had no idea where to start. Disele didn't just build me a website; he took the time to understand my goals, challenged my thinking, and helped me figure out how to position my services properly. What I walked away with wasn't only a professional platform that clearly communicates who I am and what I offer. I walked away with clarity on my brand and confidence in how I present myself. If you're an entrepreneur or professional trying to build something real, this is who you call.",
     project: 'Coach Kagiso',
     scope: 'Career coaching platform',
     badge: 'Personal brand and service conversion',
-  },
-  {
-    statement: 'A technical engineering business gained a sharper digital presence for safety-critical services, quote requests, and risk-assessment leads.',
-    project: 'Touch Teq Engineering',
-    scope: 'Industrial website and lead flow',
-    badge: 'Engineering and B2B enquiries',
-  },
-  {
-    statement: 'A self-initiated funeral-services concept turned booklet-style member routines into registration, contribution, receipt, and review workflows.',
-    project: 'Ubuntu Memorial Services',
-    scope: 'Funeral services platform concept',
-    badge: 'Industry concept and operations demo',
-  },
-  {
-    statement: 'The selected builds go beyond brochure pages: they connect public trust, lead capture, member journeys, and private operational workflows.',
-    project: 'Across selected builds',
-    scope: 'Website plus workflow systems',
-    badge: 'Digital infrastructure',
   },
 ];
 
@@ -1717,7 +1699,7 @@ export function Testimonial() {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.45 }}
             >
-              Project outcomes
+              CLIENT STORIES
             </motion.span>
             <div className="relative h-px flex-1 bg-[#151419]/14 dark:bg-white/14 md:h-36 md:w-px md:flex-none">
               <motion.div
@@ -1752,7 +1734,7 @@ export function Testimonial() {
               <AnimatePresence mode="wait">
                 <motion.p
                   key={`quote-${activeIndex}`}
-                  className="max-w-4xl font-playfair text-[clamp(2.5rem,5vw,5rem)] font-semibold leading-[1.04] tracking-normal text-[#151419] dark:text-white"
+                  className="max-w-4xl font-playfair text-[35px] font-medium leading-[1.25] tracking-normal text-[#151419] dark:text-white"
                   initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
