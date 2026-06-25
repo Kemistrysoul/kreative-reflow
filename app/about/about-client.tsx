@@ -250,7 +250,7 @@ function FounderPortrait() {
     <div className="relative overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-4 text-[#FBFBFB] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[1.65rem] bg-[#F0EFED]">
         <Image
-          src="/images/disele-founder-lifestyle.webp"
+          src="/images/disele-founder-professional.webp"
           alt="Disele Mphafe, Founder of Kreative Reflow"
           fill
           priority

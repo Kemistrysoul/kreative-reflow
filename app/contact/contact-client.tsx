@@ -276,7 +276,7 @@ function ProjectFitSection() {
         <Reveal direction="left">
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2.25rem]">
             <Image
-              src="/images/disele-founder-warm.webp"
+              src="/images/disele-founder-professional.webp"
               alt="Disele, Founder of Kreative Reflow"
               fill
               sizes="(min-width: 1024px) 480px, 100vw"
