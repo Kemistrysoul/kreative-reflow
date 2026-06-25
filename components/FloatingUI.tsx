@@ -204,7 +204,7 @@ export default function FloatingUI() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-opacity hover:opacity-55"
+                  className="transition-colors duration-300 hover:text-[#FC6E20]"
                 >
                   {link.label}
                 </a>
