@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type React from 'react';
 import Link from 'next/link';
+import { AuthorBio } from '@/components/AuthorBio';
 import { JsonLd } from '@/components/JsonLd';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
 import { ArticleBody } from '../_components/article-body';
@@ -148,7 +149,7 @@ export default function WebsiteCostArticlePage() {
     dateModified: publishedDate,
     author: {
       '@type': 'Person',
-      name: 'Delite',
+      name: 'Disele',
     },
     publisher: {
       '@type': 'Organization',
@@ -448,22 +449,7 @@ export default function WebsiteCostArticlePage() {
             </p>
           </section>
 
-          <section className="border-t border-[#151419]/12 py-12 dark:border-[#FBFBFB]/12">
-            <h2 className="font-playfair text-[clamp(2.35rem,5vw,4.9rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
-              About the author
-            </h2>
-            <p className="mt-8 font-montserrat text-base leading-8 text-[#151419]/70 dark:text-[#FBFBFB]/68">
-              Delite is the founder of Kreative Reflow, a Johannesburg-based technology studio specializing in web development, SaaS products, and business automation. With seven years of experience in medical sales and neurology, Delite works with medical practices, engineering firms, and service businesses across South Africa and internationally.{' '}
-              <a
-                href="https://www.linkedin.com/company/kreativereflow"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline decoration-[#FC6E20] underline-offset-4"
-              >
-                LinkedIn
-              </a>
-            </p>
-          </section>
+          <AuthorBio />
 
       </ArticleBody>
     </main>

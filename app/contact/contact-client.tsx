@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import type React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
@@ -240,11 +241,26 @@ function HeroSection() {
               </div>
             ))}
           </div>
+
+          <div className="mt-9 flex items-center gap-4 rounded-[1.35rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-4 dark:border-[#FBFBFB]/12 dark:bg-white/[0.04]">
+            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border border-[#151419]/10 bg-[#F0EFED] dark:border-[#FBFBFB]/12">
+              <Image
+                src="/images/disele-founder-casual.webp"
+                alt="Disele, Founder of Kreative Reflow"
+                fill
+                sizes="64px"
+                className="object-cover"
+              />
+            </div>
+            <p className="font-montserrat text-sm leading-6 text-[#151419]/72 dark:text-[#FBFBFB]/70">
+              You will be talking to Disele, the founder, not a queue. Every brief gets a direct, personal reply.
+            </p>
+          </div>
         </div>
       </Reveal>
 
       <Reveal direction="right" delay={0.08}>
-        <div className="relative lg:rotate-1">
+        <div className="relative">
           <div className="absolute -inset-5 -z-10 rounded-[2.75rem] bg-[#FC6E20]/10 blur-2xl" />
           <ContactForm />
         </div>
@@ -256,8 +272,35 @@ function HeroSection() {
 function ProjectFitSection() {
   return (
     <section className="relative z-10 bg-[#060808] py-20 text-[#FBFBFB] md:py-28">
-      <div className="content-gutter grid gap-12 lg:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)] lg:items-start lg:gap-16">
-        <Reveal className="grid gap-5 md:grid-cols-3" direction="left">
+      <div className="content-gutter grid gap-12 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
+        <Reveal direction="left">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2.25rem]">
+            <Image
+              src="/images/disele-founder-warm.webp"
+              alt="Disele, Founder of Kreative Reflow"
+              fill
+              sizes="(min-width: 1024px) 480px, 100vw"
+              className="object-cover object-top"
+            />
+          </div>
+        </Reveal>
+
+        <Reveal className="lg:max-w-2xl" direction="right" delay={0.08}>
+          <SectionLabel>What belongs here</SectionLabel>
+          <h2 className="mt-5 font-playfair text-5xl font-bold leading-[0.96] tracking-normal text-[#FBFBFB] md:text-7xl">
+            Start with the thing that feels hard to explain<span className="text-[#FC6E20]">.</span>
+          </h2>
+          <p className="mt-6 font-montserrat text-base leading-8 text-[#FBFBFB]/68">
+            The form is built for early context, not a perfect specification. Send enough signal for us to understand the work, the pressure, and the outcome you want.
+          </p>
+          <p className="mt-8 border-l border-[#FC6E20] pl-5 font-montserrat text-sm leading-7 text-[#FBFBFB]/72">
+            You do not need a perfect brief. A clear sentence about what is not working is enough to start.
+          </p>
+        </Reveal>
+      </div>
+
+      <div className="content-gutter mt-16">
+        <Reveal className="grid gap-5 md:grid-cols-3" direction="up">
           {projectTypes.map((type, index) => {
             const Icon = type.icon;
             const style = projectCardStyles[index % projectCardStyles.length];
@@ -287,19 +330,6 @@ function ProjectFitSection() {
               </article>
             );
           })}
-        </Reveal>
-
-        <Reveal className="lg:ml-auto lg:max-w-xl" direction="right" delay={0.08}>
-          <SectionLabel>What belongs here</SectionLabel>
-          <h2 className="mt-5 font-playfair text-5xl font-bold leading-[0.96] tracking-normal text-[#FBFBFB] md:text-7xl">
-            Start with the thing that feels hard to explain<span className="text-[#FC6E20]">.</span>
-          </h2>
-          <p className="mt-6 font-montserrat text-base leading-8 text-[#FBFBFB]/68">
-            The form is built for early context, not a perfect specification. Send enough signal for us to understand the work, the pressure, and the outcome you want.
-          </p>
-          <p className="mt-8 border-l border-[#FC6E20] pl-5 font-montserrat text-sm leading-7 text-[#FBFBFB]/72">
-            You do not need a perfect brief. A clear sentence about what is not working is enough to start.
-          </p>
         </Reveal>
       </div>
     </section>

@@ -790,7 +790,7 @@ export function StudioProjectsWorkspace({
                     </div>
                     <div className="rounded-[18px] border border-white/8 bg-white/5 p-3">
                       <p className="font-montserrat text-[11px] uppercase tracking-[0.16em] text-[#595959]">Owner</p>
-                      <p className="mt-2 text-sm text-white">{row.owner ?? 'Delite'}</p>
+                      <p className="mt-2 text-sm text-white">{row.owner ?? 'Disele'}</p>
                     </div>
                   </div>
                   {row.notes ? (
@@ -3016,7 +3016,7 @@ function ProjectKickoffDrawer({
           deadline: row.deadline,
           value: row.value,
           health: row.health,
-          owner: row.owner ?? 'Delite',
+          owner: row.owner ?? 'Disele',
           email: row.email,
           notes: row.notes,
           startedAt: row.startedAt ?? 'Today',
@@ -3026,7 +3026,7 @@ function ProjectKickoffDrawer({
           type: 'Project',
           client: row.client,
           business: row.project,
-          owner: row.owner ?? 'Delite',
+          owner: row.owner ?? 'Disele',
           stage: row.health,
           summary: row.notes ?? '',
           email: row.email,
@@ -3146,7 +3146,7 @@ function ProjectKickoffDrawer({
               <DetailCard label="Phase" value={row.phase} />
               <DetailCard label="Deadline" value={row.deadline} />
               <DetailCard label="Value" value={row.value} />
-              <DetailCard label="Owner" value={row.owner ?? 'Delite'} />
+              <DetailCard label="Owner" value={row.owner ?? 'Disele'} />
             </div>
 
             {row.notes ? (

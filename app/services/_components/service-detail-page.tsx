@@ -1,11 +1,13 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import type React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowRight, CheckCircle2, CircleDot, CornerDownRight } from 'lucide-react';
 import { AnimatedLinkText, AnimatedTextLink } from '@/components/AnimatedTextLink';
 import { ExpandingCtaBackground } from '@/components/ExpandingCtaBackground';
+import { ServiceHeroPreview, type HeroPreviewKind } from './hero-previews';
 
 type ServicePoint = {
   title: string;
@@ -35,6 +37,13 @@ type ProofPoint = {
   description: string;
 };
 
+type FounderNote = {
+  eyebrow: string;
+  heading: string;
+  body: string;
+};
+
+
 type RevealDirection = 'up' | 'left' | 'right' | 'fade';
 
 export type ServiceDetailPageProps = {
@@ -45,6 +54,8 @@ export type ServiceDetailPageProps = {
   problem: string;
   outcome: string;
   proof?: string;
+  heroPreview?: HeroPreviewKind;
+  founderNote?: FounderNote;
   proofPoints: ProofPoint[];
   symptoms: ServicePoint[];
   features: ServicePoint[];
@@ -193,6 +204,8 @@ export function ServiceDetailPage({
   problem,
   outcome,
   proof,
+  heroPreview,
+  founderNote,
   proofPoints,
   symptoms,
   features,
@@ -217,7 +230,7 @@ export function ServiceDetailPage({
           </nav>
           <SectionLabel>{eyebrow}</SectionLabel>
           <h1 className="mt-5 max-w-5xl font-playfair text-[clamp(3rem,7.2vw,7.6rem)] font-bold leading-[0.92] tracking-tight">
-            {title}
+            {title}<span className="text-[#FC6E20]">.</span>
           </h1>
           <p className="mt-7 max-w-3xl font-montserrat text-lg leading-9 text-[#151419]/64 dark:text-[#FBFBFB]/64 md:text-xl">
             {intro}
@@ -229,33 +242,45 @@ export function ServiceDetailPage({
         </Reveal>
 
         <Reveal delay={0.12} direction="right">
-          <div className="relative rotate-0 overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-5 text-[#FBFBFB] shadow-[0_28px_70px_rgba(21,20,25,0.18)] transition-transform duration-500 hover:-translate-y-1 hover:rotate-0 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-7 lg:rotate-1">
-            <div className="absolute right-0 top-0 h-36 w-36 rounded-bl-full border-b border-l border-[#FC6E20]/20" />
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-[0.64rem] uppercase tracking-[0.24em] text-white/42">
-              <span>Service map</span>
-              <span>Buyer signal</span>
-            </div>
-            <div className="grid gap-4 py-6">
-              {[
-                ['Best for', bestFor],
-                ['Problem', problem],
-                ['Outcome', outcome],
-              ].map(([label, body], index) => (
-                <div key={label} className="grid gap-3 border-b border-white/10 pb-4 last:border-b-0">
-                  <div className="flex items-center gap-3 font-mono text-[0.68rem] uppercase tracking-[0.22em] text-white/42">
-                    <span className="text-[#FC6E20]">{String(index + 1).padStart(2, '0')}</span>
-                    {label}
-                  </div>
-                  <p className="font-montserrat text-sm leading-7 text-white/74">{body}</p>
-                </div>
-              ))}
-            </div>
-            {proof ? (
-              <div className="rounded-[1.15rem] border border-[#FC6E20]/35 bg-white/[0.045] p-4 font-montserrat text-sm leading-7 text-white/72">
-                {proof}
+          {heroPreview ? (
+            <div>
+              <ServiceHeroPreview kind={heroPreview} />
+              <div className="mt-6 flex flex-col gap-2 border-t border-[#151419]/12 pt-5 dark:border-white/10">
+                <span className="font-mono text-[0.64rem] uppercase tracking-[0.22em] text-[#FC6E20]">
+                  Best for
+                </span>
+                <p className="font-montserrat text-sm leading-7 text-[#151419]/70 dark:text-white/74">{bestFor}</p>
               </div>
-            ) : null}
-          </div>
+            </div>
+          ) : (
+            <div className="relative rotate-0 overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-5 text-[#FBFBFB] shadow-[0_28px_70px_rgba(21,20,25,0.18)] transition-transform duration-500 hover:-translate-y-1 hover:rotate-0 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-7 lg:rotate-1">
+              <div className="absolute right-0 top-0 h-36 w-36 rounded-bl-full border-b border-l border-[#FC6E20]/20" />
+              <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-[0.64rem] uppercase tracking-[0.24em] text-white/42">
+                <span>Service map</span>
+                <span>Buyer signal</span>
+              </div>
+              <div className="grid gap-4 py-6">
+                {[
+                  ['Best for', bestFor],
+                  ['Problem', problem],
+                  ['Outcome', outcome],
+                ].map(([label, body], index) => (
+                  <div key={label} className="grid gap-3 border-b border-white/10 pb-4 last:border-b-0">
+                    <div className="flex items-center gap-3 font-mono text-[0.68rem] uppercase tracking-[0.22em] text-white/42">
+                      <span className="text-[#FC6E20]">{String(index + 1).padStart(2, '0')}</span>
+                      {label}
+                    </div>
+                    <p className="font-montserrat text-sm leading-7 text-white/74">{body}</p>
+                  </div>
+                ))}
+              </div>
+              {proof ? (
+                <div className="rounded-[1.15rem] border border-[#FC6E20]/35 bg-white/[0.045] p-4 font-montserrat text-sm leading-7 text-white/72">
+                  {proof}
+                </div>
+              ) : null}
+            </div>
+          )}
         </Reveal>
       </section>
 
@@ -286,7 +311,7 @@ export function ServiceDetailPage({
           ))}
         </div>
 
-        <Reveal className="max-w-4xl lg:order-2 lg:ml-auto lg:max-w-[34rem] lg:pt-12" direction="right">
+        <Reveal className="max-w-4xl lg:order-2 lg:ml-auto lg:max-w-[34rem] lg:pt-12 lg:text-right" direction="right">
           <SectionLabel>Proof signals</SectionLabel>
           <h2 className="mt-5 font-playfair text-[clamp(2.4rem,5.2vw,5.4rem)] font-bold leading-[0.96] tracking-tight">
             Evidence without pretending the results are already approved<span className="text-[#FC6E20]">.</span>
@@ -296,6 +321,34 @@ export function ServiceDetailPage({
           </p>
         </Reveal>
       </section>
+
+      {founderNote ? (
+        <section className="content-gutter relative z-10 pb-20 md:pb-28">
+          <Reveal direction="up">
+            <div className="grid gap-8 rounded-[2.25rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-7 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E] md:p-10 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] lg:items-center lg:gap-12">
+              <div className="relative mx-auto aspect-[4/5] w-full max-w-[20rem] overflow-hidden rounded-[1.65rem] border border-[#151419]/10 bg-[#F0EFED] shadow-[0_24px_60px_rgba(21,20,25,0.14)] dark:border-[#FBFBFB]/12">
+                <Image
+                  src="/images/disele-founder-executive.webp"
+                  alt="Disele, Founder of Kreative Reflow"
+                  fill
+                  sizes="(min-width: 1024px) 22vw, 80vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#151419]/40 via-transparent to-transparent" />
+              </div>
+              <div>
+                <SectionLabel>{founderNote.eyebrow}</SectionLabel>
+                <h2 className="mt-5 font-playfair text-[clamp(2.2rem,4.6vw,4.6rem)] font-bold leading-[0.96] tracking-tight">
+                  {founderNote.heading}<span className="text-[#FC6E20]">.</span>
+                </h2>
+                <p className="mt-6 max-w-2xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
+                  {founderNote.body}
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+      ) : null}
 
       <section id="service-fit" className="content-gutter relative z-10 scroll-mt-24 py-20 md:py-28">
         <Reveal className="max-w-4xl" direction="up">

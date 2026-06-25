@@ -52,7 +52,7 @@ const initialDraft = {
   budget: 'R18k',
   stage: 'New' as CrmStage,
   nextAction: 'Send first response',
-  owner: 'Delite',
+  owner: 'Disele',
   lastTouch: 'Today',
   notes: '',
 };

@@ -444,7 +444,7 @@ function ContentComposerModal({
     project: 'Insights',
     contentType: 'Insight',
     channel: 'Blog',
-    owner: 'Delite',
+    owner: 'Disele',
     goal: '',
     audience: '',
     cta: '',
@@ -458,7 +458,7 @@ function ContentComposerModal({
     project: 'Insights',
     contentType: 'Insight',
     channel: 'Blog',
-    owner: 'Delite',
+    owner: 'Disele',
     source: '',
     focus: '',
     nextAction: '',
@@ -474,7 +474,7 @@ function ContentComposerModal({
     channel: 'Blog',
     priority: 'Medium',
     status: 'Scheduled',
-    owner: 'Delite',
+    owner: 'Disele',
   });
 
   if (!kind) {

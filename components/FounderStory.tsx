@@ -232,7 +232,7 @@ function ChapterScene() {
             {/* Portrait — smaller editorial size */}
             <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-stone-200 dark:bg-stone-800 group">
               <Image
-                src="/images/disele-founder.jpg"
+                src="/images/disele-founder-warm.webp"
                 alt="Disele Mphafe, Founder of Kreative Reflow"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -550,7 +550,7 @@ function ChapterBuild() {
                   className="text-stone-500"
                   style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: '11px', letterSpacing: '0.15em' }}
                 >
-                  DELITE · FOUNDER
+                  DISELE · FOUNDER
                 </span>
               </div>
             </div>

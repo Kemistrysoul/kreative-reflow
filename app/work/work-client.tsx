@@ -877,6 +877,77 @@ function PublicBoundary() {
   );
 }
 
+function FounderAngle() {
+  return (
+    <section className="content-gutter relative z-10 overflow-hidden pb-20 pt-4 text-[#151419] md:pb-28">
+      <div className="grid gap-12 lg:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.08fr)] lg:items-center lg:gap-16">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-4 text-[#FBFBFB] shadow-[0_28px_70px_rgba(21,20,25,0.14)]">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.65rem] bg-[#F0EFED]">
+              <Image
+                src="/images/disele-founder-executive.webp"
+                alt="Disele Mphafe, Founder of Kreative Reflow"
+                fill
+                sizes="(min-width: 1024px) 36vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#151419]/46 via-transparent to-transparent" />
+            </div>
+            <div className="grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-3">
+              {[
+                ['7+', 'Years industry'],
+                ['Small', 'Client roster'],
+                ['One', 'Connected system'],
+              ].map(([value, label]) => (
+                <div key={label}>
+                  <span className="block font-mono text-2xl text-[#FC6E20]">{value}</span>
+                  <span className="mt-1 block font-montserrat text-[0.62rem] font-bold uppercase tracking-[0.16em] text-white/45">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <SectionLabel>Why these builds</SectionLabel>
+          <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.8rem,6vw,5.9rem)] font-bold leading-[0.94] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
+            I take on work where a sharper system changes how the business actually runs<span className="text-[#FC6E20]">.</span>
+          </h2>
+          <div className="mt-7 grid gap-5 font-montserrat text-base leading-8 text-[#151419]/66 dark:text-[#FBFBFB]/62 md:text-lg">
+            <p>
+              Every project here started as a real operational problem before it
+              became a screen. That is the lens behind the work: build the thing
+              the business will actually use, and keep the private systems private
+              while the public proof speaks for itself.
+            </p>
+            <p className="border-l border-[#FC6E20] pl-5 text-[#151419] dark:text-[#FBFBFB]">
+              The work is not about making things look good. It is about making
+              the business easier to understand, find, trust, and run.
+            </p>
+          </div>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/about"
+              className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-[#151419] px-6 py-3 font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#FBFBFB] transition-colors duration-300 hover:bg-[#FC6E20] hover:text-[#151419] dark:bg-[#FBFBFB] dark:text-[#151419] dark:hover:bg-[#FC6E20] sm:w-auto"
+            >
+              <AnimatedLinkText hiddenClassName="text-[#151419]">Read the full story</AnimatedLinkText>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#151419]/15 px-6 py-3 font-montserrat text-sm font-bold uppercase tracking-[0.06em] text-[#151419] transition-colors duration-300 hover:border-[#FC6E20] hover:text-[#FC6E20] dark:border-[#FBFBFB]/18 dark:text-[#FBFBFB] dark:hover:border-[#FC6E20] dark:hover:text-[#FC6E20] sm:w-auto"
+            >
+              <AnimatedLinkText>Start a conversation</AnimatedLinkText>
+            </Link>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function FinalCta() {
   return (
     <section className="content-gutter relative z-10 pb-24 md:pb-32">
@@ -924,6 +995,7 @@ export function WorkClient() {
       <ProofLenses />
       <ServiceDirections />
       <PublicBoundary />
+      <FounderAngle />
       <FinalCta />
     </main>
   );

@@ -76,7 +76,7 @@ export default function FounderTeaser() {
           <div className="relative overflow-hidden rounded-[2.25rem] border border-[#151419]/10 bg-[#151419] p-4 text-[#FBFBFB] shadow-[0_28px_70px_rgba(21,20,25,0.14)]">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[1.65rem] bg-[#F0EFED]">
               <Image
-                src="/images/disele-founder.jpg"
+                src="/images/disele-founder-editorial.webp"
                 alt="Disele, Founder of Kreative Reflow"
                 fill
                 sizes="(min-width: 1024px) 36vw, 100vw"

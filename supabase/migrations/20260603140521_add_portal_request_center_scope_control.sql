@@ -409,7 +409,7 @@ cross join (
       'operations@abc-engineering.example',
       'client_owner',
       timestamptz '2026-06-02 10:00:00+02',
-      'delite@kreativereflow.com',
+      'hello@kreativereflow.com',
       timestamptz '2026-06-02 12:00:00+02',
       'Logged from WhatsApp so the request does not live only in chat.',
       10
@@ -442,7 +442,7 @@ cross join (
       'operations@abc-engineering.example',
       'client_owner',
       timestamptz '2026-06-02 15:00:00+02',
-      'delite@kreativereflow.com',
+      'hello@kreativereflow.com',
       timestamptz '2026-06-03 09:00:00+02',
       'Keep out of active delivery until decision is recorded.',
       20
@@ -475,7 +475,7 @@ cross join (
       'operations@abc-engineering.example',
       'client_owner',
       timestamptz '2026-06-03 08:30:00+02',
-      'delite@kreativereflow.com',
+      'hello@kreativereflow.com',
       timestamptz '2026-06-03 10:00:00+02',
       'Phone-reported QA note logged after call.',
       30

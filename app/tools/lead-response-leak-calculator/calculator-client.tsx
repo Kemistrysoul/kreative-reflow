@@ -13,7 +13,6 @@ import {
   PhoneCall,
   RotateCcw,
   TrendingDown,
-  Zap,
 } from 'lucide-react';
 import {
   buildBrandedReportHtml,
@@ -21,6 +20,7 @@ import {
   getLeadCaptureErrorMessage,
   submitLeadCapture,
 } from '@/lib/lead-capture';
+
 
 type Status = 'critical' | 'warning' | 'info' | 'strong';
 
@@ -414,7 +414,7 @@ function SelectInput({
   value: string;
 }) {
   return (
-    <label className="block border border-white/10 bg-white/[0.035] p-5">
+    <label className="block rounded-[1.35rem] border border-white/10 bg-white/[0.035] p-5">
       <span className="font-montserrat text-xs font-bold uppercase tracking-[0.18em] text-[#FC6E20]">
         {label}
       </span>
@@ -424,7 +424,7 @@ function SelectInput({
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="mt-5 min-h-14 w-full border border-white/12 bg-[#151419] px-4 font-mono text-sm text-[#FBFBFB] outline-none transition-colors focus:border-[#FC6E20]"
+        className="mt-5 min-h-14 w-full rounded-[0.75rem] border border-white/12 bg-[#151419] px-4 font-mono text-sm text-[#FBFBFB] outline-none transition-colors focus:border-[#FC6E20]"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value} className="bg-[#151419] text-[#FBFBFB]">
@@ -433,6 +433,20 @@ function SelectInput({
         ))}
       </select>
     </label>
+  );
+}
+
+function VerticalLines({ dark = false }: { dark?: boolean }) {
+  return (
+    <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
+      {[1, 2, 3, 4, 5, 6].map((line) => (
+        <span
+          key={line}
+          className={`absolute top-0 h-full border-l ${dark ? 'border-[#FBFBFB]/[0.055]' : 'border-[#151419]/[0.045]'}`}
+          style={{ left: `${(line / 7) * 100}%` }}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -578,13 +592,13 @@ export function LeadResponseLeakCalculatorClient() {
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#F0EFED] text-[#151419] dark:bg-[#151419] dark:text-[#FBFBFB]">
-      <section className="relative isolate overflow-x-hidden bg-[#151419] text-[#FBFBFB]">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(251,251,251,0.055)_1px,transparent_1px),linear-gradient(180deg,rgba(251,251,251,0.04)_1px,transparent_1px)] bg-[size:clamp(72px,10vw,156px)_clamp(72px,10vw,156px)]" />
+    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:75px]">
+      <section className="relative isolate overflow-hidden bg-[#151419] text-[#FBFBFB]">
+        <VerticalLines dark />
         <div className="content-gutter grid gap-12 pb-16 pt-28 md:pb-24 md:pt-36 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
           <div className="lg:sticky lg:top-28">
             <SectionLabel>Lead Response Leak Calculator</SectionLabel>
-            <h1 className="mt-6 max-w-4xl font-playfair text-5xl font-bold leading-none text-[#FBFBFB] md:text-7xl lg:text-8xl">
+            <h1 className="mt-6 max-w-4xl font-playfair text-[clamp(3.1rem,7.2vw,7.2rem)] font-bold leading-[0.93] tracking-tight text-[#FBFBFB]">
               See what slow replies are costing you<span className="text-[#FC6E20]">.</span>
             </h1>
             <p className="mt-7 max-w-2xl font-montserrat text-base leading-8 text-[#F0EFED]/76 md:text-lg">
@@ -610,7 +624,7 @@ export function LeadResponseLeakCalculatorClient() {
             </div>
           </div>
 
-          <div className="border border-white/10 bg-[#1B1B1E] p-5 shadow-2xl shadow-black/25 md:p-7 lg:p-9">
+          <div className="rounded-[2.25rem] border border-white/10 bg-[#1B1B1E] p-5 shadow-2xl shadow-black/25 md:p-7 lg:p-9">
             <form onSubmit={handleCalculate}>
               <div className="flex items-center justify-between gap-4">
                 <div>
@@ -716,36 +730,26 @@ export function LeadResponseLeakCalculatorClient() {
             onReset={resetCalculator}
           />
         ) : (
-          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
-            <div>
-              <SectionLabel>Why this matters</SectionLabel>
-              <h2 className="mt-5 max-w-xl font-playfair text-4xl font-bold leading-none text-[#151419] dark:text-[#FBFBFB] md:text-6xl">
-                Leads decay before your sales team even starts<span className="text-[#FC6E20]">.</span>
-              </h2>
-              <p className="mt-6 max-w-xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
-                A slow first reply makes the buyer compare other providers,
-                forget the context, or assume the business is unavailable. The
-                quickest fix is usually not more traffic. It is a faster first
-                response.
-              </p>
-            </div>
+          <div>
+            <SectionLabel>Why this matters</SectionLabel>
+            <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.6rem,5.8vw,6rem)] font-bold leading-[0.95] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
+              Leads decay before your sales team even starts<span className="text-[#FC6E20]">.</span>
+            </h2>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="mt-12 grid gap-4 md:grid-cols-3">
               {[
-                ['Under 5 minutes', 'The benchmark this calculator compares against.'],
-                ['R1,200/month', 'Estimated baseline for simple response automation.'],
-                ['After hours', 'The hidden leak when leads arrive outside office time.'],
-              ].map(([title, body]) => (
+                { title: 'Under 5 minutes', body: 'The benchmark this calculator compares against.' },
+                { title: 'R1,200/month', body: 'Estimated baseline for simple response automation.' },
+                { title: 'After hours', body: 'The hidden leak when leads arrive outside office time.' },
+              ].map((item, index) => (
                 <article
-                  key={title}
-                  className="min-h-[16rem] border border-[#151419]/12 bg-[#FBFBFB] p-6 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]"
+                  key={item.title}
+                  className="min-h-full rounded-[1.35rem] border border-[#151419]/10 bg-[#F0EFED] p-6 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_22px_54px_rgba(21,20,25,0.12)] dark:border-[#FBFBFB]/10 dark:bg-[#F0EFED] dark:text-[#151419]"
                 >
-                  <Zap className="h-5 w-5 text-[#FC6E20]" strokeWidth={1.7} />
-                  <h3 className="mt-8 font-montserrat text-sm font-bold uppercase text-[#151419] dark:text-[#FBFBFB]">
-                    {title}
-                  </h3>
-                  <p className="mt-4 font-montserrat text-sm leading-7 text-[#151419]/62 dark:text-[#FBFBFB]/58">
-                    {body}
+                  <span className="font-mono text-xs text-[#FC6E20]">{String(index + 1).padStart(2, '0')}</span>
+                  <h3 className="mt-8 font-playfair text-3xl font-bold leading-[0.95] tracking-tight">{item.title}</h3>
+                  <p className="mt-5 border-t border-current/12 pt-5 font-montserrat text-sm leading-7 opacity-[0.68]">
+                    {item.body}
                   </p>
                 </article>
               ))}
@@ -765,10 +769,10 @@ export function LeadResponseLeakCalculatorClient() {
             </div>
             <Link
               href="/services/automation"
-              className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-[#151419] transition-colors hover:bg-[#FBFBFB]"
+              className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-[#151419] transition-colors hover:bg-[#FBFBFB] sm:w-auto"
             >
               View automation service
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </div>
@@ -907,7 +911,7 @@ function ResultsView({
           </div>
         </div>
 
-        <div className="border border-white/10 bg-white/[0.035] p-5 md:p-6">
+        <div className="rounded-[1.35rem] border border-white/10 bg-white/[0.035] p-5 md:p-6">
           <p className="font-montserrat text-xs font-bold uppercase tracking-[0.22em] text-[#FC6E20]">
             The fix pays for itself
           </p>
@@ -989,7 +993,7 @@ function ResultsView({
           </div>
         </div>
 
-        <div className="border border-[#FC6E20]/35 bg-[#FC6E20]/10 p-5 md:p-6">
+        <div className="rounded-[1.35rem] border border-[#FC6E20]/35 bg-[#FC6E20]/10 p-5 md:p-6">
           <p className="font-montserrat text-xs font-bold uppercase tracking-[0.22em] text-[#FC6E20]">
             Detailed action plan
           </p>
@@ -1039,7 +1043,7 @@ function ResultsView({
             </form>
           ) : (
             <div className="mt-6">
-              <p className="flex items-start gap-3 border border-[#FC6E20]/30 bg-[#FC6E20]/10 p-4 font-montserrat text-sm leading-7 text-[#F0EFED]/76">
+              <p className="flex items-start gap-3 rounded-[1rem] border border-[#FC6E20]/30 bg-[#FC6E20]/10 p-4 font-montserrat text-sm leading-7 text-[#F0EFED]/76">
                 <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[#FC6E20]" />
                 {reportStatusMessage || 'Your report is ready. You can download it now.'}
               </p>

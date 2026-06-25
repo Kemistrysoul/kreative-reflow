@@ -435,7 +435,7 @@ const demoThreads: PortalMessageThread[] = [
   makeDemoThread({
     contextLabel: 'REQ-001 - Homepage services CTA',
     contextType: 'request',
-    createdByEmail: 'delite@kreativereflow.com',
+    createdByEmail: 'hello@kreativereflow.com',
     id: 'demo-thread-homepage',
     internalNote: '',
     lastMessageAt: '3 June 2026, 12:00',
@@ -444,7 +444,7 @@ const demoThreads: PortalMessageThread[] = [
         actionDueOn: '5 June 2026',
         actionOwner: 'Client owner',
         actionRequired: true,
-        authorEmail: 'delite@kreativereflow.com',
+        authorEmail: 'hello@kreativereflow.com',
         authorRole: 'studio_admin',
         id: 'demo-message-1',
         messageBody: 'The homepage CTA can change to Request a quote if everyone is happy with that wording before build lock.',
@@ -482,7 +482,7 @@ const demoDecisions: PortalProjectDecision[] = [
   makeDemoDecision({
     actionItems: 'Studio to update the CTA wording in the next homepage pass.',
     decidedAt: '2 June 2026, 12:15',
-    decidedByEmail: 'delite@kreativereflow.com',
+    decidedByEmail: 'hello@kreativereflow.com',
     decidedByRole: 'studio_admin',
     decisionNumber: 'DEC-002',
     decisionSummary: 'The client asked on WhatsApp to make the homepage CTA feel more quote-led for industrial buyers.',

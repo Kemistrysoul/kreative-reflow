@@ -25,6 +25,7 @@ import {
   getLeadCaptureErrorMessage,
   submitLeadCapture,
 } from '@/lib/lead-capture';
+import { ExpandingCtaBackground } from '@/components/ExpandingCtaBackground';
 
 type CategoryId = 'speed' | 'mobile' | 'value_prop' | 'trust' | 'cta_forms';
 
@@ -696,9 +697,25 @@ function toneClasses(tone: ScoreInterpretation['tone']) {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="font-montserrat text-xs font-bold uppercase tracking-[0.3em] text-[#FC6E20]">
-      [ {children} ]
-    </p>
+    <span className="inline-flex items-center gap-2 font-montserrat text-[0.68rem] font-bold uppercase tracking-[0.28em] text-[#FC6E20]">
+      <span>[</span>
+      {children}
+      <span>]</span>
+    </span>
+  );
+}
+
+function VerticalLines({ dark = false }: { dark?: boolean }) {
+  return (
+    <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
+      {[1, 2, 3, 4, 5, 6].map((line) => (
+        <span
+          key={line}
+          className={`absolute top-0 h-full border-l ${dark ? 'border-[#FBFBFB]/[0.055]' : 'border-[#151419]/[0.045]'}`}
+          style={{ left: `${(line / 7) * 100}%` }}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -847,13 +864,13 @@ export function ScorecardClient() {
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#F0EFED] text-[#151419] dark:bg-[#151419] dark:text-[#FBFBFB]">
-      <section className="relative isolate overflow-x-hidden bg-[#151419] text-[#FBFBFB]">
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(251,251,251,0.055)_1px,transparent_1px),linear-gradient(180deg,rgba(251,251,251,0.04)_1px,transparent_1px)] bg-[size:clamp(72px,10vw,156px)_clamp(72px,10vw,156px)]" />
+    <main className="relative min-h-screen overflow-x-clip bg-[#F0EFED] text-[#151419] selection:bg-[#FC6E20] selection:text-[#151419] [--left-gutter:4.5rem] [--right-gutter:1rem] dark:bg-[#151419] dark:text-[#FBFBFB] sm:[--left-gutter:4.75rem] sm:[--right-gutter:1.5rem] lg:[--left-gutter:5.5rem] lg:[--right-gutter:3.5rem] xl:[--right-gutter:75px]">
+      <section className="relative isolate overflow-hidden bg-[#151419] text-[#FBFBFB]">
+        <VerticalLines dark />
         <div className="content-gutter grid gap-12 pb-16 pt-28 md:pb-24 md:pt-36 lg:min-h-screen lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
           <div>
             <SectionLabel>Website Lead Leak Scorecard</SectionLabel>
-            <h1 className="mt-6 max-w-4xl font-playfair text-5xl font-bold leading-none text-[#FBFBFB] md:text-7xl lg:text-8xl">
+            <h1 className="mt-6 max-w-4xl font-playfair text-[clamp(3.1rem,7.2vw,7.2rem)] font-bold leading-[0.93] tracking-tight text-[#FBFBFB]">
               Find where your website is losing leads<span className="text-[#FC6E20]">.</span>
             </h1>
             <p className="mt-7 max-w-2xl font-montserrat text-base leading-8 text-[#F0EFED]/76 md:text-lg">
@@ -867,7 +884,7 @@ export function ScorecardClient() {
                 ['25 checks', '14 scored + 11 diagnostic'],
                 ['Full report', 'Unlocked at result'],
               ].map(([label, value]) => (
-                <div key={label} className="border border-white/10 bg-white/[0.035] p-4">
+                <div key={label} className="rounded-[1.35rem] border border-white/10 bg-white/[0.035] p-4">
                   <p className="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-[#595959]">
                     {label}
                   </p>
@@ -877,7 +894,7 @@ export function ScorecardClient() {
             </div>
           </div>
 
-          <div className="border border-white/10 bg-[#1B1B1E] p-5 shadow-2xl shadow-black/25 md:p-7 lg:p-9">
+          <div className="rounded-[2.25rem] border border-white/10 bg-[#1B1B1E] p-5 shadow-2xl shadow-black/25 md:p-7 lg:p-9">
             {!showResults ? (
               <section aria-live="polite">
                 <div className="flex flex-col gap-5 border-b border-white/10 pb-6 md:flex-row md:items-start md:justify-between">
@@ -889,7 +906,7 @@ export function ScorecardClient() {
                       {activeCategory.description}
                     </p>
                   </div>
-                  <div className="shrink-0 border border-white/10 px-4 py-3 font-mono text-xs uppercase tracking-[0.16em] text-[#595959]">
+                  <div className="shrink-0 rounded-[0.5rem] border border-white/10 px-4 py-3 font-mono text-xs uppercase tracking-[0.16em] text-[#595959]">
                     {currentCategoryPosition}/{currentCategoryQuestions.length}
                   </div>
                 </div>
@@ -901,9 +918,9 @@ export function ScorecardClient() {
                     </span>
                     <span>{progressPercentage}% complete</span>
                   </div>
-                  <div className="mt-3 h-2 overflow-hidden bg-white/10">
+                  <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
                     <div
-                      className="h-full bg-[#FC6E20] transition-all duration-300"
+                      className="h-full rounded-full bg-[#FC6E20] transition-all duration-300"
                       style={{ width: `${progressPercentage}%` }}
                     />
                   </div>
@@ -926,14 +943,14 @@ export function ScorecardClient() {
                           key={option.value}
                           type="button"
                           onClick={() => handleAnswer(option.value)}
-                          className={`group grid min-h-[76px] grid-cols-[1.5rem_1fr_auto] items-center gap-4 border p-4 text-left transition-colors ${
+                          className={`group grid min-h-[76px] grid-cols-[1.5rem_1fr_auto] items-center gap-4 rounded-[1rem] border p-4 text-left transition-colors ${
                             active
                               ? 'border-[#FC6E20] bg-[#FC6E20] text-[#151419]'
                               : 'border-white/10 bg-white/[0.035] text-[#FBFBFB] hover:border-[#FC6E20]'
                           }`}
                         >
                           <span
-                            className={`h-4 w-4 border ${
+                            className={`h-4 w-4 rounded-[0.25rem] border ${
                               active ? 'border-[#151419] bg-[#151419]' : 'border-white/35'
                             }`}
                             aria-hidden="true"
@@ -1010,11 +1027,11 @@ export function ScorecardClient() {
         </div>
       </section>
 
-      <section className="content-gutter py-20 md:py-28">
+      <section className="content-gutter relative z-10 py-20 md:py-28">
         <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
           <div>
             <SectionLabel>How to use the result</SectionLabel>
-            <h2 className="mt-5 max-w-xl font-playfair text-4xl font-bold leading-none text-[#151419] dark:text-[#FBFBFB] md:text-6xl">
+            <h2 className="mt-5 max-w-xl font-playfair text-[clamp(2.5rem,5vw,5rem)] font-bold leading-[0.96] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
               Fix the leak in the right order<span className="text-[#FC6E20]">.</span>
             </h2>
             <p className="mt-6 max-w-xl font-montserrat text-base leading-8 text-[#151419]/64 dark:text-[#FBFBFB]/62">
@@ -1033,7 +1050,7 @@ export function ScorecardClient() {
             ].map(([label, body]) => (
               <article
                 key={label}
-                className="border border-[#151419]/12 bg-[#FBFBFB] p-6 dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]"
+                className="rounded-[1.35rem] border border-[#151419]/12 bg-[#FBFBFB]/70 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_54px_rgba(21,20,25,0.1)] dark:border-[#FBFBFB]/10 dark:bg-[#1B1B1E]"
               >
                 <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#FC6E20]">
                   {label}
@@ -1047,24 +1064,24 @@ export function ScorecardClient() {
         </div>
       </section>
 
-      <section className="content-gutter pb-24 md:pb-32">
-        <div className="border border-[#151419]/12 bg-[#151419] p-7 text-[#FBFBFB] md:p-10 lg:p-14">
+      <section className="content-gutter relative z-10 pb-24 md:pb-32">
+        <ExpandingCtaBackground>
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
               <SectionLabel>Need a second pair of eyes?</SectionLabel>
-              <h2 className="mt-5 max-w-4xl font-playfair text-4xl font-bold leading-none md:text-6xl">
+              <h2 className="mt-5 max-w-4xl font-playfair text-[clamp(2.5rem,5vw,5rem)] font-bold leading-[0.96] tracking-tight">
                 Bring the score. We will turn it into a practical fix plan<span className="text-[#FC6E20]">.</span>
               </h2>
             </div>
             <Link
               href="/contact"
-              className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-[#151419] transition-colors hover:bg-[#FBFBFB]"
+              className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#FC6E20] px-6 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-[#151419] transition-colors hover:bg-[#FBFBFB] sm:w-auto"
             >
               Book an audit
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
-        </div>
+        </ExpandingCtaBackground>
       </section>
     </main>
   );
@@ -1109,7 +1126,7 @@ function ResultsView({
 
   return (
     <section aria-live="polite">
-      <div className={`border p-5 ${toneClasses(interpretation.tone)}`}>
+      <div className={`rounded-[1.35rem] border p-5 ${toneClasses(interpretation.tone)}`}>
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div>
             <p className="font-montserrat text-xs font-bold uppercase tracking-[0.22em] text-[#FC6E20]">
@@ -1119,7 +1136,7 @@ function ResultsView({
               {result.percentage}/100
             </h2>
           </div>
-          <div className="inline-flex items-center gap-3 border border-white/10 bg-black/10 px-4 py-3">
+          <div className="inline-flex items-center gap-3 rounded-[0.75rem] border border-white/10 bg-black/10 px-4 py-3">
             {interpretation.tone === 'strong' ? (
               <CheckCircle2 className="h-5 w-5 text-emerald-300" strokeWidth={1.7} />
             ) : interpretation.tone === 'warning' ? (
@@ -1152,7 +1169,7 @@ function ResultsView({
           return (
             <article
               key={categoryId}
-              className="border border-white/10 bg-white/[0.035] p-4 text-[#FBFBFB]"
+              className="rounded-[1rem] border border-white/10 bg-white/[0.035] p-4 text-[#FBFBFB]"
             >
               <Icon className="h-4 w-4 text-[#FC6E20]" strokeWidth={1.7} />
               <p className="mt-5 font-montserrat text-[10px] font-bold uppercase tracking-[0.18em] text-[#595959]">
@@ -1175,7 +1192,7 @@ function ResultsView({
             {priorityFixes.map((fix, index) => (
               <div
                 key={fix}
-                className="grid grid-cols-[2rem_1fr] gap-4 border border-white/10 bg-white/[0.035] p-4"
+                className="grid grid-cols-[2rem_1fr] gap-4 rounded-[1rem] border border-white/10 bg-white/[0.035] p-4"
               >
                 <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#FC6E20]">
                   {String(index + 1).padStart(2, '0')}
@@ -1207,7 +1224,7 @@ function ResultsView({
           </div>
         </div>
 
-        <div className="border border-white/10 bg-white/[0.035] p-5">
+        <div className="rounded-[1.35rem] border border-white/10 bg-white/[0.035] p-5">
           <p className="font-montserrat text-xs font-bold uppercase tracking-[0.22em] text-[#FC6E20]">
             Full report
           </p>
@@ -1227,7 +1244,7 @@ function ResultsView({
                 <input
                   value={leadName}
                   onChange={(event) => onLeadNameChange(event.target.value)}
-                  className="mt-2 min-h-12 w-full border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20]"
+                  className="mt-2 min-h-12 w-full rounded-[0.75rem] border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20]"
                   placeholder="Your name"
                   autoComplete="name"
                 />
@@ -1242,7 +1259,7 @@ function ResultsView({
                   required
                   type="email"
                   inputMode="email"
-                  className="mt-2 min-h-12 w-full border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20]"
+                  className="mt-2 min-h-12 w-full rounded-[0.75rem] border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20]"
                   placeholder="you@example.com"
                   autoComplete="email"
                 />
@@ -1254,7 +1271,7 @@ function ResultsView({
                 <input
                   value={leadBusiness}
                   onChange={(event) => onLeadBusinessChange(event.target.value)}
-                  className="mt-2 min-h-12 w-full border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20]"
+                  className="mt-2 min-h-12 w-full rounded-[0.75rem] border border-white/10 bg-[#151419] px-4 font-montserrat text-sm text-[#FBFBFB] outline-none transition-colors placeholder:text-[#595959] focus:border-[#FC6E20]"
                   placeholder="Business name"
                   autoComplete="organization"
                 />
@@ -1275,7 +1292,7 @@ function ResultsView({
             </form>
           ) : (
             <div className="mt-6">
-              <p className="flex items-start gap-3 border border-[#FC6E20]/30 bg-[#FC6E20]/10 p-4 font-montserrat text-sm leading-7 text-[#F0EFED]/76">
+              <p className="flex items-start gap-3 rounded-[1rem] border border-[#FC6E20]/30 bg-[#FC6E20]/10 p-4 font-montserrat text-sm leading-7 text-[#F0EFED]/76">
                 <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[#FC6E20]" />
                 {reportStatusMessage || 'Your report is ready. You can download it now.'}
               </p>

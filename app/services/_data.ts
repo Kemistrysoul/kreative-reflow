@@ -14,6 +14,7 @@ export const serviceDetails = {
       'A fast, responsive, conversion-ready website with a clear story, useful page structure, and room to grow after launch.',
     proof:
       'This is the layer behind builds like Coach Kagiso and Touch Teq: public websites designed around trust, service clarity, and qualified action.',
+    heroPreview: 'web-design',
     proofPoints: [
       {
         label: 'Public fit',
@@ -160,6 +161,7 @@ export const serviceDetails = {
       'A focused internal system, portal, or SaaS-style product that makes the important work visible, trackable, and easier to manage.',
     proof:
       'This is the private operations layer behind projects that need more than a marketing page: dashboards, submissions, asset libraries, quote flows, and project workspaces.',
+    heroPreview: 'saas-dashboard',
     proofPoints: [
       {
         label: 'Operations',
@@ -306,6 +308,7 @@ export const serviceDetails = {
       'A structured visibility foundation that makes the business easier to find, understand, and trust.',
     proof:
       'This service pairs naturally with websites for practices, service businesses, engineering firms, and local brands that need clarity plus discoverability.',
+    heroPreview: 'seo',
     proofPoints: [
       {
         label: 'Structure',
@@ -452,6 +455,7 @@ export const serviceDetails = {
       'Practical automations that move information, trigger reminders, prepare outputs, and reduce repetitive admin without hiding how the work happens.',
     proof:
       'This layer connects naturally to dashboards, content operations, lead intake, quote workflows, and after-launch support.',
+    heroPreview: 'automation',
     proofPoints: [
       {
         label: 'Admin reduction',
@@ -598,6 +602,12 @@ export const serviceDetails = {
       'A clear roadmap that separates what matters now from what can wait, with a recommended next step and implementation path.',
     proof:
       'This is often the smartest first step when a business has grown around workarounds and needs direction before committing to a larger build.',
+    heroPreview: 'consulting',
+    founderNote: {
+      eyebrow: 'Who you work with',
+      heading: 'Consulting is led directly by the founder',
+      body: 'Consulting is the most personal service here, so you work with Disele directly, not a handoff. Seven years across medical sales and neurology, plus the systems built for service businesses since, go into mapping your bottleneck before anyone talks about scope or budget.',
+    },
     proofPoints: [
       {
         label: 'Clarity',
@@ -744,6 +754,7 @@ export const serviceDetails = {
       'A healthier, more stable digital product with clear support, practical improvements, and fewer surprises.',
     proof:
       'This service protects the work after launch so websites, dashboards, and automation systems do not slowly drift out of shape.',
+    heroPreview: 'maintenance',
     proofPoints: [
       {
         label: 'Care rhythm',

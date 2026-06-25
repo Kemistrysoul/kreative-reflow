@@ -2004,6 +2004,20 @@ export function HomeFinalCta() {
                 manual admin, or a dashboard the business keeps describing in
                 spreadsheets, the first move is to make the problem clear.
               </p>
+              <div className="mt-8 flex items-center gap-4 rounded-[1.35rem] border border-[#151419]/10 bg-[#FBFBFB]/70 p-4">
+                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border border-[#151419]/10 bg-[#F0EFED]">
+                  <Image
+                    src="/images/disele-founder-casual.webp"
+                    alt="Disele Mphafe, Founder of Kreative Reflow"
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                  />
+                </div>
+                <p className="font-montserrat text-sm leading-6 text-[#151419]/72">
+                  You will work directly with Disele, the founder — not a queue or a sales layer.
+                </p>
+              </div>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <Link
