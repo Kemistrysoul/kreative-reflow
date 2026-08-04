@@ -8,6 +8,7 @@ import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } f
 import {
   ArrowRight,
   CalendarCheck,
+  ExternalLink,
   LockKeyhole,
   PanelsTopLeft,
   Search,
@@ -36,6 +37,8 @@ type FeaturedProject = {
   imageHeight: number;
   accent: string;
   serviceHref: string;
+  liveUrl: string;
+  liveLabel: string;
 };
 
 type ProofLens = {
@@ -78,6 +81,8 @@ const featuredProjects: FeaturedProject[] = [
     imageHeight: 5490,
     accent: '#C7AA94',
     serviceHref: '/services/web-design',
+    liveUrl: 'https://coachkagiso.co.za/',
+    liveLabel: 'Visit live site',
   },
   {
     id: '02',
@@ -111,6 +116,8 @@ const featuredProjects: FeaturedProject[] = [
     imageHeight: 7158,
     accent: '#FC6E20',
     serviceHref: '/services/saas-development',
+    liveUrl: 'https://touchteq.co.za/',
+    liveLabel: 'Visit live site',
   },
   {
     id: '03',
@@ -145,6 +152,8 @@ const featuredProjects: FeaturedProject[] = [
     imageHeight: 8016,
     accent: '#154230',
     serviceHref: '/services/saas-development',
+    liveUrl: 'https://ubuntu-funerals.vercel.app/',
+    liveLabel: 'View concept demo',
   },
 ];
 
@@ -361,8 +370,8 @@ function buildScrollStackKeyframes(index: number, total: number) {
 
 function WorkHero() {
   return (
-    <section className="content-gutter relative z-10 grid min-h-screen grid-cols-1 items-start gap-12 py-28 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.78fr)] lg:items-center lg:gap-16 lg:py-32">
-      <Reveal>
+    <section className="content-gutter relative z-10 grid min-h-screen grid-cols-1 items-start gap-12 py-28 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.78fr)] lg:items-start lg:gap-16 lg:pb-32 lg:pt-20">
+      <Reveal className="lg:sticky lg:top-20 lg:self-start">
         <SectionLabel>Selected work</SectionLabel>
         <h1 className="mt-8 max-w-5xl font-playfair text-[clamp(3.1rem,7.2vw,7.2rem)] font-bold leading-[0.93] tracking-tight text-[#151419] dark:text-[#FBFBFB]">
           Work built as proof, not decoration<span className="text-[#FC6E20]">.</span>
@@ -378,7 +387,7 @@ function WorkHero() {
         </div>
       </Reveal>
 
-      <Reveal delay={0.08}>
+      <Reveal className="lg:self-start" delay={0.08}>
         <ProofIndexStage />
       </Reveal>
     </section>
@@ -486,6 +495,15 @@ function BrowserFrame({ project }: { project: FeaturedProject }) {
           priority={project.id === '01'}
         />
       </div>
+      <a
+        href={project.liveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 inline-flex min-h-10 w-full items-center justify-between border border-white/14 bg-white/[0.06] px-3 font-montserrat text-[0.65rem] font-bold uppercase tracking-[0.14em] text-white transition-colors hover:border-[#FC6E20] hover:bg-[#FC6E20] hover:text-[#151419] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FC6E20]"
+      >
+        <span>{project.liveLabel}</span>
+        <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+      </a>
     </div>
   );
 }
