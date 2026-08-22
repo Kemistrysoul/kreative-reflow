@@ -765,6 +765,26 @@ export function StudioProjectsWorkspace({
         ))}
       </section>
 
+      <section className="grid gap-5 xl:grid-cols-[1.08fr_0.92fr]">
+        <StudioPanel title="Invite to portal" eyebrow="Client access" icon={Mail}>
+          <StudioInvitePanel />
+        </StudioPanel>
+
+        <StudioPanel title="How inviting works" eyebrow="What happens next" icon={ShieldCheck}>
+          <div className="space-y-3">
+            <DetailCard label="Step 1" value="Enter client email and choose role — link sends automatically" />
+            <DetailCard label="Step 2" value="Client clicks magic link at /portal/login and lands in their project" />
+            <DetailCard label="Step 3" value="Client completes onboarding — you review it below" />
+            <div className="rounded-[22px] border border-white/8 bg-[#151419] p-4">
+              <p className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Roles</p>
+              <p className="mt-3 font-montserrat text-sm leading-6 text-[#FBFBFB]">
+                Owner can upload and approve, Collaborator can upload, Viewer is read-only. Studio Admin is you.
+              </p>
+            </div>
+          </div>
+        </StudioPanel>
+      </section>
+
       <section className="grid gap-5 xl:grid-cols-[0.84fr_1.16fr]">
         <StudioPanel title="Kickoff from CRM" eyebrow="Review before delivery starts" icon={ArrowRight}>
           <div className="space-y-3">
@@ -1245,6 +1265,95 @@ export function StudioProjectsWorkspace({
             );
           }}
         />
+      ) : null}
+    </div>
+  );
+}
+
+function StudioInvitePanel() {
+  const [email, setEmail] = useState('');
+  const [projectSlug, setProjectSlug] = useState('abc-engineering-website-redesign');
+  const [role, setRole] = useState('client_owner');
+  const [sending, setSending] = useState(false);
+  const [feedback, setFeedback] = useState<{ tone: 'error' | 'success'; message: string } | null>(null);
+
+  async function handleInvite() {
+    setSending(true);
+    setFeedback(null);
+    try {
+      const res = await fetch('/api/portal/members', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, projectSlug, role }),
+      });
+      const payload = (await res.json()) as { ok?: boolean; error?: string };
+      if (!res.ok || !payload.ok) {
+        throw new Error(payload.error || 'Invite could not be sent.');
+      }
+      setFeedback({ tone: 'success', message: `Invite sent to ${email} as ${role} for ${projectSlug}. Magic link triggered.` });
+      setEmail('');
+    } catch (e) {
+      setFeedback({ tone: 'error', message: e instanceof Error ? e.message : 'Invite could not be sent.' });
+    } finally {
+      setSending(false);
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="grid gap-3">
+        <label className="block">
+          <span className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Client email</span>
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="client@example.com"
+            className="mt-2 w-full rounded-[14px] border border-white/10 bg-white/5 px-4 py-3 font-montserrat text-sm text-white outline-none placeholder:text-[#595959] focus:border-[#FC6E20]"
+          />
+        </label>
+        <label className="block">
+          <span className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Project slug</span>
+          <input
+            value={projectSlug}
+            onChange={(e) => setProjectSlug(e.target.value)}
+            placeholder="abc-engineering-website-redesign"
+            className="mt-2 w-full rounded-[14px] border border-white/10 bg-white/5 px-4 py-3 font-montserrat text-sm text-white outline-none placeholder:text-[#595959] focus:border-[#FC6E20]"
+          />
+          <span className="mt-2 block font-montserrat text-xs text-[#595959]">Use the project slug from Supabase (currently only abc-engineering-website-redesign exists).</span>
+        </label>
+        <label className="block">
+          <span className="font-montserrat text-[11px] uppercase tracking-[0.18em] text-[#595959]">Role</span>
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            className="mt-2 w-full rounded-[14px] border border-white/10 bg-white/5 px-4 py-3 font-montserrat text-sm text-white outline-none focus:border-[#FC6E20]"
+          >
+            <option value="client_owner">client_owner — can upload, approve, submit onboarding</option>
+            <option value="client_collaborator">client_collaborator — can upload, submit</option>
+            <option value="viewer">viewer — read only</option>
+            <option value="studio_admin">studio_admin — you</option>
+          </select>
+        </label>
+      </div>
+      <button
+        type="button"
+        onClick={() => void handleInvite()}
+        disabled={sending || !email || !projectSlug}
+        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-sm font-semibold text-[#151419] transition hover:bg-[#DD6211] disabled:opacity-50"
+      >
+        {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+        {sending ? 'Sending invite...' : 'Send invite + magic link'}
+      </button>
+      {feedback ? (
+        <p
+          className={`flex items-start gap-2 rounded-[14px] border p-3 font-montserrat text-sm leading-6 ${
+            feedback.tone === 'success' ? 'border-[#FC6E20]/30 bg-[#FC6E20]/10 text-[#FC6E20]' : 'border-red-400/25 bg-red-400/10 text-red-100'
+          }`}
+        >
+          {feedback.tone === 'success' ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" /> : <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />}
+          {feedback.message}
+        </p>
       ) : null}
     </div>
   );
