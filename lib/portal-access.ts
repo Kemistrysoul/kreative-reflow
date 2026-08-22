@@ -160,7 +160,7 @@ function mapAuthorizedAccess(
 }
 
 export async function getPortalAccess(
-  projectSlug = defaultPortalProjectSlug,
+  projectSlug?: string,
 ): Promise<PortalAccess | PortalAuthGateState> {
   const auth = await getPortalAuthState();
 
@@ -178,7 +178,50 @@ export async function getPortalAccess(
     };
   }
 
-  const { rows, error } = await getMembershipRows(supabase, auth, { projectSlug });
+  // Explicit slug: preserve existing scoped behaviour for API routes.
+  if (projectSlug) {
+    const { rows, error } = await getMembershipRows(supabase, auth, { projectSlug });
+
+    if (error || !rows) {
+      return {
+        status: 'empty',
+        auth,
+        message: 'Portal project access could not be checked.',
+      };
+    }
+
+    if (!rows.length) {
+      return {
+        status: 'unauthorized',
+        auth,
+        message: 'You are signed in, but this project is not assigned to your portal account.',
+      };
+    }
+
+    const activeRow = rows.find(isActiveMembership);
+
+    if (!activeRow) {
+      return {
+        status: 'expired',
+        auth,
+        message: 'Your portal invite has expired or was revoked. Ask the studio for a fresh invite.',
+      };
+    }
+
+    if (!isAvailableProject(activeRow)) {
+      return {
+        status: 'empty',
+        auth,
+        message: 'This portal project is not available yet.',
+      };
+    }
+
+    return mapAuthorizedAccess(activeRow, auth);
+  }
+
+  // No slug: resolve caller's own membership. This is the portal's project
+  // resolution path. Do not default to defaultPortalProjectSlug.
+  const { rows, error } = await getMembershipRows(supabase, auth, {});
 
   if (error || !rows) {
     return {
@@ -196,9 +239,9 @@ export async function getPortalAccess(
     };
   }
 
-  const activeRow = rows.find(isActiveMembership);
+  const activeRows = rows.filter(isActiveMembership);
 
-  if (!activeRow) {
+  if (!activeRows.length) {
     return {
       status: 'expired',
       auth,
@@ -206,7 +249,9 @@ export async function getPortalAccess(
     };
   }
 
-  if (!isAvailableProject(activeRow)) {
+  const availableRows = activeRows.filter(isAvailableProject);
+
+  if (!availableRows.length) {
     return {
       status: 'empty',
       auth,
@@ -214,7 +259,19 @@ export async function getPortalAccess(
     };
   }
 
-  return mapAuthorizedAccess(activeRow, auth);
+  // Single membership: use it. Multiple: pick deterministically by most
+  // recently accepted (project picker is the eventual answer).
+  if (availableRows.length === 1) {
+    return mapAuthorizedAccess(availableRows[0], auth);
+  }
+
+  const sorted = [...availableRows].sort((a, b) => {
+    const aTime = a.accepted_at ? new Date(a.accepted_at).getTime() : 0;
+    const bTime = b.accepted_at ? new Date(b.accepted_at).getTime() : 0;
+    return bTime - aTime;
+  });
+
+  return mapAuthorizedAccess(sorted[0], auth);
 }
 
 export async function getStudioAccess(): Promise<StudioAccess | PortalAuthGateState> {
