@@ -7,11 +7,205 @@ import { getPortalSupabaseClient } from '@/lib/portal-supabase';
 
 export const runtime = 'nodejs';
 
+type OnboardingResponseRow = {
+  response_status: 'draft' | 'submitted';
+  contact_name: string;
+  contact_email: string;
+  contact_phone: string;
+  approval_role: string;
+  audience_type: string;
+  project_goals: string;
+  primary_audience: string;
+  services: string[] | null;
+  access_needs: string;
+  brand_assets_status: string;
+  technical_accounts: string;
+  preferred_deadline: string | null;
+  launch_constraints: string;
+  content_notes: string;
+  consent_to_terms: boolean;
+  current_website: string;
+  budget_range: string | null;
+  competitors: string;
+  decision_process: string;
+  specific_features: string;
+  social_presence: string;
+  tone_style_preferences: string;
+  previous_agency_experience: string;
+  existing_integrations: string[] | null;
+  missing_content_owner: string;
+  missing_content_due_date: string | null;
+  missing_access_owner: string;
+  missing_access_due_date: string | null;
+  update_cadence: string;
+  preferred_update_channel: string;
+  urgent_channel: string;
+  meeting_availability: string;
+  scope_inclusions: string;
+  scope_exclusions: string;
+  revision_rounds: string;
+  change_request_authority: string;
+  scope_boundary_accepted: boolean;
+  submitted_at: string | null;
+  last_saved_at: string | null;
+};
+
 function hasSameOrigin(request: NextRequest) {
   const origin = request.headers.get('origin');
   if (!origin) return true;
 
   return origin === new URL(request.url).origin;
+}
+
+export async function GET(request: NextRequest) {
+  const authState = await getPortalAuthState();
+
+  if (authState.status === 'missing-config') {
+    return NextResponse.json({ error: 'Supabase Auth is not configured.' }, { status: 503 });
+  }
+
+  if (authState.status === 'unauthenticated') {
+    return NextResponse.json({ error: 'Portal authentication is required.' }, { status: 401 });
+  }
+
+  const { searchParams } = new URL(request.url);
+  const projectSlug = searchParams.get('projectSlug')?.trim() || undefined;
+  const access = await getPortalAccess(projectSlug);
+
+  if (access.status === 'missing-config') {
+    return NextResponse.json({ error: 'Supabase Auth is not configured.' }, { status: 503 });
+  }
+
+  if (access.status === 'unauthenticated') {
+    return NextResponse.json({ error: 'Portal authentication is required.' }, { status: 401 });
+  }
+
+  if (access.status !== 'authorized') {
+    return NextResponse.json({ error: access.message }, { status: access.status === 'expired' ? 410 : 403 });
+  }
+
+  const supabase = getPortalSupabaseClient();
+
+  if (!supabase) {
+    return NextResponse.json({ ok: true, mode: 'demo', response: null });
+  }
+
+  const { data, error } = await supabase
+    .from('portal_onboarding_responses')
+    .select(
+      [
+        'response_status',
+        'contact_name',
+        'contact_email',
+        'contact_phone',
+        'approval_role',
+        'audience_type',
+        'project_goals',
+        'primary_audience',
+        'services',
+        'access_needs',
+        'brand_assets_status',
+        'technical_accounts',
+        'preferred_deadline',
+        'launch_constraints',
+        'content_notes',
+        'consent_to_terms',
+        'current_website',
+        'budget_range',
+        'competitors',
+        'decision_process',
+        'specific_features',
+        'social_presence',
+        'tone_style_preferences',
+        'previous_agency_experience',
+        'existing_integrations',
+        'missing_content_owner',
+        'missing_content_due_date',
+        'missing_access_owner',
+        'missing_access_due_date',
+        'update_cadence',
+        'preferred_update_channel',
+        'urgent_channel',
+        'meeting_availability',
+        'scope_inclusions',
+        'scope_exclusions',
+        'revision_rounds',
+        'change_request_authority',
+        'scope_boundary_accepted',
+        'submitted_at',
+        'last_saved_at',
+      ].join(','),
+    )
+    .eq('project_id', access.projectId)
+    .order('last_saved_at', { ascending: false })
+    .limit(1)
+    .maybeSingle<OnboardingResponseRow>();
+
+  if (error) {
+    await recordPortalOperationalEvent({
+      actorEmail: access.auth.email,
+      detail: error.message || 'Onboarding fetch failed.',
+      eventType: 'project_data_error',
+      metadata: { projectSlug: access.projectSlug },
+      projectId: access.projectId,
+      severity: 'warning',
+      sourceRoute: '/api/portal/onboarding',
+      title: 'Onboarding fetch could not be completed',
+    });
+
+    return NextResponse.json({ error: 'Onboarding could not be loaded.' }, { status: 500 });
+  }
+
+  if (!data) {
+    return NextResponse.json({ ok: true, mode: 'supabase', response: null });
+  }
+
+  return NextResponse.json({
+    ok: true,
+    mode: 'supabase',
+    response: {
+      status: data.response_status,
+      contactName: data.contact_name ?? '',
+      contactEmail: data.contact_email ?? '',
+      contactPhone: data.contact_phone ?? '',
+      approvalRole: data.approval_role ?? '',
+      audienceType: data.audience_type ?? '',
+      projectGoals: data.project_goals ?? '',
+      primaryAudience: data.primary_audience ?? '',
+      services: Array.isArray(data.services) ? data.services : [],
+      accessNeeds: data.access_needs ?? '',
+      brandAssetsStatus: data.brand_assets_status ?? '',
+      technicalAccounts: data.technical_accounts ?? '',
+      preferredDeadline: data.preferred_deadline ?? '',
+      launchConstraints: data.launch_constraints ?? '',
+      contentNotes: data.content_notes ?? '',
+      consentToTerms: Boolean(data.consent_to_terms),
+      currentWebsite: data.current_website ?? '',
+      budgetRange: data.budget_range ?? '',
+      competitors: data.competitors ?? '',
+      decisionProcess: data.decision_process ?? '',
+      specificFeatures: data.specific_features ?? '',
+      socialPresence: data.social_presence ?? '',
+      toneStylePreferences: data.tone_style_preferences ?? '',
+      previousAgencyExperience: data.previous_agency_experience ?? '',
+      existingIntegrations: Array.isArray(data.existing_integrations) ? data.existing_integrations : [],
+      missingContentOwner: data.missing_content_owner ?? '',
+      missingContentDueDate: data.missing_content_due_date ?? '',
+      missingAccessOwner: data.missing_access_owner ?? '',
+      missingAccessDueDate: data.missing_access_due_date ?? '',
+      updateCadence: data.update_cadence ?? '',
+      preferredUpdateChannel: data.preferred_update_channel ?? '',
+      urgentChannel: data.urgent_channel ?? '',
+      meetingAvailability: data.meeting_availability ?? '',
+      scopeInclusions: data.scope_inclusions ?? '',
+      scopeExclusions: data.scope_exclusions ?? '',
+      revisionRounds: data.revision_rounds ?? '',
+      changeRequestAuthority: data.change_request_authority ?? '',
+      scopeBoundaryAccepted: Boolean(data.scope_boundary_accepted),
+      lastSavedAt: data.last_saved_at ?? null,
+      submittedAt: data.submitted_at ?? null,
+    },
+  });
 }
 
 export async function POST(request: NextRequest) {

@@ -555,7 +555,8 @@ function PortalSectionContent({
         body="Clients can submit a request, and anything outside the agreed scope waits for a recorded approve, decline, or park decision before work starts."
       >
         <PortalRequestCenter
-          canSubmit={accessCanSubmit}
+          canSubmit={accessCanSubmit && portalReadinessGate.isReadyForActiveDelivery}
+          isReadyForActiveDelivery={portalReadinessGate.isReadyForActiveDelivery}
           projectSlug={portalProject.slug}
           requestSummary={portalRequests}
         />
@@ -571,8 +572,9 @@ function PortalSectionContent({
         body="Meeting requests, message threads, and official decisions live together so phone calls and WhatsApp notes do not disappear from the project record."
       >
         <PortalCommunicationCenter
-          canSubmit={accessCanSubmit}
+          canSubmit={accessCanSubmit && portalReadinessGate.isReadyForActiveDelivery}
           communicationSummary={portalCommunications}
+          isReadyForActiveDelivery={portalReadinessGate.isReadyForActiveDelivery}
           projectSlug={portalProject.slug}
         />
       </SectionFrame>
@@ -689,7 +691,7 @@ function OverviewSection({
 
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-7">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         <OverviewMetric
           href="/portal?section=plan"
           icon={FolderKanban}

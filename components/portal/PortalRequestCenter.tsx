@@ -24,6 +24,7 @@ import type {
 
 type PortalRequestCenterProps = {
   canSubmit: boolean;
+  isReadyForActiveDelivery: boolean;
   projectSlug: string;
   requestSummary: PortalRequestSummary;
 };
@@ -189,6 +190,7 @@ function TextAreaField({
 
 export function PortalRequestCenter({
   canSubmit,
+  isReadyForActiveDelivery,
   projectSlug,
   requestSummary,
 }: PortalRequestCenterProps) {
@@ -351,6 +353,13 @@ export function PortalRequestCenter({
           <MessageSquareText className="h-6 w-6 text-[#FC6E20]" />
         </div>
 
+        {!isReadyForActiveDelivery ? (
+          <p className="mb-4 flex items-start gap-3 rounded-xl border border-amber-300/30 bg-amber-300/10 p-3 font-montserrat text-sm leading-6 text-amber-100">
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+            Requests are locked until the project passes the active-delivery gate (contract, scope, deposit, and access).
+          </p>
+        ) : null}
+
         <div className="grid gap-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <label>
@@ -443,7 +452,7 @@ export function PortalRequestCenter({
           <button
             type="button"
             onClick={() => void submitRequest()}
-            disabled={!canSubmit || submitting}
+            disabled={!canSubmit || !isReadyForActiveDelivery || submitting}
             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#DD6211] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowUpRight className="h-4 w-4" />}

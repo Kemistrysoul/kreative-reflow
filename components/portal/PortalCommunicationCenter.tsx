@@ -23,6 +23,7 @@ import type {
 type PortalCommunicationCenterProps = {
   canSubmit: boolean;
   communicationSummary: PortalCommunicationSummary;
+  isReadyForActiveDelivery: boolean;
   projectSlug: string;
 };
 
@@ -202,6 +203,7 @@ function Detail({ label, value }: { label: string; value: string }) {
 export function PortalCommunicationCenter({
   canSubmit,
   communicationSummary,
+  isReadyForActiveDelivery,
   projectSlug,
 }: PortalCommunicationCenterProps) {
   const [meetings, setMeetings] = useState(communicationSummary.meetings);
@@ -408,6 +410,13 @@ export function PortalCommunicationCenter({
             <CalendarClock className="h-6 w-6 text-[#FC6E20]" />
           </div>
 
+          {!isReadyForActiveDelivery ? (
+            <p className="mb-4 flex items-start gap-3 rounded-xl border border-amber-300/30 bg-amber-300/10 p-3 font-montserrat text-sm leading-6 text-amber-100">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              Meeting requests are locked until the project passes the active-delivery gate (contract, scope, deposit, and access).
+            </p>
+          ) : null}
+
           <div className="grid gap-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <label>
@@ -462,7 +471,7 @@ export function PortalCommunicationCenter({
             <button
               type="button"
               onClick={() => void submitMeeting()}
-              disabled={!canSubmit || savingMeeting}
+              disabled={!canSubmit || !isReadyForActiveDelivery || savingMeeting}
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#DD6211] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {savingMeeting ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowUpRight className="h-4 w-4" />}
@@ -481,6 +490,13 @@ export function PortalCommunicationCenter({
             </div>
             <MessagesSquare className="h-6 w-6 text-[#FC6E20]" />
           </div>
+
+          {!isReadyForActiveDelivery ? (
+            <p className="mb-4 flex items-start gap-3 rounded-xl border border-amber-300/30 bg-amber-300/10 p-3 font-montserrat text-sm leading-6 text-amber-100">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              Messages are locked until the project passes the active-delivery gate (contract, scope, deposit, and access).
+            </p>
+          ) : null}
 
           <div className="grid gap-4">
             <label>
@@ -552,7 +568,7 @@ export function PortalCommunicationCenter({
             <button
               type="button"
               onClick={() => void submitMessage()}
-              disabled={!canSubmit || savingMessage}
+              disabled={!canSubmit || !isReadyForActiveDelivery || savingMessage}
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FC6E20] px-5 font-montserrat text-xs font-bold uppercase tracking-[0.12em] text-stone-950 transition-colors hover:bg-[#DD6211] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {savingMessage ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowUpRight className="h-4 w-4" />}
